@@ -1,9 +1,10 @@
 import paper from '@scratch/paper';
-import Modes from '../modes/modes';
+import Modes from '../lib/modes';
 
 import {getItemsGroup, isGroup} from './group';
 import {getRootItem, isCompoundPathItem, isBoundsItem, isPathItem, isPGTextItem} from './item';
 import {getItemsCompoundPath, isCompoundPath, isCompoundPathChild} from './compound-path';
+import {sortItemsByZIndex} from './math';
 
 /**
  * Wrapper for paper.project.getItems that excludes our helper items
@@ -12,7 +13,7 @@ import {getItemsCompoundPath, isCompoundPath, isCompoundPathChild} from './compo
  */
 const getItems = function (options) {
     const newMatcher = function (item) {
-        return !item.locked &&
+        return !(item instanceof paper.Layer) && !item.locked &&
             !(item.data && item.data.isHelperItem) &&
             (!options.match || options.match(item));
     };
@@ -170,9 +171,7 @@ const getSelectedLeafItems = function () {
             items.push(item);
         }
     }
-
-    // sort items by index (0 at bottom)
-    items.sort((a, b) => parseFloat(a.index) - parseFloat(b.index));
+    items.sort(sortItemsByZIndex);
     return items;
 };
 
@@ -394,14 +393,6 @@ const selectRootItem = function () {
     }
 };
 
-const shouldShowIfSelection = function () {
-    return getSelectedRootItems().length > 0;
-};
-
-const shouldShowIfSelectionRecursive = function () {
-    return getSelectedRootItems().length > 0;
-};
-
 const shouldShowSelectAll = function () {
     return paper.project.getItems({class: paper.PathItem}).length > 0;
 };
@@ -419,7 +410,5 @@ export {
     getSelectedRootItems,
     processRectangularSelection,
     selectRootItem,
-    shouldShowIfSelection,
-    shouldShowIfSelectionRecursive,
     shouldShowSelectAll
 };

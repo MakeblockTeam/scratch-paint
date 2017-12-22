@@ -2,7 +2,7 @@ import paper from '@scratch/paper';
 import keyMirror from 'keymirror';
 
 import {getSelectedRootItems} from '../selection';
-import {getGuideColor, removeHelperItems} from '../guides';
+import {getGuideColor, removeBoundsPath, removeBoundsHandles} from '../guides';
 import {getGuideLayer} from '../layer';
 
 import ScaleTool from './scale-tool';
@@ -70,6 +70,7 @@ class BoundingBoxTool {
      * @return {boolean} True if there was a hit, false otherwise
      */
     onMouseDown (event, clone, multiselect, hitOptions) {
+        if (event.event.button > 0) return; // only first mouse button
         const hitResults = paper.project.hitTestAll(event.point, hitOptions);
         if (!hitResults || hitResults.length === 0) {
             if (!multiselect) {
@@ -101,27 +102,29 @@ class BoundingBoxTool {
         };
         if (this.mode === BoundingBoxModes.MOVE) {
             this._modeMap[this.mode].onMouseDown(hitProperties);
+            this.removeBoundsHandles();
         } else if (this.mode === BoundingBoxModes.SCALE) {
-            this._modeMap[this.mode].onMouseDown(
-                hitResult, this.boundsPath, this.boundsScaleHandles, this.boundsRotHandles, getSelectedRootItems());
+            this._modeMap[this.mode].onMouseDown(hitResult, this.boundsPath, getSelectedRootItems());
+            this.removeBoundsHandles();
         } else if (this.mode === BoundingBoxModes.ROTATE) {
             this._modeMap[this.mode].onMouseDown(hitResult, this.boundsPath, getSelectedRootItems());
+            // While transforming, don't show bounds
+            this.removeBoundsPath();
         }
 
-        // while transforming object, never show the bounds stuff
-        this.removeBoundsPath();
         return true;
     }
     onMouseDrag (event) {
-        if (event.event.button > 0) return; // only first mouse button
+        if (event.event.button > 0 || !this.mode) return; // only first mouse button
         this._modeMap[this.mode].onMouseDrag(event);
     }
     onMouseUp (event) {
-        if (event.event.button > 0) return; // only first mouse button
+        if (event.event.button > 0 || !this.mode) return; // only first mouse button
         this._modeMap[this.mode].onMouseUp(event);
 
-        this.mode = null;
+        // After transforming, show bounds again
         this.setSelectionBounds();
+        this.mode = null;
     }
     setSelectionBounds () {
         this.removeBoundsPath();
@@ -144,22 +147,46 @@ class BoundingBoxTool {
             this.boundsPath.curves[2].divideAtTime(0.5);
             this.boundsPath.curves[4].divideAtTime(0.5);
             this.boundsPath.curves[6].divideAtTime(0.5);
+            this._modeMap[BoundingBoxModes.MOVE].setBoundsPath(this.boundsPath);
         }
         this.boundsPath.guide = true;
         this.boundsPath.data.isSelectionBound = true;
         this.boundsPath.data.isHelperItem = true;
         this.boundsPath.fillColor = null;
-        this.boundsPath.strokeScaling = false;
-        this.boundsPath.fullySelected = true;
         this.boundsPath.parent = getGuideLayer();
+        this.boundsPath.strokeWidth = 1 / paper.view.zoom;
+        this.boundsPath.strokeColor = getGuideColor();
         
+        // Make a template to copy
+        const boundsScaleCircleShadow =
+            new paper.Path.Circle({
+                center: new paper.Point(0, 0),
+                radius: 5.5 / paper.view.zoom,
+                fillColor: 'black',
+                opacity: .12,
+                data: {
+                    isHelperItem: true,
+                    noSelect: true,
+                    noHover: true
+                }
+            });
+        const boundsScaleCircle =
+            new paper.Path.Circle({
+                center: new paper.Point(0, 0),
+                radius: 4 / paper.view.zoom,
+                fillColor: getGuideColor(),
+                data: {
+                    isScaleHandle: true,
+                    isHelperItem: true,
+                    noSelect: true,
+                    noHover: true
+                }
+            });
+        const boundsScaleHandle = new paper.Group([boundsScaleCircleShadow, boundsScaleCircle]);
+        boundsScaleHandle.parent = getGuideLayer();
+
         for (let index = 0; index < this.boundsPath.segments.length; index++) {
             const segment = this.boundsPath.segments[index];
-            let size = 4;
-            
-            if (index % 2 === 0) {
-                size = 6;
-            }
             
             if (index === 7) {
                 const offset = new paper.Point(0, 20);
@@ -187,25 +214,30 @@ class BoundingBoxTool {
                 this.boundsRotHandles[index] = rotHandle;
             }
             
-            this.boundsScaleHandles[index] =
-                new paper.Path.Rectangle({
-                    center: segment.point,
-                    data: {
-                        index: index,
-                        isScaleHandle: true,
-                        isHelperItem: true,
-                        noSelect: true,
-                        noHover: true
-                    },
-                    size: [size / paper.view.zoom, size / paper.view.zoom],
-                    fillColor: getGuideColor(),
-                    parent: getGuideLayer()
-                });
+            this.boundsScaleHandles[index] = boundsScaleHandle.clone();
+            this.boundsScaleHandles[index].position = segment.point;
+            for (const child of this.boundsScaleHandles[index].children) {
+                child.data.index = index;
+            }
+            this.boundsScaleHandles[index].data = {
+                index: index,
+                isScaleHandle: true,
+                isHelperItem: true,
+                noSelect: true,
+                noHover: true
+            };
         }
+        // Remove the template
+        boundsScaleHandle.remove();
     }
     removeBoundsPath () {
-        removeHelperItems();
+        removeBoundsPath();
         this.boundsPath = null;
+        this.boundsScaleHandles.length = 0;
+        this.boundsRotHandles.length = 0;
+    }
+    removeBoundsHandles () {
+        removeBoundsHandles();
         this.boundsScaleHandles.length = 0;
         this.boundsRotHandles.length = 0;
     }

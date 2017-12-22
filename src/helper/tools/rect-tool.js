@@ -1,5 +1,5 @@
 import paper from '@scratch/paper';
-import Modes from '../../modes/modes';
+import Modes from '../../lib/modes';
 import {styleShape} from '../style-path';
 import {clearSelection} from '../selection';
 import BoundingBoxTool from '../selection-tools/bounding-box-tool';
@@ -18,9 +18,9 @@ class RectTool extends paper.Tool {
      */
     constructor (setSelectedItems, clearSelectedItems, onUpdateSvg) {
         super();
+        this.setSelectedItems = setSelectedItems;
         this.clearSelectedItems = clearSelectedItems;
         this.onUpdateSvg = onUpdateSvg;
-        this.prevHoveredItemId = null;
         this.boundingBoxTool = new BoundingBoxTool(Modes.RECT, setSelectedItems, clearSelectedItems, onUpdateSvg);
         
         // We have to set these functions instead of just declaring them because
@@ -32,6 +32,7 @@ class RectTool extends paper.Tool {
         this.rect = null;
         this.colorState = null;
         this.isBoundingBoxMode = null;
+        this.active = false;
     }
     getHitOptions () {
         return {
@@ -57,6 +58,9 @@ class RectTool extends paper.Tool {
         this.colorState = colorState;
     }
     handleMouseDown (event) {
+        if (event.event.button > 0) return; // only first mouse button
+        this.active = true;
+
         if (this.boundingBoxTool.onMouseDown(event, false /* clone */, false /* multiselect */, this.getHitOptions())) {
             this.isBoundingBoxMode = true;
         } else {
@@ -65,7 +69,7 @@ class RectTool extends paper.Tool {
         }
     }
     handleMouseDrag (event) {
-        if (event.event.button > 0) return; // only first mouse button
+        if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.isBoundingBoxMode) {
             this.boundingBoxTool.onMouseDrag(event);
@@ -89,7 +93,7 @@ class RectTool extends paper.Tool {
         styleShape(this.rect, this.colorState);
     }
     handleMouseUp (event) {
-        if (event.event.button > 0) return; // only first mouse button
+        if (event.event.button > 0 || !this.active) return; // only first mouse button
         
         if (this.isBoundingBoxMode) {
             this.boundingBoxTool.onMouseUp(event);
@@ -104,11 +108,12 @@ class RectTool extends paper.Tool {
                 this.rect = null;
             } else {
                 this.rect.selected = true;
-                this.boundingBoxTool.setSelectionBounds();
+                this.setSelectedItems();
                 this.onUpdateSvg();
                 this.rect = null;
             }
         }
+        this.active = false;
     }
     deactivateTool () {
         this.boundingBoxTool.removeBoundsPath();
