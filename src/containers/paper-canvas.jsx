@@ -13,6 +13,7 @@ import {setupLayers} from '../helper/layer';
 import {deleteSelection, getSelectedLeafItems} from '../helper/selection';
 import {clearSelectedItems, setSelectedItems} from '../reducers/selected-items';
 import {pan, resetZoom, zoomOnFixedPoint} from '../helper/view';
+import {ensureClockwise} from '../helper/math';
 import {clearHoveredItem} from '../reducers/hover';
 import {clearPasteOffset} from '../reducers/clipboard';
 
@@ -26,8 +27,7 @@ class PaperCanvas extends React.Component {
             'setCanvas',
             'importSvg',
             'handleKeyDown',
-            'handleWheel',
-            '_ensureClockwise'
+            'handleWheel'
         ]);
     }
     componentDidMount () {
@@ -62,7 +62,8 @@ class PaperCanvas extends React.Component {
             this.importSvg(newProps.svg, newProps.rotationCenterX, newProps.rotationCenterY);
             paper.project.view.zoom = oldZoom;
             paper.project.view.center = oldCenter;
-            paper.project.view.update();
+        } else {
+            performSnapshot(this.props.undoSnapshot);
         }
     }
     componentWillUnmount () {
@@ -96,6 +97,20 @@ class PaperCanvas extends React.Component {
             svg = svg.replace(
                 '<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
         }
+
+        // Get the origin which the viewBox is defined relative to. During import, Paper will translate
+        // the viewBox to start at (0, 0), and we need to translate it back for some costumes to render
+        // correctly.
+        const parser = new DOMParser();
+        const svgDom = parser.parseFromString(svg, 'text/xml');
+        const viewBox = svgDom.documentElement.attributes.viewBox ?
+            svgDom.documentElement.attributes.viewBox.value.match(/\S+/g) : null;
+        if (viewBox) {
+            for (let i = 0; i < viewBox.length; i++) {
+                viewBox[i] = parseFloat(viewBox[i]);
+            }
+        }
+
         paper.project.importSVG(svg, {
             expandShapes: true,
             onLoad: function (item) {
@@ -126,34 +141,27 @@ class PaperCanvas extends React.Component {
                     item = item.reduce();
                 }
 
-                paperCanvas._ensureClockwise(item);
+                ensureClockwise(item);
 
                 if (typeof rotationCenterX !== 'undefined' && typeof rotationCenterY !== 'undefined') {
-                    item.position =
-                        paper.project.view.center
-                            .add(itemWidth / 2, itemHeight / 2)
-                            .subtract(rotationCenterX, rotationCenterY);
+                    let rotationPoint = new paper.Point(rotationCenterX, rotationCenterY);
+                    if (viewBox && viewBox.length >= 2 && !isNaN(viewBox[0]) && !isNaN(viewBox[1])) {
+                        rotationPoint = rotationPoint.subtract(viewBox[0], viewBox[1]);
+                    }
+                    item.translate(paper.project.view.center
+                        .subtract(rotationPoint));
                 } else {
                     // Center
-                    item.position = paper.project.view.center;
+                    item.translate(paper.project.view.center
+                        .subtract(itemWidth / 2, itemHeight / 2));
                 }
                 if (isGroup(item)) {
                     ungroupItems([item]);
                 }
 
                 performSnapshot(paperCanvas.props.undoSnapshot);
-                paper.project.view.update();
             }
         });
-    }
-    _ensureClockwise (item) {
-        if (item instanceof paper.Group) {
-            for (const child of item.children) {
-                this._ensureClockwise(child);
-            }
-        } else if (item instanceof paper.PathItem) {
-            item.clockwise = true;
-        }
     }
     setCanvas (canvas) {
         this.canvas = canvas;
@@ -171,6 +179,12 @@ class PaperCanvas extends React.Component {
                 new paper.Point(offsetX, offsetY)
             );
             zoomOnFixedPoint(-event.deltaY / 100, fixedPoint);
+        } else if (event.shiftKey && event.deltaX === 0) {
+            // Scroll horizontally (based on vertical scroll delta)
+            // This is needed as for some browser/system combinations which do not set deltaX.
+            // See #156.
+            const dx = event.deltaY / paper.project.view.zoom;
+            pan(dx, 0);
         } else {
             const dx = event.deltaX / paper.project.view.zoom;
             const dy = event.deltaY / paper.project.view.zoom;

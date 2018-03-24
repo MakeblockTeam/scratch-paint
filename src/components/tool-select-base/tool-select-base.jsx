@@ -14,6 +14,7 @@ const ToolSelectComponent = props => (
                 [styles.isSelected]: props.isSelected
             })
         }
+        disabled={props.disabled}
         onClick={props.onMouseDown}
     >
         <img
@@ -23,6 +24,7 @@ const ToolSelectComponent = props => (
                 id: props.imgDescriptor.id
             })}
             className={styles.toolSelectIcon}
+            draggable={false}
             src={props.imgSrc}
         />
     </Button>
@@ -30,6 +32,7 @@ const ToolSelectComponent = props => (
 
 ToolSelectComponent.propTypes = {
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     imgDescriptor: PropTypes.shape({
         defaultMessage: PropTypes.string,
         description: PropTypes.string,

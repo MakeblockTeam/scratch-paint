@@ -1,5 +1,8 @@
 import paper from '@scratch/paper';
 
+/** The ratio of the curve length to use for the handle length to convert squares into approximately circles. */
+const HANDLE_RATIO = 0.3902628565;
+
 const checkPointsClose = function (startPos, eventPoint, threshold) {
     const xOff = Math.abs(startPos.x - eventPoint.x);
     const yOff = Math.abs(startPos.y - eventPoint.y);
@@ -79,24 +82,37 @@ const sortItemsByZIndex = function (a, b) {
     return null;
 };
 
-// Expand the size of the path by approx one pixel all around
-const expandByOne = function (path) {
+// Expand the size of the path by amount all around
+const expandBy = function (path, amount) {
     const center = path.position;
     let pathArea = path.area;
     for (const seg of path.segments) {
-        const halfNorm = seg.point.subtract(center)
+        const delta = seg.point.subtract(center)
             .normalize()
-            .divide(2);
-        seg.point = seg.point.add(halfNorm);
+            .multiply(amount);
+        seg.point = seg.point.add(delta);
         // If that made the path area smaller, go the other way.
-        if (path.area < pathArea) seg.point = seg.point.subtract(halfNorm.multiply(2));
+        if (path.area < pathArea) seg.point = seg.point.subtract(delta.multiply(2));
         pathArea = path.area;
     }
 };
 
+// Make item clockwise. Drill down into groups.
+const ensureClockwise = function (item) {
+    if (item instanceof paper.Group) {
+        for (const child of item.children) {
+            ensureClockwise(child);
+        }
+    } else if (item instanceof paper.PathItem) {
+        item.clockwise = true;
+    }
+};
+
 export {
+    HANDLE_RATIO,
     checkPointsClose,
-    expandByOne,
+    ensureClockwise,
+    expandBy,
     getRandomInt,
     getRandomBoolean,
     snapDeltaToAngle,

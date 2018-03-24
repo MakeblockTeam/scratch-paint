@@ -175,6 +175,26 @@ const getSelectedLeafItems = function () {
     return items;
 };
 
+/**
+ * This gets all selected path segments.
+ * @return {Array<paper.Segment>} selected segments
+ */
+const getSelectedSegments = function () {
+    const selected = getSelectedLeafItems();
+    const segments = [];
+    for (const item of selected) {
+        if (!item.segments) {
+            continue;
+        }
+        for (const seg of item.segments) {
+            if (seg.selected) {
+                segments.push(seg);
+            }
+        }
+    }
+    return segments;
+};
+
 const _deleteItemSelection = function (items, onUpdateSvg) {
     // @todo: Update toolbar state on change
     if (items.length === 0) {
@@ -183,7 +203,6 @@ const _deleteItemSelection = function (items, onUpdateSvg) {
     for (let i = 0; i < items.length; i++) {
         items[i].remove();
     }
-    paper.project.view.update();
     onUpdateSvg();
     return true;
 };
@@ -193,6 +212,7 @@ const _removeSelectedSegments = function (items, onUpdateSvg) {
     const segmentsToRemove = [];
     
     for (let i = 0; i < items.length; i++) {
+        if (!items[i].segments) continue;
         const segments = items[i].segments;
         for (let j = 0; j < segments.length; j++) {
             const seg = segments[j];
@@ -209,7 +229,6 @@ const _removeSelectedSegments = function (items, onUpdateSvg) {
         removedSegments = true;
     }
     if (removedSegments) {
-        paper.project.view.update();
         onUpdateSvg();
     }
     return removedSegments;
@@ -408,6 +427,7 @@ export {
     setItemSelection,
     getSelectedLeafItems,
     getSelectedRootItems,
+    getSelectedSegments,
     processRectangularSelection,
     selectRootItem,
     shouldShowSelectAll

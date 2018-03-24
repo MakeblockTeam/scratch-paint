@@ -50,6 +50,10 @@ class PaintEditor extends React.Component {
     }
     componentDidMount () {
         document.addEventListener('keydown', this.props.onKeyPress);
+        // document listeners used to detect if a mouse is down outside of the
+        // canvas, and should therefore stop the eye dropper
+        document.addEventListener('mousedown', this.onMouseDown);
+        document.addEventListener('touchstart', this.onMouseDown);
     }
     componentDidUpdate (prevProps) {
         if (this.props.isEyeDropping && !prevProps.isEyeDropping) {
@@ -61,6 +65,8 @@ class PaintEditor extends React.Component {
     componentWillUnmount () {
         document.removeEventListener('keydown', this.props.onKeyPress);
         this.stopEyeDroppingLoop();
+        document.removeEventListener('mousedown', this.onMouseDown);
+        document.removeEventListener('touchstart', this.onMouseDown);
     }
     handleUpdateSvg (skipSnapshot) {
         // Store the zoom/pan and restore it after snapshotting
@@ -75,6 +81,7 @@ class PaintEditor extends React.Component {
         this.props.onUpdateSvg(
             paper.project.exportSVG({
                 asString: true,
+                bounds: 'content',
                 matrix: new paper.Matrix().translate(-bounds.x, -bounds.y)
             }),
             paper.project.view.center.x - bounds.x,
@@ -89,7 +96,6 @@ class PaintEditor extends React.Component {
         // Restore old zoom
         paper.project.view.zoom = oldZoom;
         paper.project.view.center = oldCenter;
-        paper.project.view.update();
     }
     handleUndo () {
         performUndo(this.props.undoState, this.props.onUndo, this.props.setSelectedItems, this.handleUpdateSvg);
@@ -134,20 +140,25 @@ class PaintEditor extends React.Component {
         this.setState({canvas: canvas});
         this.canvas = canvas;
     }
-    onMouseDown () {
+    onMouseDown (event) {
+        if (event.target === paper.view.element &&
+                document.activeElement instanceof HTMLInputElement) {
+            document.activeElement.blur();
+        }
+
         if (this.props.isEyeDropping) {
             const colorString = this.eyeDropper.colorString;
             const callback = this.props.changeColorToEyeDropper;
 
             this.eyeDropper.remove();
-            this.props.previousTool.activate();
-            this.props.onDeactivateEyeDropper();
-            this.stopEyeDroppingLoop();
             if (!this.eyeDropper.hideLoupe) {
                 // If not hide loupe, that means the click is inside the canvas,
                 // so apply the new color
                 callback(colorString);
             }
+            this.props.previousTool.activate();
+            this.props.onDeactivateEyeDropper();
+            this.stopEyeDroppingLoop();
             this.setState({colorInfo: null});
         }
     }
@@ -164,11 +175,6 @@ class PaintEditor extends React.Component {
         this.eyeDropper.pickX = -1;
         this.eyeDropper.pickY = -1;
         this.eyeDropper.activate();
-
-        // document listeners used to detect if a mouse is down outside of the
-        // canvas, and should therefore stop the eye dropper
-        document.addEventListener('mousedown', this.onMouseDown);
-        document.addEventListener('touchstart', this.onMouseDown);
         
         this.intervalId = setInterval(() => {
             const colorInfo = this.eyeDropper.getColorInfo(
@@ -176,6 +182,7 @@ class PaintEditor extends React.Component {
                 this.eyeDropper.pickY,
                 this.eyeDropper.hideLoupe
             );
+            if (!colorInfo) return;
             if (
                 this.state.colorInfo === null ||
                 this.state.colorInfo.x !== colorInfo.x ||
@@ -189,8 +196,6 @@ class PaintEditor extends React.Component {
     }
     stopEyeDroppingLoop () {
         clearInterval(this.intervalId);
-        document.removeEventListener('mousedown', this.onMouseDown);
-        document.removeEventListener('touchstart', this.onMouseDown);
     }
     render () {
         return (
