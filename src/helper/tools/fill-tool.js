@@ -44,8 +44,13 @@ class FillTool extends paper.Tool {
             fill: true,
             guide: false,
             match: function (hitResult) {
-                return (hitResult.item instanceof paper.Path || hitResult.item instanceof paper.PointText) &&
-                    (hitResult.item.hasFill() || hitResult.item.closed || isAlmostClosedPath(hitResult.item));
+                if (hitResult.item instanceof paper.Path &&
+                    (hitResult.item.hasFill() || hitResult.item.closed || isAlmostClosedPath(hitResult.item))) {
+                    return true;
+                }
+                if (hitResult.item instanceof paper.PointText) {
+                    return true;
+                }
             },
             hitUnfilledPaths: true,
             tolerance: FillTool.TOLERANCE / paper.view.zoom
@@ -122,7 +127,10 @@ class FillTool extends paper.Tool {
                     this.fillItem.parent.fillColor.toCSS() === this.addedFillItem.fillColor.toCSS()) {
                 this.addedFillItem.remove();
                 this.addedFillItem = null;
+                let parent = this.fillItem.parent;
                 this.fillItem.remove();
+                parent = parent.reduce();
+                parent.fillColor = this.fillColor;
             } else if (this.addedFillItem) {
                 // Fill in a hole.
                 this.addedFillItem.data.noHover = false;
