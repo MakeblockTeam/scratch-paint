@@ -12,7 +12,8 @@
     "start": "webpack-dev-server",
     "test": "npm run lint && npm run unit && NODE_ENV=production npm run build",
     "unit": "jest",
-    "watch": "webpack --progress --colors --watch"
+    "watch": "webpack --progress --colors --watch",
+    "cp": "cp -rf dist ../mscratch/node_modules/scratch-paint"
   },
   "author": "Massachusetts Institute of Technology",
   "license": "BSD-3-Clause",
