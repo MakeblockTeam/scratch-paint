@@ -120,7 +120,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
  *
  * All rights reserved.
  *
- * Date: Wed Apr 11 14:32:35 2018 -0400
+ * Date: Thu Dec 14 15:37:03 2017 -0500
  *
  ***
  *
@@ -9164,8 +9164,7 @@ new function() {
 			ctx.beginPath();
 			drawSegments(ctx, this, matrix);
 			ctx.stroke();
-			drawHandles(ctx, this._segments, matrix, paper.settings.handleSize,
-				this.isFullySelected());
+			drawHandles(ctx, this._segments, matrix, paper.settings.handleSize);
 		}
 	};
 },
@@ -9863,7 +9862,7 @@ var CompoundPath = PathItem.extend({
 
 	_hitTestChildren: function _hitTestChildren(point, options, viewMatrix) {
 		return _hitTestChildren.base.call(this, point,
-				options.class === Path || options.type === 'path' || options.hitUnfilledPaths ? options
+				options.class === Path || options.type === 'path' ? options
 					: Base.set({}, options, { fill: false }),
 				viewMatrix);
 	},
@@ -11194,11 +11193,6 @@ var PointText = TextItem.extend({
 					numLines ? - 0.75 * leading : 0,
 					width, numLines * leading);
 		return matrix ? matrix._transformBounds(rect, rect) : rect;
-	},
-
-	_hitTestSelf: function(point, options) {
-		if (options.fill && (this.hasFill() || options.hitUnfilledPaths) && this._contains(point))
-			return new HitResult('fill', this);
 	}
 });
 
@@ -14181,16 +14175,9 @@ new function() {
 	}
 
 	function exportText(item) {
-		var node = SvgElement.create('text', getTransform(item._matrix, false),
+		var node = SvgElement.create('text', getTransform(item._matrix, true),
 				formatter);
-		for (var i = 0; i < item._lines.length; i++) {
-			var tspanNode = SvgElement.create('tspan', {
-				x: '0',
-				dy: i === 0 ? '0' : item._style.getLeading() + 'px'
-			}, formatter);
-			tspanNode.textContent = item._lines[i];
-			node.appendChild(tspanNode);
-		}
+		node.textContent = item._content;
 		return node;
 	}
 
@@ -14515,11 +14502,13 @@ new function() {
 
 		image: function (node) {
 			var raster = new Raster(getValue(node, 'href', true));
-			var size = getSize(node);
-			raster.setSize(size);
-			var center = raster._matrix._transformPoint(
-					getPoint(node).add(size.divide(2)));
-					raster.translate(center);
+			raster.on('load', function() {
+				var size = getSize(node);
+				this.setSize(size);
+				var center = this._matrix._transformPoint(
+						getPoint(node).add(size.divide(2)));
+				this.translate(center);
+			});
 			return raster;
 		},
 
@@ -14568,22 +14557,10 @@ new function() {
 		},
 
 		text: function(node) {
-
-			if (node.childElementCount === 0) {
-				var text = new PointText();
-				text.setContent(node.textContent.trim() || '');
-				text.translate(0, text._style.getLeading());
-				return text;
-			} else {
-				var lines = [];
-				for (var i = 0; i < node.children.length; i++) {
-					var child = node.children[i];
-					lines.push(child.textContent);
-				}
-				var text = new PointText();
-				text.setContent(lines.join('\n') || '');
-				return text;
-			}
+			var text = new PointText(getPoint(node).add(
+					getPoint(node, 'dx', 'dy')));
+			text.setContent(node.textContent.trim() || '');
+			return text;
 		}
 	};
 
@@ -35044,39 +35021,6 @@ var PaintEditorComponent = function PaintEditorComponent(props) {
                 _react2.default.createElement(
                     'div',
                     { className: _paintEditor2.default.canvasControls },
-                    (0, _format.isVector)(props.format) ? _react2.default.createElement(
-                        _button2.default,
-                        {
-                            className: _paintEditor2.default.bitmapButton,
-                            onClick: props.onSwitchToBitmap
-                        },
-                        _react2.default.createElement('img', {
-                            className: _paintEditor2.default.bitmapButtonIcon,
-                            draggable: false,
-                            src: _bitmap2.default
-                        }),
-                        _react2.default.createElement(
-                            'span',
-                            null,
-                            props.intl.formatMessage(messages.bitmap)
-                        )
-                    ) : _react2.default.createElement(
-                        _button2.default,
-                        {
-                            className: _paintEditor2.default.bitmapButton,
-                            onClick: props.onSwitchToVector
-                        },
-                        _react2.default.createElement('img', {
-                            className: _paintEditor2.default.bitmapButtonIcon,
-                            draggable: false,
-                            src: _bitmap2.default
-                        }),
-                        _react2.default.createElement(
-                            'span',
-                            null,
-                            props.intl.formatMessage(messages.vector)
-                        )
-                    ),
                     _react2.default.createElement(
                         _inputGroup2.default,
                         { className: _paintEditor2.default.zoomControls },

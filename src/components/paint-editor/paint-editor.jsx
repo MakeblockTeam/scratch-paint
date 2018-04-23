@@ -374,7 +374,7 @@ const PaintEditorComponent = props => {
                         />
                     </div>
                 ) : null}
-                
+
                 <div>
                     {/* Canvas */}
                     <div
@@ -409,34 +409,36 @@ const PaintEditorComponent = props => {
                         }
                     </div>
                     <div className={styles.canvasControls}>
-                        {isVector(props.format) ?
-                            <Button
-                                className={styles.bitmapButton}
-                                onClick={props.onSwitchToBitmap}
-                            >
-                                <img
-                                    className={styles.bitmapButtonIcon}
-                                    draggable={false}
-                                    src={bitmapIcon}
-                                />
-                                <span>
-                                    {props.intl.formatMessage(messages.bitmap)}
-                                </span>
-                            </Button> :
-                            <Button
-                                className={styles.bitmapButton}
-                                onClick={props.onSwitchToVector}
-                            >
-                                <img
-                                    className={styles.bitmapButtonIcon}
-                                    draggable={false}
-                                    src={bitmapIcon}
-                                />
-                                <span>
-                                    {props.intl.formatMessage(messages.vector)}
-                                </span>
-                            </Button>
-                        }
+                        {
+                            /* {isVector(props.format) ?
+                                <Button
+                                    className={styles.bitmapButton}
+                                    onClick={props.onSwitchToBitmap}
+                                >
+                                    <img
+                                        className={styles.bitmapButtonIcon}
+                                        draggable={false}
+                                        src={bitmapIcon}
+                                    />
+                                    <span>
+                                        {props.intl.formatMessage(messages.bitmap)}
+                                    </span>
+                                </Button> :
+                                <Button
+                                    className={styles.bitmapButton}
+                                    onClick={props.onSwitchToVector}
+                                >
+                                    <img
+                                        className={styles.bitmapButtonIcon}
+                                        draggable={false}
+                                        src={bitmapIcon}
+                                    />
+                                    <span>
+                                        {props.intl.formatMessage(messages.vector)}
+                                    </span>
+                                </Button>
+                            }
+                        */ }
                         {/* Zoom controls */}
                         <InputGroup className={styles.zoomControls}>
                             <ButtonGroup>
