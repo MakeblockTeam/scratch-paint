@@ -14502,13 +14502,13 @@ new function() {
 
 		image: function (node) {
 			var raster = new Raster(getValue(node, 'href', true));
-			raster.on('load', function() {
-				var size = getSize(node);
-				this.setSize(size);
-				var center = this._matrix._transformPoint(
-						getPoint(node).add(size.divide(2)));
-				this.translate(center);
-			});
+
+			var size = getSize(node);
+			raster.setSize(size);
+			var center = raster._matrix._transformPoint(
+				getPoint(node).add(size.divide(2)));
+			raster.translate(center);
+
 			return raster;
 		},
 
@@ -23728,7 +23728,7 @@ exports.default = NudgeTool;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
 function makeEmptyFunction(arg) {
@@ -25742,7 +25742,7 @@ function wrapMapToPropsConstant(getConstant) {
 // dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
 // to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
 // whether mapToProps needs to be invoked when props have changed.
-// 
+//
 // A length of one signals that mapToProps does not depend on props from the parent component.
 // A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
 // therefore not reporting its length accurately..
@@ -25752,16 +25752,16 @@ function getDependsOnOwnProps(mapToProps) {
 
 // Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
 // this function wraps mapToProps in a proxy function which does several things:
-// 
+//
 //  * Detects whether the mapToProps function being called depends on props, which
 //    is used by selectorFactory to decide if it should reinvoke on props changes.
-//    
+//
 //  * On first call, handles mapToProps if returns another function, and treats that
 //    new function as the true mapToProps for subsequent calls.
-//    
+//
 //  * On first call, verifies the first result is a plain object, in order to warn
 //    the developer that their mapToProps function is not returning a valid result.
-//    
+//
 function wrapMapToPropsFunc(mapToProps, methodName) {
   return function initProxySelector(dispatch, _ref) {
     var displayName = _ref.displayName;
@@ -27195,7 +27195,7 @@ module.exports = function (cstr) {
         var base = name.replace(/a$/, '');
         var size = base === 'cmyk' ? 4 : 3;
         conv = convert[base];
-        
+
         parts = m[2].replace(/^\s+|\s+$/g, '')
             .split(/\s*,\s*/)
             .map(function (x, i) {
@@ -27211,7 +27211,7 @@ module.exports = function (cstr) {
         if (name === base) parts.push(1);
         alpha = parts[size] === undefined ? 1 : parts[size];
         parts = parts.slice(0, size);
-        
+
         conv[base] = function () { return parts };
     }
     else if (/^#[A-Fa-f0-9]+$/.test(cstr)) {
@@ -27241,7 +27241,7 @@ module.exports = function (cstr) {
         parts = cstr;
         alpha = 1;
     }
-    
+
     var res = {
         rgb: undefined,
         hsl: undefined,
@@ -27255,18 +27255,18 @@ module.exports = function (cstr) {
     try { res.hsv = conv.hsv(parts) } catch (e) {}
     try { res.cmyk = conv.cmyk(parts) } catch (e) {}
     try { res.keyword = conv.keyword(parts) } catch (e) {}
-    
+
     if (res.rgb) res.hex = '#' + res.rgb.map(function (x) {
         var s = x.toString(16);
         if (s.length === 1) return '0' + s;
         return s;
     }).join('');
-    
+
     if (res.rgb) res.rgba = res.rgb.concat(alpha);
     if (res.hsl) res.hsla = res.hsl.concat(alpha);
     if (res.hsv) res.hsva = res.hsv.concat(alpha);
     if (res.cmyk) res.cmyka = res.cmyk.concat(alpha);
-    
+
     return res;
 };
 
@@ -37832,11 +37832,11 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
                 l: !1,
                 exports: {}
             };
-            return modules[moduleId].call(module.exports, module, module.exports, __webpack_require__), 
+            return modules[moduleId].call(module.exports, module, module.exports, __webpack_require__),
             module.l = !0, module.exports;
         }
         var installedModules = {};
-        return __webpack_require__.m = modules, __webpack_require__.c = installedModules, 
+        return __webpack_require__.m = modules, __webpack_require__.c = installedModules,
         __webpack_require__.d = function(exports, name, getter) {
             __webpack_require__.o(exports, name) || Object.defineProperty(exports, name, {
                 configurable: !1,
@@ -37866,8 +37866,8 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
             };
         }
         var emptyFunction = function() {};
-        emptyFunction.thatReturns = makeEmptyFunction, emptyFunction.thatReturnsFalse = makeEmptyFunction(!1), 
-        emptyFunction.thatReturnsTrue = makeEmptyFunction(!0), emptyFunction.thatReturnsNull = makeEmptyFunction(null), 
+        emptyFunction.thatReturns = makeEmptyFunction, emptyFunction.thatReturnsFalse = makeEmptyFunction(!1),
+        emptyFunction.thatReturnsTrue = makeEmptyFunction(!0), emptyFunction.thatReturnsNull = makeEmptyFunction(null),
         emptyFunction.thatReturnsThis = function() {
             return this;
         }, emptyFunction.thatReturnsArgument = function(arg) {
@@ -38026,12 +38026,12 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
             function defineProperties(target, props) {
                 for (var i = 0; i < props.length; i++) {
                     var descriptor = props[i];
-                    descriptor.enumerable = descriptor.enumerable || !1, descriptor.configurable = !0, 
+                    descriptor.enumerable = descriptor.enumerable || !1, descriptor.configurable = !0,
                     "value" in descriptor && (descriptor.writable = !0), Object.defineProperty(target, descriptor.key, descriptor);
                 }
             }
             return function(Constructor, protoProps, staticProps) {
-                return protoProps && defineProperties(Constructor.prototype, protoProps), staticProps && defineProperties(Constructor, staticProps), 
+                return protoProps && defineProperties(Constructor.prototype, protoProps), staticProps && defineProperties(Constructor, staticProps),
                 Constructor;
             };
         }(), _extends = Object.assign || function(target) {
@@ -38052,7 +38052,7 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
                 var _ref, _temp, _this, _ret;
                 _classCallCheck(this, MediaQuery);
                 for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-                return _temp = _this = _possibleConstructorReturn(this, (_ref = MediaQuery.__proto__ || Object.getPrototypeOf(MediaQuery)).call.apply(_ref, [ this ].concat(args))), 
+                return _temp = _this = _possibleConstructorReturn(this, (_ref = MediaQuery.__proto__ || Object.getPrototypeOf(MediaQuery)).call.apply(_ref, [ this ].concat(args))),
                 _this.state = {
                     matches: !1
                 }, _this.updateMatches = function() {
@@ -38077,11 +38077,11 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
                 key: "updateQuery",
                 value: function(props) {
                     var values = void 0;
-                    if (props.query ? this.query = props.query : this.query = (0, _toQuery2.default)(omit(props, excludedQueryKeys)), 
+                    if (props.query ? this.query = props.query : this.query = (0, _toQuery2.default)(omit(props, excludedQueryKeys)),
                     !this.query) throw new Error("Invalid or missing MediaQuery!");
                     props.values && (values = Object.keys(props.values).reduce(function(result, key) {
                         return result[(0, _hyphenateStyleName2.default)(key)] = props.values[key], result;
-                    }, {})), this.removeMql(), this._mql = (0, _matchmediaquery2.default)(this.query, values), 
+                    }, {})), this.removeMql(), this._mql = (0, _matchmediaquery2.default)(this.query, values),
                     this._mql.addListener(this.updateMatches), this.updateMatches();
                 }
             }, {
@@ -38130,10 +38130,10 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
             }
             function createChainableTypeChecker(validate) {
                 function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-                    if (componentName = componentName || ANONYMOUS, propFullName = propFullName || propName, 
+                    if (componentName = componentName || ANONYMOUS, propFullName = propFullName || propName,
                     secret !== ReactPropTypesSecret) if (throwOnDirectAccess) invariant(!1, "Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types"); else if ("undefined" != typeof console) {
                         var cacheKey = componentName + ":" + propName;
-                        !manualPropTypeCallCache[cacheKey] && manualPropTypeWarningCount < 3 && (warning(!1, "You are manually calling a React.PropTypes validation function for the `%s` prop on `%s`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details.", propFullName, componentName), 
+                        !manualPropTypeCallCache[cacheKey] && manualPropTypeWarningCount < 3 && (warning(!1, "You are manually calling a React.PropTypes validation function for the `%s` prop on `%s`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details.", propFullName, componentName),
                         manualPropTypeCallCache[cacheKey] = !0, manualPropTypeWarningCount++);
                     }
                     return null == props[propName] ? isRequired ? new PropTypeError(null === props[propName] ? "The " + location + " `" + propFullName + "` is marked as required in `" + componentName + "`, but its value is `null`." : "The " + location + " `" + propFullName + "` is marked as required in `" + componentName + "`, but its value is `undefined`.") : null : validate(props, propName, componentName, location, propFullName);
@@ -38179,7 +38179,7 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
                     for (var propValue = props[propName], i = 0; i < expectedValues.length; i++) if (is(propValue, expectedValues[i])) return null;
                     return new PropTypeError("Invalid " + location + " `" + propFullName + "` of value `" + propValue + "` supplied to `" + componentName + "`, expected one of " + JSON.stringify(expectedValues) + ".");
                 }
-                return Array.isArray(expectedValues) ? createChainableTypeChecker(validate) : (warning(!1, "Invalid argument supplied to oneOf, expected an instance of array."), 
+                return Array.isArray(expectedValues) ? createChainableTypeChecker(validate) : (warning(!1, "Invalid argument supplied to oneOf, expected an instance of array."),
                 emptyFunction.thatReturnsNull);
             }
             function createObjectOfTypeChecker(typeChecker) {
@@ -38202,11 +38202,11 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
                     }
                     return new PropTypeError("Invalid " + location + " `" + propFullName + "` supplied to `" + componentName + "`.");
                 }
-                if (!Array.isArray(arrayOfTypeCheckers)) return warning(!1, "Invalid argument supplied to oneOfType, expected an instance of array."), 
+                if (!Array.isArray(arrayOfTypeCheckers)) return warning(!1, "Invalid argument supplied to oneOfType, expected an instance of array."),
                 emptyFunction.thatReturnsNull;
                 for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
                     var checker = arrayOfTypeCheckers[i];
-                    if ("function" != typeof checker) return warning(!1, "Invalid argument supplied to oneOfType. Expected an array of check functions, but received %s at index %s.", getPostfixForTypeWarning(checker), i), 
+                    if ("function" != typeof checker) return warning(!1, "Invalid argument supplied to oneOfType. Expected an array of check functions, but received %s at index %s.", getPostfixForTypeWarning(checker), i),
                     emptyFunction.thatReturnsNull;
                 }
                 return createChainableTypeChecker(validate);
@@ -38339,7 +38339,7 @@ exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate 
                 shape: createShapeTypeChecker,
                 exact: createStrictShapeTypeChecker
             };
-            return PropTypeError.prototype = Error.prototype, ReactPropTypes.checkPropTypes = checkPropTypes, 
+            return PropTypeError.prototype = Error.prototype, ReactPropTypes.checkPropTypes = checkPropTypes,
             ReactPropTypes.PropTypes = ReactPropTypes, ReactPropTypes;
         };
     }, function(module, exports, __webpack_require__) {
@@ -38387,12 +38387,12 @@ object-assign
             for (var typeSpecName in typeSpecs) if (typeSpecs.hasOwnProperty(typeSpecName)) {
                 var error;
                 try {
-                    invariant("function" == typeof typeSpecs[typeSpecName], "%s: %s type `%s` is invalid; it must be a function, usually from the `prop-types` package, but received `%s`.", componentName || "React class", location, typeSpecName, typeof typeSpecs[typeSpecName]), 
+                    invariant("function" == typeof typeSpecs[typeSpecName], "%s: %s type `%s` is invalid; it must be a function, usually from the `prop-types` package, but received `%s`.", componentName || "React class", location, typeSpecName, typeof typeSpecs[typeSpecName]),
                     error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
                 } catch (ex) {
                     error = ex;
                 }
-                if (warning(!error || error instanceof Error, "%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error), 
+                if (warning(!error || error instanceof Error, "%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error),
                 error instanceof Error && !(error.message in loggedTypeFailures)) {
                     loggedTypeFailures[error.message] = !0;
                     var stack = getStack ? getStack() : "";
@@ -38484,7 +38484,7 @@ object-assign
             return mediaQuery.split(",").map(function(query) {
                 query = query.trim();
                 var captures = query.match(RE_MEDIA_QUERY), modifier = captures[1], type = captures[2], expressions = captures[3] || "", parsed = {};
-                return parsed.inverse = !!modifier && "not" === modifier.toLowerCase(), parsed.type = type ? type.toLowerCase() : "all", 
+                return parsed.inverse = !!modifier && "not" === modifier.toLowerCase(), parsed.type = type ? type.toLowerCase() : "all",
                 expressions = expressions.match(/\([^\)]+\)/g) || [], parsed.expressions = expressions.map(function(expression) {
                     var captures = expression.match(RE_MQ_EXPRESSION), feature = captures[1].toLowerCase().match(RE_MQ_FEATURE);
                     return {
@@ -38497,7 +38497,7 @@ object-assign
         }
         function toDecimal(ratio) {
             var numbers, decimal = Number(ratio);
-            return decimal || (numbers = ratio.match(/^(\d+)\s*\/\s*(\d+)$/), decimal = numbers[1] / numbers[2]), 
+            return decimal || (numbers = ratio.match(/^(\d+)\s*\/\s*(\d+)$/), decimal = numbers[1] / numbers[2]),
             decimal;
         }
         function toDpi(resolution) {
@@ -39117,7 +39117,7 @@ function createProvider() {
     (global.hoistNonReactStatics = factory());
 }(this, (function () {
     'use strict';
-    
+
     var REACT_STATICS = {
         childContextTypes: true,
         contextTypes: true,
@@ -39129,7 +39129,7 @@ function createProvider() {
         propTypes: true,
         type: true
     };
-    
+
     var KNOWN_STATICS = {
         name: true,
         length: true,
@@ -39139,30 +39139,30 @@ function createProvider() {
         arguments: true,
         arity: true
     };
-    
+
     var defineProperty = Object.defineProperty;
     var getOwnPropertyNames = Object.getOwnPropertyNames;
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
     var getPrototypeOf = Object.getPrototypeOf;
     var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-    
+
     return function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
         if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-            
+
             if (objectPrototype) {
                 var inheritedComponent = getPrototypeOf(sourceComponent);
                 if (inheritedComponent && inheritedComponent !== objectPrototype) {
                     hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
                 }
             }
-            
+
             var keys = getOwnPropertyNames(sourceComponent);
-            
+
             if (getOwnPropertySymbols) {
                 keys = keys.concat(getOwnPropertySymbols(sourceComponent));
             }
-            
+
             for (var i = 0; i < keys.length; ++i) {
                 var key = keys[i];
                 if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
@@ -39172,10 +39172,10 @@ function createProvider() {
                     } catch (e) {}
                 }
             }
-            
+
             return targetComponent;
         }
-        
+
         return targetComponent;
     };
 })));
@@ -39308,7 +39308,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
   selectorFactory, which has the signature:
 
     (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
-  
+
   connect passes its args to connectAdvanced as options, which will in turn pass them to
   selectorFactory each time a Connect component instance is instantiated or hot reloaded.
 
@@ -46074,11 +46074,11 @@ for (var func in conversions) {
   // export rgb2hsl and ["rgb"]["hsl"]
   convert[from] = convert[from] || {};
 
-  convert[from][to] = convert[func] = (function(func) { 
+  convert[from][to] = convert[func] = (function(func) {
     return function(arg) {
       if (typeof arg == "number")
         arg = Array.prototype.slice.call(arguments);
-      
+
       var val = conversions[func](arg);
       if (typeof val == "string" || val === undefined)
         return val; // keyword
@@ -46106,12 +46106,12 @@ Converter.prototype.routeSpace = function(space, args) {
    }
    // color.rgb(10, 10, 10)
    if (typeof values == "number") {
-      values = Array.prototype.slice.call(args);        
+      values = Array.prototype.slice.call(args);
    }
 
    return this.setValues(space, values);
 };
-  
+
 /* Set the values for a space, invalidating cache */
 Converter.prototype.setValues = function(space, values) {
    this.space = space;
