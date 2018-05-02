@@ -34,18 +34,18 @@ class TextTool extends paper.Tool {
      * @param {HTMLTextAreaElement} textAreaElement dom element for the editable text field
      * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
-     * @param {!function} onUpdateSvg A callback to call when the image visibly changes
+     * @param {!function} onUpdateImage A callback to call when the image visibly changes
      * @param {!function} setTextEditTarget Call to set text editing target whenever text editing is active
      */
-    constructor (textAreaElement, setSelectedItems, clearSelectedItems, onUpdateSvg, setTextEditTarget) {
+    constructor (textAreaElement, setSelectedItems, clearSelectedItems, onUpdateImage, setTextEditTarget) {
         super();
         this.element = textAreaElement;
         this.setSelectedItems = setSelectedItems;
         this.clearSelectedItems = clearSelectedItems;
-        this.onUpdateSvg = onUpdateSvg;
+        this.onUpdateImage = onUpdateImage;
         this.setTextEditTarget = setTextEditTarget;
-        this.boundingBoxTool = new BoundingBoxTool(Modes.TEXT, setSelectedItems, clearSelectedItems, onUpdateSvg);
-        this.nudgeTool = new NudgeTool(this.boundingBoxTool, onUpdateSvg);
+        this.boundingBoxTool = new BoundingBoxTool(Modes.TEXT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        this.nudgeTool = new NudgeTool(this.boundingBoxTool, onUpdateImage);
         this.lastEvent = null;
         
         // We have to set these functions instead of just declaring them because
@@ -239,7 +239,9 @@ class TextTool extends paper.Tool {
             // Ignore nudge if a text input field is focused
             return;
         }
-        
+        if (this.mode === TextTool.TEXT_EDIT_MODE && event.key === 'escape') {
+            this.endTextEdit();
+        }
         if (this.mode === TextTool.SELECT_MODE) {
             this.nudgeTool.onKeyDown(event);
         }
@@ -247,7 +249,7 @@ class TextTool extends paper.Tool {
     handleTextInput (event) {
         // Save undo state if you paused typing for long enough.
         if (this.lastTypeEvent && event.timeStamp - this.lastTypeEvent.timeStamp > TextTool.TYPING_TIMEOUT_MILLIS) {
-            this.onUpdateSvg();
+            this.onUpdateImage();
         }
         this.lastTypeEvent = event;
         if (this.mode === TextTool.TEXT_EDIT_MODE) {
@@ -315,7 +317,7 @@ class TextTool extends paper.Tool {
 
         // If you finished editing a textbox, save undo state
         if (this.textBox && this.textBox.content.trim().length) {
-            this.onUpdateSvg();
+            this.onUpdateImage();
         }
     }
     deactivateTool () {
