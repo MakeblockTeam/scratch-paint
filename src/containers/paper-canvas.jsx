@@ -7,6 +7,8 @@ import Formats from '../lib/format';
 import Modes from '../lib/modes';
 import log from '../log/log';
 
+import {inlineSvgFonts} from 'scratch-svg-renderer';
+
 import {trim} from '../helper/bitmap';
 import {performSnapshot} from '../helper/undo';
 import {undoSnapshot, clearUndoState} from '../reducers/undo';
@@ -95,6 +97,7 @@ class PaperCanvas extends React.Component {
         // Get rid of anti-aliasing
         // @todo get crisp text?
         svg.setAttribute('shape-rendering', 'crispEdges');
+        inlineSvgFonts(svg);
         const svgString = (new XMLSerializer()).serializeToString(svg);
 
         // Put anti-aliased SVG into image, and dump image back into canvas
@@ -107,7 +110,18 @@ class PaperCanvas extends React.Component {
             paper.project.activeLayer.removeChildren();
             this.props.onUpdateImage();
         };
-        img.src = `data:image/svg+xml;charset=utf-8,${svgString}`;
+        img.onerror = () => {
+            // Fallback if browser does not support SVG data URIs in images.
+            // The problem with rasterize is that it will anti-alias.
+            const raster = paper.project.activeLayer.rasterize(72, false /* insert */);
+            raster.onLoad = () => {
+                getRaster().drawImage(raster.canvas, raster.bounds.topLeft);
+                paper.project.activeLayer.removeChildren();
+                this.props.onUpdateImage();
+            };
+        };
+        // Hash tags will break image loading without being encoded first
+        img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`;
     }
     convertToVector () {
         this.props.clearSelectedItems();
@@ -239,7 +253,10 @@ class PaperCanvas extends React.Component {
                         .subtract(itemWidth, itemHeight));
                 }
 
-                performSnapshot(paperCanvas.props.undoSnapshot, Formats.VECTOR_SKIP_CONVERT);
+                // Without the callback, the transforms sometimes don't finish applying before the
+                // snapshot is taken.
+                window.setTimeout(
+                    () => performSnapshot(paperCanvas.props.undoSnapshot, Formats.VECTOR_SKIP_CONVERT), 0);
             }
         });
     }
