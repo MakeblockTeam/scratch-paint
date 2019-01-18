@@ -13,11 +13,18 @@
     height: 2rem;
 }
 
-.mod-dashed-border {
+[dir="ltr"] .mod-dashed-border {
     border-right: 1px dashed $ui-pane-border;
     padding-right: calc(3 * $grid-unit);
 }
 
+[dir="rtl"] .mod-dashed-border {
+    border-left: 1px dashed $ui-pane-border;
+    padding-left: calc(3 * $grid-unit);
+}
+
 .mod-labeled-icon-height {
+    display: flex;
     height: 2.85rem; /* for the second row so the dashed borders are equal in size */
+    align-items: center;
 }

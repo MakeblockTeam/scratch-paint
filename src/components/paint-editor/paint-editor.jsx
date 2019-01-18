@@ -1,19 +1,21 @@
 import paper from '@scratch/paper';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import PaperCanvas from '../../containers/paper-canvas.jsx';
+import ScrollableCanvas from '../../containers/scrollable-canvas.jsx';
 
 import BitBrushMode from '../../containers/bit-brush-mode.jsx';
 import BitLineMode from '../../containers/bit-line-mode.jsx';
-import BitOvalMode from '../../components/bit-oval-mode/bit-oval-mode.jsx';
-import BitRectMode from '../../components/bit-rect-mode/bit-rect-mode.jsx';
-import BitTextMode from '../../components/bit-text-mode/bit-text-mode.jsx';
-import BitFillMode from '../../components/bit-fill-mode/bit-fill-mode.jsx';
-import BitEraserMode from '../../components/bit-eraser-mode/bit-eraser-mode.jsx';
-import BitSelectMode from '../../components/bit-select-mode/bit-select-mode.jsx';
+import BitOvalMode from '../../containers/bit-oval-mode.jsx';
+import BitRectMode from '../../containers/bit-rect-mode.jsx';
+import BitFillMode from '../../containers/bit-fill-mode.jsx';
+import BitEraserMode from '../../containers/bit-eraser-mode.jsx';
+import BitSelectMode from '../../containers/bit-select-mode.jsx';
+import BitCenterMode from '../../containers/bit-center-mode.jsx';
+
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import ButtonGroup from '../button-group/button-group.jsx';
@@ -24,7 +26,7 @@ import FillMode from '../../containers/fill-mode.jsx';
 import InputGroup from '../input-group/input-group.jsx';
 import LineMode from '../../containers/line-mode.jsx';
 import Loupe from '../loupe/loupe.jsx';
-import FixedToolsComponent from '../fixed-tools/fixed-tools.jsx';
+import FixedToolsContainer from '../../containers/fixed-tools.jsx';
 import ModeToolsContainer from '../../containers/mode-tools.jsx';
 import OvalMode from '../../containers/oval-mode.jsx';
 import RectMode from '../../containers/rect-mode.jsx';
@@ -33,9 +35,10 @@ import SelectMode from '../../containers/select-mode.jsx';
 import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
+import CenterMode from '../../containers/center-mode.jsx';
 
 import Formats from '../../lib/format';
-import {isBitmap, isVector} from '../../lib/format';
+import { isBitmap, isVector } from '../../lib/format';
 import styles from './paint-editor.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -57,23 +60,20 @@ const messages = defineMessages({
 });
 
 const PaintEditorComponent = props => (
-    <div className={styles.editorContainer}>
+    <div
+        className={styles.editorContainer}
+        dir={props.rtl ? 'rtl' : 'ltr'}
+    >
         {props.canvas !== null ? ( // eslint-disable-line no-negated-condition
             <div className={styles.editorContainerTop}>
                 {/* First row */}
                 <div className={styles.row}>
-                    <FixedToolsComponent
+                    <FixedToolsContainer
                         canRedo={props.canRedo}
                         canUndo={props.canUndo}
                         name={props.name}
-                        onGroup={props.onGroup}
                         onRedo={props.onRedo}
-                        onSendBackward={props.onSendBackward}
-                        onSendForward={props.onSendForward}
-                        onSendToBack={props.onSendToBack}
-                        onSendToFront={props.onSendToFront}
                         onUndo={props.onUndo}
-                        onUngroup={props.onUngroup}
                         onUpdateImage={props.onUpdateImage}
                         onUpdateName={props.onUpdateName}
                     />
@@ -90,7 +90,7 @@ const PaintEditorComponent = props => (
                         >
                             {/* fill */}
                             <FillColorIndicatorComponent
-                                className={styles.modMarginRight}
+                                className={styles.modMarginAfter}
                                 onUpdateImage={props.onUpdateImage}
                             />
                             {/* stroke */}
@@ -119,7 +119,7 @@ const PaintEditorComponent = props => (
                             >
                                 {/* fill */}
                                 <FillColorIndicatorComponent
-                                    className={styles.modMarginRight}
+                                    className={styles.modMarginAfter}
                                     onUpdateImage={props.onUpdateImage}
                                 />
                             </InputGroup>
@@ -135,8 +135,8 @@ const PaintEditorComponent = props => (
 
         <div className={styles.topAlignRow}>
             {/* Modes */}
-            {props.canvas !== null ? ( // eslint-disable-line no-negated-condition
-                <div className={isVector(props.format) ? styles.modeSelector : styles.hidden}>
+            {props.canvas !== null && isVector(props.format) ? ( // eslint-disable-line no-negated-condition
+                <div className={styles.modeSelector}>
                     <SelectMode
                         onUpdateImage={props.onUpdateImage}
                     />
@@ -165,33 +165,55 @@ const PaintEditorComponent = props => (
                     <RectMode
                         onUpdateImage={props.onUpdateImage}
                     />
+                    <CenterMode
+                        onUpdateImage={props.onUpdateImage}
+                        onUpdateRotateCenter={props.onUpdateRotateCenter}
+                    />
                 </div>
             ) : null}
-            
-            {props.canvas !== null ? ( // eslint-disable-line no-negated-condition
-                <div className={isBitmap(props.format) ? styles.modeSelector : styles.hidden}>
+
+            {props.canvas !== null && isBitmap(props.format) ? ( // eslint-disable-line no-negated-condition
+                <div className={styles.modeSelector}>
                     <BitBrushMode
                         onUpdateImage={props.onUpdateImage}
                     />
                     <BitLineMode
                         onUpdateImage={props.onUpdateImage}
                     />
-                    <BitOvalMode />
-                    <BitRectMode />
-                    <BitTextMode />
-                    <BitFillMode />
-                    <BitEraserMode />
-                    <BitSelectMode />
+                    <BitOvalMode
+                        onUpdateImage={props.onUpdateImage}
+                    />
+                    <BitRectMode
+                        onUpdateImage={props.onUpdateImage}
+                    />
+                    <TextMode
+                        isBitmap
+                        textArea={props.textArea}
+                        onUpdateImage={props.onUpdateImage}
+                    />
+                    <BitFillMode
+                        onUpdateImage={props.onUpdateImage}
+                    />
+                    <BitEraserMode
+                        onUpdateImage={props.onUpdateImage}
+                    />
+                    <BitSelectMode
+                        onUpdateImage={props.onUpdateImage}
+                    />
+                    <BitCenterMode
+                        onUpdateImage={props.onUpdateImage}
+                        onUpdateRotateCenter={props.onUpdateRotateCenter}
+                    />
+
                 </div>
             ) : null}
-            
+
             <div>
                 {/* Canvas */}
-                <div
-                    className={classNames(
-                        styles.canvasContainer,
-                        {[styles.withEyeDropper]: props.isEyeDropping}
-                    )}
+                <ScrollableCanvas
+                    canvas={props.canvas}
+                    hideCursor={props.isEyeDropping}
+                    style={styles.canvasContainer}
                 >
                     <PaperCanvas
                         canvasRef={props.setCanvas}
@@ -200,6 +222,7 @@ const PaintEditorComponent = props => (
                         imageId={props.imageId}
                         rotationCenterX={props.rotationCenterX}
                         rotationCenterY={props.rotationCenterY}
+                        zoomLevelId={props.zoomLevelId}
                         onUpdateImage={props.onUpdateImage}
                     />
                     <textarea
@@ -218,7 +241,7 @@ const PaintEditorComponent = props => (
                             </Box>
                         ) : null
                     }
-                </div>
+                </ScrollableCanvas>
                 <div className={styles.canvasControls}>
                     {isVector(props.format) ?
                         <Button
@@ -308,16 +331,10 @@ PaintEditorComponent.propTypes = {
     intl: intlShape,
     isEyeDropping: PropTypes.bool,
     name: PropTypes.string,
-    onGroup: PropTypes.func.isRequired,
     onRedo: PropTypes.func.isRequired,
-    onSendBackward: PropTypes.func.isRequired,
-    onSendForward: PropTypes.func.isRequired,
-    onSendToBack: PropTypes.func.isRequired,
-    onSendToFront: PropTypes.func.isRequired,
     onSwitchToBitmap: PropTypes.func.isRequired,
     onSwitchToVector: PropTypes.func.isRequired,
     onUndo: PropTypes.func.isRequired,
-    onUngroup: PropTypes.func.isRequired,
     onUpdateImage: PropTypes.func.isRequired,
     onUpdateName: PropTypes.func.isRequired,
     onZoomIn: PropTypes.func.isRequired,
@@ -325,9 +342,11 @@ PaintEditorComponent.propTypes = {
     onZoomReset: PropTypes.func.isRequired,
     rotationCenterX: PropTypes.number,
     rotationCenterY: PropTypes.number,
+    rtl: PropTypes.bool,
     setCanvas: PropTypes.func.isRequired,
     setTextArea: PropTypes.func.isRequired,
-    textArea: PropTypes.instanceOf(Element)
+    textArea: PropTypes.instanceOf(Element),
+    zoomLevelId: PropTypes.string
 };
 
 export default injectIntl(PaintEditorComponent);

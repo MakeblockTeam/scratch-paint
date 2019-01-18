@@ -10,7 +10,7 @@ import NudgeTool from '../selection-tools/nudge-tool';
  */
 class OvalTool extends paper.Tool {
     static get TOLERANCE () {
-        return 6;
+        return 2;
     }
     /**
      * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
@@ -24,7 +24,7 @@ class OvalTool extends paper.Tool {
         this.onUpdateImage = onUpdateImage;
         this.boundingBoxTool = new BoundingBoxTool(Modes.OVAL, setSelectedItems, clearSelectedItems, onUpdateImage);
         const nudgeTool = new NudgeTool(this.boundingBoxTool, onUpdateImage);
-        
+
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         this.onMouseDown = this.handleMouseDown;
@@ -46,7 +46,7 @@ class OvalTool extends paper.Tool {
             fill: true,
             guide: false,
             match: hitResult =>
-                (hitResult.item.data && hitResult.item.data.isHelperItem) ||
+                (hitResult.item.data && (hitResult.item.data.isScaleHandle || hitResult.item.data.isRotHandle)) ||
                 hitResult.item.selected, // Allow hits on bounding box and selected only
             tolerance: OvalTool.TOLERANCE / paper.view.zoom
         };
@@ -65,7 +65,8 @@ class OvalTool extends paper.Tool {
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
-        if (this.boundingBoxTool.onMouseDown(event, false /* clone */, false /* multiselect */, this.getHitOptions())) {
+        if (this.boundingBoxTool.onMouseDown(
+            event, false /* clone */, false /* multiselect */, false /* doubleClicked */, this.getHitOptions())) {
             this.isBoundingBoxMode = true;
         } else {
             this.isBoundingBoxMode = false;
@@ -97,11 +98,11 @@ class OvalTool extends paper.Tool {
         } else {
             this.oval.position = downPoint.subtract(this.oval.size.multiply(0.5));
         }
-        
+
     }
     handleMouseUp (event) {
         if (event.event.button > 0 || !this.active) return; // only first mouse button
-        
+
         if (this.isBoundingBoxMode) {
             this.boundingBoxTool.onMouseUp(event);
             this.isBoundingBoxMode = null;

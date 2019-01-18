@@ -43,13 +43,19 @@ class SelectMode extends React.Component {
     shouldComponentUpdate (nextProps) {
         return nextProps.isSelectModeActive !== this.props.isSelectModeActive;
     }
+    componentWillUnmount () {
+        if (this.tool) {
+            this.deactivateTool();
+        }
+    }
     activateTool () {
         this.tool = new SelectTool(
             this.props.setHoveredItem,
             this.props.clearHoveredItem,
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
-            this.props.onUpdateImage
+            this.props.onUpdateImage,
+            this.props.switchToTextTool
         );
         this.tool.activate();
     }
@@ -77,7 +83,8 @@ SelectMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
     selectedItems: PropTypes.arrayOf(PropTypes.instanceOf(paper.Item)),
     setHoveredItem: PropTypes.func.isRequired,
-    setSelectedItems: PropTypes.func.isRequired
+    setSelectedItems: PropTypes.func.isRequired,
+    switchToTextTool: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -96,10 +103,13 @@ const mapDispatchToProps = dispatch => ({
         dispatch(clearSelectedItems());
     },
     setSelectedItems: () => {
-        dispatch(setSelectedItems(getSelectedLeafItems()));
+        dispatch(setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */));
     },
     handleMouseDown: () => {
         dispatch(changeMode(Modes.SELECT));
+    },
+    switchToTextTool: () => {
+        dispatch(changeMode(Modes.TEXT));
     }
 });
 

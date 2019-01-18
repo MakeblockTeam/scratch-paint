@@ -10,8 +10,26 @@ const _getLayer = function (layerString) {
     }
 };
 
+const getPaintingLayer = function () {
+    return _getLayer('isPaintingLayer');
+  };
+
 const _getPaintingLayer = function () {
     return _getLayer('isPaintingLayer');
+};
+
+/**
+ * Creates a canvas with width and height matching the art board size.
+ * @param {?number} width Width of the canvas. Defaults to ART_BOARD_WIDTH.
+ * @param {?number} height Height of the canvas. Defaults to ART_BOARD_HEIGHT.
+ * @return {HTMLCanvasElement} the canvas
+ */
+const createCanvas = function (width, height) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width ? width : ART_BOARD_WIDTH;
+    canvas.height = height ? height : ART_BOARD_HEIGHT;
+    canvas.getContext('2d').imageSmoothingEnabled = false;
+    return canvas;
 };
 
 const clearRaster = function () {
@@ -19,10 +37,8 @@ const clearRaster = function () {
     layer.removeChildren();
     
     // Generate blank raster
-    const tmpCanvas = document.createElement('canvas');
-    tmpCanvas.width = ART_BOARD_WIDTH;
-    tmpCanvas.height = ART_BOARD_HEIGHT;
-    const raster = new paper.Raster(tmpCanvas);
+    const raster = new paper.Raster(createCanvas());
+    raster.canvas.getContext('2d').imageSmoothingEnabled = false;
     raster.parent = layer;
     raster.guide = true;
     raster.locked = true;
@@ -38,15 +54,47 @@ const getRaster = function () {
     return _getLayer('isRasterLayer').children[0];
 };
 
-const _getBackgroundGuideLayer = function () {
+const getBackgroundGuideLayer = function () {
     return _getLayer('isBackgroundGuideLayer');
 };
 
 const _makeGuideLayer = function () {
     const guideLayer = new paper.Layer();
+    const crossLineGroup = _makeCrossLine();
+    crossLineGroup.guide = true;
+    crossLineGroup.locked = true;
+    crossLineGroup.visible = false;
+    crossLineGroup.data.isCrossLine = true;
+
     guideLayer.data.isGuideLayer = true;
     return guideLayer;
 };
+
+const _makeCrossLine = function(){
+    const vLine = new paper.Path.Line(new paper.Point(0, -(ART_BOARD_HEIGHT / 2)), new paper.Point(0, ART_BOARD_HEIGHT / 2));
+    vLine.strokeWidth = 1;
+    vLine.strokeColor = '#575D76';
+    vLine.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
+    vLine.guide = true;
+    vLine.locked = true;
+  
+    const hLine = new paper.Path.Line(new paper.Point(-(ART_BOARD_WIDTH / 2), 0), new paper.Point(ART_BOARD_WIDTH / 2, 0));
+    hLine.strokeWidth = 1;
+    hLine.strokeColor = '#575D76';
+    hLine.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
+    hLine.guide = true;
+    hLine.locked = true;
+  
+    const circle = new paper.Shape.Circle(new paper.Point(0, 0), 2);
+  
+    circle.fillColor = '#FF0000 ';
+    circle.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
+    circle.guide = true;
+    circle.locked = true;
+  
+    const group = new paper.Group([vLine, hLine, circle])
+    return group
+  }
 
 const getGuideLayer = function () {
     let layer = _getLayer('isGuideLayer');
@@ -63,7 +111,7 @@ const getGuideLayer = function () {
  * @return {object} an object of the removed layers, which should be passed to showGuideLayers to re-add them.
  */
 const hideGuideLayers = function (includeRaster) {
-    const backgroundGuideLayer = _getBackgroundGuideLayer();
+    const backgroundGuideLayer = getBackgroundGuideLayer();
     const guideLayer = getGuideLayer();
     guideLayer.remove();
     backgroundGuideLayer.remove();
@@ -186,6 +234,16 @@ const _makeBackgroundGuideLayer = function () {
     return guideLayer;
 };
 
+const hideCrossLine = function(){
+    const crossLineGroup = (getGuideLayer().children.filter(i=>i.data.isCrossLine))[0]
+    crossLineGroup && (crossLineGroup.visible = false)
+  }
+  
+const showCrossLine = function(){
+const crossLineGroup = (getGuideLayer().children.filter(i=>i.data.isCrossLine))[0]
+crossLineGroup && (crossLineGroup.visible = true)
+}
+
 const setupLayers = function () {
     const backgroundGuideLayer = _makeBackgroundGuideLayer();
     _makeRasterLayer();
@@ -197,10 +255,15 @@ const setupLayers = function () {
 };
 
 export {
+    createCanvas,
     hideGuideLayers,
     showGuideLayers,
     getGuideLayer,
+    getBackgroundGuideLayer,
     clearRaster,
     getRaster,
-    setupLayers
+    getPaintingLayer,
+    setupLayers,
+    hideCrossLine,
+    showCrossLine
 };

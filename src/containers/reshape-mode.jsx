@@ -39,13 +39,19 @@ class ReshapeMode extends React.Component {
     shouldComponentUpdate (nextProps) {
         return nextProps.isReshapeModeActive !== this.props.isReshapeModeActive;
     }
+    componentWillUnmount () {
+        if (this.tool) {
+            this.deactivateTool();
+        }
+    }
     activateTool () {
         this.tool = new ReshapeTool(
             this.props.setHoveredItem,
             this.props.clearHoveredItem,
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
-            this.props.onUpdateImage
+            this.props.onUpdateImage,
+            this.props.switchToTextTool
         );
         this.tool.setPrevHoveredItemId(this.props.hoveredItemId);
         this.tool.activate();
@@ -74,7 +80,8 @@ ReshapeMode.propTypes = {
     isReshapeModeActive: PropTypes.bool.isRequired,
     onUpdateImage: PropTypes.func.isRequired,
     setHoveredItem: PropTypes.func.isRequired,
-    setSelectedItems: PropTypes.func.isRequired
+    setSelectedItems: PropTypes.func.isRequired,
+    switchToTextTool: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -92,10 +99,13 @@ const mapDispatchToProps = dispatch => ({
         dispatch(clearSelectedItems());
     },
     setSelectedItems: () => {
-        dispatch(setSelectedItems(getSelectedLeafItems()));
+        dispatch(setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */));
     },
     handleMouseDown: () => {
         dispatch(changeMode(Modes.RESHAPE));
+    },
+    switchToTextTool: () => {
+        dispatch(changeMode(Modes.TEXT));
     }
 });
 

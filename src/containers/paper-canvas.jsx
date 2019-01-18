@@ -4,45 +4,50 @@ import React from 'react';
 import {connect} from 'react-redux';
 import paper from '@scratch/paper';
 import Formats from '../lib/format';
-import Modes from '../lib/modes';
 import log from '../log/log';
 
-import {inlineSvgFonts} from 'scratch-svg-renderer';
-
-import {trim} from '../helper/bitmap';
 import {performSnapshot} from '../helper/undo';
 import {undoSnapshot, clearUndoState} from '../reducers/undo';
-import {clearRaster, getRaster, setupLayers, hideGuideLayers, showGuideLayers} from '../helper/layer';
-import {deleteSelection, getSelectedLeafItems} from '../helper/selection';
-import {clearSelectedItems, setSelectedItems} from '../reducers/selected-items';
-import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT, pan, resetZoom, zoomOnFixedPoint} from '../helper/view';
+import {isGroup, ungroupItems} from '../helper/group';
+import {clearRaster, getRaster, setupLayers} from '../helper/layer';
+import {clearSelectedItems} from '../reducers/selected-items';
+import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT, resetZoom, zoomToFit} from '../helper/view';
 import {ensureClockwise, scaleWithStrokes} from '../helper/math';
 import {clearHoveredItem} from '../reducers/hover';
 import {clearPasteOffset} from '../reducers/clipboard';
-import {updateViewBounds} from '../reducers/view-bounds';
 import {changeFormat} from '../reducers/format';
+import {updateViewBounds} from '../reducers/view-bounds';
+import {saveZoomLevel, setZoomLevelId} from '../reducers/zoom-levels';
 
-import {isVector, isBitmap} from '../lib/format';
+
 
 import styles from './paper-canvas.css';
+import  Modes from '../lib/modes';
 
 class PaperCanvas extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'convertToBitmap',
-            'convertToVector',
             'setCanvas',
             'importSvg',
-            'handleKeyDown',
-            'handleWheel',
+            'maybeZoomToFit',
             'switchCostume'
         ]);
     }
     componentDidMount () {
-        document.addEventListener('keydown', this.handleKeyDown);
         paper.setup(this.canvas);
         resetZoom();
+        this.props.updateViewBounds(paper.view.matrix);
+        if (this.props.zoomLevelId) {
+            this.props.setZoomLevelId(this.props.zoomLevelId);
+            if (this.props.zoomLevels[this.props.zoomLevelId]) {
+                // This is the matrix that the view should be zoomed to after image import
+                this.shouldZoomToFit = this.props.zoomLevels[this.props.zoomLevelId];
+            } else {
+                // Zoom to fit true means find a comfortable zoom level for viewing the costume
+                this.shouldZoomToFit = true;
+            }
+        }
 
         const context = this.canvas.getContext('2d');
         context.webkitImageSmoothingEnabled = false;
@@ -56,90 +61,44 @@ class PaperCanvas extends React.Component {
             this.props.imageFormat, this.props.image, this.props.rotationCenterX, this.props.rotationCenterY);
     }
     componentWillReceiveProps (newProps) {
+        // if (this.props.image !== newProps.image) {
         if (this.props.imageId !== newProps.imageId) {
-            this.switchCostume(
-                newProps.imageFormat, newProps.image, newProps.rotationCenterX, newProps.rotationCenterY);
-        } else if (isVector(this.props.format) && newProps.format === Formats.BITMAP) {
-            this.convertToBitmap();
-        } else if (isBitmap(this.props.format) && newProps.format === Formats.VECTOR) {
-            this.convertToVector();
+            this.switchCostume(newProps.imageFormat, newProps.image,
+                newProps.rotationCenterX, newProps.rotationCenterY,
+                this.props.zoomLevelId, newProps.zoomLevelId);
         }
     }
     componentWillUnmount () {
+        this.props.saveZoomLevel();
         paper.remove();
-        document.removeEventListener('keydown', this.handleKeyDown);
     }
-    handleKeyDown (event) {
-        if (event.target instanceof HTMLInputElement) {
-            // Ignore delete if a text input field is focused
-            return;
+    switchCostume (format, image, rotationCenterX, rotationCenterY, oldZoomLevelId, newZoomLevelId) {
+        if (oldZoomLevelId && oldZoomLevelId !== newZoomLevelId) {
+            this.props.saveZoomLevel();
         }
-        // Backspace, delete
-        if (event.key === 'Delete' || event.key === 'Backspace') {
-            if (deleteSelection(this.props.mode, this.props.onUpdateImage)) {
-                this.props.setSelectedItems();
+        if (newZoomLevelId && oldZoomLevelId !== newZoomLevelId) {
+            if (this.props.zoomLevels[newZoomLevelId]) {
+                this.shouldZoomToFit = this.props.zoomLevels[newZoomLevelId];
+            } else {
+                this.shouldZoomToFit = true;
             }
+            this.props.setZoomLevelId(newZoomLevelId);
         }
-    }
-    convertToBitmap () {
-        // @todo if the active layer contains only rasters, drawing them directly to the raster layer
-        // would be more efficient.
 
-        // Export svg
-        const guideLayers = hideGuideLayers(true /* includeRaster */);
-        const bounds = paper.project.activeLayer.bounds;
-        const svg = paper.project.exportSVG({
-            bounds: 'content',
-            matrix: new paper.Matrix().translate(-bounds.x, -bounds.y)
-        });
-        showGuideLayers(guideLayers);
-
-        // Get rid of anti-aliasing
-        // @todo get crisp text?
-        svg.setAttribute('shape-rendering', 'crispEdges');
-        inlineSvgFonts(svg);
-        const svgString = (new XMLSerializer()).serializeToString(svg);
-
-        // Put anti-aliased SVG into image, and dump image back into canvas
-        const img = new Image();
-        img.onload = () => {
-            getRaster().drawImage(
-                img,
-                new paper.Point(Math.floor(bounds.topLeft.x), Math.floor(bounds.topLeft.y)));
-
-            paper.project.activeLayer.removeChildren();
-            this.props.onUpdateImage();
-        };
-        img.onerror = () => {
-            // Fallback if browser does not support SVG data URIs in images.
-            // The problem with rasterize is that it will anti-alias.
-            const raster = paper.project.activeLayer.rasterize(72, false /* insert */);
-            raster.onLoad = () => {
-                getRaster().drawImage(raster.canvas, raster.bounds.topLeft);
-                paper.project.activeLayer.removeChildren();
-                this.props.onUpdateImage();
-            };
-        };
-        // Hash tags will break image loading without being encoded first
-        img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`;
-    }
-    convertToVector () {
-        this.props.clearSelectedItems();
-        const raster = trim(getRaster());
-        if (raster.width === 0 || raster.height === 0) {
-            raster.remove();
-        } else {
-            paper.project.activeLayer.addChild(raster);
-        }
-        clearRaster();
-        this.props.onUpdateImage();
-    }
-    switchCostume (format, image, rotationCenterX, rotationCenterY) {
+        console.warn(paper.project)
         for (const layer of paper.project.layers) {
             if (layer.data.isRasterLayer) {
                 clearRaster();
             } else if (!layer.data.isBackgroundGuideLayer) {
-                layer.removeChildren();
+                if(layer.data.isGuideLayer){
+                    const crossLineGroup = layer.children.filter(i=>i.data.isCrossLine)[0];
+                    layer.removeChildren();
+                    layer.children.push(crossLineGroup)
+                }else{
+                    layer.removeChildren();
+                }
+
+
             }
         }
         this.props.clearUndo();
@@ -168,17 +127,27 @@ class PaperCanvas extends React.Component {
                     imgElement,
                     (ART_BOARD_WIDTH / 2) - rotationCenterX,
                     (ART_BOARD_HEIGHT / 2) - rotationCenterY);
+                this.maybeZoomToFit(true /* isBitmap */);
                 performSnapshot(this.props.undoSnapshot, Formats.BITMAP_SKIP_CONVERT);
             };
             imgElement.src = image;
         } else if (format === 'svg') {
             this.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
             this.importSvg(image, rotationCenterX, rotationCenterY);
+            this.maybeZoomToFit();
         } else {
             log.error(`Didn't recognize format: ${format}. Use 'jpg', 'png' or 'svg'.`);
             this.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
             performSnapshot(this.props.undoSnapshot, Formats.VECTOR_SKIP_CONVERT);
         }
+    }
+    maybeZoomToFit (isBitmapMode) {
+        if (this.shouldZoomToFit instanceof paper.Matrix) {
+            paper.view.matrix = this.shouldZoomToFit;
+        } else if (this.shouldZoomToFit === true) {
+            zoomToFit(isBitmapMode);
+        }
+        this.shouldZoomToFit = false;
     }
     importSvg (svg, rotationCenterX, rotationCenterY) {
         const paperCanvas = this;
@@ -239,7 +208,7 @@ class PaperCanvas extends React.Component {
 
                 ensureClockwise(item);
                 scaleWithStrokes(item, 2, new paper.Point()); // Import at 2x
-                
+
                 if (typeof rotationCenterX !== 'undefined' && typeof rotationCenterY !== 'undefined') {
                     let rotationPoint = new paper.Point(rotationCenterX, rotationCenterY);
                     if (viewBox && viewBox.length >= 2 && !isNaN(viewBox[0]) && !isNaN(viewBox[1])) {
@@ -251,6 +220,15 @@ class PaperCanvas extends React.Component {
                     // Center
                     item.translate(new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2)
                         .subtract(itemWidth, itemHeight));
+                }
+                if (isGroup(item)) {
+                    // Fixes an issue where we may export empty groups
+                    for (const child of item.children) {
+                        if (isGroup(child) && child.children.length === 0) {
+                            child.remove();
+                        }
+                    }
+                    ungroupItems([item]);
                 }
 
                 // Without the callback, the transforms sometimes don't finish applying before the
@@ -266,41 +244,17 @@ class PaperCanvas extends React.Component {
             this.props.canvasRef(canvas);
         }
     }
-    handleWheel (event) {
-        if (event.metaKey || event.ctrlKey) {
-            // Zoom keeping mouse location fixed
-            const canvasRect = this.canvas.getBoundingClientRect();
-            const offsetX = event.clientX - canvasRect.left;
-            const offsetY = event.clientY - canvasRect.top;
-            const fixedPoint = paper.project.view.viewToProject(
-                new paper.Point(offsetX, offsetY)
-            );
-            zoomOnFixedPoint(-event.deltaY / 100, fixedPoint);
-            this.props.updateViewBounds(paper.view.matrix);
-            this.props.setSelectedItems();
-        } else if (event.shiftKey && event.deltaX === 0) {
-            // Scroll horizontally (based on vertical scroll delta)
-            // This is needed as for some browser/system combinations which do not set deltaX.
-            // See #156.
-            const dx = event.deltaY / paper.project.view.zoom;
-            pan(dx, 0);
-            this.props.updateViewBounds(paper.view.matrix);
-        } else {
-            const dx = event.deltaX / paper.project.view.zoom;
-            const dy = event.deltaY / paper.project.view.zoom;
-            pan(dx, dy);
-            this.props.updateViewBounds(paper.view.matrix);
-        }
-        event.preventDefault();
-    }
+  
+  
     render () {
+        const otherStyle = this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER ? 
+                styles.centerMode:''
         return (
             <canvas
-                className={styles.paperCanvas}
+                className={`${styles.paperCanvas} ${otherStyle}`}
                 height="360px"
                 ref={this.setCanvas}
                 width="480px"
-                onWheel={this.handleWheel}
             />
         );
     }
@@ -313,24 +267,27 @@ PaperCanvas.propTypes = {
     clearPasteOffset: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
     clearUndo: PropTypes.func.isRequired,
-    format: PropTypes.oneOf(Object.keys(Formats)), // Internal, up-to-date data format
     image: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.instanceOf(HTMLImageElement)
     ]),
-    imageFormat: PropTypes.string, // The incoming image's data format, used during import
+    imageFormat: PropTypes.string, // The incoming image's data format, used during import. The user could switch this.
     imageId: PropTypes.string,
-    mode: PropTypes.oneOf(Object.keys(Modes)),
-    onUpdateImage: PropTypes.func.isRequired,
     rotationCenterX: PropTypes.number,
     rotationCenterY: PropTypes.number,
-    setSelectedItems: PropTypes.func.isRequired,
+    saveZoomLevel: PropTypes.func.isRequired,
+    setZoomLevelId: PropTypes.func.isRequired,
     undoSnapshot: PropTypes.func.isRequired,
-    updateViewBounds: PropTypes.func.isRequired
+    updateViewBounds: PropTypes.func.isRequired,
+    zoomLevelId: PropTypes.string,
+    zoomLevels: PropTypes.shape({
+        currentZoomLevelId: PropTypes.string
+    })
 };
 const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
-    format: state.scratchPaint.format
+    format: state.scratchPaint.format,
+    zoomLevels: state.scratchPaint.zoomLevels
 });
 const mapDispatchToProps = dispatch => ({
     undoSnapshot: snapshot => {
@@ -338,9 +295,6 @@ const mapDispatchToProps = dispatch => ({
     },
     clearUndo: () => {
         dispatch(clearUndoState());
-    },
-    setSelectedItems: () => {
-        dispatch(setSelectedItems(getSelectedLeafItems()));
     },
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
@@ -353,6 +307,12 @@ const mapDispatchToProps = dispatch => ({
     },
     changeFormat: format => {
         dispatch(changeFormat(format));
+    },
+    saveZoomLevel: () => {
+        dispatch(saveZoomLevel(paper.view.matrix));
+    },
+    setZoomLevelId: zoomLevelId => {
+        dispatch(setZoomLevelId(zoomLevelId));
     },
     updateViewBounds: matrix => {
         dispatch(updateViewBounds(matrix));

@@ -4,11 +4,23 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import bindAll from 'lodash.bindall';
 
+import CopyPasteHOC from '../hocs/copy-paste-hoc.jsx';
 import ModeToolsComponent from '../components/mode-tools/mode-tools.jsx';
 import {clearSelectedItems, setSelectedItems} from '../reducers/selected-items';
-import {incrementPasteOffset, setClipboardItems} from '../reducers/clipboard';
-import {clearSelection, getSelectedLeafItems, getSelectedRootItems, getAllRootItems} from '../helper/selection';
+import {
+    deleteSelection,
+    getSelectedLeafItems,
+    getSelectedRootItems,
+    getAllRootItems,
+    selectAllItems,
+    selectAllSegments
+} from '../helper/selection';
 import {HANDLE_RATIO, ensureClockwise} from '../helper/math';
+import {getRaster} from '../helper/layer';
+import {flipBitmapHorizontal, flipBitmapVertical, selectAllBitmap} from '../helper/bitmap';
+import {isBitmap} from '../lib/format';
+import Formats from '../lib/format';
+import Modes from '../lib/modes';
 
 class ModeTools extends React.Component {
     constructor (props) {
@@ -18,10 +30,10 @@ class ModeTools extends React.Component {
             '_getSelectedUnpointedPoints',
             'hasSelectedUncurvedPoints',
             'hasSelectedUnpointedPoints',
-            'handleCopyToClipboard',
             'handleCurvePoints',
             'handleFlipHorizontal',
             'handleFlipVertical',
+            'handleDelete',
             'handlePasteFromClipboard',
             'handlePointPoints'
         ]);
@@ -116,7 +128,7 @@ class ModeTools extends React.Component {
             changed = true;
         }
         if (changed) {
-            this.props.setSelectedItems();
+            this.props.setSelectedItems(this.props.format);
             this.props.onUpdateImage();
         }
     }
@@ -132,12 +144,11 @@ class ModeTools extends React.Component {
             }
         }
         if (changed) {
-            this.props.setSelectedItems();
+            this.props.setSelectedItems(this.props.format);
             this.props.onUpdateImage();
         }
     }
-    _handleFlip (horizontalScale, verticalScale) {
-        let selectedItems = getSelectedRootItems();
+    _handleFlip (horizontalScale, verticalScale, selectedItems) {
         if (selectedItems.length === 0) {
             // If nothing is selected, select everything
             selectedItems = getAllRootItems();
@@ -163,38 +174,40 @@ class ModeTools extends React.Component {
         this.props.onUpdateImage();
     }
     handleFlipHorizontal () {
-        this._handleFlip(-1, 1);
+        const selectedItems = getSelectedRootItems();
+        if (isBitmap(this.props.format) && selectedItems.length === 0) {
+            getRaster().canvas = flipBitmapHorizontal(getRaster().canvas);
+            this.props.onUpdateImage();
+        } else {
+            this._handleFlip(-1, 1, selectedItems);
+        }
     }
     handleFlipVertical () {
-        this._handleFlip(1, -1);
-    }
-    handleCopyToClipboard () {
         const selectedItems = getSelectedRootItems();
-        if (selectedItems.length > 0) {
-            const clipboardItems = [];
-            for (let i = 0; i < selectedItems.length; i++) {
-                const jsonItem = selectedItems[i].exportJSON({asString: false});
-                clipboardItems.push(jsonItem);
-            }
-            this.props.setClipboardItems(clipboardItems);
+        if (isBitmap(this.props.format) && selectedItems.length === 0) {
+            getRaster().canvas = flipBitmapVertical(getRaster().canvas);
+            this.props.onUpdateImage();
+        } else {
+            this._handleFlip(1, -1, selectedItems);
         }
     }
     handlePasteFromClipboard () {
-        clearSelection(this.props.clearSelectedItems);
-
-        if (this.props.clipboardItems.length > 0) {
-            for (let i = 0; i < this.props.clipboardItems.length; i++) {
-                const item = paper.Base.importJSON(this.props.clipboardItems[i]);
-                if (item) {
-                    item.selected = true;
-                }
-                const placedItem = paper.project.getActiveLayer().addChild(item);
-                placedItem.position.x += 10 * this.props.pasteOffset;
-                placedItem.position.y += 10 * this.props.pasteOffset;
-            }
-            this.props.incrementPasteOffset();
-            this.props.setSelectedItems();
+        if (this.props.onPasteFromClipboard()) {
             this.props.onUpdateImage();
+        }
+    }
+    handleDelete () {
+        if (!this.props.selectedItems.length) {
+            if (isBitmap(this.props.format)) {
+                selectAllBitmap(this.props.clearSelectedItems);
+            } else if (this.props.mode === Modes.RESHAPE) {
+                selectAllSegments();
+            } else {
+                selectAllItems();
+            }
+        }
+        if (deleteSelection(this.props.mode, this.props.onUpdateImage)) {
+            this.props.setSelectedItems(this.props.format);
         }
     }
     render () {
@@ -202,12 +215,14 @@ class ModeTools extends React.Component {
             <ModeToolsComponent
                 hasSelectedUncurvedPoints={this.hasSelectedUncurvedPoints()}
                 hasSelectedUnpointedPoints={this.hasSelectedUnpointedPoints()}
-                onCopyToClipboard={this.handleCopyToClipboard}
+                onCopyToClipboard={this.props.onCopyToClipboard}
                 onCurvePoints={this.handleCurvePoints}
+                onDelete={this.handleDelete}
                 onFlipHorizontal={this.handleFlipHorizontal}
                 onFlipVertical={this.handleFlipVertical}
                 onPasteFromClipboard={this.handlePasteFromClipboard}
                 onPointPoints={this.handlePointPoints}
+                onUpdateImage={this.props.onUpdateImage}
             />
         );
     }
@@ -215,38 +230,32 @@ class ModeTools extends React.Component {
 
 ModeTools.propTypes = {
     clearSelectedItems: PropTypes.func.isRequired,
-    clipboardItems: PropTypes.arrayOf(PropTypes.array),
-    incrementPasteOffset: PropTypes.func.isRequired,
+    format: PropTypes.oneOf(Object.keys(Formats)),
+    mode: PropTypes.oneOf(Object.keys(Modes)),
+    onCopyToClipboard: PropTypes.func.isRequired,
+    onPasteFromClipboard: PropTypes.func.isRequired,
     onUpdateImage: PropTypes.func.isRequired,
-    pasteOffset: PropTypes.number,
     // Listen on selected items to update hasSelectedPoints
     selectedItems:
         PropTypes.arrayOf(PropTypes.instanceOf(paper.Item)), // eslint-disable-line react/no-unused-prop-types
-    setClipboardItems: PropTypes.func.isRequired,
     setSelectedItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    clipboardItems: state.scratchPaint.clipboard.items,
-    pasteOffset: state.scratchPaint.clipboard.pasteOffset,
+    format: state.scratchPaint.format,
+    mode: state.scratchPaint.mode,
     selectedItems: state.scratchPaint.selectedItems
 });
 const mapDispatchToProps = dispatch => ({
-    setClipboardItems: items => {
-        dispatch(setClipboardItems(items));
-    },
-    incrementPasteOffset: () => {
-        dispatch(incrementPasteOffset());
-    },
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    setSelectedItems: () => {
-        dispatch(setSelectedItems(getSelectedLeafItems()));
+    setSelectedItems: format => {
+        dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     }
 });
 
-export default connect(
+export default CopyPasteHOC(connect(
     mapStateToProps,
     mapDispatchToProps
-)(ModeTools);
+)(ModeTools));

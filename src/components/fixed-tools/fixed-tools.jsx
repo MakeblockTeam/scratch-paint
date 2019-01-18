@@ -19,6 +19,7 @@ import Label from '../forms/label.jsx';
 import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
 import {isVector} from '../../lib/format';
 import layout from '../../lib/layout-constants';
+import {hideLabel} from '../../lib/hide-label';
 import styles from './fixed-tools.css';
 
 import groupIcon from './icons/group.svg';
@@ -120,7 +121,7 @@ const FixedToolsComponent = props => {
                             classNames(
                                 styles.buttonGroupButton,
                                 {
-                                    [styles.modNoRightBorder]: !redoDisabled
+                                    [styles.modNoEndBorder]: !redoDisabled
                                 }
                             )
                         }
@@ -129,7 +130,10 @@ const FixedToolsComponent = props => {
                     >
                         <img
                             alt={props.intl.formatMessage(messages.undo)}
-                            className={styles.buttonGroupButtonIcon}
+                            className={classNames(
+                                styles.buttonGroupButtonIcon,
+                                styles.undoIcon
+                            )}
                             draggable={false}
                             src={undoIcon}
                         />
@@ -139,7 +143,7 @@ const FixedToolsComponent = props => {
                             classNames(
                                 styles.buttonGroupButton,
                                 {
-                                    [styles.modLeftBorder]: !redoDisabled
+                                    [styles.modStartBorder]: !redoDisabled
                                 }
                             )
                         }
@@ -161,12 +165,14 @@ const FixedToolsComponent = props => {
                 <InputGroup className={styles.modDashedBorder}>
                     <LabeledIconButton
                         disabled={!shouldShowGroup()}
+                        hideLabel={hideLabel(props.intl.locale)}
                         imgSrc={groupIcon}
                         title={props.intl.formatMessage(messages.group)}
                         onClick={props.onGroup}
                     />
                     <LabeledIconButton
                         disabled={!shouldShowUngroup()}
+                        hideLabel={hideLabel(props.intl.locale)}
                         imgSrc={ungroupIcon}
                         title={props.intl.formatMessage(messages.ungroup)}
                         onClick={props.onUngroup}
@@ -179,12 +185,14 @@ const FixedToolsComponent = props => {
                 <InputGroup className={styles.modDashedBorder}>
                     <LabeledIconButton
                         disabled={!shouldShowBringForward()}
+                        hideLabel={hideLabel(props.intl.locale)}
                         imgSrc={sendForwardIcon}
                         title={props.intl.formatMessage(messages.forward)}
                         onClick={props.onSendForward}
                     />
                     <LabeledIconButton
                         disabled={!shouldShowSendBackward()}
+                        hideLabel={hideLabel(props.intl.locale)}
                         imgSrc={sendBackwardIcon}
                         title={props.intl.formatMessage(messages.backward)}
                         onClick={props.onSendBackward}
@@ -197,12 +205,14 @@ const FixedToolsComponent = props => {
                     <InputGroup className={styles.row}>
                         <LabeledIconButton
                             disabled={!shouldShowBringForward()}
+                            hideLabel={hideLabel(props.intl.locale)}
                             imgSrc={sendFrontIcon}
                             title={props.intl.formatMessage(messages.front)}
                             onClick={props.onSendToFront}
                         />
                         <LabeledIconButton
                             disabled={!shouldShowSendBackward()}
+                            hideLabel={hideLabel(props.intl.locale)}
                             imgSrc={sendBackIcon}
                             title={props.intl.formatMessage(messages.back)}
                             onClick={props.onSendToBack}
@@ -227,7 +237,10 @@ const FixedToolsComponent = props => {
                             className={styles.modUnselect}
                             enterExitTransitionDurationMs={20}
                             popoverContent={
-                                <InputGroup className={styles.modContextMenu}>
+                                <InputGroup
+                                    className={styles.modContextMenu}
+                                    rtl={props.rtl}
+                                >
                                     <Button
                                         className={classNames(styles.modMenuItem, {
                                             [styles.modDisabled]: !shouldShowBringForward()
@@ -296,11 +309,13 @@ FixedToolsComponent.propTypes = {
     onSendToFront: PropTypes.func.isRequired,
     onUndo: PropTypes.func.isRequired,
     onUngroup: PropTypes.func.isRequired,
-    onUpdateName: PropTypes.func.isRequired
+    onUpdateName: PropTypes.func.isRequired,
+    rtl: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
     format: state.scratchPaint.format,
+    rtl: state.scratchPaint.layout.rtl,
     selectedItems: state.scratchPaint.selectedItems,
     undoState: state.scratchPaint.undo
 });
