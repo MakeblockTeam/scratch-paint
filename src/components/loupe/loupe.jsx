@@ -16,7 +16,11 @@ class LoupeComponent extends React.Component {
         ]);
     }
     componentDidUpdate () {
-        this.draw();
+        try {
+            this.draw();
+        } catch (err) {
+            console.warn(err);
+        }
     }
     draw () {
         const boxSize = 5;

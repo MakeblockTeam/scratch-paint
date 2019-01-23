@@ -55,7 +55,7 @@ class ScrollableCanvas extends React.Component {
         this.props.updateViewBounds(paper.view.matrix);
         event.preventDefault();
     }
-    handleHorizontalScrollbarMouseUp () {
+    handleHorizontalScrollbarMouseUp (event) {
         window.removeEventListener('mousemove', this.handleHorizontalScrollbarMouseMove);
         window.removeEventListener('mouseup', this.handleHorizontalScrollbarMouseUp);
         this.initialMouseX = null;
