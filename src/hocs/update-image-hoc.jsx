@@ -10,7 +10,7 @@ import {undoSnapshot} from '../reducers/undo';
 import {setSelectedItems} from '../reducers/selected-items';
 
 import {getSelectedLeafItems} from '../helper/selection';
-import {getRaster, hideGuideLayers, showGuideLayers} from '../helper/layer';
+import {getRaster, hideGuideLayers, showGuideLayers, showCrossLine} from '../helper/layer';
 import {commitRectToBitmap, commitOvalToBitmap, commitSelectionToBitmap, getHitBounds} from '../helper/bitmap';
 import {performSnapshot} from '../helper/undo';
 import {scaleWithStrokes} from '../helper/math';
@@ -47,6 +47,12 @@ const UpdateImageHOC = function (WrappedComponent) {
             } else if (isVector(actualFormat)) {
                 this.handleUpdateVector(skipSnapshot);
             }
+
+            //设置中心点模式，如果进行撤销或者恢复，十字线相关状态不会进行snapshot，见performSnapshot
+            if(this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER){
+                showCrossLine()
+            }
+            console.log(paper.project)
         }
         handleUpdateBitmap (skipSnapshot) {
             if (!getRaster().loaded) {

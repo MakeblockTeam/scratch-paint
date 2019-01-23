@@ -50,7 +50,12 @@ const messages = defineMessages({
         defaultMessage: 'Text',
         description: 'Label for the text tool',
         id: 'paint.textMode.text'
-    }
+    },
+    center: {
+        defaultMessage: 'Center Point',
+        description: 'set center point',
+        id: 'paint.centerMode.center'
+    },
 });
 
 export default messages;

@@ -10,6 +10,10 @@ const _getLayer = function (layerString) {
     }
 };
 
+const getPaintingLayer = function () {
+    return _getLayer('isPaintingLayer');
+  };
+
 const _getPaintingLayer = function () {
     return _getLayer('isPaintingLayer');
 };
@@ -56,9 +60,41 @@ const getBackgroundGuideLayer = function () {
 
 const _makeGuideLayer = function () {
     const guideLayer = new paper.Layer();
+    const crossLineGroup = _makeCrossLine();
+    crossLineGroup.guide = true;
+    crossLineGroup.locked = true;
+    crossLineGroup.visible = false;
+    crossLineGroup.data.isCrossLine = true;
+
     guideLayer.data.isGuideLayer = true;
     return guideLayer;
 };
+
+const _makeCrossLine = function(){
+    const vLine = new paper.Path.Line(new paper.Point(0, -(ART_BOARD_HEIGHT / 2)), new paper.Point(0, ART_BOARD_HEIGHT / 2));
+    vLine.strokeWidth = 1;
+    vLine.strokeColor = '#575D76';
+    vLine.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
+    vLine.guide = true;
+    vLine.locked = true;
+  
+    const hLine = new paper.Path.Line(new paper.Point(-(ART_BOARD_WIDTH / 2), 0), new paper.Point(ART_BOARD_WIDTH / 2, 0));
+    hLine.strokeWidth = 1;
+    hLine.strokeColor = '#575D76';
+    hLine.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
+    hLine.guide = true;
+    hLine.locked = true;
+  
+    const circle = new paper.Shape.Circle(new paper.Point(0, 0), 2);
+  
+    circle.fillColor = '#FF0000 ';
+    circle.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
+    circle.guide = true;
+    circle.locked = true;
+  
+    const group = new paper.Group([vLine, hLine, circle])
+    return group
+  }
 
 const getGuideLayer = function () {
     let layer = _getLayer('isGuideLayer');
@@ -198,6 +234,16 @@ const _makeBackgroundGuideLayer = function () {
     return guideLayer;
 };
 
+const hideCrossLine = function(){
+    const crossLineGroup = (getGuideLayer().children.filter(i=>i.data.isCrossLine))[0]
+    crossLineGroup && (crossLineGroup.visible = false)
+  }
+  
+const showCrossLine = function(){
+const crossLineGroup = (getGuideLayer().children.filter(i=>i.data.isCrossLine))[0]
+crossLineGroup && (crossLineGroup.visible = true)
+}
+
 const setupLayers = function () {
     const backgroundGuideLayer = _makeBackgroundGuideLayer();
     _makeRasterLayer();
@@ -216,5 +262,8 @@ export {
     getBackgroundGuideLayer,
     clearRaster,
     getRaster,
-    setupLayers
+    getPaintingLayer,
+    setupLayers,
+    hideCrossLine,
+    showCrossLine
 };

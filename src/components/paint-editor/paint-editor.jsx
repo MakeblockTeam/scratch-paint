@@ -1,6 +1,6 @@
 import paper from '@scratch/paper';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -14,6 +14,8 @@ import BitRectMode from '../../containers/bit-rect-mode.jsx';
 import BitFillMode from '../../containers/bit-fill-mode.jsx';
 import BitEraserMode from '../../containers/bit-eraser-mode.jsx';
 import BitSelectMode from '../../containers/bit-select-mode.jsx';
+import BitCenterMode from '../../containers/bit-center-mode.jsx';
+
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import ButtonGroup from '../button-group/button-group.jsx';
@@ -33,9 +35,10 @@ import SelectMode from '../../containers/select-mode.jsx';
 import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
+import CenterMode from '../../containers/center-mode.jsx';
 
 import Formats from '../../lib/format';
-import {isBitmap, isVector} from '../../lib/format';
+import { isBitmap, isVector } from '../../lib/format';
 import styles from './paint-editor.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -162,6 +165,10 @@ const PaintEditorComponent = props => (
                     <RectMode
                         onUpdateImage={props.onUpdateImage}
                     />
+                    <CenterMode
+                        onUpdateImage={props.onUpdateImage}
+                        onUpdateRotateCenter={props.onUpdateRotateCenter}
+                    />
                 </div>
             ) : null}
 
@@ -193,6 +200,11 @@ const PaintEditorComponent = props => (
                     <BitSelectMode
                         onUpdateImage={props.onUpdateImage}
                     />
+                    <BitCenterMode
+                        onUpdateImage={props.onUpdateImage}
+                        onUpdateRotateCenter={props.onUpdateRotateCenter}
+                    />
+
                 </div>
             ) : null}
 

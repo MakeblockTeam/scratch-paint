@@ -19,7 +19,10 @@ import {changeFormat} from '../reducers/format';
 import {updateViewBounds} from '../reducers/view-bounds';
 import {saveZoomLevel, setZoomLevelId} from '../reducers/zoom-levels';
 
+
+
 import styles from './paper-canvas.css';
+import  Modes from '../lib/modes';
 
 class PaperCanvas extends React.Component {
     constructor (props) {
@@ -58,6 +61,7 @@ class PaperCanvas extends React.Component {
             this.props.imageFormat, this.props.image, this.props.rotationCenterX, this.props.rotationCenterY);
     }
     componentWillReceiveProps (newProps) {
+        // if (this.props.image !== newProps.image) {
         if (this.props.imageId !== newProps.imageId) {
             this.switchCostume(newProps.imageFormat, newProps.image,
                 newProps.rotationCenterX, newProps.rotationCenterY,
@@ -80,11 +84,21 @@ class PaperCanvas extends React.Component {
             }
             this.props.setZoomLevelId(newZoomLevelId);
         }
+
+        console.warn(paper.project)
         for (const layer of paper.project.layers) {
             if (layer.data.isRasterLayer) {
                 clearRaster();
             } else if (!layer.data.isBackgroundGuideLayer) {
-                layer.removeChildren();
+                if(layer.data.isGuideLayer){
+                    const crossLineGroup = layer.children.filter(i=>i.data.isCrossLine)[0];
+                    layer.removeChildren();
+                    layer.children.push(crossLineGroup)
+                }else{
+                    layer.removeChildren();
+                }
+
+
             }
         }
         this.props.clearUndo();
@@ -230,10 +244,14 @@ class PaperCanvas extends React.Component {
             this.props.canvasRef(canvas);
         }
     }
+  
+  
     render () {
+        const otherStyle = this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER ? 
+                styles.centerMode:''
         return (
             <canvas
-                className={styles.paperCanvas}
+                className={`${styles.paperCanvas} ${otherStyle}`}
                 height="360px"
                 ref={this.setCanvas}
                 width="480px"

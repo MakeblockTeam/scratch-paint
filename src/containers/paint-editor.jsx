@@ -161,6 +161,9 @@ class PaintEditor extends React.Component {
             case Modes.BIT_SELECT:
                 this.props.changeMode(Modes.SELECT);
                 break;
+            case Modes.BIT_CENTER:
+                this.props.changeMode(Modes.CENTER);
+                break;
             default:
                 log.error(`Mode not handled: ${this.props.mode}`);
                 this.props.changeMode(Modes.BRUSH);
@@ -192,6 +195,9 @@ class PaintEditor extends React.Component {
                 /* falls through */
             case Modes.SELECT:
                 this.props.changeMode(Modes.BIT_SELECT);
+                break;
+            case Modes.CENTER:
+                this.props.changeMode(Modes.BIT_CENTER);
                 break;
             default:
                 log.error(`Mode not handled: ${this.props.mode}`);
@@ -312,6 +318,7 @@ class PaintEditor extends React.Component {
                 onSwitchToVector={this.props.handleSwitchToVector}
                 onUndo={this.props.onUndo}
                 onUpdateImage={this.props.onUpdateImage}
+                onUpdateRotateCenter={this.props.onUpdateRotateCenter}
                 onUpdateName={this.props.onUpdateName}
                 onZoomIn={this.handleZoomIn}
                 onZoomOut={this.handleZoomOut}
