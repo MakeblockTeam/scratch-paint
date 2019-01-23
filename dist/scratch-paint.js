@@ -32175,7 +32175,11 @@ var LoupeComponent = function (_React$Component) {
     _createClass(LoupeComponent, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
-            this.draw();
+            try {
+                this.draw();
+            } catch (err) {
+                console.warn(err);
+            }
         }
     }, {
         key: 'draw',
@@ -39120,8 +39124,6 @@ var PaperCanvas = function (_React$Component) {
                         } else {
                             layer.removeChildren();
                         }
-                        // layer.removeChildren();
-                        console.log(111111111111111111111111);
                     }
                 }
             } catch (err) {
@@ -39905,7 +39907,7 @@ var ScrollableCanvas = function (_React$Component) {
         }
     }, {
         key: 'handleHorizontalScrollbarMouseUp',
-        value: function handleHorizontalScrollbarMouseUp() {
+        value: function handleHorizontalScrollbarMouseUp(event) {
             window.removeEventListener('mousemove', this.handleHorizontalScrollbarMouseMove);
             window.removeEventListener('mouseup', this.handleHorizontalScrollbarMouseUp);
             this.initialMouseX = null;
