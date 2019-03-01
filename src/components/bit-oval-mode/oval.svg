@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
-    <title>oval</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="oval" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Page-1" fill="#575E75" points="6.66666667 4 6.66666667 5.33333333 5.33333333 5.33333333 5.33333333 6.66666667 4 6.66666667 4 13.3333333 5.33333333 13.3333333 5.33333333 14.6666667 6.66666667 14.6666667 6.66666667 16 13.3333333 16 13.3333333 14.6666667 14.6666667 14.6666667 14.6666667 13.3333333 16 13.3333333 16 6.66666667 14.6666667 6.66666667 14.6666667 5.33333333 13.3333333 5.33333333 13.3333333 4"></polygon>
-    </g>
-</svg>
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="#575E75" d="M6.66667 4v1.33333H5.33333v1.33334H4v6.66666h1.33333v1.33334h1.33334V16h6.66666v-1.33333h1.33334v-1.33334H16V6.66667h-1.33333V5.33333h-1.33334V4z" fill-rule="evenodd"/></svg>

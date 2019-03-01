@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
-    <title>rotation-point</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="rotation-point" stroke="#4C97FF" stroke-width="1.35">
-            <g id="set-center" transform="translate(3.000000, 3.000000)">
-                <path d="M0,7 L5,7" id="Stroke-1"></path>
-                <path d="M9,7 L14,7" id="Stroke-3"></path>
-                <path d="M8.999856,6.999928 C8.999856,8.10506621 8.10344814,8.999856 6.999928,8.999856 C5.89478979,8.999856 5,8.10506621 5,6.999928 C5,5.89478979 5.89478979,5 6.999928,5 C8.10344814,5 8.999856,5.89478979 8.999856,6.999928 Z" id="Stroke-5"></path>
-                <path d="M7,0 L7,5" id="Stroke-7"></path>
-                <path d="M7,9 L7,14" id="Stroke-9"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g stroke="#4C97FF" stroke-width="1.35" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h5M12 10h5M11.99986 9.99993c0 1.10514-.89641 1.99993-1.99993 1.99993C8.89479 11.99986 8 11.10506 8 9.99993 8 8.89479 8.89479 8 9.99993 8c1.10352 0 1.99993.89479 1.99993 1.99993zM10 3v5M10 12v5"/></g></svg>
