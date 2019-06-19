@@ -45,7 +45,7 @@ class BitCenterMode extends React.Component {
     activateTool () {
       clearSelection(this.props.clearSelectedItems);
       this.props.clearGradient();
-      this.tool = new CenterTool(this.props.onUpdateRotateCenter,this.props.onUpdateImage,this.props.mode);
+      this.tool = new CenterTool(this.props.onUpdateRotateCenter, this.props.onUpdateImage, Modes.BIT_CENTER);
       this.tool.activate();
       showCrossLine()
     }
