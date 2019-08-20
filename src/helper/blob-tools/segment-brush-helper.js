@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import {styleBlob} from '../../helper/style-path';
 
 /**

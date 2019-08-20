@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import {getHoveredItem} from '../hover';
 import {expandBy} from '../math';
 import {createGradientObject} from '../style-path';

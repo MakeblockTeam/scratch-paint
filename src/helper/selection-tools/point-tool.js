@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import {HANDLE_RATIO, snapDeltaToAngle} from '../math';
 import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT} from '../view';
 import {clearSelection, getSelectedLeafItems, getSelectedSegments} from '../selection';

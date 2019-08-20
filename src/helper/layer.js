@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import log from '../log/log';
 import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT} from './view';
 

@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import {getSelectedRootItems} from './selection';
 import {getRaster} from './layer';
 import {getHitBounds} from './bitmap';

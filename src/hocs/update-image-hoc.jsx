@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import PropTypes from 'prop-types';
 import log from '../log/log';
 import bindAll from 'lodash.bindall';

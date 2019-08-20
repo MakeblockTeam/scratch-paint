@@ -1,6 +1,6 @@
 // import Modes from '../lib/modes';
 
-import paper from '@scratch/paper';
+import paper from 'paper';
 import { ART_BOARD_WIDTH, ART_BOARD_HEIGHT, SVG_ART_BOARD_WIDTH, SVG_ART_BOARD_HEIGHT } from '../view';
 import { getRaster, getPaintingLayer, hideGuideLayers, showGuideLayers } from '../layer';
 import { BitmapModes } from '../../lib/modes';

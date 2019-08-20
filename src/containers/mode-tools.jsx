@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
