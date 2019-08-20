@@ -23,7 +23,6 @@
     "url": "git+ssh://git@github.com/LLK/scratch-paint.git"
   },
   "dependencies": {
-    "@scratch/paper": "^0.11.20190729152524",
     "babel-preset-es2015": "^6.24.1",
     "classnames": "2.2.5",
     "keymirror": "0.1.1",
