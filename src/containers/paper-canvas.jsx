@@ -153,7 +153,7 @@ class PaperCanvas extends React.Component {
         } else if (format === 'svg') {
             this.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
             this.importSvg(image, rotationCenterX, rotationCenterY);
-            this.maybeZoomToFit();
+            // this.maybeZoomToFit();
         } else {
             log.error(`Didn't recognize format: ${format}. Use 'jpg', 'png' or 'svg'.`);
             this.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
