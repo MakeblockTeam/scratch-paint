@@ -24,3 +24,8 @@ $form-radius: calc($space / 2);
 /* layout contants from `layout-constants.js`, minus 1px */
 $full-size: 1095px;
 $full-size-paint: 1249px;
+
+$canvas-container-width-in-app: 563px;
+$canvas-container-height-in-app: 422px;
+$canvas-container-width-phone-in-app: 563px;
+$canvas-container-height-phone-in-app: 422px;

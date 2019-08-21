@@ -1,21 +1,35 @@
 import paper from '@scratch/paper';
-import {getSelectedRootItems} from './selection';
-import {getRaster} from './layer';
-import {getHitBounds} from './bitmap';
+import { getSelectedRootItems } from './selection';
+import { getRaster } from './layer';
+import { getHitBounds } from './bitmap';
+import { checkDeviceType } from '../util/util';
 
 // Vectors are imported and exported at SVG_ART_BOARD size.
 // Once they are imported however, both SVGs and bitmaps are on
 // canvases of ART_BOARD size.
-const SVG_ART_BOARD_WIDTH = 480;
-const SVG_ART_BOARD_HEIGHT = 360;
-const ART_BOARD_WIDTH = 480 * 2;
-const ART_BOARD_HEIGHT = 360 * 2;
+let SVG_ART_BOARD_WIDTH = 480,
+    SVG_ART_BOARD_HEIGHT = 360,
+    ART_BOARD_WIDTH = 480 * 2,
+    ART_BOARD_HEIGHT = 360 * 2;
+const isPhone = checkDeviceType().phone;
+const isPad = checkDeviceType().ipad || checkDeviceType().androidPad;
+if (isPhone) {
+    SVG_ART_BOARD_WIDTH = 480;
+    SVG_ART_BOARD_HEIGHT = 360;
+    ART_BOARD_WIDTH = 480 * 2;
+    ART_BOARD_HEIGHT = 360 * 2;
+} else if (isPad) {
+    SVG_ART_BOARD_WIDTH = 563;
+    SVG_ART_BOARD_HEIGHT = 422;
+    ART_BOARD_WIDTH = 563 * 2;
+    ART_BOARD_HEIGHT = 422 * 2;
+}
 const PADDING_PERCENT = 25; // Padding as a percent of the max of width/height of the sprite
 const MIN_RATIO = .125; // Zoom in to at least 1/8 of the screen. This way you don't end up incredibly
 // zoomed in for tiny costumes.
 
 const clampViewBounds = () => {
-    const {left, right, top, bottom} = paper.project.view.bounds;
+    const { left, right, top, bottom } = paper.project.view.bounds;
     if (left < 0) {
         paper.project.view.scrollBy(new paper.Point(-left, 0));
     }
