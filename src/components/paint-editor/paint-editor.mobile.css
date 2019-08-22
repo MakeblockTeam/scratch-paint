@@ -70,6 +70,7 @@ body {
 .editor-container .paint-area .left {
     left: 0;
     width: $paint-area-left-width;
+    padding: .5rem 1.5rem 2rem 1.5rem;
 }
 
 .editor-container .paint-area .left::after {
@@ -217,20 +218,11 @@ $border-radius: 0.25rem;
 
 .mode-selector {
     display: flex;
-    max-width: 6rem;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
     align-content: flex-start;
     justify-content: space-between;
-}
-
-[dir="ltr"] .mode-selector {
-    margin-right: calc(2 * $grid-unit);
-}
-
-[dir="rtl"] .mode-selector {
-    margin-left: calc(2 * $grid-unit);
 }
 
 .zoom-controls {
@@ -248,6 +240,8 @@ $border-radius: 0.25rem;
 }
 
 .canvas-controls {
+    position: absolute;
+    bottom: 5rem;
     display: flex;
     margin-top: .25rem;
     justify-content: space-between;

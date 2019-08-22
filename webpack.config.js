@@ -20,7 +20,16 @@ const base = {
             include: path.resolve(__dirname, 'src'),
             options: {
                 plugins: ['transform-object-rest-spread'],
-                presets: [['env', {browsers: ['last 3 versions', 'Safari >= 8', 'iOS >= 8']}], 'react']
+                presets: [['env', { browsers: ['last 3 versions', 'Safari >= 8', 'iOS >= 8'] }], 'react']
+            }
+        }, {
+            test: /\.jsx?$/,
+            loader: 'ifdef-loader',
+            options: {
+                MOBILE: true,
+                PC: false,
+                'ifdef-verbose': true, // add this for verbose output
+                'ifdef-triple-slash': false // add this to use double slash comment instead of default triple slash
             }
         },
         {

@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
 import messages from '../../lib/messages.js';
+// #if MOBILE
+import ToolSelectComponent from '../tool-select-base/tool-select-base.mobile.jsx';
+import ovalIcon from './oval-mobile.svg';
+// #else
+import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
 import ovalIcon from './oval.svg';
+// #endif
 
 const OvalModeComponent = props => (
     <ToolSelectComponent

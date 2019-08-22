@@ -1,0 +1,87 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.redo-undo-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.costume-input {
+    width: 8rem;
+}
+
+.mod-unselect {
+    user-select: none;
+}
+
+$border-radius: 0.25rem;
+
+.button-group-button {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #EEF6FE;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.button-group-button.disabled {
+    pointer-events: none;
+    background-color: #EEF6FE;
+}
+
+.button-group-button:active {
+    background-color: #1EAAFF;
+}
+
+.button-group-button-icon {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.button-group-button:active .button-group-button-icon {
+    /* Make the tool icons white while selected by making them black and inverting */
+    filter: brightness(0) invert(1);
+}
+
+.mod-context-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.mod-top-divider {
+    border-top: 1px solid $ui-pane-border;
+}
+
+.mod-menu-item {
+    display: flex;
+    margin: 0 -$grid-unit;
+    min-width: 6.25rem;
+    padding: calc(3 * $grid-unit);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.1s ease;
+    align-items: center;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.mod-disabled {
+    cursor: auto;
+}
+
+.mod-menu-item:hover {
+    background: $motion-transparent;
+}
+
+.menu-item-icon {
+    margin-right: calc(2 * $grid-unit);
+}

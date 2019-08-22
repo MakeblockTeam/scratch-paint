@@ -95,23 +95,23 @@ class PaintEditorComponent extends React.Component {
                                 <SelectMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <ReshapeMode
+                                {/* <ReshapeMode
+                                    onUpdateImage={this.props.onUpdateImage}
+                                /> */}
+                                <EraserMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <BrushMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <EraserMode
+                                <FillMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <FillMode
+                                <LineMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <TextMode
                                     textArea={this.props.textArea}
-                                    onUpdateImage={this.props.onUpdateImage}
-                                />
-                                <LineMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <OvalMode
@@ -129,16 +129,19 @@ class PaintEditorComponent extends React.Component {
 
                         {this.props.canvas !== null && isBitmap(this.props.format) ? ( // eslint-disable-line no-negated-condition
                             <div className={styles.modeSelector}>
+                                <BitSelectMode
+                                    onUpdateImage={this.props.onUpdateImage}
+                                />
+                                <BitEraserMode
+                                    onUpdateImage={this.props.onUpdateImage}
+                                />
                                 <BitBrushMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
+                                <BitFillMode
+                                    onUpdateImage={this.props.onUpdateImage}
+                                />
                                 <BitLineMode
-                                    onUpdateImage={this.props.onUpdateImage}
-                                />
-                                <BitOvalMode
-                                    onUpdateImage={this.props.onUpdateImage}
-                                />
-                                <BitRectMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <TextMode
@@ -146,13 +149,10 @@ class PaintEditorComponent extends React.Component {
                                     textArea={this.props.textArea}
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <BitFillMode
+                                <BitOvalMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <BitEraserMode
-                                    onUpdateImage={this.props.onUpdateImage}
-                                />
-                                <BitSelectMode
+                                <BitRectMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <BitCenterMode
@@ -162,6 +162,15 @@ class PaintEditorComponent extends React.Component {
 
                             </div>
                         ) : null}
+                        <FixedToolsContainer
+                            canRedo={this.props.canRedo}
+                            canUndo={this.props.canUndo}
+                            name={this.props.name}
+                            onRedo={this.props.onRedo}
+                            onUndo={this.props.onUndo}
+                            onUpdateImage={this.props.onUpdateImage}
+                            onUpdateName={this.props.onUpdateName}
+                        />
                     </div>
                     <div
                         className={styles.canvasArea}
@@ -199,8 +208,84 @@ class PaintEditorComponent extends React.Component {
                                 ) : null
                             }
                         </ScrollableCanvas>
+                        <div className={styles.canvasControls}>
+                            {isVector(this.props.format) ?
+                                <Button
+                                    className={styles.bitmapButton}
+                                    onClick={this.props.onSwitchToBitmap}
+                                >
+                                    <img
+                                        className={styles.bitmapButtonIcon}
+                                        draggable={false}
+                                        src={bitmapIcon}
+                                    />
+                                    <span className={styles.buttonText}>
+                                        {this.props.intl.formatMessage(messages.bitmap)}
+                                    </span>
+                                </Button> :
+                                isBitmap(this.props.format) ?
+                                    <Button
+                                        className={styles.bitmapButton}
+                                        onClick={this.props.onSwitchToVector}
+                                    >
+                                        <img
+                                            className={styles.bitmapButtonIcon}
+                                            draggable={false}
+                                            src={bitmapIcon}
+                                        />
+                                        <span className={styles.buttonText}>
+                                            {this.props.intl.formatMessage(messages.vector)}
+                                        </span>
+                                    </Button> : null
+                            }
+                            {/* Zoom controls */}
+                            <InputGroup className={styles.zoomControls}>
+                                <ButtonGroup>
+                                    <Button
+                                        className={styles.buttonGroupButton}
+                                        onClick={this.props.onZoomOut}
+                                    >
+                                        <img
+                                            alt="Zoom Out"
+                                            className={styles.buttonGroupButtonIcon}
+                                            draggable={false}
+                                            src={zoomOutIcon}
+                                        />
+                                    </Button>
+                                    <Button
+                                        className={styles.buttonGroupButton}
+                                        onClick={this.props.onZoomReset}
+                                    >
+                                        <img
+                                            alt="Zoom Reset"
+                                            className={styles.buttonGroupButtonIcon}
+                                            draggable={false}
+                                            src={zoomResetIcon}
+                                        />
+                                    </Button>
+                                    <Button
+                                        className={styles.buttonGroupButton}
+                                        onClick={this.props.onZoomIn}
+                                    >
+                                        <img
+                                            alt="Zoom In"
+                                            className={styles.buttonGroupButtonIcon}
+                                            draggable={false}
+                                            src={zoomInIcon}
+                                        />
+                                    </Button>
+                                </ButtonGroup>
+                            </InputGroup>
+                        </div>
                     </div>
-                    <div className={styles.right}></div>
+                    <div className={styles.right}>
+                        <div className={styles.actionContent}>
+                            <div className={classNames(styles.box, styles.costumeBox)}>
+                                <span>造型</span>
+                                <input type='text' value={this.props.name} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
