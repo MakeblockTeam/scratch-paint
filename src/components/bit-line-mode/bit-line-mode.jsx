@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // #if MOBILE
 import ToolSelectComponent from '../tool-select-base/tool-select-base.mobile.jsx';
+import lineIcon from '../mobile/icons/line-mobile.svg';
 // #else
 import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
+import lineIcon from './line.svg';
 // #endif
 import messages from '../../lib/messages.js';
-import lineIcon from './line.svg';
 
 const BitLineComponent = props => (
     <ToolSelectComponent

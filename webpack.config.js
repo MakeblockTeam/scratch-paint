@@ -26,8 +26,8 @@ const base = {
             test: /\.jsx?$/,
             loader: 'ifdef-loader',
             options: {
-                MOBILE: true,
-                PC: false,
+                MOBILE: false,
+                PC: true,
                 'ifdef-verbose': true, // add this for verbose output
                 'ifdef-triple-slash': false // add this to use double slash comment instead of default triple slash
             }

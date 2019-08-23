@@ -5,7 +5,7 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PaperCanvas from '../../containers/paper-canvas.mobile.jsx';
+import PaperCanvas from '../../containers/paper-canvas.jsx';
 import ScrollableCanvas from '../../containers/scrollable-canvas.jsx';
 
 import BitBrushMode from '../../containers/bit-brush-mode.jsx';

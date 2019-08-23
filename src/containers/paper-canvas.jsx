@@ -19,9 +19,11 @@ import {changeFormat} from '../reducers/format';
 import {updateViewBounds} from '../reducers/view-bounds';
 import {saveZoomLevel, setZoomLevelId} from '../reducers/zoom-levels';
 
-
-
+// #if MOBILE
+import styles from './paper-canvas.mobile.css';
+// #else
 import styles from './paper-canvas.css';
+// #endif
 import  Modes from '../lib/modes';
 
 class PaperCanvas extends React.Component {

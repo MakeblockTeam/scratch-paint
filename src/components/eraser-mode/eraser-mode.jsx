@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import messages from '../../lib/messages.js';
 // #if MOBILE
 import ToolSelectComponent from '../tool-select-base/tool-select-base.mobile.jsx';
-import eraserIcon from './eraser-mobile.svg';
+import eraserIcon from '../mobile/icons/eraser-mobile.svg';
 // #else
 import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
 import eraserIcon from './eraser.svg';

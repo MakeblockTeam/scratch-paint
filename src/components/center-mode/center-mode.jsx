@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import messages from '../../lib/messages.js';
 // #if MOBILE
 import ToolSelectComponent from '../tool-select-base/tool-select-base.mobile.jsx';
-import centerIcon from './center-mobile.svg';
+import centerIcon from '../mobile/icons/center-mobile.svg';
 // #else
 import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
 import centerIcon from './center.svg';

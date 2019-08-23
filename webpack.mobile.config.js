@@ -87,7 +87,7 @@ module.exports = [
             port: process.env.PORT || 8078
         },
         entry: {
-            playground: './src/playground/playground.mobile.jsx'
+            playground: './src/playground/playground.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'playground'),

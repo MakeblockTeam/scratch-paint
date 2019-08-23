@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import messages from '../../../lib/messages.js';
 import ToolSelectComponent from '../../tool-select-base/tool-select-base.mobile.jsx';
-import deleteIcon from './delete-mobile.svg';
+import deleteIcon from '../icons/delete-mobile.svg';
 import styles from './delete-mode.css';
 
 
