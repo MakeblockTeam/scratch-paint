@@ -33,6 +33,7 @@ import OvalMode from '../../containers/oval-mode.jsx';
 import RectMode from '../../containers/rect-mode.jsx';
 import ReshapeMode from '../../containers/reshape-mode.jsx';
 import SelectMode from '../../containers/select-mode.jsx';
+import DeleteMode from '../mobile/delete-mode/delete-mode.jsx';
 import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
@@ -43,10 +44,18 @@ import { changeStrokeWidth } from '../../reducers/stroke-width';
 import { changeFillColor } from '../../reducers/fill-color';
 import { changeFillColor2 } from '../../reducers/fill-color-2';
 import { changeStrokeColor } from '../../reducers/stroke-color';
+import { clearSelectedItems, setSelectedItems } from '../../reducers/selected-items';
 import Modes from '../../lib/modes';
 import Formats from '../../lib/format';
 import { isBitmap, isVector } from '../../lib/format';
 import { applyStrokeWidthToSelection } from '../../helper/style-path';
+import { selectAllBitmap } from '../../helper/bitmap';
+import {
+    deleteSelection,
+    getSelectedLeafItems,
+    selectAllItems,
+    selectAllSegments
+} from '../../helper/selection';
 import styles from './paint-editor.mobile.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -125,6 +134,21 @@ class PaintEditorComponent extends React.Component {
         });
     }
 
+    handleDelete() {
+        if (!this.props.selectedItems.length) {
+            if (isBitmap(this.props.format)) {
+                selectAllBitmap(this.props.clearSelectedItems);
+            } else if (this.props.mode === Modes.RESHAPE) {
+                selectAllSegments();
+            } else {
+                selectAllItems();
+            }
+        }
+        if (deleteSelection(this.props.mode, this.props.onUpdateImage)) {
+            this.props.setSelectedItems(this.props.format);
+        }
+    }
+
     onSetNewCostumName(e) {
         this.props.onUpdateName(e.target.value);
     }
@@ -190,6 +214,10 @@ class PaintEditorComponent extends React.Component {
                                 <SelectMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
+                                <DeleteMode
+                                    disabled={this.props.mode !== Modes.SELECT}
+                                    onDelete={this.handleDelete.bind(this)}
+                                />
                                 {/* <ReshapeMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 /> */}
@@ -226,6 +254,10 @@ class PaintEditorComponent extends React.Component {
                             <div className={styles.modeSelector}>
                                 <BitSelectMode
                                     onUpdateImage={this.props.onUpdateImage}
+                                />
+                                <DeleteMode
+                                    disabled={this.props.mode !== Modes.BIT_SELECT}
+                                    onDelete={this.handleDelete.bind(this)}
                                 />
                                 <BitEraserMode
                                     onUpdateImage={this.props.onUpdateImage}
@@ -499,6 +531,8 @@ const mapStateToProps = state => ({
         state.scratchPaint.mode === Modes.FILL,
     vectorModeStrokeColor: state.scratchPaint.color.strokeColor,
     vectorModeStrokeWidth: state.scratchPaint.color.strokeWidth,
+    mode: state.scratchPaint.mode,
+    selectedItems: state.scratchPaint.selectedItems
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -514,6 +548,12 @@ const mapDispatchToProps = dispatch => ({
     },
     onChangeStrokeColor: strokeColor => {
         dispatch(changeStrokeColor(strokeColor));
+    },
+    clearSelectedItems: () => {
+        dispatch(clearSelectedItems());
+    },
+    setSelectedItems: format => {
+        dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     }
 });
 

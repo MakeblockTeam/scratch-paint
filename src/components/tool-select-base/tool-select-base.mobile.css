@@ -28,8 +28,8 @@ $border-radius: .25rem;
 }
 
 img.tool-select-icon {
-    width: 100%;
-    height: 100%;
+    width: 3.75rem;
+    height: 3.75rem;
 }
 
 .mod-tool-select.is-selected .tool-select-icon {
