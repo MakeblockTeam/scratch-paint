@@ -1,4 +1,5 @@
 import paper from '@scratch/paper';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';
@@ -36,9 +37,16 @@ import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicat
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
 import CenterMode from '../../containers/center-mode.jsx';
+import ColorSelector from '../mobile/color-selector/color-selector.jsx';
 
+import { changeStrokeWidth } from '../../reducers/stroke-width';
+import { changeFillColor } from '../../reducers/fill-color';
+import { changeFillColor2 } from '../../reducers/fill-color-2';
+import { changeStrokeColor } from '../../reducers/stroke-color';
+import Modes from '../../lib/modes';
 import Formats from '../../lib/format';
 import { isBitmap, isVector } from '../../lib/format';
+import { applyStrokeWidthToSelection } from '../../helper/style-path';
 import styles from './paint-editor.mobile.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -47,6 +55,7 @@ import zoomOutIcon from './icons/zoom-out.svg';
 import zoomResetIcon from './icons/zoom-reset.svg';
 import closeIcon from './icons/close.svg';
 import doneIcon from './icons/done.svg';
+import arrowRightIcon from './icons/arrow-right-mobile.svg';
 
 const messages = defineMessages({
     bitmap: {
@@ -58,17 +67,103 @@ const messages = defineMessages({
         defaultMessage: 'Convert to Vector',
         description: 'Label for button that converts the paint editor to vector mode',
         id: 'paint.paintEditor.vector'
+    },
+    costume: {
+        id: 'paint.paintEditor.costume',
+        description: 'Label for the name of a costume',
+        defaultMessage: 'Costume'
+    },
+    fill: {
+        defaultMessage: 'Fill',
+        description: 'Label for the fill tool',
+        id: 'paint.fillMode.fill'
+    },
+    stroke: {
+        id: 'paint.paintEditor.stroke',
+        description: 'Label for the color picker for the outline color',
+        defaultMessage: 'Outline'
+    },
+    colorPicker: {
+        defaultMessage: 'Draw color',
+        description: 'Draw color',
+        id: 'gui.colorPicker.label'
+    },
+    confirm: {
+        defaultMessage: 'ok',
+        description: 'ok',
+        id: 'gui.modal.ok'
     }
 });
 
 class PaintEditorComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isColorSelectorShow: false,
+            // fill / stroke
+            colorSelectorMode: 'fill'
+        };
+    }
+
     componentDidMount() {
         const canvasAreaRect = this.paintCanvasAreaEle.getBoundingClientRect();
         window.artBoardWidth = canvasAreaRect.width;
         window.artBoardHeight = canvasAreaRect.height;
     }
 
+    handleChangeVectorModeStrokeWidth(newWidth) {
+        if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
+            this.props.onUpdateImage();
+        }
+        this.props.onChangeStrokeWidth(newWidth);
+    }
+
+    handleOpenColorSelector(mode = 'fill') {
+        this.setState({
+            isColorSelectorShow: true,
+            colorSelectorMode: mode
+        });
+    }
+
+    onSetNewCostumName(e) {
+        this.props.onUpdateName(e.target.value);
+    }
+
+    onSetNewColor(newColor) {
+        const { colorSelectorMode } = this.state;
+        if (colorSelectorMode === 'fill') {
+            const { onChangeFillColor, fillModeColorIndex } = this.props;
+            onChangeFillColor(newColor, fillModeColorIndex);
+        } else {
+            const { onChangeStrokeColor } = this.props;
+            onChangeStrokeColor(newColor);
+        }
+        this.setState({ isColorSelectorShow: false });
+    }
+
+    renderStrokeWidthSelector() {
+        const strokeWidth = [4, 8, 12, 14];
+        return (
+            <div className={styles.strokeWidthSelector}>
+                {
+                    strokeWidth.map((width, idx) => (
+                        <div
+                            className={classNames(styles.item, {
+                                [styles.selected]: this.props.vectorModeStrokeWidth == width
+                            })}
+                            key={`${idx}-${width}`}
+                            onClick={this.handleChangeVectorModeStrokeWidth.bind(this, width)}
+                        >
+                            <div className={classNames(styles.line, styles[`line${idx + 1}`])}></div>
+                        </div>
+                    ))
+                }
+            </div>
+        )
+    }
+
     render() {
+        const { isColorSelectorShow } = this.state;
         return (
             <div
                 className={styles.editorContainer}
@@ -281,11 +376,80 @@ class PaintEditorComponent extends React.Component {
                     <div className={styles.right}>
                         <div className={styles.actionContent}>
                             <div className={classNames(styles.box, styles.costumeBox)}>
-                                <span>造型</span>
-                                <input type='text' value={this.props.name} />
+                                <span className={styles.name}>{this.props.intl.formatMessage(messages.costume)}</span>
+                                <input
+                                    className={classNames(styles.value, styles.inputValue)}
+                                    type='text'
+                                    defaultValue={this.props.name}
+                                    onChange={this.onSetNewCostumName.bind(this)}
+                                />
                             </div>
                         </div>
+                        <div className={styles.actionContent}>
+                            <div className={classNames(styles.box, styles.costumeBox)}>
+                                <span className={styles.name}>{this.props.intl.formatMessage(messages.fill)}</span>
+                                <div
+                                    className={classNames(styles.value, {
+                                        [styles.disabled]: this.props.fillModeDisabled
+                                    })}
+                                    onClick={this.handleOpenColorSelector.bind(this, 'fill')}
+                                >
+                                    <div
+                                        className={styles.color}
+                                        style={{ backgroundColor: this.props.fillColor }}
+                                    >
+                                        {
+                                            !this.props.fillColor &&
+                                            <div className={styles.noneColor}></div>
+                                        }
+                                    </div>
+                                    <div className={styles.arrow}>
+                                        <img src={arrowRightIcon} alt='arrow' />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            isVector(this.props.format) &&
+                            <div className={styles.actionContent}>
+                                <div className={classNames(styles.box, styles.costumeBox)}>
+                                    <span className={styles.name}>{this.props.intl.formatMessage(messages.stroke)}</span>
+                                    <div
+                                        className={classNames(styles.value, {
+                                            [styles.disabled]: this.props.strokeModeDisabled
+                                        })}
+                                        onClick={this.handleOpenColorSelector.bind(this, 'stroke')}
+                                    >
+                                        <div
+                                            className={styles.color}
+                                            style={{ backgroundColor: this.props.vectorModeStrokeColor }}
+                                        >
+                                            {
+                                                !this.props.vectorModeStrokeColor &&
+                                                <div className={styles.noneColor}></div>
+                                            }
+                                        </div>
+                                        <div className={styles.arrow}>
+                                            <img src={arrowRightIcon} alt='arrow' />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            isVector(this.props.format) &&
+                            this.renderStrokeWidthSelector()
+                        }
                     </div>
+                    <ColorSelector
+                        copywriting={{
+                            colorPicker: this.props.intl.formatMessage(messages.colorPicker),
+                            confirm: this.props.intl.formatMessage(messages.confirm)
+                        }}
+                        color={this.props.fillColor}
+                        isShow={isColorSelectorShow}
+                        onOk={this.onSetNewColor.bind(this)}
+                    />
                 </div>
             </div>
         )
@@ -325,4 +489,32 @@ PaintEditorComponent.propTypes = {
     zoomLevelId: PropTypes.string
 };
 
-export default injectIntl(PaintEditorComponent);
+const mapStateToProps = state => ({
+    fillModeColorIndex: state.scratchPaint.fillMode.colorIndex,
+    fillModeDisabled: state.scratchPaint.mode === Modes.LINE,
+    fillColor: state.scratchPaint.color.fillColor,
+    fillColor2: state.scratchPaint.color.fillColor2,
+    strokeModeDisabled: state.scratchPaint.mode === Modes.BRUSH ||
+        state.scratchPaint.mode === Modes.TEXT ||
+        state.scratchPaint.mode === Modes.FILL,
+    vectorModeStrokeColor: state.scratchPaint.color.strokeColor,
+    vectorModeStrokeWidth: state.scratchPaint.color.strokeWidth,
+});
+
+const mapDispatchToProps = dispatch => ({
+    onChangeStrokeWidth: strokeWidth => {
+        dispatch(changeStrokeWidth(strokeWidth));
+    },
+    onChangeFillColor: (fillColor, index) => {
+        if (index === 0) {
+            dispatch(changeFillColor(fillColor));
+        } else if (index === 1) {
+            dispatch(changeFillColor2(fillColor));
+        }
+    },
+    onChangeStrokeColor: strokeColor => {
+        dispatch(changeStrokeColor(strokeColor));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(PaintEditorComponent));

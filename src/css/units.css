@@ -29,3 +29,6 @@ $canvas-container-width-in-app: 563px;
 $canvas-container-height-in-app: 422px;
 $canvas-container-width-phone-in-app: 563px;
 $canvas-container-height-phone-in-app: 422px;
+
+$paint-area-left-width: 11.875rem;
+$paint-area-right-width: 15.625rem;

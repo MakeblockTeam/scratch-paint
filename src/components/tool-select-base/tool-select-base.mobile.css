@@ -20,6 +20,7 @@ $border-radius: .25rem;
 
 .mod-tool-select.is-selected {
     background-color: #1EAAFF;
+    box-shadow: 0px 2.5px 5px 0px rgba(196, 226, 255, 1);
 }
 
 .mod-tool-select:focus {

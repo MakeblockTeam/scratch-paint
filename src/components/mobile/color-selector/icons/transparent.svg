@@ -1,0 +1,18 @@
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="40" height="40"></rect>
+    </defs>
+    <g id="icon/无颜色" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask" fill-rule="nonzero"></g>
+            <g id="Path-4" mask="url(#mask-2)" fill="#FC4144" fill-rule="nonzero">
+                <g transform="translate(4.000000, 4.000000)" id="Shape">
+                    <path d="M0,29.8786797 L29.8786797,1.77635684e-15 L2,1.77635684e-15 C0.8954305,1.77635684e-15 -2.22044605e-16,0.8954305 0,2 L0,29.8786797 Z M2.12132034,32 L30,32 C31.1045695,32 32,31.1045695 32,30 L32,2.12132034 L2.12132034,32 Z M2,-2 L30,-2 C32.209139,-2 34,-0.209138999 34,2 L34,30 C34,32.209139 32.209139,34 30,34 L2,34 C-0.209138999,34 -2,32.209139 -2,30 L-2,2 C-2,-0.209138999 -0.209138999,-2 2,-2 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

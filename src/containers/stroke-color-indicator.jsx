@@ -31,6 +31,7 @@ class StrokeColorIndicator extends React.Component {
         }
     }
     handleChangeStrokeColor (newColor) {
+        console.log(newColor)
         // Apply color and update redux, but do not update svg until picker closes.
         const isDifferent =
             applyStrokeColorToSelection(newColor, isBitmap(this.props.format), this.props.textEditTarget);

@@ -2,8 +2,6 @@
 @import "../../css/units.css";
 
 $editor-container-header-height: 3rem;
-$paint-area-left-width: 11.875rem;
-$paint-area-right-width: 15.625rem;
 
 html,
 body {
@@ -77,15 +75,6 @@ body {
     right: 0;
 }
 
-.editor-container .paint-area .right {
-    right: 0;
-    width: $paint-area-right-width;
-}
-
-.editor-container .paint-area .right::after {
-    left: 0;
-}
-
 .editor-container .paint-area .canvas-area {
     display: flex;
     justify-content: center;
@@ -94,6 +83,138 @@ body {
     margin-left: $paint-area-left-width;
     background-color: transparent;
 }
+
+.editor-container .paint-area .right {
+    right: 0;
+    width: $paint-area-right-width;
+    padding: .5rem 1.25rem 2.5rem 2rem;
+}
+
+.editor-container .paint-area .right::after {
+    left: 0;
+}
+
+.paint-area .right .action-content {
+    position: relative;
+    width: 100%;
+}
+
+.right .action-content .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.action-content .box .name {
+    max-width: 3rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #264165;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.action-content .box .value {
+    width: 8.875rem;
+    height: 2.5rem;
+    color: #264165;
+    font-size: 1.25rem;
+    border-radius: 2.5rem;
+    border: 1px solid #BCCCDC;
+    box-sizing: border-box;
+    outline: none;
+    overflow: hidden;
+}
+
+.action-content .box .value.disabled {
+    pointer-events: none;
+    opacity: .5;
+}
+
+.action-content .box .value.input-value {
+    padding: 0 1rem;
+    overflow: unset;
+}
+
+.action-content .box .value .color {
+    position: relative;
+    display: inline-block;
+    width: 70%;
+    height: 100%;
+    box-sizing: border-box;
+    border-right: 1px solid #BCCCDC;
+}
+
+.action-content .box .value .color .none-color {
+    width: 6.525rem;
+    height: .2rem;
+    background-color: #FC4144;
+    transform-origin: top right;
+    transform: translate3d(0, 0, 0) rotate(-22.8deg);
+    position: absolute;
+    right: 0;
+}
+
+.action-content .box .value .arrow {
+    display: inline-block;
+    width: 30%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.action-content .box .value .arrow img {
+    width: 100%;
+    height: 100%;
+}
+
+.right .stroke-width-selector {
+    width: 100%
+}
+
+.right .stroke-width-selector .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10.125rem;
+    height: 2rem;
+    margin: auto;
+    background-color: #EEF6FE;
+    border-radius: 1.25rem;
+    margin-top: 2rem;
+    box-sizing: border-box;
+}
+
+.stroke-width-selector .item .line {
+    width: 8.125rem;
+    background-color: #264165;
+}
+
+.stroke-width-selector .item.selected {
+    pointer-events: none;
+    border: 4px solid #4AA6FF;
+    box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4);
+}
+
+.stroke-width-selector .item .line.line1 {
+    height: .125rem;
+}
+
+.stroke-width-selector .item .line.line2 {
+    height: .25rem;
+}
+
+.stroke-width-selector .item .line.line3 {
+    height: .375rem;
+}
+
+.stroke-width-selector .item .line.line4 {
+    height: .5rem;
+}
+
 
 .row {
     display: flex;
