@@ -1,0 +1,156 @@
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.container .content {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    margin: auto;
+}
+
+.container .content .image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #dadada;
+    overflow: hidden;
+}
+
+.content .image img {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.content .image .ring-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.content .image .ring-box .ring {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    height: 10rem;
+    background-color: transparent;
+    border-radius: 50%;
+    border-width: 1.5rem;
+    border-style: solid;
+    box-shadow: 0 0 0 2px #e3e3e3;
+    transition: border-color .2s;
+    box-sizing: border-box;
+}
+
+.content .image .ring-box .ring.hidden {
+    visibility: hidden;
+}
+
+.ring-box .ring .inner-ring {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 7rem;
+    height: 7rem;
+    background-color: transparent;
+    border: 2px solid #e3e3e3;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.ring-box .ring .outer-ring {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 12rem;
+    height: 12rem;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.ring-box .ring .point-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.content .image .loading-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.image .loading-mask .icon {
+    width: 2rem;
+    height: 2rem;
+    animation: rotate 1s steps(12, end) infinite;
+}
+
+.content .clone-stage-image {
+    display: none;
+}
+
+.content .operation {
+    height: 12%;
+}
+
+.content .operation button {
+    width: 50%;
+    height: 100%;
+    font-size: 1.5rem;
+    color: #888;
+    background-color: transparent;
+    border: none;
+}
+
+.content .operation button:active {
+    background-color: #eef6fe;
+}
+
+.content .operation .done {
+    color: #4aa6ff;
+    border-left: 1px solid #dadada;
+}
+
+@media only screen and (max-width: 895px) {
+    .container .content {
+        width: 27.625rem;
+    }
+    .content .image .ring-box .ring {
+        width: 8rem;
+        height: 8rem;
+        border-width: 1rem;
+    }
+    .ring-box .ring .inner-ring {
+        width: 6rem;
+        height: 6rem;
+    }
+    .content .operation button {
+        font-size: 1rem;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: translate3d(0, 0, 0) rotate(0deg)
+    }
+    to {
+        transform: translate3d(0, 0, 0) rotate(360deg)
+    }
+}

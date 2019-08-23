@@ -7299,6 +7299,14 @@ react-dom@16.4.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-draggable@^3.3.2:
+  version "3.3.2"
+  resolved "http://npm.makeblock.com/react-draggable/-/react-draggable-3.3.2.tgz#966ef1d90f2387af3c2d8bd3516f601ea42ca359"
+  integrity sha1-lm7x2Q8jh688LYvTUW9gHqQso1k=
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
 react-intl-redux@2.0.0:
   version "2.0.0"
   resolved "http://npm.makeblock.com/react-intl-redux/-/react-intl-redux-2.0.0.tgz#172116ad4a6a4fc5943ae5c96de569467d37a8da"

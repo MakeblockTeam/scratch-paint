@@ -3,11 +3,6 @@
     opacity: .5;
 }
 
-.delete-icon img {
-    width: 2.25rem;
-    height: 2.25rem;
-}
-
 .delete-icon:active {
     background-color: #1EAAFF;
 }

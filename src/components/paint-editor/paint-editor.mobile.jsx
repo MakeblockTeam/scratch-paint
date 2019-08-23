@@ -39,6 +39,7 @@ import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicat
 import TextMode from '../../containers/text-mode.jsx';
 import CenterMode from '../../containers/center-mode.jsx';
 import ColorSelector from '../mobile/color-selector/color-selector.jsx';
+import ColorPickerBox from '../mobile/color-selector/color-picker-box.jsx';
 
 import { changeStrokeWidth } from '../../reducers/stroke-width';
 import { changeFillColor } from '../../reducers/fill-color';
@@ -67,6 +68,16 @@ import doneIcon from './icons/done.svg';
 import arrowRightIcon from './icons/arrow-right-mobile.svg';
 
 const messages = defineMessages({
+    title: {
+        defaultMessage: '编辑造型',
+        description: '编辑造型',
+        id: 'paint.paintEditor.title'
+    },
+    save: {
+        defaultMessage: 'Save',
+        description: 'Save',
+        id: 'paint.paintEditor.save'
+    },
     bitmap: {
         defaultMessage: 'Convert to Bitmap',
         description: 'Label for button that converts the paint editor to bitmap mode',
@@ -92,15 +103,20 @@ const messages = defineMessages({
         description: 'Label for the color picker for the outline color',
         defaultMessage: 'Outline'
     },
+    noColor: {
+        defaultMessage: 'No color',
+        description: 'No color',
+        id: 'paint.colorSelector.noColor'
+    },
     colorPicker: {
         defaultMessage: 'Draw color',
         description: 'Draw color',
-        id: 'gui.colorPicker.label'
+        id: 'paint.colorSelector.colorPicker'
     },
     confirm: {
-        defaultMessage: 'ok',
-        description: 'ok',
-        id: 'gui.modal.ok'
+        defaultMessage: 'OK',
+        description: 'OK',
+        id: 'paint.colorSelector.confirm'
     }
 });
 
@@ -110,15 +126,13 @@ class PaintEditorComponent extends React.Component {
         this.state = {
             isColorSelectorShow: false,
             // fill / stroke
-            colorSelectorMode: 'fill'
+            colorSelectorMode: 'fill',
+            isDrawColor: false,
+            drawColorRGBValues: ''
         };
     }
 
-    componentDidMount() {
-        const canvasAreaRect = this.paintCanvasAreaEle.getBoundingClientRect();
-        window.artBoardWidth = canvasAreaRect.width;
-        window.artBoardHeight = canvasAreaRect.height;
-    }
+    componentDidMount() { }
 
     handleChangeVectorModeStrokeWidth(newWidth) {
         if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
@@ -149,9 +163,14 @@ class PaintEditorComponent extends React.Component {
         }
     }
 
+    onDrawColor() {
+        this.setState({ isDrawColor: true });
+    }
+
     onSetNewCostumName(e) {
         this.props.onUpdateName(e.target.value);
     }
+
 
     onSetNewColor(newColor) {
         const { colorSelectorMode } = this.state;
@@ -162,7 +181,22 @@ class PaintEditorComponent extends React.Component {
             const { onChangeStrokeColor } = this.props;
             onChangeStrokeColor(newColor);
         }
-        this.setState({ isColorSelectorShow: false });
+        this.setState({
+            isColorSelectorShow: false,
+            drawColorRGBValues: ''
+        });
+    }
+
+    /**
+     * 在颜色选择器上设置吸取颜色值
+     * 
+     * @param {*} values 
+     */
+    onSetDrawColorInColorSelector(values) {
+        this.setState({
+            isDrawColor: false,
+            drawColorRGBValues: values
+        });
     }
 
     renderStrokeWidthSelector() {
@@ -187,10 +221,11 @@ class PaintEditorComponent extends React.Component {
     }
 
     render() {
-        const { isColorSelectorShow } = this.state;
+        const { isColorSelectorShow, isDrawColor, drawColorRGBValues } = this.state;
         return (
             <div
                 className={styles.editorContainer}
+                ref={ele => { this.editorContainerEle = ele }}
                 dir={this.props.rtl ? 'rtl' : 'ltr'}
             >
                 <header className={styles.header}>
@@ -199,12 +234,8 @@ class PaintEditorComponent extends React.Component {
                         draggable={false}
                         src={closeIcon}
                     />
-                    <span>造型设置</span>
-                    <img
-                        className={styles.icon}
-                        draggable={false}
-                        src={doneIcon}
-                    />
+                    <span>{this.props.intl.formatMessage(messages.title)}</span>
+                    <span>{this.props.intl.formatMessage(messages.save)}</span>
                 </header>
                 <div className={styles.paintArea}>
                     <div className={styles.left}>
@@ -318,6 +349,15 @@ class PaintEditorComponent extends React.Component {
                                 zoomLevelId={this.props.zoomLevelId}
                                 onUpdateImage={this.props.onUpdateImage}
                             />
+                            {
+                                isDrawColor &&
+                                <ColorPickerBox
+                                    canvas={this.props.canvas}
+                                    parent={this.editorContainerEle}
+                                    setDrawColor={this.onSetDrawColorInColorSelector.bind(this)}
+                                />
+                            }
+                            <canvas id='clone-paper-canvas' style={{ display: 'none' }}></canvas>
                             <textarea
                                 className={styles.textArea}
                                 ref={this.props.setTextArea}
@@ -475,11 +515,14 @@ class PaintEditorComponent extends React.Component {
                     </div>
                     <ColorSelector
                         copywriting={{
+                            noColor: this.props.intl.formatMessage(messages.noColor),
                             colorPicker: this.props.intl.formatMessage(messages.colorPicker),
                             confirm: this.props.intl.formatMessage(messages.confirm)
                         }}
+                        drawColorRGBValues={drawColorRGBValues}
                         color={this.props.fillColor}
                         isShow={isColorSelectorShow}
+                        onDrawColor={this.onDrawColor.bind(this)}
                         onOk={this.onSetNewColor.bind(this)}
                     />
                 </div>

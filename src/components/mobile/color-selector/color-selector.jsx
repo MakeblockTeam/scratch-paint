@@ -52,6 +52,16 @@ class ColorSelector extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.drawColorRGBValues !== this.props.drawColorRGBValues) {
+            if (nextProps.drawColorRGBValues) {
+                const { r, g, b } = nextProps.drawColorRGBValues;
+                this.rgbToHsb(r, g, b);
+                this.rgbToHex([r, g, b]);
+            }
+        }
+    }
+
     getDefaultColorItems() {
         const { rgbValue } = this.state;
         return (
@@ -229,6 +239,7 @@ class ColorSelector extends Component {
     }
 
     setCurrentColor() {
+        const { drawColorRGBValues } = this.props;
         const { rgbValue } = this.state;
         this.props.onOk(rgbValue);
     }
@@ -281,14 +292,15 @@ class ColorSelector extends Component {
     }
 
     render() {
-        const { isShow, copywriting, onOk } = this.props;
+        let currentColor;
+        const { isShow, copywriting, drawColorRGBValues } = this.props;
         const { rgbValue } = this.state;
         return (
             <div className={classNames(styles.container, {
                 [styles.hide]: !isShow
             })}>
                 <div className={styles.colorDisplayBox}>
-                    <div className={styles.top} style={{ backgroundColor: rgbValue ? rgbValue : 'transparent' }}>
+                    <div className={styles.top} style={{ backgroundColor: rgbValue }}>
                         {
                             !rgbValue &&
                             <div className={styles.noneColor}></div>
@@ -297,9 +309,9 @@ class ColorSelector extends Component {
                     <div className={styles.bottom}>
                         <div className={styles.left} onClick={this.setTransparentColor.bind(this)}>
                             <img src={transparentIcon} alt='transparentIcon' />
-                            <span>{copywriting.colorPicker}</span>
+                            <span>{copywriting.noColor}</span>
                         </div>
-                        <div className={styles.right}>
+                        <div className={styles.right} onClick={this.props.onDrawColor}>
                             <img src={colorPickerIcon} alt='colorPickerIcon' />
                             <span>{copywriting.colorPicker}</span>
                         </div>
