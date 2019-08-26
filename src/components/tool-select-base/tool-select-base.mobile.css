@@ -36,3 +36,15 @@ img.tool-select-icon {
     /* Make the tool icons white while selected by making them black and inverting */
     filter: brightness(0) invert(1);
 }
+
+@media only screen and (max-width: 895px) {
+    .mod-tool-select {
+        width: 2.3rem;
+        height: 2.3rem;
+        margin-top: 1rem;
+    }
+    img.tool-select-icon {
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+}

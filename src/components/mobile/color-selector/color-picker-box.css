@@ -129,9 +129,6 @@
 }
 
 @media only screen and (max-width: 895px) {
-    .container .content {
-        width: 27.625rem;
-    }
     .content .image .ring-box .ring {
         width: 8rem;
         height: 8rem;

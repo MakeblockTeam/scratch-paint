@@ -11,19 +11,22 @@ let SVG_ART_BOARD_WIDTH = 480,
     SVG_ART_BOARD_HEIGHT = 360,
     ART_BOARD_WIDTH = 480 * 2,
     ART_BOARD_HEIGHT = 360 * 2;
+// #if MOBILE
 const isPhone = checkDeviceType().phone;
 const isPad = checkDeviceType().ipad || checkDeviceType().androidPad;
+console.log(isPhone,isPad)
 if (isPhone) {
-    SVG_ART_BOARD_WIDTH = 480;
-    SVG_ART_BOARD_HEIGHT = 360;
-    ART_BOARD_WIDTH = 480 * 2;
-    ART_BOARD_HEIGHT = 360 * 2;
+    SVG_ART_BOARD_WIDTH = 366.85;
+    SVG_ART_BOARD_HEIGHT = 274.79;
+    ART_BOARD_WIDTH = 366.85 * 2;
+    ART_BOARD_HEIGHT = 274.79 * 2;
 } else if (isPad) {
     SVG_ART_BOARD_WIDTH = 563;
     SVG_ART_BOARD_HEIGHT = 422;
     ART_BOARD_WIDTH = 563 * 2;
     ART_BOARD_HEIGHT = 422 * 2;
 }
+// #endif
 const PADDING_PERCENT = 25; // Padding as a percent of the max of width/height of the sprite
 const MIN_RATIO = .125; // Zoom in to at least 1/8 of the screen. This way you don't end up incredibly
 // zoomed in for tiny costumes.

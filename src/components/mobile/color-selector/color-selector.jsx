@@ -299,31 +299,33 @@ class ColorSelector extends Component {
             <div className={classNames(styles.container, {
                 [styles.hide]: !isShow
             })}>
-                <div className={styles.colorDisplayBox}>
-                    <div className={styles.top} style={{ backgroundColor: rgbValue }}>
+                <div className={styles.content}>
+                    <div className={styles.colorDisplayBox}>
+                        <div className={styles.top} style={{ backgroundColor: rgbValue }}>
+                            {
+                                !rgbValue &&
+                                <div className={styles.noneColor}></div>
+                            }
+                        </div>
+                        <div className={styles.bottom}>
+                            <div className={styles.left} onClick={this.setTransparentColor.bind(this)}>
+                                <img src={transparentIcon} alt='transparentIcon' />
+                                <span>{copywriting.noColor}</span>
+                            </div>
+                            <div className={styles.right} onClick={this.props.onDrawColor}>
+                                <img src={colorPickerIcon} alt='colorPickerIcon' />
+                                <span>{copywriting.colorPicker}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.colorSelectBox}>
                         {
-                            !rgbValue &&
-                            <div className={styles.noneColor}></div>
+                            this.getDefaultColorItems()
+                        }
+                        {
+                            this.renderHsbSliderComp()
                         }
                     </div>
-                    <div className={styles.bottom}>
-                        <div className={styles.left} onClick={this.setTransparentColor.bind(this)}>
-                            <img src={transparentIcon} alt='transparentIcon' />
-                            <span>{copywriting.noColor}</span>
-                        </div>
-                        <div className={styles.right} onClick={this.props.onDrawColor}>
-                            <img src={colorPickerIcon} alt='colorPickerIcon' />
-                            <span>{copywriting.colorPicker}</span>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.colorSelectBox}>
-                    {
-                        this.getDefaultColorItems()
-                    }
-                    {
-                        this.renderHsbSliderComp()
-                    }
                 </div>
                 <div className={styles.confirmBox} onClick={this.setCurrentColor.bind(this)}>
                     {copywriting.confirm}
