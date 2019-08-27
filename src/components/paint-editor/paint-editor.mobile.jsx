@@ -22,20 +22,20 @@ import Button from '../button/button.jsx';
 import ButtonGroup from '../button-group/button-group.jsx';
 import BrushMode from '../../containers/brush-mode.jsx';
 import EraserMode from '../../containers/eraser-mode.jsx';
-import FillColorIndicatorComponent from '../../containers/fill-color-indicator.jsx';
+// import FillColorIndicatorComponent from '../../containers/fill-color-indicator.jsx';
 import FillMode from '../../containers/fill-mode.jsx';
 import InputGroup from '../input-group/input-group.jsx';
 import LineMode from '../../containers/line-mode.jsx';
 import Loupe from '../loupe/loupe.jsx';
 import FixedToolsContainer from '../../containers/fixed-tools.jsx';
-import ModeToolsContainer from '../../containers/mode-tools.jsx';
+// import ModeToolsContainer from '../../containers/mode-tools.jsx';
 import OvalMode from '../../containers/oval-mode.jsx';
 import RectMode from '../../containers/rect-mode.jsx';
-import ReshapeMode from '../../containers/reshape-mode.jsx';
+// import ReshapeMode from '../../containers/reshape-mode.jsx';
 import SelectMode from '../../containers/select-mode.jsx';
 import DeleteMode from '../mobile/delete-mode/delete-mode.jsx';
-import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
-import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
+// import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
+// import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
 import CenterMode from '../../containers/center-mode.jsx';
 import ColorSelector from '../mobile/color-selector/color-selector.jsx';
@@ -49,7 +49,9 @@ import { clearSelectedItems, setSelectedItems } from '../../reducers/selected-it
 import Modes from '../../lib/modes';
 import Formats from '../../lib/format';
 import { isBitmap, isVector } from '../../lib/format';
-import { applyStrokeWidthToSelection } from '../../helper/style-path';
+import {
+    applyStrokeWidthToSelection, applyFillColorToSelection, applyStrokeColorToSelection
+} from '../../helper/style-path';
 import { selectAllBitmap } from '../../helper/bitmap';
 import {
     deleteSelection,
@@ -57,6 +59,7 @@ import {
     selectAllItems,
     selectAllSegments
 } from '../../helper/selection';
+import GradientTypes from '../../lib/gradient-types';
 import styles from './paint-editor.mobile.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -64,7 +67,6 @@ import zoomInIcon from './icons/zoom-in.svg';
 import zoomOutIcon from './icons/zoom-out.svg';
 import zoomResetIcon from './icons/zoom-reset.svg';
 import closeIcon from './icons/close.svg';
-import doneIcon from './icons/done.svg';
 import arrowRightIcon from './icons/arrow-right-mobile.svg';
 
 const messages = defineMessages({
@@ -130,9 +132,19 @@ class PaintEditorComponent extends React.Component {
             isDrawColor: false,
             drawColorRGBValues: ''
         };
+        this._hasChanged = false;
     }
 
     componentDidMount() { }
+
+    componentWillReceiveProps(nextProps) {
+        const { isColorSelectorShow, onUpdateImage } = this.props;
+        if (isColorSelectorShow && !nextProps.isColorSelectorShow) {
+            // Submit the new SVG, which also stores a single undo/redo action.
+            if (this._hasChanged) onUpdateImage();
+            this._hasChanged = false;
+        }
+    }
 
     handleChangeVectorModeStrokeWidth(newWidth) {
         if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
@@ -175,10 +187,22 @@ class PaintEditorComponent extends React.Component {
     onSetNewColor(newColor) {
         const { colorSelectorMode } = this.state;
         if (colorSelectorMode === 'fill') {
-            const { onChangeFillColor, fillModeColorIndex } = this.props;
+            const {
+                onChangeFillColor, fillModeColorIndex, gradientType, format, textEditTarget
+            } = this.props;
+            const isDifferent = applyFillColorToSelection(
+                newColor,
+                fillModeColorIndex,
+                gradientType === GradientTypes.SOLID,
+                isBitmap(format),
+                textEditTarget);
+            this._hasChanged = this._hasChanged || isDifferent;
             onChangeFillColor(newColor, fillModeColorIndex);
         } else {
-            const { onChangeStrokeColor } = this.props;
+            const { onChangeStrokeColor, format, textEditTarget } = this.props;
+            const isDifferent =
+                applyStrokeColorToSelection(newColor, isBitmap(format), textEditTarget);
+            this._hasChanged = this._hasChanged || isDifferent;
             onChangeStrokeColor(newColor);
         }
         this.setState({
@@ -569,6 +593,8 @@ const mapStateToProps = state => ({
     fillModeDisabled: state.scratchPaint.mode === Modes.LINE,
     fillColor: state.scratchPaint.color.fillColor,
     fillColor2: state.scratchPaint.color.fillColor2,
+    gradientType: state.scratchPaint.color.gradientType,
+    textEditTarget: state.scratchPaint.textEditTarget,
     strokeModeDisabled: state.scratchPaint.mode === Modes.BRUSH ||
         state.scratchPaint.mode === Modes.TEXT ||
         state.scratchPaint.mode === Modes.FILL,
