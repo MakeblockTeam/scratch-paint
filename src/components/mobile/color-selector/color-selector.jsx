@@ -209,6 +209,7 @@ class ColorSelector extends Component {
     }
 
     hexToRgb(hex) {
+        if (!hex) return;
         const color = [];
         const rgb = [];
         hex = hex.replace(/#/, "");

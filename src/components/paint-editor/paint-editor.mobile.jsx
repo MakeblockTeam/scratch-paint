@@ -138,12 +138,9 @@ class PaintEditorComponent extends React.Component {
     componentDidMount() { }
 
     componentWillReceiveProps(nextProps) {
-        const { isColorSelectorShow, onUpdateImage } = this.props;
-        if (isColorSelectorShow && !nextProps.isColorSelectorShow) {
-            // Submit the new SVG, which also stores a single undo/redo action.
-            if (this._hasChanged) onUpdateImage();
-            this._hasChanged = false;
-        }
+        const { onUpdateImage } = this.props;
+        if (this._hasChanged) onUpdateImage();
+        this._hasChanged = false;
     }
 
     handleChangeVectorModeStrokeWidth(newWidth) {
@@ -246,6 +243,7 @@ class PaintEditorComponent extends React.Component {
 
     render() {
         const { isColorSelectorShow, isDrawColor, drawColorRGBValues } = this.state;
+        const { onClosePaintEditor = () => { } } = this.props;
         return (
             <div
                 className={styles.editorContainer}
@@ -257,9 +255,10 @@ class PaintEditorComponent extends React.Component {
                         className={styles.icon}
                         draggable={false}
                         src={closeIcon}
+                        onClick={onClosePaintEditor}
                     />
                     <span>{this.props.intl.formatMessage(messages.title)}</span>
-                    <span>{this.props.intl.formatMessage(messages.save)}</span>
+                    <span onClick={onClosePaintEditor}>{this.props.intl.formatMessage(messages.save)}</span>
                 </header>
                 <div className={styles.paintArea}>
                     <div className={styles.left}>
@@ -626,4 +625,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(PaintEditorComponent));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(PaintEditorComponent));
