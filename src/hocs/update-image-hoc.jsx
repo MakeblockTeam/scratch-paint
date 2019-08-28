@@ -4,26 +4,29 @@ import log from '../log/log';
 import bindAll from 'lodash.bindall';
 import React from 'react';
 import omit from 'lodash.omit';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {undoSnapshot} from '../reducers/undo';
-import {setSelectedItems} from '../reducers/selected-items';
+import { undoSnapshot } from '../reducers/undo';
+import { setSelectedItems } from '../reducers/selected-items';
+// #if MOBILE
+import { changeSaveStatus } from '../reducers/save-image';
+// #endif
 
-import {getSelectedLeafItems} from '../helper/selection';
-import {getRaster, hideGuideLayers, showGuideLayers, showCrossLine} from '../helper/layer';
-import {commitRectToBitmap, commitOvalToBitmap, commitSelectionToBitmap, getHitBounds} from '../helper/bitmap';
-import {performSnapshot} from '../helper/undo';
-import {scaleWithStrokes} from '../helper/math';
-import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT, SVG_ART_BOARD_WIDTH, SVG_ART_BOARD_HEIGHT} from '../helper/view';
+import { getSelectedLeafItems } from '../helper/selection';
+import { getRaster, hideGuideLayers, showGuideLayers, showCrossLine } from '../helper/layer';
+import { commitRectToBitmap, commitOvalToBitmap, commitSelectionToBitmap, getHitBounds } from '../helper/bitmap';
+import { performSnapshot } from '../helper/undo';
+import { scaleWithStrokes } from '../helper/math';
+import { ART_BOARD_WIDTH, ART_BOARD_HEIGHT, SVG_ART_BOARD_WIDTH, SVG_ART_BOARD_HEIGHT } from '../helper/view';
 
 import Modes from '../lib/modes';
-import {BitmapModes} from '../lib/modes';
+import { BitmapModes } from '../lib/modes';
 import Formats from '../lib/format';
-import {isBitmap, isVector} from '../lib/format';
+import { isBitmap, isVector } from '../lib/format';
 
 const UpdateImageHOC = function (WrappedComponent) {
     class UpdateImageWrapper extends React.Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
             bindAll(this, [
                 'handleUpdateImage',
@@ -31,6 +34,13 @@ const UpdateImageHOC = function (WrappedComponent) {
                 'handleUpdateVector'
             ]);
         }
+
+        componentDidMount() {
+            // #if MOBILE
+            this.props.changeSaveStatus(false);
+            // #endif
+        }
+
         /**
          * @param {?boolean} skipSnapshot True if the call to update image should not trigger saving
          * an undo state. For instance after calling undo.
@@ -38,7 +48,7 @@ const UpdateImageHOC = function (WrappedComponent) {
          * but the format used can be overridden here. In particular when converting between formats,
          * the does not accurately represent the format.
          */
-        handleUpdateImage (skipSnapshot, formatOverride) {
+        handleUpdateImage(skipSnapshot, formatOverride) {
             // If in the middle of switching formats, rely on the current mode instead of format.
             const actualFormat = formatOverride ? formatOverride :
                 BitmapModes[this.props.mode] ? Formats.BITMAP : Formats.VECTOR;
@@ -49,12 +59,12 @@ const UpdateImageHOC = function (WrappedComponent) {
             }
 
             //设置中心点模式，如果进行撤销或者恢复，十字线相关状态不会进行snapshot，见performSnapshot
-            if(this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER){
+            if (this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER) {
                 showCrossLine()
             }
             console.log(paper.project)
         }
-        handleUpdateBitmap (skipSnapshot) {
+        handleUpdateBitmap(skipSnapshot) {
             if (!getRaster().loaded) {
                 // In general, callers of updateImage should wait for getRaster().loaded = true before
                 // calling updateImage.
@@ -94,22 +104,45 @@ const UpdateImageHOC = function (WrappedComponent) {
                 }
             }
             const rect = getHitBounds(plasteredRaster);
+            // #if MOBILE
+            if (this.props.isCanSave) {
+                this.props.onUpdateImage(
+                    false /* isVector */,
+                    plasteredRaster.getImageData(rect),
+                    (ART_BOARD_WIDTH / 2) - rect.x,
+                    (ART_BOARD_HEIGHT / 2) - rect.y);
+            }
+            // #else
             this.props.onUpdateImage(
                 false /* isVector */,
                 plasteredRaster.getImageData(rect),
                 (ART_BOARD_WIDTH / 2) - rect.x,
                 (ART_BOARD_HEIGHT / 2) - rect.y);
+            // #endif
 
             if (!skipSnapshot) {
                 performSnapshot(this.props.undoSnapshot, Formats.BITMAP);
             }
         }
-        handleUpdateVector (skipSnapshot) {
+        handleUpdateVector(skipSnapshot) {
             const guideLayers = hideGuideLayers(true /* includeRaster */);
 
             // Export at 0.5x
             scaleWithStrokes(paper.project.activeLayer, .5, new paper.Point());
             const bounds = paper.project.activeLayer.bounds;
+            // #if MOBILE
+            if (this.props.isCanSave) {
+                this.props.onUpdateImage(
+                    true /* isVector */,
+                    paper.project.exportSVG({
+                        asString: true,
+                        bounds: 'content',
+                        matrix: new paper.Matrix().translate(-bounds.x, -bounds.y)
+                    }),
+                    (SVG_ART_BOARD_WIDTH / 2) - bounds.x,
+                    (SVG_ART_BOARD_HEIGHT / 2) - bounds.y);
+            }
+            // #else
             // @todo (https://github.com/LLK/scratch-paint/issues/445) generate view box
             this.props.onUpdateImage(
                 true /* isVector */,
@@ -120,6 +153,7 @@ const UpdateImageHOC = function (WrappedComponent) {
                 }),
                 (SVG_ART_BOARD_WIDTH / 2) - bounds.x,
                 (SVG_ART_BOARD_HEIGHT / 2) - bounds.y);
+            // #endif
             scaleWithStrokes(paper.project.activeLayer, 2, new paper.Point());
             paper.project.activeLayer.applyMatrix = true;
 
@@ -129,7 +163,7 @@ const UpdateImageHOC = function (WrappedComponent) {
                 performSnapshot(this.props.undoSnapshot, Formats.VECTOR);
             }
         }
-        render () {
+        render() {
             const componentProps = omit(this.props, [
                 'format',
                 'onUpdateImage',
@@ -154,7 +188,10 @@ const UpdateImageHOC = function (WrappedComponent) {
     const mapStateToProps = state => ({
         format: state.scratchPaint.format,
         mode: state.scratchPaint.mode,
-        undoState: state.scratchPaint.undo
+        undoState: state.scratchPaint.undo,
+        // #if MOBILE
+        isCanSave: state.scratchPaint.saveImage
+        // #endif
     });
     const mapDispatchToProps = dispatch => ({
         setSelectedItems: format => {
@@ -162,7 +199,12 @@ const UpdateImageHOC = function (WrappedComponent) {
         },
         undoSnapshot: snapshot => {
             dispatch(undoSnapshot(snapshot));
+        },
+        // #if MOBILE
+        changeSaveStatus: status => {
+            dispatch(changeSaveStatus(status))
         }
+        // #endif
     });
 
     return connect(

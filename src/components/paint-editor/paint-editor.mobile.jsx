@@ -46,6 +46,10 @@ import { changeFillColor } from '../../reducers/fill-color';
 import { changeFillColor2 } from '../../reducers/fill-color-2';
 import { changeStrokeColor } from '../../reducers/stroke-color';
 import { clearSelectedItems, setSelectedItems } from '../../reducers/selected-items';
+// #if MOBILE
+import { changeSaveStatus } from '../../reducers/save-image';
+// #endif
+
 import Modes from '../../lib/modes';
 import Formats from '../../lib/format';
 import { isBitmap, isVector } from '../../lib/format';
@@ -220,6 +224,22 @@ class PaintEditorComponent extends React.Component {
         });
     }
 
+    handleClosePaintEditor() {
+        const { onClosePaintEditor = () => { } } = this.props;
+        onClosePaintEditor();
+    }
+
+    handleSaveImageInPaintEditor() {
+        // #if MOBILE
+        this.props.changeSaveStatus(true);
+        // #endif
+        this.saveDelayTimer = setTimeout(() => {
+            this.props.onUpdateImage();
+            this.handleClosePaintEditor();
+            clearTimeout(this.saveDelayTimer);
+        }, 100);
+    }
+
     renderStrokeWidthSelector() {
         const strokeWidth = [4, 8, 12, 14];
         return (
@@ -243,7 +263,6 @@ class PaintEditorComponent extends React.Component {
 
     render() {
         const { isColorSelectorShow, isDrawColor, drawColorRGBValues } = this.state;
-        const { onClosePaintEditor = () => { } } = this.props;
         return (
             <div
                 className={styles.editorContainer}
@@ -255,10 +274,10 @@ class PaintEditorComponent extends React.Component {
                         className={styles.icon}
                         draggable={false}
                         src={closeIcon}
-                        onClick={onClosePaintEditor}
+                        onClick={this.handleClosePaintEditor.bind(this)}
                     />
                     <span>{this.props.intl.formatMessage(messages.title)}</span>
-                    <span onClick={onClosePaintEditor}>{this.props.intl.formatMessage(messages.save)}</span>
+                    <span onClick={this.handleSaveImageInPaintEditor.bind(this)}>{this.props.intl.formatMessage(messages.save)}</span>
                 </header>
                 <div className={styles.paintArea}>
                     <div className={styles.left}>
@@ -622,7 +641,12 @@ const mapDispatchToProps = dispatch => ({
     },
     setSelectedItems: format => {
         dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
+    },
+    // #if MOBILE
+    changeSaveStatus: status => {
+        dispatch(changeSaveStatus(status))
     }
+    // #endif
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(PaintEditorComponent));
