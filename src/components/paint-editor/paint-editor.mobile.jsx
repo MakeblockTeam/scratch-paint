@@ -181,7 +181,7 @@ class PaintEditorComponent extends React.Component {
     }
 
     onSetNewCostumName(e) {
-        this.props.onUpdateName(e.target.value);
+        // this.props.onUpdateName(e.target.value);
     }
 
 
@@ -234,6 +234,7 @@ class PaintEditorComponent extends React.Component {
         this.props.changeSaveStatus(true);
         // #endif
         this.saveDelayTimer = setTimeout(() => {
+            this.props.onUpdateName(this.costumeNameEle && this.costumeNameEle.value);
             this.props.onUpdateImage();
             this.handleClosePaintEditor();
             clearTimeout(this.saveDelayTimer);
@@ -492,6 +493,7 @@ class PaintEditorComponent extends React.Component {
                             <div className={classNames(styles.box, styles.costumeBox)}>
                                 <span className={styles.name}>{this.props.intl.formatMessage(messages.costume)}</span>
                                 <input
+                                    ref={ele => this.costumeNameEle = ele}
                                     className={classNames(styles.value, styles.inputValue)}
                                     type='text'
                                     defaultValue={this.props.name}
