@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112px" height="112px" viewBox="0 0 112 112" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/橡皮</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="68" height="68"></rect>
+        <path d="M45,35 L23,35 L23,44.8209055 L34.9819585,56 L45,56 L45,35 Z M22,8 L46,8 C48.209139,8 50,9.790861 50,12 L50,57 C50,59.209139 48.209139,61 46,61 L33.0116666,61 L18,46.9942062 L18,12 C18,9.790861 19.790861,8 22,8 Z" id="path-3"></path>
+    </defs>
+    <g id="icon/橡皮" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(20.000000, 22.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask" fill-rule="nonzero"></g>
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <use id="Combined-Shape" fill="#264165" fill-rule="nonzero" transform="translate(34.000000, 34.500000) rotate(-45.000000) translate(-34.000000, -34.500000) " xlink:href="#path-3"></use>
+        </g>
+    </g>
+</svg>

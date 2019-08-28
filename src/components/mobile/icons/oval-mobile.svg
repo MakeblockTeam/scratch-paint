@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112px" height="112px" viewBox="0 0 112 112" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/圆形工具</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="112" height="112"></rect>
+    </defs>
+    <g id="icon/圆形工具" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask" fill-rule="nonzero"></g>
+            <path d="M56,81.5 C41.3644541,81.5 29.5,69.6355459 29.5,55 C29.5,40.3644541 41.3644541,28.5 56,28.5 C70.6355459,28.5 82.5,40.3644541 82.5,55 C82.5,69.6355459 70.6355459,81.5 56,81.5 Z M56,74.5 C66.7695526,74.5 75.5,65.7695526 75.5,55 C75.5,44.2304474 66.7695526,35.5 56,35.5 C45.2304474,35.5 36.5,44.2304474 36.5,55 C36.5,65.7695526 45.2304474,74.5 56,74.5 Z" id="Oval" fill="#264165" fill-rule="nonzero" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

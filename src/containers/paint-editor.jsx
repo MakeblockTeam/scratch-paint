@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import log from '../log/log';
 import React from 'react';
 import {connect} from 'react-redux';
-
+// #if MOBILE
+import PaintEditorComponent from '../components/paint-editor/paint-editor.mobile.jsx';
+// #else
 import PaintEditorComponent from '../components/paint-editor/paint-editor.jsx';
+// #endif
 import KeyboardShortcutsHOC from '../hocs/keyboard-shortcuts-hoc.jsx';
 import SelectionHOC from '../hocs/selection-hoc.jsx';
 import UndoHOC from '../hocs/undo-hoc.jsx';
@@ -323,6 +326,7 @@ class PaintEditor extends React.Component {
                 onZoomIn={this.handleZoomIn}
                 onZoomOut={this.handleZoomOut}
                 onZoomReset={this.handleZoomReset}
+                onClosePaintEditor={this.props.onClosePaintEditor}
             />
         );
     }

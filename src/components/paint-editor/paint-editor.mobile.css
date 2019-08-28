@@ -1,0 +1,482 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+$editor-container-header-height: 3rem;
+$editor-container-header-height_mobile: 2rem;
+
+html,
+body {
+    margin: 0;
+}
+
+.editor-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #EEF6FE;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.editor-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: $editor-container-header-height;
+    background-color: #1EAAFF;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.editor-container .header .icon {
+    width: $editor-container-header-height;
+    height: $editor-container-header-height;
+}
+
+.editor-container .header span:last-child {
+    margin-right: .5rem;
+}
+
+.editor-container .paint-area {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - $editor-container-header-height);
+}
+
+.editor-container .paint-area .left,
+.editor-container .paint-area .right,
+.editor-container .paint-area .canvas-area {
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.editor-container .paint-area .left,
+.editor-container .paint-area .right {
+    position: absolute;
+    top: 0;
+}
+
+.editor-container .paint-area .left::after,
+.editor-container .paint-area .right::after {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 100%;
+    top: 0;
+    background-color: #B4B7B8;
+    transform: scaleX(0.5);
+    transform-origin: 0 0;
+}
+
+.editor-container .paint-area .left {
+    left: 0;
+    width: $paint-area-left-width-in-app;
+    padding: .5rem 1.5rem 2rem 1.5rem;
+}
+
+.editor-container .paint-area .left::after {
+    right: 0;
+}
+
+.editor-container .paint-area .canvas-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100vw - $paint-area-left-width-in-app - $paint-area-right-width-in-app);
+    margin-left: $paint-area-left-width-in-app;
+    background-color: transparent;
+}
+
+.editor-container .paint-area .right {
+    right: 0;
+    width: $paint-area-right-width-in-app;
+    padding: .5rem 1.25rem 2.5rem 2rem;
+}
+
+.editor-container .paint-area .right::after {
+    left: 0;
+}
+
+.paint-area .right .action-content {
+    position: relative;
+    width: 100%;
+}
+
+.right .action-content .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.action-content .box .name {
+    max-width: 3rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #264165;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.action-content .box .value {
+    width: 8.875rem;
+    height: 2.5rem;
+    color: #264165;
+    font-size: 1.25rem;
+    border-radius: 2.5rem;
+    border: 1px solid #BCCCDC;
+    box-sizing: border-box;
+    outline: none;
+    overflow: hidden;
+}
+
+.action-content .box .value.disabled {
+    pointer-events: none;
+    opacity: .5;
+}
+
+.action-content .box .value.input-value {
+    padding: 0 1rem;
+    overflow: unset;
+}
+
+.action-content .box .value .color {
+    position: relative;
+    display: inline-block;
+    width: 70%;
+    height: 100%;
+    box-sizing: border-box;
+    border-right: 1px solid #BCCCDC;
+}
+
+.action-content .box .value .color .none-color {
+    width: 6.525rem;
+    height: .2rem;
+    background-color: #FC4144;
+    transform-origin: top right;
+    transform: translate3d(0, 0, 0) rotate(-22.8deg);
+    position: absolute;
+    right: 0;
+}
+
+.action-content .box .value .arrow {
+    display: inline-block;
+    width: 30%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.action-content .box .value .arrow img {
+    width: 100%;
+    height: 100%;
+}
+
+.right .stroke-width-selector {
+    width: 100%
+}
+
+.right .stroke-width-selector .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10.125rem;
+    height: 2rem;
+    margin: auto;
+    background-color: #EEF6FE;
+    border-radius: 1.25rem;
+    margin-top: 2rem;
+    box-sizing: border-box;
+}
+
+.stroke-width-selector .item .line {
+    width: 8.125rem;
+    background-color: #264165;
+}
+
+.stroke-width-selector .item.selected {
+    pointer-events: none;
+    border: 4px solid #4AA6FF;
+    box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4);
+}
+
+.stroke-width-selector .item .line.line1 {
+    height: .125rem;
+}
+
+.stroke-width-selector .item .line.line2 {
+    height: .25rem;
+}
+
+.stroke-width-selector .item .line.line3 {
+    height: .375rem;
+}
+
+.stroke-width-selector .item .line.line4 {
+    height: .5rem;
+}
+
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.editor-container-top {
+    border-bottom: 1px dashed $ui-pane-border;
+    padding-bottom: calc(2 * $grid-unit);
+}
+
+.top-align-row {
+    display: flex;
+    padding-top: calc(5 * $grid-unit);
+    flex-direction: row;
+}
+
+.row+.row {
+    margin-top: calc(2 * $grid-unit);
+}
+
+[dir="ltr"] .mod-dashed-border {
+    border-right: 1px dashed $ui-pane-border;
+    padding-right: calc(2 * $grid-unit);
+}
+
+[dir="rtl"] .mod-dashed-border {
+    border-left: 1px dashed $ui-pane-border;
+    padding-left: calc(2 * $grid-unit);
+}
+
+.mod-labeled-icon-height {
+    height: 2.85rem;
+    /* for the second row so the dashed borders are equal in size */
+}
+
+$border-radius: 0.25rem;
+
+.button-group-button {
+    display: inline-block;
+    border: 1px solid $ui-pane-border;
+    border-radius: 0;
+    padding: .35rem;
+}
+
+[dir="ltr"] .button-group-button {
+    border-left: none;
+}
+
+[dir="rtl"] .button-group-button {
+    border-right: none;
+}
+
+[dir="ltr"] .button-group-button:last-of-type {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+}
+
+[dir="ltr"] .button-group-button:first-of-type {
+    border-left: 1px solid $ui-pane-border;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+}
+
+[dir="rtl"] .button-group-button:last-of-type {
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+}
+
+[dir="rtl"] .button-group-button:first-of-type {
+    border-right: 1px solid $ui-pane-border;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+}
+
+[dir="ltr"] .button-group-button.mod-start-border {
+    border-left: 1px solid $ui-pane-border;
+}
+
+[dir="rtl"] .button-group-button.mod-start-border {
+    border-right: 1px solid $ui-pane-border;
+}
+
+[dir="ltr"].button-group-button.mod-no-end-border {
+    border-right: none;
+}
+
+[dir="rtl"].button-group-button.mod-no-end-border {
+    border-left: none;
+}
+
+.button-group-button-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    vertical-align: middle;
+}
+
+.mod-mode-tools {
+    margin-left: calc(2 * $grid-unit);
+}
+
+[dir="ltr"] .mod-margin-after {
+    margin-right: calc(2 * $grid-unit);
+}
+
+[dir="rtl"] .mod-margin-after {
+    margin-left: calc(2 * $grid-unit);
+}
+
+.canvas-container {
+    position: relative;
+    width: $canvas-container-width-in-app;
+    height: $canvas-container-height-in-app;
+    box-sizing: content-box;
+    border: 1px solid #e8edf1;
+    border-radius: .25rem;
+    margin-top: -$editor-container-header-height;
+    box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);
+    overflow: visible;
+}
+
+.mode-selector {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: space-between;
+}
+
+.zoom-controls {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.color-picker-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.canvas-controls {
+    position: absolute;
+    bottom: 5rem;
+    display: flex;
+    margin-top: .25rem;
+    justify-content: space-between;
+}
+
+.bitmap-button {
+    display: flex;
+    border-radius: 5px;
+    background-color: $motion-primary;
+    padding: calc(2 * $grid-unit);
+    line-height: 1.5rem;
+    font-size: calc(3 * $grid-unit);
+    font-weight: bold;
+    color: white;
+    justify-content: center;
+}
+
+[dir="ltr"] .bitmap-button-icon {
+    margin-right: calc(2 * $grid-unit);
+}
+
+[dir="rtl"] .bitmap-button-icon {
+    margin-left: calc(2 * $grid-unit);
+}
+
+.text-area {
+    background: transparent;
+    border: none;
+    display: none;
+    margin: 0px;
+    opacity: .8;
+    outline: none;
+    overflow: hidden;
+    padding: 0px;
+    position: absolute;
+    resize: none;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+}
+
+.button-text {
+    width: 100%;
+    /* Fixes button text wrapping in Edge */
+}
+
+@media only screen and (max-width: 895px) {
+    .editor-container .header {
+        height: $editor-container-header-height_mobile;
+        font-size: .75rem;
+    }
+    .editor-container .header .icon {
+        width: $editor-container-header-height_mobile;
+        height: $editor-container-header-height_mobile;
+    }
+    .editor-container .paint-area {
+        height: calc(100vh - $editor-container-header-height_mobile);
+    }
+    .editor-container .paint-area .left {
+        width: $paint-area-left-width-phone-in-app;
+        padding: .2rem .5rem 1.5rem .5rem;
+    }
+    .editor-container .paint-area .canvas-area {
+        width: calc(100vw - $paint-area-left-width-phone-in-app - $paint-area-right-width-phone-in-app);
+        margin-left: $paint-area-left-width-phone-in-app;
+    }
+    .right .action-content .box {
+        margin-top: 1rem;
+    }
+    .action-content .box .name {
+        max-width: 2rem;
+        font-size: .75rem;
+    }
+    .action-content .box .value {
+        width: 5.5rem;
+        height: 1.65rem;
+        font-size: .75rem;
+    }
+    .editor-container .paint-area .right {
+        width: $paint-area-right-width-phone-in-app;
+        padding: .2rem .75rem 1.5rem 1rem
+    }
+    .right .stroke-width-selector .item {
+        width: 6.6rem;
+        height: 1.3rem;
+        margin-top: 1rem;
+    }
+    .stroke-width-selector .item .line {
+        width: 5.3rem;
+    }
+    .stroke-width-selector .item .line.line1 {
+        height: .125rem;
+    }
+    
+    .stroke-width-selector .item .line.line2 {
+        height: .2rem;
+    }
+    .stroke-width-selector .item .line.line3 {
+        height: .3rem;
+    }
+    .stroke-width-selector .item .line.line4 {
+        height: .45rem;
+    }
+    .canvas-container {
+        width: $canvas-container-width-phone-in-app;
+        height: $canvas-container-height-phone-in-app;
+        margin-top: 0;
+    }
+}

@@ -1,0 +1,14 @@
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="80" height="80"></rect>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Rectangle-21-Copy-3" transform="translate(41.000000, 40.000000) rotate(-90.000000) translate(-41.000000, -40.000000) translate(1.000000, 0.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask" fill-rule="nonzero"></g>
+            <path d="M28.5607263,31.4392737 L40.462963,43.3415103 L52.3651996,31.4392737 C53.6669473,30.1375261 55.7774972,30.1375261 57.0792448,31.4392737 C58.3809925,32.7410213 58.3809925,34.8515713 57.0792448,36.1533189 L42.8199856,50.4125782 C41.5182379,51.7143258 39.407688,51.7143258 38.1059404,50.4125782 L23.8466811,36.1533189 C22.5449335,34.8515713 22.5449335,32.7410213 23.8466811,31.4392737 C25.1484287,30.1375261 27.2589787,30.1375261 28.5607263,31.4392737 Z" id="Rectangle-21-Copy-2" fill="#264165" fill-rule="nonzero" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// #if MOBILE
+import ToolSelectComponent from '../tool-select-base/tool-select-base.mobile.jsx';
+import ovalIcon from '../mobile/icons/oval-mobile.svg';
+// #else
 import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
-import messages from '../../lib/messages.js';
 import ovalIcon from './oval.svg';
+// #endif
+import messages from '../../lib/messages.js';
 
 const BitOvalComponent = props => (
     <ToolSelectComponent

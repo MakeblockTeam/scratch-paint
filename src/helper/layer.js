@@ -202,8 +202,11 @@ const _makeBackgroundPaper = function (width, height, color) {
 const _makeBackgroundGuideLayer = function () {
     const guideLayer = new paper.Layer();
     guideLayer.locked = true;
-
+    // #if MOBILE
+    const vBackground = _makeBackgroundPaper(120, 90, '#fff');
+    // #else
     const vBackground = _makeBackgroundPaper(120, 90, '#E5E5E5');
+    // #endif 
     vBackground.position = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
     vBackground.scaling = new paper.Point(8, 8);
     vBackground.guide = true;
