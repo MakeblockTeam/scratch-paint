@@ -1,6 +1,6 @@
 {
   "name": "scratch-paint",
-  "version": "0.2.0-prerelease.20180918203812",
+  "version": "0.0.12",
   "description": "Graphical User Interface for the Scratch 3.0 paint editor, which is used to make and edit sprites for use in projects.",
   "main": "./dist/scratch-paint.js",
   "browser": "./src/index.js",
@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .js,.jsx",
     "start": "webpack-dev-server",
     "start-mobile": "webpack-dev-server --config webpack.mobile.config.js --color --progress --hot",
+    "build-mobile": "npm run clean && webpack --config webpack.mobile.config.js --progress --colors --bail",
     "test": "npm run lint && npm run unit && NODE_ENV=production npm run build",
     "unit": "jest",
     "watch": "webpack --progress --colors --watch"
