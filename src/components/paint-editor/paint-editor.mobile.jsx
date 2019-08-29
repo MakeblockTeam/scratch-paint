@@ -1,4 +1,4 @@
-import paper from '@scratch/paper';
+import paper from 'paper';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
