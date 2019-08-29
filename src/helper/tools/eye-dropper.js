@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import {createCanvas, getRaster, getBackgroundGuideLayer} from '../layer';
 
 const LOUPE_RADIUS = 20;

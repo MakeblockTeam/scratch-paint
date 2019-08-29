@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import {getItems} from '../selection';
 import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT} from '../view';
 
