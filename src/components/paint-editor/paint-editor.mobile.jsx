@@ -122,7 +122,12 @@ const messages = defineMessages({
     confirm: {
         defaultMessage: 'OK',
         description: 'OK',
-        id: 'paint.colorSelector.confirm'
+        id: 'gui.modal.ok'
+    },
+    cancel: {
+        defaultMessage: 'Cancel',
+        description: 'Cancel',
+        id: 'gui.modal.cancel'
     }
 });
 
@@ -134,12 +139,15 @@ class PaintEditorComponent extends React.Component {
             // fill / stroke
             colorSelectorMode: 'fill',
             isDrawColor: false,
-            drawColorRGBValues: ''
+            drawColorRGBValues: '',
+            currentCostumeName: ''
         };
         this._hasChanged = false;
     }
 
-    componentDidMount() { }
+    componentDidMount() {
+        this.setState({ currentCostumeName: this.props.name });
+    }
 
     componentWillReceiveProps(nextProps) {
         const { onUpdateImage } = this.props;
@@ -180,8 +188,12 @@ class PaintEditorComponent extends React.Component {
         this.setState({ isDrawColor: true });
     }
 
-    onSetNewCostumName(e) {
-        // this.props.onUpdateName(e.target.value);
+    onSetNewCostumName(newValue) {
+        if (typeof newValue === 'string') {
+            this.setState({ currentCostumeName: newValue });
+        } else {
+            this.setState({ currentCostumeName: newValue.target.value });
+        }
     }
 
 
@@ -241,6 +253,20 @@ class PaintEditorComponent extends React.Component {
         }, 100);
     }
 
+    handleInputValue() {
+        if (!window.InputBoxInMobile) return false;
+        const { currentCostumeName } = this.state;
+        window.InputBoxInMobile.default(
+            {
+                ok: this.props.intl.formatMessage(messages.confirm),
+                cancel: this.props.intl.formatMessage(messages.cancel)
+            },
+            currentCostumeName,
+            this.onSetNewCostumName.bind(this),
+            () => { }
+        )
+    }
+
     renderStrokeWidthSelector() {
         const strokeWidth = [4, 8, 12, 14];
         return (
@@ -263,7 +289,7 @@ class PaintEditorComponent extends React.Component {
     }
 
     render() {
-        const { isColorSelectorShow, isDrawColor, drawColorRGBValues } = this.state;
+        const { isColorSelectorShow, isDrawColor, drawColorRGBValues, currentCostumeName } = this.state;
         return (
             <div
                 className={styles.editorContainer}
@@ -421,13 +447,17 @@ class PaintEditorComponent extends React.Component {
                     </div>
                     <div className={styles.right}>
                         <div className={styles.actionContent}>
-                            <div className={classNames(styles.box, styles.costumeBox)}>
+                            <div
+                                className={classNames(styles.box, styles.costumeBox)}
+                                onClick={this.handleInputValue.bind(this)}
+                            >
                                 <span className={styles.name}>{this.props.intl.formatMessage(messages.costume)}</span>
                                 <input
+                                    disabled={window.InputBoxInMobile ? true : false}
                                     ref={ele => this.costumeNameEle = ele}
                                     className={classNames(styles.value, styles.inputValue)}
                                     type='text'
-                                    defaultValue={this.props.name}
+                                    value={currentCostumeName}
                                     onChange={this.onSetNewCostumName.bind(this)}
                                 />
                             </div>
