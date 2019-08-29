@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import {rectSelect} from '../guides';
 import {clearSelection, processRectangularSelection} from '../selection';
 import {getRaster} from '../layer';

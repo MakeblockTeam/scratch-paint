@@ -1,6 +1,6 @@
 // undo functionality
 // modifed from https://github.com/memononen/stylii
-import paper from 'paper';
+import paper from '@scratch/paper';
 import {hideGuideLayers, showGuideLayers, getRaster} from '../helper/layer';
 import {getSelectedLeafItems} from '../helper/selection';
 import Formats from '../lib/format';

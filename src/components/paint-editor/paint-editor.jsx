@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import classNames from 'classnames';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';

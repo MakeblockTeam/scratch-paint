@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import {getRaster} from '../layer';
 import {forEachLinePoint, getBrushMark} from '../bitmap';
 import {createCanvas, getGuideLayer} from '../layer';

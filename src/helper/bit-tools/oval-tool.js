@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import Modes from '../../lib/modes';
 import {commitOvalToBitmap} from '../bitmap';
 import {getRaster} from '../layer';

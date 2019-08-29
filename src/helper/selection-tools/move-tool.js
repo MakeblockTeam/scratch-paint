@@ -1,4 +1,4 @@
-import paper from 'paper';
+import paper from '@scratch/paper';
 import Modes from '../../lib/modes';
 import {isGroup} from '../group';
 import {isCompoundPathItem, getRootItem} from '../item';
