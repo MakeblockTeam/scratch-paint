@@ -130,7 +130,7 @@ body {
 .action-content .box .value {
     width: 8.875rem;
     height: 2.5rem;
-    color: #264165;
+    color: #264165 !important;
     font-size: 1.25rem;
     border-radius: 2.5rem;
     border: 1px solid #BCCCDC;
