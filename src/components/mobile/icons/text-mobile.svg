@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112px" height="112px" viewBox="0 0 112 112" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/文字工具</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="68" height="68"></rect>
+        <path d="M29,57.6020292 L29,19 L14,19 L14,23 C14,23.5522847 13.5522847,24 13,24 L9,24 C8.44771525,24 8,23.5522847 8,23 L8,19 L8,10 L60,10 L60,19 L60,23 C60,23.5522847 59.5522847,24 59,24 L55,24 C54.4477153,24 54,23.5522847 54,23 L54,19 L39,19 L39,57.6020292 L44.066183,57.9380614 C44.5916221,57.9729129 45,58.4092752 45,58.9358689 L45,62 C45,62.5522847 44.5522847,63 44,63 L24,63 C23.4477153,63 23,62.5522847 23,62 L23,58 L29,57.6020292 Z" id="path-3"></path>
+    </defs>
+    <g id="icon/文字工具" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(22.000000, 22.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Rectangle" fill-rule="nonzero"></g>
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <use id="Combined-Shape" fill="#264165" fill-rule="nonzero" xlink:href="#path-3"></use>
+        </g>
+    </g>
+</svg>

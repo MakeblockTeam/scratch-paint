@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 
+// #if MOBILE
+import FixedToolsComponent from '../components/fixed-tools/fixed-tools.mobile.jsx';
+// #else
 import FixedToolsComponent from '../components/fixed-tools/fixed-tools.jsx';
+// #endif
 
 import {changeMode} from '../reducers/modes';
 import {changeFormat} from '../reducers/format';

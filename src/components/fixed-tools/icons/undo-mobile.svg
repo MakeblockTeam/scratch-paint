@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112px" height="112px" viewBox="0 0 112 112" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/撤销</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M21.9434109,11.3743512 L21.9434109,0 L0,20.1660805 L21.9434109,40.3364841 L21.9434109,28.1393664 C28.039913,28.1393664 46.8724821,28.1393664 55,47 L55,44.9043131 C55,36.5218398 46.8713305,9.5897921 21.9434109,11.3743512 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/撤销" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(29.000000, 33.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Path" fill="#264165" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>
