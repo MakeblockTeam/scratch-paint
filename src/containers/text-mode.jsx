@@ -105,7 +105,10 @@ class TextMode extends React.Component {
             this.props.onUpdateImage,
             this.props.setTextEditTarget,
             this.props.changeFont,
-            nextProps.isBitmap
+            nextProps.isBitmap,
+            // #if MOBILE
+            this.props.messages
+            // #endif
         );
         this.tool.setRtl(this.props.rtl);
         this.tool.setColorState(nextProps.colorState);

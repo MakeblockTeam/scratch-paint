@@ -331,6 +331,10 @@ class PaintEditorComponent extends React.Component {
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <TextMode
+                                    messages={{
+                                        ok: this.props.intl.formatMessage(messages.confirm),
+                                        cancel: this.props.intl.formatMessage(messages.cancel)
+                                    }}
                                     textArea={this.props.textArea}
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
@@ -370,6 +374,10 @@ class PaintEditorComponent extends React.Component {
                                 />
                                 <TextMode
                                     isBitmap
+                                    messages={{
+                                        ok: this.props.intl.formatMessage(messages.confirm),
+                                        cancel: this.props.intl.formatMessage(messages.cancel)
+                                    }}
                                     textArea={this.props.textArea}
                                     onUpdateImage={this.props.onUpdateImage}
                                 />

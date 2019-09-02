@@ -46,10 +46,11 @@ $confirm--box-height_mobile:2.375rem;
     width: 16.2rem;
     height: .2rem;
     background-color: #FC4144;
-    transform-origin: top right;
+    transform-origin: bottom left;
     transform: translate3d(0, 0, 0) rotate(-22.8deg);
     position: absolute;
-    right: 0;
+    left: 0;
+    bottom: -.5px;
 }
 
 .container .color-display-box .bottom {
@@ -192,6 +193,10 @@ $confirm--box-height_mobile:2.375rem;
 
     .container .color-display-box .top {
         height: 4rem;
+    }
+
+    .container .color-display-box .top .none-color {
+        height: .1rem;
     }
 
     .container .color-display-box .bottom {

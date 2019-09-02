@@ -168,6 +168,7 @@ body {
     transform: translate3d(0, 0, 0) rotate(-22.8deg);
     position: absolute;
     right: 0;
+    top: 0;
 }
 
 .action-content .box .value .arrow {
@@ -424,58 +425,76 @@ $border-radius: 0.25rem;
         height: $editor-container-header-height_mobile;
         font-size: .75rem;
     }
+
     .editor-container .header .icon {
         width: $editor-container-header-height_mobile;
         height: $editor-container-header-height_mobile;
     }
+
     .editor-container .paint-area {
         height: calc(100vh - $editor-container-header-height_mobile);
     }
+
     .editor-container .paint-area .left {
         width: $paint-area-left-width-phone-in-app;
         padding: .2rem .5rem 1.5rem .5rem;
     }
+
     .editor-container .paint-area .canvas-area {
         width: calc(100vw - $paint-area-left-width-phone-in-app - $paint-area-right-width-phone-in-app);
         margin-left: $paint-area-left-width-phone-in-app;
     }
+
     .right .action-content .box {
         margin-top: 1rem;
     }
+
     .action-content .box .name {
         max-width: 2rem;
         font-size: .75rem;
     }
+
     .action-content .box .value {
         width: 5.5rem;
         height: 1.65rem;
         font-size: .75rem;
     }
+
+    .action-content .box .value .color .none-color {
+        height: .1rem;
+    }
+
     .editor-container .paint-area .right {
         width: $paint-area-right-width-phone-in-app;
         padding: .2rem .75rem 1.5rem 1rem
     }
+
     .right .stroke-width-selector .item {
         width: 6.6rem;
         height: 1.3rem;
         margin-top: 1rem;
     }
+
     .stroke-width-selector .item .line {
         width: 5.3rem;
     }
+
     .stroke-width-selector .item .line.line1 {
         height: .125rem;
     }
-    
+
     .stroke-width-selector .item .line.line2 {
         height: .2rem;
     }
+
     .stroke-width-selector .item .line.line3 {
         height: .3rem;
     }
+
     .stroke-width-selector .item .line.line4 {
         height: .45rem;
     }
+
     .canvas-container {
         width: $canvas-container-width-phone-in-app;
         height: $canvas-container-height-phone-in-app;
