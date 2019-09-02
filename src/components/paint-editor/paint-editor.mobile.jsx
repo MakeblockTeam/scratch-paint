@@ -66,11 +66,11 @@ import {
 import GradientTypes from '../../lib/gradient-types';
 import styles from './paint-editor.mobile.css';
 
-import bitmapIcon from './icons/bitmap.svg';
-import zoomInIcon from './icons/zoom-in.svg';
-import zoomOutIcon from './icons/zoom-out.svg';
-import zoomResetIcon from './icons/zoom-reset.svg';
-import closeIcon from './icons/close.svg';
+// import bitmapIcon from './icons/bitmap.svg';
+// import zoomInIcon from './icons/zoom-in.svg';
+// import zoomOutIcon from './icons/zoom-out.svg';
+// import zoomResetIcon from './icons/zoom-reset.svg';
+import backIcon from './icons/back.svg';
 import arrowRightIcon from './icons/arrow-right-mobile.svg';
 
 const messages = defineMessages({
@@ -300,7 +300,7 @@ class PaintEditorComponent extends React.Component {
                     <img
                         className={styles.icon}
                         draggable={false}
-                        src={closeIcon}
+                        src={backIcon}
                         onClick={this.handleClosePaintEditor.bind(this)}
                     />
                     <span>{this.props.intl.formatMessage(messages.title)}</span>
