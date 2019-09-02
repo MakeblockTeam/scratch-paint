@@ -321,31 +321,31 @@ class PaintEditorComponent extends React.Component {
                                 {/* <ReshapeMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 /> */}
-                                <EraserMode
-                                    onUpdateImage={this.props.onUpdateImage}
-                                />
                                 <BrushMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <FillMode
+                                <EraserMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <LineMode
+                                <FillMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <TextMode
                                     textArea={this.props.textArea}
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <OvalMode
+                                <LineMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <RectMode
+                                <OvalMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <CenterMode
                                     onUpdateImage={this.props.onUpdateImage}
                                     onUpdateRotateCenter={this.props.onUpdateRotateCenter}
+                                />
+                                <RectMode
+                                    onUpdateImage={this.props.onUpdateImage}
                                 />
                             </div>
                         ) : null}
@@ -359,16 +359,13 @@ class PaintEditorComponent extends React.Component {
                                     disabled={this.props.mode !== Modes.BIT_SELECT}
                                     onDelete={this.handleDelete.bind(this)}
                                 />
-                                <BitEraserMode
-                                    onUpdateImage={this.props.onUpdateImage}
-                                />
                                 <BitBrushMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <BitFillMode
+                                <BitEraserMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <BitLineMode
+                                <BitFillMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <TextMode
@@ -376,17 +373,19 @@ class PaintEditorComponent extends React.Component {
                                     textArea={this.props.textArea}
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <BitOvalMode
+                                <BitLineMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
-                                <BitRectMode
+                                <BitOvalMode
                                     onUpdateImage={this.props.onUpdateImage}
                                 />
                                 <BitCenterMode
                                     onUpdateImage={this.props.onUpdateImage}
                                     onUpdateRotateCenter={this.props.onUpdateRotateCenter}
                                 />
-
+                                <BitRectMode
+                                    onUpdateImage={this.props.onUpdateImage}
+                                />
                             </div>
                         ) : null}
                         <FixedToolsContainer
