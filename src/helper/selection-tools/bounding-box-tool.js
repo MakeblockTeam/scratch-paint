@@ -182,7 +182,11 @@ class BoundingBoxTool {
         const boundsScaleCircle =
             new paper.Path.Circle({
                 center: new paper.Point(0, 0),
+                // #if MOBILE
+                radius: 7 / paper.view.zoom,
+                // #else
                 radius: 4 / paper.view.zoom,
+                // #endif
                 fillColor: getGuideColor(),
                 data: {
                     isScaleHandle: true,
@@ -198,7 +202,11 @@ class BoundingBoxTool {
             const segment = this.boundsPath.segments[index];
 
             if (index === 7) {
+                // #if MOBILE
+                const offset = new paper.Point(0, 15);
+                // #else
                 const offset = new paper.Point(0, 20);
+                // #endif
 
                 const arrows = new paper.Path(ARROW_PATH);
                 arrows.translate(segment.point.add(offset).add(-10.5, -5));
@@ -210,7 +218,11 @@ class BoundingBoxTool {
                 const rotHandle = arrows.unite(line);
                 line.remove();
                 arrows.remove();
+                // #if MOBILE
+                rotHandle.scale(2 / paper.view.zoom, segment.point);
+                // #else
                 rotHandle.scale(1 / paper.view.zoom, segment.point);
+                // #endif
                 rotHandle.data = {
                     offset: offset,
                     isRotHandle: true,
