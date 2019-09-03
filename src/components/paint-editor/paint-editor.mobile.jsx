@@ -66,10 +66,10 @@ import {
 import GradientTypes from '../../lib/gradient-types';
 import styles from './paint-editor.mobile.css';
 
-// import bitmapIcon from './icons/bitmap.svg';
-// import zoomInIcon from './icons/zoom-in.svg';
-// import zoomOutIcon from './icons/zoom-out.svg';
-// import zoomResetIcon from './icons/zoom-reset.svg';
+import bitmapIcon from './icons/bitmap.svg';
+import zoomInIcon from './icons/zoom-in-mobile.svg';
+import zoomOutIcon from './icons/zoom-out-mobile.svg';
+import zoomResetIcon from './icons/zoom-reset-mobile.svg';
 import backIcon from './icons/back.svg';
 import arrowRightIcon from './icons/arrow-right-mobile.svg';
 
@@ -450,6 +450,44 @@ class PaintEditorComponent extends React.Component {
                                     </Box>
                                 ) : null
                             }
+                            {/* Zoom controls */}
+                            <InputGroup className={styles.zoomControls}>
+                                <ButtonGroup className={styles.buttonGroup}>
+                                    <Button
+                                        className={styles.buttonGroupButton}
+                                        onClick={this.props.onZoomOut}
+                                    >
+                                        <img
+                                            alt="Zoom Out"
+                                            className={styles.buttonGroupButtonIcon}
+                                            draggable={false}
+                                            src={zoomOutIcon}
+                                        />
+                                    </Button>
+                                    <Button
+                                        className={styles.buttonGroupButton}
+                                        onClick={this.props.onZoomReset}
+                                    >
+                                        <img
+                                            alt="Zoom Reset"
+                                            className={styles.buttonGroupButtonIcon}
+                                            draggable={false}
+                                            src={zoomResetIcon}
+                                        />
+                                    </Button>
+                                    <Button
+                                        className={styles.buttonGroupButton}
+                                        onClick={this.props.onZoomIn}
+                                    >
+                                        <img
+                                            alt="Zoom In"
+                                            className={styles.buttonGroupButtonIcon}
+                                            draggable={false}
+                                            src={zoomInIcon}
+                                        />
+                                    </Button>
+                                </ButtonGroup>
+                            </InputGroup>
                         </ScrollableCanvas>
                     </div>
                     <div className={styles.right}>

@@ -264,65 +264,36 @@ body {
     /* for the second row so the dashed borders are equal in size */
 }
 
-$border-radius: 0.25rem;
+.button-group {
+    padding: 0;
+}
 
 .button-group-button {
-    display: inline-block;
-    border: 1px solid $ui-pane-border;
-    border-radius: 0;
-    padding: .35rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: #fff;
+    margin-left: 1rem;
+    box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3);
+    transition: 0.2s;
 }
 
-[dir="ltr"] .button-group-button {
-    border-left: none;
-}
-
-[dir="rtl"] .button-group-button {
-    border-right: none;
-}
-
-[dir="ltr"] .button-group-button:last-of-type {
-    border-top-right-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-}
-
-[dir="ltr"] .button-group-button:first-of-type {
-    border-left: 1px solid $ui-pane-border;
-    border-top-left-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
-}
-
-[dir="rtl"] .button-group-button:last-of-type {
-    border-top-left-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
-}
-
-[dir="rtl"] .button-group-button:first-of-type {
-    border-right: 1px solid $ui-pane-border;
-    border-top-right-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-}
-
-[dir="ltr"] .button-group-button.mod-start-border {
-    border-left: 1px solid $ui-pane-border;
-}
-
-[dir="rtl"] .button-group-button.mod-start-border {
-    border-right: 1px solid $ui-pane-border;
-}
-
-[dir="ltr"].button-group-button.mod-no-end-border {
-    border-right: none;
-}
-
-[dir="rtl"].button-group-button.mod-no-end-border {
-    border-left: none;
+.button-group-button:active {
+    background-color: #1EAAFF;
 }
 
 .button-group-button-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.75rem;
+    height: 1.75rem;
     vertical-align: middle;
+    transition: 0.2s;
+}
+
+.button-group-button-icon:active {
+    filter: brightness(0) invert(1);
 }
 
 .mod-mode-tools {
@@ -344,7 +315,7 @@ $border-radius: 0.25rem;
     box-sizing: content-box;
     border: 1px solid #e8edf1;
     border-radius: .25rem;
-    margin-top: -$editor-container-header-height;
+    margin-top: -4rem;
     box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);
     overflow: visible;
 }
@@ -359,6 +330,9 @@ $border-radius: 0.25rem;
 }
 
 .zoom-controls {
+    position: absolute;
+    bottom: -4rem;
+    right: 0;
     display: flex;
     flex-direction: row-reverse;
 }
@@ -498,6 +472,17 @@ $border-radius: 0.25rem;
     .canvas-container {
         width: $canvas-container-width-phone-in-app;
         height: $canvas-container-height-phone-in-app;
-        margin-top: 0;
+        margin-top: -3rem;
+    }
+    .zoom-controls {
+        bottom: -3rem;
+    }
+    .button-group-button {
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+    .button-group-button-icon {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
