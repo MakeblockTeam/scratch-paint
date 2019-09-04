@@ -80,10 +80,12 @@ class ScrollableCanvas extends React.Component {
         if (touches.length === 2) {
             const dx = this.initialCanvasTouchX - getEventXY(event).x;
             const dy = this.initialCanvasTouchY - getEventXY(event).y;
-            paper.view.matrix.tx = this.initialCanvasScreenX + (dx * paper.view.zoom * 2);
-            paper.view.matrix.ty = this.initialCanvasScreenY + (dy * paper.view.zoom * 2);
-            clampViewBounds();
-            event.preventDefault();
+            if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+                paper.view.matrix.tx = this.initialCanvasScreenX + (dx * paper.view.zoom * 2);
+                paper.view.matrix.ty = this.initialCanvasScreenY + (dy * paper.view.zoom * 2);
+                clampViewBounds();
+                event.preventDefault();
+            }
         } else {
             return null;
         }
