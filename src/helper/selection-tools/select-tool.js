@@ -1,7 +1,7 @@
 import Modes from '../../lib/modes';
 
-import {getHoveredItem} from '../hover';
-import {selectRootItem} from '../selection';
+import { getHoveredItem } from '../hover';
+import { selectRootItem } from '../selection';
 import BoundingBoxTool from './bounding-box-tool';
 import NudgeTool from './nudge-tool';
 import SelectionBoxTool from './selection-box-tool';
@@ -16,11 +16,11 @@ import paper from '@scratch/paper';
  */
 class SelectTool extends paper.Tool {
     /** The distance within which mouse events count as a hit against an item */
-    static get TOLERANCE () {
+    static get TOLERANCE() {
         return 2;
     }
     /** Clicks registered within this amount of time are registered as double clicks */
-    static get DOUBLE_CLICK_MILLIS () {
+    static get DOUBLE_CLICK_MILLIS() {
         return 250;
     }
     /**
@@ -31,7 +31,7 @@ class SelectTool extends paper.Tool {
      * @param {!function} onUpdateImage A callback to call when the image visibly changes
      * @param {!function} switchToTextTool A callback to call to switch to the text tool
      */
-    constructor (setHoveredItem, clearHoveredItem, setSelectedItems, clearSelectedItems, onUpdateImage,
+    constructor(setHoveredItem, clearHoveredItem, setSelectedItems, clearSelectedItems, onUpdateImage,
         switchToTextTool) {
         super();
         this.setHoveredItem = setHoveredItem;
@@ -65,14 +65,14 @@ class SelectTool extends paper.Tool {
      * @param {paper.Item} prevHoveredItemId ID of the highlight item that indicates the mouse is
      *     over a given item currently
      */
-    setPrevHoveredItemId (prevHoveredItemId) {
+    setPrevHoveredItemId(prevHoveredItemId) {
         this.prevHoveredItemId = prevHoveredItemId;
     }
     /**
      * Should be called if the selection changes to update the bounds of the bounding box.
      * @param {Array<paper.Item>} selectedItems Array of selected items.
      */
-    onSelectionChanged (selectedItems) {
+    onSelectionChanged(selectedItems) {
         this.boundingBoxTool.onSelectionChanged(selectedItems);
     }
     /**
@@ -81,7 +81,7 @@ class SelectTool extends paper.Tool {
      *     selected.
      * @return {object} See paper.Item.hitTest for definition of options
      */
-    getHitOptions (preselectedOnly) {
+    getHitOptions(preselectedOnly) {
         // Tolerance needs to be scaled when the view is zoomed in in order to represent the same
         // distance for the user to move the mouse.
         const hitOptions = {
@@ -102,7 +102,13 @@ class SelectTool extends paper.Tool {
         }
         return hitOptions;
     }
-    handleMouseDown (event) {
+    handleMouseDown(event) {
+         // #if MOBILE
+         const { touches } = event.event;
+         if (touches.length > 1) {
+             return null;
+         }
+         // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
         this.clearHoveredItem();
@@ -130,16 +136,28 @@ class SelectTool extends paper.Tool {
             this.selectionBoxTool.onMouseDown(event.modifiers.shift);
         }
     }
-    handleMouseMove (event) {
+    handleMouseMove(event) {
+         // #if MOBILE
+         const { touches } = event.event;
+         if (touches.length > 1) {
+             return null;
+         }
+         // #endif
         const hoveredItem = getHoveredItem(event, this.getHitOptions());
         if ((!hoveredItem && this.prevHoveredItemId) || // There is no longer a hovered item
-                (hoveredItem && !this.prevHoveredItemId) || // There is now a hovered item
-                (hoveredItem && this.prevHoveredItemId &&
-                    hoveredItem.id !== this.prevHoveredItemId)) { // hovered item changed
+            (hoveredItem && !this.prevHoveredItemId) || // There is now a hovered item
+            (hoveredItem && this.prevHoveredItemId &&
+                hoveredItem.id !== this.prevHoveredItemId)) { // hovered item changed
             this.setHoveredItem(hoveredItem ? hoveredItem.id : null);
         }
     }
-    handleMouseDrag (event) {
+    handleMouseDrag(event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.selectionBoxMode) {
@@ -148,7 +166,13 @@ class SelectTool extends paper.Tool {
             this.boundingBoxTool.onMouseDrag(event);
         }
     }
-    handleMouseUp (event) {
+    handleMouseUp(event) {
+         // #if MOBILE
+         const { touches } = event.event;
+         if (touches.length > 1) {
+             return null;
+         }
+         // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.selectionBoxMode) {
@@ -159,7 +183,7 @@ class SelectTool extends paper.Tool {
         this.selectionBoxMode = false;
         this.active = false;
     }
-    deactivateTool () {
+    deactivateTool() {
         this.clearHoveredItem();
         this.boundingBoxTool.removeBoundsPath();
         this.setHoveredItem = null;

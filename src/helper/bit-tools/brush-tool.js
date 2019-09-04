@@ -76,10 +76,22 @@ class BrushTool extends paper.Tool {
         this.lastColor = this.color;
     }
     handleMouseMove (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         this.updateCursorIfNeeded();
         this.cursorPreview.position = new paper.Point(~~event.point.x, ~~event.point.y);
     }
     handleMouseDown (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
@@ -91,12 +103,24 @@ class BrushTool extends paper.Tool {
         this.lastPoint = event.point;
     }
     handleMouseDrag (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         forEachLinePoint(this.lastPoint, event.point, this.draw.bind(this));
         this.lastPoint = event.point;
     }
     handleMouseUp (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         forEachLinePoint(this.lastPoint, event.point, this.draw.bind(this));

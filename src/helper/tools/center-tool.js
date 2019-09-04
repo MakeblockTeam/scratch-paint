@@ -21,7 +21,12 @@ class CenterTool extends paper.Tool {
         this.onMouseUp = this.handleMouseUp;
     }
     handleMouseDown(event) {
-
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         const point = event.point;
         point.x = Math.max(0, Math.min(point.x, ART_BOARD_WIDTH));
         point.y = Math.max(0, Math.min(point.y, ART_BOARD_HEIGHT));
@@ -50,13 +55,28 @@ class CenterTool extends paper.Tool {
         // this.lastEvent = event;
     }
     handleMouseMove(event) {
-
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
     }
     handleMouseDrag(event) {
-
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
     }
     handleMouseUp(event) {
-
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
     }
 
     updateVectorRotateCenter(dragVector, event) {

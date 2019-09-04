@@ -68,10 +68,22 @@ class LineTool extends paper.Tool {
         this.lastColor = this.color;
     }
     handleMouseMove (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         this.updateCursorIfNeeded();
         this.cursorPreview.position = new paper.Point(~~event.point.x, ~~event.point.y);
     }
     handleMouseDown (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
@@ -88,6 +100,12 @@ class LineTool extends paper.Tool {
         this.startPoint = event.point;
     }
     handleMouseDrag (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         // Clear
@@ -97,6 +115,12 @@ class LineTool extends paper.Tool {
         forEachLinePoint(this.startPoint, event.point, this.draw.bind(this));
     }
     handleMouseUp (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
         
         this.drawTarget.remove();

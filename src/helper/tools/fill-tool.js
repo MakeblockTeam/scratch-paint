@@ -81,6 +81,12 @@ class FillTool extends paper.Tool {
         this.prevHoveredItemId = prevHoveredItemId;
     }
     handleMouseMove (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         const hoveredItem = getHoveredItem(event, this.getHitOptions(), true /* subselect */);
         if ((!hoveredItem && this.prevHoveredItemId) || // There is no longer a hovered item
                 (hoveredItem && !this.prevHoveredItemId) || // There is now a hovered item
@@ -133,6 +139,12 @@ class FillTool extends paper.Tool {
         }
     }
     handleMouseUp (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         if (this.fillItem) {
             // If the hole we're filling in is the same color as the parent, and parent has no outline, remove the hole

@@ -94,6 +94,12 @@ class LineMode extends React.Component {
         this.tool.activate();
     }
     onMouseDown (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
@@ -131,6 +137,12 @@ class LineMode extends React.Component {
         }
     }
     onMouseMove (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (this.hitResult) {
             removeHitPoint();
         }
@@ -138,6 +150,12 @@ class LineMode extends React.Component {
         this.drawHitPoint(this.hitResult);
     }
     onMouseDrag (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         // Clear the last hit result
@@ -187,6 +205,12 @@ class LineMode extends React.Component {
         }
     }
     onMouseUp (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         // If I single clicked, don't do anything

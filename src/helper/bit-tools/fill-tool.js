@@ -36,9 +36,21 @@ class FillTool extends paper.Tool {
         this.gradientType = gradientType;
     }
     handleMouseDown (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         this.paint(event);
     }
     handleMouseDrag (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         this.paint(event);
     }
     paint (event) {

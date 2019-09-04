@@ -181,6 +181,12 @@ class TextTool extends paper.Tool {
         this.rtl = isRtl;
     }
     handleMouseMove(event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         const hitResults = paper.project.hitTestAll(event.point, this.getTextEditHitOptions());
         if (hitResults.length) {
             document.body.style.cursor = 'text';
@@ -189,6 +195,12 @@ class TextTool extends paper.Tool {
         }
     }
     handleMouseDown(event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
@@ -248,6 +260,12 @@ class TextTool extends paper.Tool {
         }
     }
     handleMouseDrag(event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.mode === TextTool.SELECT_MODE) {
@@ -256,6 +274,12 @@ class TextTool extends paper.Tool {
         }
     }
     handleMouseUp(event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.mode === TextTool.SELECT_MODE) {

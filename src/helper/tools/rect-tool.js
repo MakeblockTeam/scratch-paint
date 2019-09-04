@@ -62,6 +62,12 @@ class RectTool extends paper.Tool {
         this.colorState = colorState;
     }
     handleMouseDown (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
@@ -74,6 +80,12 @@ class RectTool extends paper.Tool {
         }
     }
     handleMouseDrag (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.isBoundingBoxMode) {
@@ -102,6 +114,12 @@ class RectTool extends paper.Tool {
         styleShape(this.rect, this.colorState);
     }
     handleMouseUp (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.isBoundingBoxMode) {

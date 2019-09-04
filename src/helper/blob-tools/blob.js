@@ -2,9 +2,9 @@ import paper from '@scratch/paper';
 import log from '../../log/log';
 import BroadBrushHelper from './broad-brush-helper';
 import SegmentBrushHelper from './segment-brush-helper';
-import {MIXED, styleCursorPreview} from '../../helper/style-path';
-import {clearSelection, getItems} from '../../helper/selection';
-import {getGuideLayer} from '../../helper/layer';
+import { MIXED, styleCursorPreview } from '../../helper/style-path';
+import { clearSelection, getItems } from '../../helper/selection';
+import { getGuideLayer } from '../../helper/layer';
 
 /**
  * Shared code for the brush and eraser mode. Adds functions on the paper tool object
@@ -12,17 +12,17 @@ import {getGuideLayer} from '../../helper/layer';
  * based on the brushSize in the state.
  */
 class Blobbiness {
-    static get BROAD () {
+    static get BROAD() {
         return 'broadbrush';
     }
-    static get SEGMENT () {
+    static get SEGMENT() {
         return 'segmentbrush';
     }
 
     // If brush size >= threshold use segment brush, else use broadbrush
     // Segment brush has performance issues at low threshold, but broad brush has weird corners
     // which get more obvious the bigger it is
-    static get THRESHOLD () {
+    static get THRESHOLD() {
         return 30 / paper.view.zoom;
     }
 
@@ -30,7 +30,7 @@ class Blobbiness {
      * @param {function} onUpdateImage call when the drawing has changed to let listeners know
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
      */
-    constructor (onUpdateImage, clearSelectedItems) {
+    constructor(onUpdateImage, clearSelectedItems) {
         this.broadBrushHelper = new BroadBrushHelper();
         this.segmentBrushHelper = new SegmentBrushHelper();
         this.onUpdateImage = onUpdateImage;
@@ -41,7 +41,7 @@ class Blobbiness {
         this.brushSize = null;
         this.fillColor = null;
     }
-    
+
     /**
      * Set configuration options for a blob
      * @param {!object} options Configuration
@@ -52,7 +52,7 @@ class Blobbiness {
      * @param {?string} options.strokeColor Color of the brush outline.
      * @param {?number} options.strokeWidth Width of the brush outline.
      */
-    setOptions (options) {
+    setOptions(options) {
         const oldFillColor = this.options ? this.options.fillColor : 'black';
         const oldStrokeColor = this.options ? this.options.strokeColor : null;
         const oldStrokeWidth = this.options ? this.options.strokeWidth : null;
@@ -78,7 +78,7 @@ class Blobbiness {
      * @param {?string} options.strokeColor Color of the brush outline.
      * @param {?number} options.strokeWidth Width of the brush outline.
      */
-    activateTool (options) {
+    activateTool(options) {
         this.tool = new paper.Tool();
         this.cursorPreviewLastPoint = new paper.Point(-10000, -10000);
         this.setOptions(options);
@@ -87,13 +87,25 @@ class Blobbiness {
 
         const blob = this;
         this.tool.onMouseMove = function (event) {
+             // #if MOBILE
+             const { touches } = event.event;
+             if (touches.length > 1) {
+                 return null;
+             }
+             // #endif
             blob.resizeCursorIfNeeded(event.point);
             styleCursorPreview(blob.cursorPreview, blob.options);
             blob.cursorPreview.bringToFront();
             blob.cursorPreview.position = event.point;
         };
-        
+
         this.tool.onMouseDown = function (event) {
+            // #if MOBILE
+            const { touches } = event.event;
+            if (touches.length > 1) {
+                return null;
+            }
+            // #endif
             blob.resizeCursorIfNeeded(event.point);
             if (event.event.button > 0) return; // only first mouse button
             this.active = true;
@@ -110,6 +122,12 @@ class Blobbiness {
         };
 
         this.tool.onMouseDrag = function (event) {
+             // #if MOBILE
+             const { touches } = event.event;
+             if (touches.length > 1) {
+                 return null;
+             }
+             // #endif
             if (event.event.button > 0 || !this.active) return; // only first mouse button
             if (blob.brush === Blobbiness.BROAD) {
                 blob.broadBrushHelper.onBroadMouseDrag(event, blob.tool, blob.options);
@@ -124,8 +142,14 @@ class Blobbiness {
         };
 
         this.tool.onMouseUp = function (event) {
+             // #if MOBILE
+             const { touches } = event.event;
+             if (touches.length > 1) {
+                 return null;
+             }
+             // #endif
             if (event.event.button > 0 || !this.active) return; // only first mouse button
-            
+
             let lastPath;
             if (blob.brush === Blobbiness.BROAD) {
                 lastPath = blob.broadBrushHelper.onBroadMouseUp(event, blob.tool, blob.options);
@@ -154,7 +178,7 @@ class Blobbiness {
         this.tool.activate();
     }
 
-    resizeCursorIfNeeded (point) {
+    resizeCursorIfNeeded(point) {
         if (!this.options) {
             return;
         }
@@ -164,10 +188,10 @@ class Blobbiness {
             this.cursorPreview = null;
         }
         if (this.cursorPreview &&
-                this.brushSize === this.options.brushSize &&
-                this.fillColor === this.options.fillColor &&
-                this.strokeColor === this.options.strokeColor &&
-                this.cursorPreviewLastPoint.equals(point)) {
+            this.brushSize === this.options.brushSize &&
+            this.fillColor === this.options.fillColor &&
+            this.strokeColor === this.options.strokeColor &&
+            this.cursorPreviewLastPoint.equals(point)) {
             return;
         }
         if (typeof point !== 'undefined') {
@@ -190,7 +214,7 @@ class Blobbiness {
         styleCursorPreview(this.cursorPreview, this.options);
     }
 
-    mergeBrush (lastPath) {
+    mergeBrush(lastPath) {
         const blob = this;
 
         // Get all path items to merge with
@@ -241,7 +265,7 @@ class Blobbiness {
         }
     }
 
-    mergeEraser (lastPath) {
+    mergeEraser(lastPath) {
         const blob = this;
 
         // Get all path items to merge with
@@ -263,7 +287,7 @@ class Blobbiness {
                 class: paper.PathItem
             });
         }
-        
+
         for (let i = items.length - 1; i >= 0; i--) {
             // TODO handle compound paths
             if (items[i] instanceof paper.Path && (!items[i].fillColor || items[i].fillColor._alpha === 0)) {
@@ -330,7 +354,7 @@ class Blobbiness {
         lastPath.remove();
     }
 
-    separateCompoundPath (compoundPath) {
+    separateCompoundPath(compoundPath) {
         if (!compoundPath.isClockwise()) {
             compoundPath.reverse();
         }
@@ -375,17 +399,17 @@ class Blobbiness {
         }
     }
 
-    colorMatch (existingPath, addedPath) {
+    colorMatch(existingPath, addedPath) {
         // Note: transparent fill colors do notdetect as touching
         return existingPath.getFillColor().equals(addedPath.getFillColor()) &&
-                (addedPath.getStrokeColor() === existingPath.getStrokeColor() || // both null
-                    (addedPath.getStrokeColor() &&
-                        addedPath.getStrokeColor().equals(existingPath.getStrokeColor()))) &&
-                addedPath.getStrokeWidth() === existingPath.getStrokeWidth() &&
-                this.touches(existingPath, addedPath);
+            (addedPath.getStrokeColor() === existingPath.getStrokeColor() || // both null
+                (addedPath.getStrokeColor() &&
+                    addedPath.getStrokeColor().equals(existingPath.getStrokeColor()))) &&
+            addedPath.getStrokeWidth() === existingPath.getStrokeWidth() &&
+            this.touches(existingPath, addedPath);
     }
 
-    touches (path1, path2) {
+    touches(path1, path2) {
         // Two shapes are touching if their paths intersect
         if (path1 && path2 && path1.intersects(path2)) {
             return true;
@@ -393,17 +417,17 @@ class Blobbiness {
         return this.firstEnclosesSecond(path1, path2) || this.firstEnclosesSecond(path2, path1);
     }
 
-    firstEnclosesSecond (path1, path2) {
+    firstEnclosesSecond(path1, path2) {
         // Two shapes are also touching if one is completely inside the other
         if (path1 && path2 && path2.firstSegment && path2.firstSegment.point &&
-                path1.hitTest(path2.firstSegment.point)) {
+            path1.hitTest(path2.firstSegment.point)) {
             return true;
         }
         // TODO: clean up these no point paths
         return false;
     }
 
-    matchesAnyChild (group, path) {
+    matchesAnyChild(group, path) {
         for (const child of group.children) {
             if (child.children && this.matchesAnyChild(path, child)) {
                 return true;
@@ -415,7 +439,7 @@ class Blobbiness {
         return false;
     }
 
-    isMergeable (newPath, existingPath) {
+    isMergeable(newPath, existingPath) {
         // Path or compound path
         if (!(existingPath instanceof paper.PathItem)) {
             return;
@@ -428,7 +452,7 @@ class Blobbiness {
         return existingPath !== newPath; // don't merge with self
     }
 
-    deactivateTool () {
+    deactivateTool() {
         if (this.cursorPreview) {
             this.cursorPreview.remove();
             this.cursorPreview = null;

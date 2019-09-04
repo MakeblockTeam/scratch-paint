@@ -83,6 +83,12 @@ class SelectTool extends paper.Tool {
         };
     }
     handleMouseDown (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0) return; // only first mouse button
         this.active = true;
 
@@ -101,6 +107,12 @@ class SelectTool extends paper.Tool {
         }
     }
     handleMouseDrag (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.selectionBoxMode) {
@@ -110,6 +122,12 @@ class SelectTool extends paper.Tool {
         }
     }
     handleMouseUp (event) {
+        // #if MOBILE
+        const { touches } = event.event;
+        if (touches.length > 1) {
+            return null;
+        }
+        // #endif
         if (event.event.button > 0 || !this.active) return; // only first mouse button
 
         if (this.selectionBoxMode) {
