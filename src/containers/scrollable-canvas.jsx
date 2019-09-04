@@ -2,21 +2,21 @@ import paper from '@scratch/paper';
 import PropTypes from 'prop-types';
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import ScrollableCanvasComponent from '../components/scrollable-canvas/scrollable-canvas.jsx';
 
-import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT, clampViewBounds, pan, zoomOnFixedPoint} from '../helper/view';
-import {updateViewBounds} from '../reducers/view-bounds';
-import {redrawSelectionBox} from '../reducers/selected-items';
+import { ART_BOARD_WIDTH, ART_BOARD_HEIGHT, clampViewBounds, pan, zoomOnFixedPoint } from '../helper/view';
+import { updateViewBounds } from '../reducers/view-bounds';
+import { redrawSelectionBox } from '../reducers/selected-items';
 
-import {getEventXY} from '../lib/touch-utils';
+import { getEventXY } from '../lib/touch-utils';
 import bindAll from 'lodash.bindall';
 
 class ScrollableCanvas extends React.Component {
-    static get ZOOM_INCREMENT () {
+    static get ZOOM_INCREMENT() {
         return 0.5;
     }
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
             'handleHorizontalScrollbarMouseDown',
@@ -25,65 +25,113 @@ class ScrollableCanvas extends React.Component {
             'handleVerticalScrollbarMouseDown',
             'handleVerticalScrollbarMouseMove',
             'handleVerticalScrollbarMouseUp',
-            'handleWheel'
+            'handleWheel',
+            // #if MOBILE
+            'handleCanvasTouchStart',
+            'handleCanvasTouchMove'
+            // #endif
         ]);
     }
-    componentDidMount () {
+    componentDidMount() {
         if (this.props.canvas) {
             this.props.canvas.addEventListener('wheel', this.handleWheel);
+            // #if MOBILE
+            this.props.canvas.addEventListener('touchstart', this.handleCanvasTouchStart, { passive: false });
+            this.props.canvas.addEventListener('touchmove', this.handleCanvasTouchMove, { passive: false });
+            // #endif
         }
     }
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.canvas) {
             if (this.props.canvas) {
                 this.props.canvas.removeEventListener('wheel', this.handleWheel);
+                // #if MOBILE
+                this.props.canvas.removeEventListener('touchstart', this.handleCanvasTouchStart);
+                this.props.canvas.removeEventListener('touchmove', this.handleCanvasTouchMove);
+                // #endif
             }
             nextProps.canvas.addEventListener('wheel', this.handleWheel);
+            // #if MOBILE
+            nextProps.canvas.addEventListener('touchstart', this.handleCanvasTouchStart, { passive: false });
+            nextProps.canvas.addEventListener('touchmove', this.handleCanvasTouchMove, { passive: false });
+            // #endif
         }
     }
-    handleHorizontalScrollbarMouseDown (event) {
+    componentWillUnmount() {
+        // #if MOBILE
+        this.props.canvas.removeEventListener('touchstart', this.handleCanvasTouchStart);
+        this.props.canvas.removeEventListener('touchmove', this.handleCanvasTouchMove);
+        // #endif
+    }
+    // #if MOBILE
+    handleCanvasTouchStart(event) {
+        const { touches } = event;
+        if (touches.length === 2) {
+            this.initialCanvasScreenX = paper.view.matrix.tx;
+            this.initialCanvasScreenY = paper.view.matrix.ty;
+            this.initialCanvasTouchX = getEventXY(event).x;
+            this.initialCanvasTouchY = getEventXY(event).y;
+        } else {
+            return null;
+        }
+    }
+    handleCanvasTouchMove(event) {
+        const { touches } = event;
+        if (touches.length === 2) {
+            const dx = this.initialCanvasTouchX - getEventXY(event).x;
+            const dy = this.initialCanvasTouchY - getEventXY(event).y;
+            paper.view.matrix.tx = this.initialCanvasScreenX + (dx * paper.view.zoom * 2);
+            paper.view.matrix.ty = this.initialCanvasScreenY + (dy * paper.view.zoom * 2);
+            clampViewBounds();
+            event.preventDefault();
+        } else {
+            return null;
+        }
+    }
+    // #endif
+    handleHorizontalScrollbarMouseDown(event) {
         this.initialMouseX = getEventXY(event).x;
         this.initialScreenX = paper.view.matrix.tx;
         window.addEventListener('mousemove', this.handleHorizontalScrollbarMouseMove);
         window.addEventListener('mouseup', this.handleHorizontalScrollbarMouseUp);
         event.preventDefault();
     }
-    handleHorizontalScrollbarMouseMove (event) {
+    handleHorizontalScrollbarMouseMove(event) {
         const dx = this.initialMouseX - getEventXY(event).x;
         paper.view.matrix.tx = this.initialScreenX + (dx * paper.view.zoom * 2);
         clampViewBounds();
         this.props.updateViewBounds(paper.view.matrix);
         event.preventDefault();
     }
-    handleHorizontalScrollbarMouseUp (event) {
+    handleHorizontalScrollbarMouseUp(event) {
         window.removeEventListener('mousemove', this.handleHorizontalScrollbarMouseMove);
         window.removeEventListener('mouseup', this.handleHorizontalScrollbarMouseUp);
         this.initialMouseX = null;
         this.initialScreenX = null;
         event.preventDefault();
     }
-    handleVerticalScrollbarMouseDown (event) {
+    handleVerticalScrollbarMouseDown(event) {
         this.initialMouseY = getEventXY(event).y;
         this.initialScreenY = paper.view.matrix.ty;
         window.addEventListener('mousemove', this.handleVerticalScrollbarMouseMove);
         window.addEventListener('mouseup', this.handleVerticalScrollbarMouseUp);
         event.preventDefault();
     }
-    handleVerticalScrollbarMouseMove (event) {
+    handleVerticalScrollbarMouseMove(event) {
         const dy = this.initialMouseY - getEventXY(event).y;
         paper.view.matrix.ty = this.initialScreenY + (dy * paper.view.zoom * 2);
         clampViewBounds();
         this.props.updateViewBounds(paper.view.matrix);
         event.preventDefault();
     }
-    handleVerticalScrollbarMouseUp (event) {
+    handleVerticalScrollbarMouseUp(event) {
         window.removeEventListener('mousemove', this.handleVerticalScrollbarMouseMove);
         window.removeEventListener('mouseup', this.handleVerticalScrollbarMouseUp);
         this.initialMouseY = null;
         this.initialScreenY = null;
         event.preventDefault();
     }
-    handleWheel (event) {
+    handleWheel(event) {
         // Multiplier variable, so that non-pixel-deltaModes are supported. Needed for Firefox.
         // See #529 (or LLK/scratch-blocks#1190).
         const multiplier = event.deltaMode === 0x1 ? 15 : 1;
@@ -115,13 +163,13 @@ class ScrollableCanvas extends React.Component {
         }
         event.preventDefault();
     }
-    render () {
+    render() {
         let widthPercent = 0;
         let heightPercent = 0;
         let topPercent = 0;
         let leftPercent = 0;
         if (paper.project) {
-            const {x, y, width, height} = paper.view.bounds;
+            const { x, y, width, height } = paper.view.bounds;
             widthPercent = Math.min(100, 100 * width / ART_BOARD_WIDTH);
             heightPercent = Math.min(100, 100 * height / ART_BOARD_HEIGHT);
             const centerX = (x + (width / 2)) / ART_BOARD_WIDTH;
