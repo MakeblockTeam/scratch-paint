@@ -68,10 +68,12 @@ class ColorPickerBox extends Component {
         this.delayReloadStateTimer = setTimeout(() => {
             // 解决存在一些情况下，最后展示的颜色不相符的问题。
             const rgba = this.getImagePositionRGB();
-            this.setState({
-                currentRGB: rgba,
-                isDraging: false
-            });
+            if (rgba) {
+                this.setState({
+                    currentRGB: rgba,
+                    isDraging: false
+                });
+            };
             this.props.setDrawColor(this.state.currentRGBValues);
             clearTimeout(this.delayReloadStateTimer);
         }, 400);
@@ -79,12 +81,15 @@ class ColorPickerBox extends Component {
     changeRingPositionAndRGB(position) {
         const { x, y } = position;
         const rgba = this.getImagePositionRGB();
-        this.setState({
-            controlledPosition: { x, y },
-            currentRGB: rgba
-        });
+        if (rgba) {
+            this.setState({
+                controlledPosition: { x, y },
+                currentRGB: rgba
+            });
+        };
     }
     getImagePositionRGB() {
+        if (!this.ringEle || !this.stageCanvasCtx) return null;
         const { parent, canvas } = this.props;
         const ringCrt = this.ringEle.getBoundingClientRect();
         const imagePixelX = Math.ceil(ringCrt.left - ((parent.offsetWidth - canvas.offsetWidth) / 2) + (this.ringEle.offsetWidth / 2) - 1) + 30;
@@ -102,8 +107,8 @@ class ColorPickerBox extends Component {
         return rgba;
     }
     onTouchSomeWhere(e) {
-        const { isDraging } = this.state;
-        if (isDraging) return;
+        const { isDraging, isRendering } = this.state;
+        if (isDraging || isRendering) return;
         const { parent, canvas } = this.props;
         const { pageX, pageY } = e;
         const actualXPostion = pageX - ((parent.offsetWidth - canvas.offsetWidth) / 2) - (this.ringEle.offsetWidth / 2) + 30;
@@ -116,9 +121,12 @@ class ColorPickerBox extends Component {
         });
         this.getInitRGBTimer = setTimeout(() => {
             const rgba = this.getImagePositionRGB();
-            this.setState({
-                currentRGB: rgba
-            });
+            if (rgba) {
+                this.setState({
+                    currentRGB: rgba
+                });
+            };
+            this.props.setDrawColor(this.state.currentRGBValues);
             clearTimeout(this.getInitRGBTimer);
         }, 10);
     }
