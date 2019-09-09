@@ -66,7 +66,7 @@ class ScrollableCanvas extends React.Component {
     // #if MOBILE
     handleCanvasTouchStart(event) {
         const { touches } = event;
-        if (touches.length !== 2) {
+        if (touches.length === 2) {
             this.initialCanvasScreenX = paper.view.matrix.tx;
             this.initialCanvasScreenY = paper.view.matrix.ty;
             this.initialCanvasTouchX = getEventXY(event).x;
@@ -77,7 +77,7 @@ class ScrollableCanvas extends React.Component {
     }
     handleCanvasTouchMove(event) {
         const { touches } = event;
-        if (touches.length !== 2) {
+        if (touches.length === 2) {
             const dx = this.initialCanvasTouchX - getEventXY(event).x;
             const dy = this.initialCanvasTouchY - getEventXY(event).y;
             if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
