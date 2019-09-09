@@ -285,7 +285,7 @@ class PaperCanvas extends React.Component {
         const otherStyle = this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER ? styles.centerMode : '';
         return (
             <canvas
-                className={`${styles.paperCanvas} ${otherStyle}`}
+                className={`${styles.paperCanvas} ${otherStyle} ${this.props.className}`}
                 height="360px"
                 ref={this.setCanvas}
                 width="480px"
@@ -295,6 +295,7 @@ class PaperCanvas extends React.Component {
 }
 
 PaperCanvas.propTypes = {
+    className: PropTypes.string,
     canvasRef: PropTypes.func,
     changeFormat: PropTypes.func.isRequired,
     clearHoveredItem: PropTypes.func.isRequired,

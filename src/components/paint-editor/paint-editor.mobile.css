@@ -20,6 +20,16 @@ body {
     z-index: 9999;
 }
 
+.editor-container .mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: $editor-container-header-height;
+    left: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, .2);
+}
+
 .editor-container .header {
     display: flex;
     justify-content: space-between;
@@ -91,6 +101,10 @@ body {
     width: calc(100vw - $paint-area-left-width-in-app - $paint-area-right-width-in-app);
     margin-left: $paint-area-left-width-in-app;
     background-color: transparent;
+}
+
+.editor-container .paint-area .canvas-area.is-draw-color {
+    z-index: 2;
 }
 
 .editor-container .paint-area .right {
@@ -172,7 +186,7 @@ body {
     box-sizing: border-box;
     border-top: 2px solid #FC4144;
     transform-origin: top right;
-    transform:rotateZ(-23deg) scale(1.414);
+    transform: rotateZ(-23deg) scale(1.414);
 }
 
 .action-content .box .value .arrow {
@@ -341,6 +355,10 @@ body {
     flex-direction: row-reverse;
 }
 
+.zoom-controls.hide {
+    display: none;
+}
+
 .color-picker-wrapper {
     position: absolute;
     top: 0;
@@ -399,6 +417,10 @@ body {
 }
 
 @media only screen and (max-width: 895px) {
+    .editor-container .mask {
+        top: $editor-container-header-height_mobile;
+    }
+
     .editor-container .header {
         height: $editor-container-header-height_mobile;
         font-size: .75rem;

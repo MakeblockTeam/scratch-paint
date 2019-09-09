@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
-import className from 'classnames';
+import classNames from 'classnames';
 import styles from './color-picker-box.css';
 import loadingIcon from './icons/loading.svg';
 import pointIcon from './icons/point.png';
@@ -132,10 +132,13 @@ class ColorPickerBox extends Component {
     }
     render() {
         const { isRendering, controlledPosition, currentBounds, currentRGB, currentRGBValues } = this.state;
+        const { isDrawColor } = this.props;
         return (
             <div
                 ref={(ele) => { this.colorPickerContainer = ele; }}
-                className={styles.container}
+                className={classNames(styles.container, {
+                    [styles.isDrawColor]: isDrawColor
+                })}
             >
                 <div className={styles.content}>
                     <div
@@ -154,7 +157,7 @@ class ColorPickerBox extends Component {
                             >
                                 <div
                                     ref={(ele) => { this.ringEle = ele; }}
-                                    className={className(styles.ring, {
+                                    className={classNames(styles.ring, {
                                         [styles.hidden]: isRendering
                                     })}
                                     style={currentRGB && { borderColor: currentRGB }}

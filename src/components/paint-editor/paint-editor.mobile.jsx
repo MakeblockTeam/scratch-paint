@@ -408,7 +408,9 @@ class PaintEditorComponent extends React.Component {
                         />
                     </div>
                     <div
-                        className={styles.canvasArea}
+                        className={classNames(styles.canvasArea, {
+                            [styles.isDrawColor]: isDrawColor
+                        })}
                         ref={ele => { this.paintCanvasAreaEle = ele }}
                     >
                         <ScrollableCanvas
@@ -431,6 +433,7 @@ class PaintEditorComponent extends React.Component {
                                 <ColorPickerBox
                                     canvas={this.props.canvas}
                                     parent={this.editorContainerEle}
+                                    isDrawColor={isDrawColor}
                                     setDrawColor={this.onSetDrawColorInColorSelector.bind(this)}
                                 />
                             }
@@ -452,7 +455,9 @@ class PaintEditorComponent extends React.Component {
                                 ) : null
                             }
                             {/* Zoom controls */}
-                            <InputGroup className={styles.zoomControls}>
+                            <InputGroup className={classNames(styles.zoomControls, {
+                                [styles.hide]: isDrawColor
+                            })}>
                                 <ButtonGroup className={styles.buttonGroup}>
                                     <Button
                                         className={styles.buttonGroupButton}
@@ -542,7 +547,7 @@ class PaintEditorComponent extends React.Component {
                                         onClick={this.handleOpenColorSelector.bind(this, 'stroke')}
                                     >
                                         <div
-                                             className={classNames(styles.color, {
+                                            className={classNames(styles.color, {
                                                 [styles.noneColor]: !this.props.vectorModeStrokeColor
                                             })}
                                             style={{ backgroundColor: this.props.vectorModeStrokeColor }}
@@ -574,6 +579,10 @@ class PaintEditorComponent extends React.Component {
                         onDrawColor={this.onDrawColor.bind(this)}
                         onOk={this.onSetNewColor.bind(this)}
                     />
+                    {
+                        isDrawColor &&
+                        <div className={styles.mask}></div>
+                    }
                 </div>
             </div>
         )
