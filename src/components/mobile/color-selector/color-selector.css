@@ -42,15 +42,17 @@ $confirm--box-height_mobile:2.375rem;
     height: 6.25rem;
 }
 
-.container .color-display-box .top .none-color {
-    width: 16.2rem;
-    height: .2rem;
-    background-color: #FC4144;
-    transform-origin: bottom left;
-    transform: translate3d(0, 0, 0) rotate(-22.8deg);
+.container .color-display-box .top.none-color::before {
+    content: "";
     position: absolute;
     left: 0;
-    bottom: -.5px;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-top: 2px solid #FC4144;
+    transform-origin: top right;
+    transform:rotateZ(-23deg) scale(1.414);
 }
 
 .container .color-display-box .bottom {
@@ -199,8 +201,8 @@ $confirm--box-height_mobile:2.375rem;
         height: 4rem;
     }
 
-    .container .color-display-box .top .none-color {
-        height: .1rem;
+    .container .color-display-box .top.none-color::before {
+        border-top: 1px solid #FC4144;
     }
 
     .container .color-display-box .bottom {

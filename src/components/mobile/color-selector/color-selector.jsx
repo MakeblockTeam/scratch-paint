@@ -315,11 +315,9 @@ class ColorSelector extends Component {
             })}>
                 <div className={styles.content}>
                     <div className={styles.colorDisplayBox}>
-                        <div className={styles.top} style={{ backgroundColor: rgbValue }}>
-                            {
-                                !rgbValue &&
-                                <div className={styles.noneColor}></div>
-                            }
+                        <div className={classNames(styles.top, {
+                            [styles.noneColor]: !rgbValue
+                        })} style={{ backgroundColor: rgbValue }}>
                         </div>
                         <div className={styles.bottom}>
                             <div className={styles.left} onClick={this.setTransparentColor.bind(this)}>

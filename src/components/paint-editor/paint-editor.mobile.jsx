@@ -508,23 +508,21 @@ class PaintEditorComponent extends React.Component {
                                 />
                             </div>
                         </div>
-                        <div className={styles.actionContent}>
+                        <div className={classNames(styles.actionContent, {
+                            [styles.disabled]: this.props.fillModeDisabled
+                        })}>
                             <div className={classNames(styles.box, styles.costumeBox)}>
                                 <span className={styles.name}>{this.props.intl.formatMessage(messages.fill)}</span>
                                 <div
-                                    className={classNames(styles.value, {
-                                        [styles.disabled]: this.props.fillModeDisabled
-                                    })}
+                                    className={styles.value}
                                     onClick={this.handleOpenColorSelector.bind(this, 'fill')}
                                 >
                                     <div
-                                        className={styles.color}
+                                        className={classNames(styles.color, {
+                                            [styles.noneColor]: !this.props.fillColor
+                                        })}
                                         style={{ backgroundColor: this.props.fillColor }}
                                     >
-                                        {
-                                            !this.props.fillColor &&
-                                            <div className={styles.noneColor}></div>
-                                        }
                                     </div>
                                     <div className={styles.arrow}>
                                         <img src={arrowRightIcon} alt='arrow' />
@@ -534,23 +532,21 @@ class PaintEditorComponent extends React.Component {
                         </div>
                         {
                             isVector(this.props.format) &&
-                            <div className={styles.actionContent}>
+                            <div className={classNames(styles.actionContent, {
+                                [styles.disabled]: this.props.strokeModeDisabled
+                            })}>
                                 <div className={classNames(styles.box, styles.costumeBox)}>
                                     <span className={styles.name}>{this.props.intl.formatMessage(messages.stroke)}</span>
                                     <div
-                                        className={classNames(styles.value, {
-                                            [styles.disabled]: this.props.strokeModeDisabled
-                                        })}
+                                        className={styles.value}
                                         onClick={this.handleOpenColorSelector.bind(this, 'stroke')}
                                     >
                                         <div
-                                            className={styles.color}
+                                             className={classNames(styles.color, {
+                                                [styles.noneColor]: !this.props.vectorModeStrokeColor
+                                            })}
                                             style={{ backgroundColor: this.props.vectorModeStrokeColor }}
                                         >
-                                            {
-                                                !this.props.vectorModeStrokeColor &&
-                                                <div className={styles.noneColor}></div>
-                                            }
                                         </div>
                                         <div className={styles.arrow}>
                                             <img src={arrowRightIcon} alt='arrow' />
