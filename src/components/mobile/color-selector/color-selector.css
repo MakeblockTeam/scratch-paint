@@ -176,6 +176,10 @@ $confirm--box-height_mobile:2.375rem;
     background-color: #eef6fe;
 }
 
+:global(.rc-slider-rail) {
+    border: 1px solid #ddd;
+}
+
 @media only screen and (max-width: 895px) {
     .container {
         width: $paint-area-right-width-phone-in-app;

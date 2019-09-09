@@ -289,7 +289,8 @@ class PaintEditorComponent extends React.Component {
     }
 
     render() {
-        const { isColorSelectorShow, isDrawColor, drawColorRGBValues, currentCostumeName } = this.state;
+        const { isColorSelectorShow, isDrawColor, drawColorRGBValues, currentCostumeName,
+            colorSelectorMode } = this.state;
         return (
             <div
                 className={styles.editorContainer}
@@ -569,8 +570,10 @@ class PaintEditorComponent extends React.Component {
                             colorPicker: this.props.intl.formatMessage(messages.colorPicker),
                             confirm: this.props.intl.formatMessage(messages.confirm)
                         }}
+                        mode={colorSelectorMode}
                         drawColorRGBValues={drawColorRGBValues}
-                        color={this.props.fillColor}
+                        fillColor={this.props.fillColor}
+                        strokeColor={this.props.vectorModeStrokeColor}
                         isShow={isColorSelectorShow}
                         onDrawColor={this.onDrawColor.bind(this)}
                         onOk={this.onSetNewColor.bind(this)}

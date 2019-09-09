@@ -45,11 +45,8 @@ class ColorSelector extends Component {
     }
 
     componentDidMount() {
-        const { color } = this.props;
-        this.hexToRgb(color);
-        this.setState({
-            rgbValue: color
-        });
+        const { mode, fillColor, strokeColor } = this.props;
+        this.setInitialColor(mode, fillColor, strokeColor);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,7 +56,23 @@ class ColorSelector extends Component {
                 this.rgbToHsb(r, g, b);
                 this.rgbToHex([r, g, b]);
             }
+        } else if (nextProps.mode !== this.props.mode) {
+            const { mode, fillColor, strokeColor } = nextProps;
+            this.setInitialColor(mode, fillColor, strokeColor);
         }
+    }
+
+    setInitialColor(mode, fillColor, strokeColor) {
+        let color;
+        if (mode === 'fill') {
+            color = fillColor;
+        } else {
+            color = strokeColor;
+        }
+        this.hexToRgb(color);
+        this.setState({
+            rgbValue: color
+        });
     }
 
     getDefaultColorItems() {
