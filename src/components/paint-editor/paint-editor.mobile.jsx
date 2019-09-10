@@ -297,7 +297,7 @@ class PaintEditorComponent extends React.Component {
                 ref={ele => { this.editorContainerEle = ele }}
                 dir={this.props.rtl ? 'rtl' : 'ltr'}
             >
-                <header className={styles.header}>
+                <header className={styles.header} ref={ele => { this.headerAreaEle = ele }}>
                     <img
                         className={styles.icon}
                         draggable={false}
@@ -307,8 +307,8 @@ class PaintEditorComponent extends React.Component {
                     <span>{this.props.intl.formatMessage(messages.title)}</span>
                     <span onClick={this.handleSaveImageInPaintEditor.bind(this)}>{this.props.intl.formatMessage(messages.save)}</span>
                 </header>
-                <div className={styles.paintArea}>
-                    <div className={styles.left}>
+                <div className={styles.paintArea} ref={ele => { this.paintAreaEle = ele }}>
+                    <div className={styles.left} ref={ele => { this.leftAreaEle = ele }}>
                         {/* Modes */}
                         {this.props.canvas !== null && isVector(this.props.format) ? ( // eslint-disable-line no-negated-condition
                             <div className={styles.modeSelector}>
@@ -416,9 +416,12 @@ class PaintEditorComponent extends React.Component {
                         <ScrollableCanvas
                             canvas={this.props.canvas}
                             hideCursor={this.props.isEyeDropping}
-                            style={styles.canvasContainer}
+                            style={classNames(styles.canvasContainer, {
+                                [styles.drawColor]: isDrawColor
+                            })}
                         >
                             <PaperCanvas
+                                className={classNames({ [styles.hidden]: isDrawColor })}
                                 canvasRef={this.props.setCanvas}
                                 image={this.props.image}
                                 imageFormat={this.props.imageFormat}
@@ -433,11 +436,22 @@ class PaintEditorComponent extends React.Component {
                                 <ColorPickerBox
                                     canvas={this.props.canvas}
                                     parent={this.editorContainerEle}
+                                    paintAreaEle={this.paintAreaEle}
+                                    headerArea={this.headerAreaEle}
+                                    canvasArea={this.paintCanvasAreaEle}
+                                    leftArea={this.leftAreaEle}
+                                    rightArea={this.rightAreaEle}
                                     isDrawColor={isDrawColor}
                                     setDrawColor={this.onSetDrawColorInColorSelector.bind(this)}
                                 />
                             }
-                            <canvas id='clone-paper-canvas' style={{ display: 'none' }}></canvas>
+                            {
+                                isDrawColor &&
+                                <canvas
+                                    id='clone-paper-canvas'
+                                    className={styles.clonePaperCanvas}
+                                />
+                            }
                             <textarea
                                 className={styles.textArea}
                                 ref={this.props.setTextArea}
@@ -496,7 +510,7 @@ class PaintEditorComponent extends React.Component {
                             </InputGroup>
                         </ScrollableCanvas>
                     </div>
-                    <div className={styles.right}>
+                    <div className={styles.right} ref={ele => { this.rightAreaEle = ele }}>
                         <div className={styles.actionContent}>
                             <div
                                 className={classNames(styles.box, styles.costumeBox)}
