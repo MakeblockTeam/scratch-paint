@@ -21,6 +21,9 @@ class FillTool extends paper.Tool {
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
+        // #if MOBILE
+        this.onMouseDown = this.handleMouseMove;
+        // #endif
         this.onMouseMove = this.handleMouseMove;
         this.onMouseUp = this.handleMouseUp;
 
