@@ -396,8 +396,9 @@ class TextTool extends paper.Tool {
         } else {
             this.textBox.justification = 'left';
         }
-
+ -m        // #if !MOBILE
         this.element.focus({ preventScroll: true });
+        // #endif
         this.eventListener = this.handleTextInput.bind(this);
         this.element.addEventListener('input', this.eventListener);
         this.resizeGuide();
