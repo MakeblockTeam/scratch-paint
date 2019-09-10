@@ -34,3 +34,7 @@ $scrollbar-padding: 1px;
 .hide-cursor {
     cursor: none;
 }
+
+.hide-cursor > canvas {
+    cursor: none;
+}
