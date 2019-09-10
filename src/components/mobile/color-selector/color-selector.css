@@ -252,7 +252,7 @@ $confirm--box-height_mobile:2.375rem;
     .s-slider,
     .b-slider {
         height: 25px;
-        margin-top: 1rem;
+        margin-top: .5rem;
     }
 
     :global(.rc-slider-handle) {
