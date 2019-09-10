@@ -187,6 +187,7 @@ body {
 }
 
 .action-content .box .value .color.none-color::before {
+    pointer-events: none;
     content: "";
     position: absolute;
     left: 0;

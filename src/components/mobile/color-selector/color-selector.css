@@ -44,6 +44,7 @@ $confirm--box-height_mobile:2.375rem;
 }
 
 .container .color-display-box .top.none-color::before {
+    pointer-events: none;
     content: "";
     position: absolute;
     left: 0;
