@@ -42,6 +42,7 @@ import ColorSelector from '../mobile/color-selector/color-selector.jsx';
 import ColorPickerBox from '../mobile/color-selector/color-picker-box.jsx';
 
 import { changeStrokeWidth } from '../../reducers/stroke-width';
+import { changeBrushSize } from '../../reducers/brush-mode';
 import { changeFillColor } from '../../reducers/fill-color';
 import { changeFillColor2 } from '../../reducers/fill-color-2';
 import { changeStrokeColor } from '../../reducers/stroke-color';
@@ -155,11 +156,16 @@ class PaintEditorComponent extends React.Component {
         this._hasChanged = false;
     }
 
-    handleChangeVectorModeStrokeWidth(newWidth) {
-        if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
-            this.props.onUpdateImage();
+    handleChangeVectorModeStrokeOrFillWidth(newWidth) {
+        const { strokeModeDisabled } = this.props;
+        if (!strokeModeDisabled) {
+            if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
+                this.props.onUpdateImage();
+            }
+            this.props.onChangeStrokeWidth(newWidth);
+        } else {
+            this.props.onBrushSliderChange(newWidth);
         }
-        this.props.onChangeStrokeWidth(newWidth);
     }
 
     handleOpenColorSelector(mode = 'fill') {
@@ -267,7 +273,9 @@ class PaintEditorComponent extends React.Component {
         )
     }
 
-    renderStrokeWidthSelector() {
+    renderStrokeOrFillWidthSelector() {
+        const { strokeModeDisabled, vectorModeStrokeWidth, vectorModeBrushSize } = this.props;
+        let currentWidth = !strokeModeDisabled ? vectorModeStrokeWidth : vectorModeBrushSize;
         const strokeWidth = [4, 8, 12, 14];
         return (
             <div className={styles.strokeWidthSelector}>
@@ -275,10 +283,10 @@ class PaintEditorComponent extends React.Component {
                     strokeWidth.map((width, idx) => (
                         <div
                             className={classNames(styles.item, {
-                                [styles.selected]: this.props.vectorModeStrokeWidth == width
+                                [styles.selected]: currentWidth == width
                             })}
                             key={`${idx}-${width}`}
-                            onClick={this.handleChangeVectorModeStrokeWidth.bind(this, width)}
+                            onClick={this.handleChangeVectorModeStrokeOrFillWidth.bind(this, width)}
                         >
                             <div className={classNames(styles.line, styles[`line${idx + 1}`])}></div>
                         </div>
@@ -576,7 +584,7 @@ class PaintEditorComponent extends React.Component {
                         }
                         {
                             isVector(this.props.format) &&
-                            this.renderStrokeWidthSelector()
+                            this.renderStrokeOrFillWidthSelector()
                         }
                     </div>
                     <ColorSelector
@@ -648,6 +656,7 @@ const mapStateToProps = state => ({
         state.scratchPaint.mode === Modes.FILL,
     vectorModeStrokeColor: state.scratchPaint.color.strokeColor,
     vectorModeStrokeWidth: state.scratchPaint.color.strokeWidth,
+    vectorModeBrushSize: state.scratchPaint.brushMode.brushSize,
     mode: state.scratchPaint.mode,
     selectedItems: state.scratchPaint.selectedItems
 });
@@ -655,6 +664,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onChangeStrokeWidth: strokeWidth => {
         dispatch(changeStrokeWidth(strokeWidth));
+    },
+    onBrushSliderChange: brushSize => {
+        dispatch(changeBrushSize(brushSize));
     },
     onChangeFillColor: (fillColor, index) => {
         if (index === 0) {
