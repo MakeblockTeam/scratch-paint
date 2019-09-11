@@ -34,6 +34,7 @@ import RectMode from '../../containers/rect-mode.jsx';
 // import ReshapeMode from '../../containers/reshape-mode.jsx';
 import SelectMode from '../../containers/select-mode.jsx';
 import DeleteMode from '../mobile/delete-mode/delete-mode.jsx';
+import SaveConfirmationBox from '../mobile/save-confirmation-box/save-confirmation-box.jsx';
 // import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 // import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
@@ -129,6 +130,16 @@ const messages = defineMessages({
         defaultMessage: 'Cancel',
         description: 'Cancel',
         id: 'gui.modal.cancel'
+    },
+    save: {
+        defaultMessage: 'Save',
+        description: 'Save',
+        id: 'gui.project.save'
+    },
+    unSave: {
+        defaultMessage: 'UnSave',
+        description: 'UnSave',
+        id: 'gui.project.unSave'
     }
 });
 
@@ -141,7 +152,8 @@ class PaintEditorComponent extends React.Component {
             colorSelectorMode: 'fill',
             isDrawColor: false,
             drawColorRGBValues: '',
-            currentCostumeName: ''
+            currentCostumeName: '',
+            isSaveBoxShow: false
         };
         this._hasChanged = false;
     }
@@ -243,8 +255,21 @@ class PaintEditorComponent extends React.Component {
     }
 
     handleClosePaintEditor() {
+        if (this.props.canRedo() || this.props.canUndo()) {
+            this.setState({ isSaveBoxShow: true });
+        } else {
+            this.handleClosedPaintEditor();
+        }
+    }
+    
+    handleClosedPaintEditor() {
+        this.setState({ isSaveBoxShow: false });
         const { onClosePaintEditor = () => { } } = this.props;
         onClosePaintEditor();
+    }
+
+    handleCloseSaveConfirmationBox() {
+        this.setState({ isSaveBoxShow: false });
     }
 
     handleSaveImageInPaintEditor() {
@@ -254,7 +279,7 @@ class PaintEditorComponent extends React.Component {
         this.saveDelayTimer = setTimeout(() => {
             this.props.onUpdateName(this.costumeNameEle && this.costumeNameEle.value);
             this.props.onUpdateImage();
-            this.handleClosePaintEditor();
+            this.handleClosedPaintEditor();
             clearTimeout(this.saveDelayTimer);
         }, 100);
     }
@@ -298,7 +323,7 @@ class PaintEditorComponent extends React.Component {
 
     render() {
         const { isColorSelectorShow, isDrawColor, drawColorRGBValues, currentCostumeName,
-            colorSelectorMode } = this.state;
+            colorSelectorMode, isSaveBoxShow } = this.state;
         return (
             <div
                 className={styles.editorContainer}
@@ -604,6 +629,19 @@ class PaintEditorComponent extends React.Component {
                     {
                         isDrawColor &&
                         <div className={styles.mask}></div>
+                    }
+                    {
+                        isSaveBoxShow &&
+                        <SaveConfirmationBox
+                            messages={{
+                                save: this.props.intl.formatMessage(messages.save),
+                                unSave: this.props.intl.formatMessage(messages.unSave),
+                                cancel: this.props.intl.formatMessage(messages.cancel),
+                            }}
+                            onSave={() => { this.handleSaveImageInPaintEditor() }}
+                            OnUnSave={() => { this.handleClosedPaintEditor() }}
+                            onClose={() => { this.handleCloseSaveConfirmationBox() }}
+                        />
                     }
                 </div>
             </div>
