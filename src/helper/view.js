@@ -1,7 +1,7 @@
 import paper from '@scratch/paper';
-import {getSelectedRootItems} from './selection';
-import {getRaster} from './layer';
-import {getHitBounds} from './bitmap';
+import { getSelectedRootItems } from './selection';
+import { getRaster } from './layer';
+import { getHitBounds } from './bitmap';
 import { checkDeviceType } from '../util/util';
 
 // Vectors are imported and exported at SVG_ART_BOARD size.
@@ -14,17 +14,24 @@ let SVG_ART_BOARD_WIDTH = 480,
 // #if MOBILE
 const isPhone = checkDeviceType().phone;
 const isPad = checkDeviceType().ipad || checkDeviceType().androidPad;
-console.log(isPhone,isPad)
 if (isPhone) {
     SVG_ART_BOARD_WIDTH = 366.85;
     SVG_ART_BOARD_HEIGHT = 274.79;
     ART_BOARD_WIDTH = 366.85 * 2;
     ART_BOARD_HEIGHT = 274.79 * 2;
 } else if (isPad) {
-    SVG_ART_BOARD_WIDTH = 563;
-    SVG_ART_BOARD_HEIGHT = 422;
-    ART_BOARD_WIDTH = 563 * 2;
-    ART_BOARD_HEIGHT = 422 * 2;
+    const { clientWidth, clientHeight } = document.documentElement;
+    if (clientWidth >= 1366 && clientHeight >= 1024) {
+        SVG_ART_BOARD_WIDTH = 844.5;
+        SVG_ART_BOARD_HEIGHT = 633;
+        ART_BOARD_WIDTH = 844.5 * 2;
+        ART_BOARD_HEIGHT = 633 * 2;
+    } else {
+        SVG_ART_BOARD_WIDTH = 563;
+        SVG_ART_BOARD_HEIGHT = 422;
+        ART_BOARD_WIDTH = 563 * 2;
+        ART_BOARD_HEIGHT = 422 * 2;
+    }
 }
 // #endif
 const PADDING_PERCENT = 25; // Padding as a percent of the max of width/height of the sprite

@@ -25,6 +25,8 @@ $form-radius: calc($space / 2);
 $full-size: 1095px;
 $full-size-paint: 1249px;
 
+$canvas-container-width-max-screen-in-app: 844.5px;
+$canvas-container-height-max-screen-in-app: 633px;
 $canvas-container-width-in-app: 563px;
 $canvas-container-height-in-app: 422px;
 $canvas-container-width-phone-in-app: 366.85px;
