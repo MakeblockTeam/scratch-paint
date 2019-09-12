@@ -1,9 +1,6 @@
 @import "../../css/colors.css";
 @import "../../css/units.css";
 
-$editor-container-header-height: 3rem;
-$editor-container-header-height_mobile: 2rem;
-
 html,
 body {
     margin: 0;

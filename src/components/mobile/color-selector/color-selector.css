@@ -54,7 +54,7 @@ $confirm--box-height_mobile:2.375rem;
     box-sizing: border-box;
     border-top: 2px solid #FC4144;
     transform-origin: top right;
-    transform:rotateZ(-23deg) scale(1.414);
+    transform: rotateZ(-23deg) scale(1.414);
 }
 
 .container .color-display-box .bottom {
@@ -265,5 +265,24 @@ $confirm--box-height_mobile:2.375rem;
         height: 2.375rem;
         line-height: 2.375rem;
         font-size: 1rem;
+    }
+}
+
+@media only screen and (device-width : 414px) and (device-height : 896px) and (-webkit-device-pixel-ratio : 2) {
+    .container .confirm-box {
+        bottom: 1.2rem;
+    }
+}
+
+
+@media only screen and (device-width : 375px) and (device-height : 812px) and (-webkit-device-pixel-ratio : 3) {
+    .container .confirm-box {
+        bottom: 1.2rem;
+    }
+}
+
+@media only screen and (device-width : 414px) and (device-height : 896px) and (-webkit-device-pixel-ratio : 3) {
+    .container .confirm-box {
+        bottom: 1.2rem;
     }
 }
