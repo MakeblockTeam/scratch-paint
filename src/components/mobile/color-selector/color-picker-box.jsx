@@ -27,11 +27,13 @@ class ColorPickerBox extends Component {
             const clonePaperCanvas = document.getElementById('clone-paper-canvas');
             const src_img = new Image();
             src_img.src = currentImageUrl;
-            clonePaperCanvas.setAttribute('width', offsetWidth);
-            clonePaperCanvas.setAttribute('height', offsetHeight);
+            clonePaperCanvas.setAttribute('width', offsetWidth * 2);
+            clonePaperCanvas.setAttribute('height', offsetHeight * 2);
+            clonePaperCanvas.style.width = `${offsetWidth}px`;
+            clonePaperCanvas.style.height = `${offsetHeight}px`;
             that.stageCanvasCtx = clonePaperCanvas.getContext('2d');
             src_img.onload = function () {
-                that.stageCanvasCtx.drawImage(src_img, 0, 0, offsetWidth, offsetHeight);
+                that.stageCanvasCtx.drawImage(src_img, 0, 0, offsetWidth * 2, offsetHeight * 2);
                 // src_img.style.display = 'none';
             };
             that.setState({
@@ -94,7 +96,7 @@ class ColorPickerBox extends Component {
         const ringCrt = this.ringEle.getBoundingClientRect();
         const imagePixelX = Math.ceil(ringCrt.left - leftArea.offsetWidth - ((canvasArea.offsetWidth - canvas.offsetWidth) / 2) + (this.ringEle.offsetWidth / 2) - 1);
         const imagePixelY = Math.ceil(ringCrt.top - ((paintAreaEle.offsetHeight - canvas.offsetHeight) / 2) - headerArea.offsetHeight + (this.ringEle.offsetHeight / 2) - 1);
-        const pixel = this.stageCanvasCtx.getImageData(imagePixelX, imagePixelY, 1, 1);
+        const pixel = this.stageCanvasCtx.getImageData(imagePixelX * 2, imagePixelY * 2, 1, 1);
         const { data } = pixel;
         const rgba = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${(data[3] / 255)})`;
         this.setState({
