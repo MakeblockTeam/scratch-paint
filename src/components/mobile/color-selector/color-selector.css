@@ -26,6 +26,11 @@ $confirm--box-height_mobile:2.375rem;
     padding: 1rem 0;
 }
 
+.container .content.scroll-disabled {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 .container .color-display-box {
     width: 14.5rem;
     height: 8.75rem;
