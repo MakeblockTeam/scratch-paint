@@ -168,14 +168,15 @@ $confirm--box-height_mobile:2.375rem;
 }
 
 .container .confirm-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     height: 3.75rem;
-    line-height: 3.75rem;
     background-color: #fff;
-    text-align: center;
     font-size: 1.5rem;
     color: #4aa6ff;
     border-top: 1px solid #B4B7B8;
@@ -207,6 +208,7 @@ $confirm--box-height_mobile:2.375rem;
     .container .color-display-box .top {
         height: 4rem;
         border-radius: .375rem .375rem 0 0;
+        overflow: hidden;
     }
 
     .container .color-display-box .top.none-color::before {
@@ -268,7 +270,6 @@ $confirm--box-height_mobile:2.375rem;
 
     .container .confirm-box {
         height: 2.375rem;
-        line-height: 2.375rem;
         font-size: 1rem;
     }
 }
