@@ -356,6 +356,8 @@ class TextTool extends paper.Tool {
         if (this.textBox) {
             this.textBox.content = value;
         }
+        // 文字输入被记录到 redo/undo
+        this.onUpdateImage();
         this.deactivateTool();
     }
     // #endif
