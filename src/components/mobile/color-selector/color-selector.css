@@ -292,3 +292,9 @@ $confirm--box-height_mobile:2.375rem;
         bottom: 1.2rem;
     }
 }
+
+@media only screen and (device-width : 1024px) and (device-height : 1366px) {
+    .container .confirm-box {
+        bottom: 1.2rem;
+    }
+}
