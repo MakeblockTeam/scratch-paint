@@ -34,6 +34,7 @@ import RectMode from '../../containers/rect-mode.jsx';
 // import ReshapeMode from '../../containers/reshape-mode.jsx';
 import SelectMode from '../../containers/select-mode.jsx';
 import DeleteMode from '../mobile/delete-mode/delete-mode.jsx';
+import SaveConfirmationBox from '../mobile/save-confirmation-box/save-confirmation-box.jsx';
 // import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 // import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
@@ -42,6 +43,7 @@ import ColorSelector from '../mobile/color-selector/color-selector.jsx';
 import ColorPickerBox from '../mobile/color-selector/color-picker-box.jsx';
 
 import { changeStrokeWidth } from '../../reducers/stroke-width';
+import { changeBrushSize } from '../../reducers/brush-mode';
 import { changeFillColor } from '../../reducers/fill-color';
 import { changeFillColor2 } from '../../reducers/fill-color-2';
 import { changeStrokeColor } from '../../reducers/stroke-color';
@@ -128,6 +130,16 @@ const messages = defineMessages({
         defaultMessage: 'Cancel',
         description: 'Cancel',
         id: 'gui.modal.cancel'
+    },
+    save: {
+        defaultMessage: 'Save',
+        description: 'Save',
+        id: 'gui.project.save'
+    },
+    unSave: {
+        defaultMessage: 'UnSave',
+        description: 'UnSave',
+        id: 'gui.project.unSave'
     }
 });
 
@@ -140,7 +152,8 @@ class PaintEditorComponent extends React.Component {
             colorSelectorMode: 'fill',
             isDrawColor: false,
             drawColorRGBValues: '',
-            currentCostumeName: ''
+            currentCostumeName: '',
+            isSaveBoxShow: false
         };
         this._hasChanged = false;
     }
@@ -155,11 +168,16 @@ class PaintEditorComponent extends React.Component {
         this._hasChanged = false;
     }
 
-    handleChangeVectorModeStrokeWidth(newWidth) {
-        if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
-            this.props.onUpdateImage();
+    handleChangeVectorModeStrokeOrFillWidth(newWidth) {
+        const { strokeModeDisabled } = this.props;
+        if (!strokeModeDisabled) {
+            if (applyStrokeWidthToSelection(newWidth, this.props.textEditTarget)) {
+                this.props.onUpdateImage();
+            }
+            this.props.onChangeStrokeWidth(newWidth);
+        } else {
+            this.props.onBrushSliderChange(newWidth);
         }
-        this.props.onChangeStrokeWidth(newWidth);
     }
 
     handleOpenColorSelector(mode = 'fill') {
@@ -237,8 +255,21 @@ class PaintEditorComponent extends React.Component {
     }
 
     handleClosePaintEditor() {
+        if (this.props.canRedo() || this.props.canUndo()) {
+            this.setState({ isSaveBoxShow: true });
+        } else {
+            this.handleClosedPaintEditor();
+        }
+    }
+    
+    handleClosedPaintEditor() {
+        this.setState({ isSaveBoxShow: false });
         const { onClosePaintEditor = () => { } } = this.props;
         onClosePaintEditor();
+    }
+
+    handleCloseSaveConfirmationBox() {
+        this.setState({ isSaveBoxShow: false });
     }
 
     handleSaveImageInPaintEditor() {
@@ -248,7 +279,7 @@ class PaintEditorComponent extends React.Component {
         this.saveDelayTimer = setTimeout(() => {
             this.props.onUpdateName(this.costumeNameEle && this.costumeNameEle.value);
             this.props.onUpdateImage();
-            this.handleClosePaintEditor();
+            this.handleClosedPaintEditor();
             clearTimeout(this.saveDelayTimer);
         }, 100);
     }
@@ -267,7 +298,9 @@ class PaintEditorComponent extends React.Component {
         )
     }
 
-    renderStrokeWidthSelector() {
+    renderStrokeOrFillWidthSelector() {
+        const { strokeModeDisabled, vectorModeStrokeWidth, vectorModeBrushSize } = this.props;
+        let currentWidth = !strokeModeDisabled ? vectorModeStrokeWidth : vectorModeBrushSize;
         const strokeWidth = [4, 8, 12, 14];
         return (
             <div className={styles.strokeWidthSelector}>
@@ -275,10 +308,10 @@ class PaintEditorComponent extends React.Component {
                     strokeWidth.map((width, idx) => (
                         <div
                             className={classNames(styles.item, {
-                                [styles.selected]: this.props.vectorModeStrokeWidth == width
+                                [styles.selected]: currentWidth == width
                             })}
                             key={`${idx}-${width}`}
-                            onClick={this.handleChangeVectorModeStrokeWidth.bind(this, width)}
+                            onClick={this.handleChangeVectorModeStrokeOrFillWidth.bind(this, width)}
                         >
                             <div className={classNames(styles.line, styles[`line${idx + 1}`])}></div>
                         </div>
@@ -290,14 +323,14 @@ class PaintEditorComponent extends React.Component {
 
     render() {
         const { isColorSelectorShow, isDrawColor, drawColorRGBValues, currentCostumeName,
-            colorSelectorMode } = this.state;
+            colorSelectorMode, isSaveBoxShow } = this.state;
         return (
             <div
                 className={styles.editorContainer}
                 ref={ele => { this.editorContainerEle = ele }}
                 dir={this.props.rtl ? 'rtl' : 'ltr'}
             >
-                <header className={styles.header}>
+                <header className={styles.header} ref={ele => { this.headerAreaEle = ele }}>
                     <img
                         className={styles.icon}
                         draggable={false}
@@ -307,8 +340,8 @@ class PaintEditorComponent extends React.Component {
                     <span>{this.props.intl.formatMessage(messages.title)}</span>
                     <span onClick={this.handleSaveImageInPaintEditor.bind(this)}>{this.props.intl.formatMessage(messages.save)}</span>
                 </header>
-                <div className={styles.paintArea}>
-                    <div className={styles.left}>
+                <div className={styles.paintArea} ref={ele => { this.paintAreaEle = ele }}>
+                    <div className={styles.left} ref={ele => { this.leftAreaEle = ele }}>
                         {/* Modes */}
                         {this.props.canvas !== null && isVector(this.props.format) ? ( // eslint-disable-line no-negated-condition
                             <div className={styles.modeSelector}>
@@ -416,9 +449,12 @@ class PaintEditorComponent extends React.Component {
                         <ScrollableCanvas
                             canvas={this.props.canvas}
                             hideCursor={this.props.isEyeDropping}
-                            style={styles.canvasContainer}
+                            style={classNames(styles.canvasContainer, {
+                                [styles.drawColor]: isDrawColor
+                            })}
                         >
                             <PaperCanvas
+                                className={classNames({ [styles.hidden]: isDrawColor })}
                                 canvasRef={this.props.setCanvas}
                                 image={this.props.image}
                                 imageFormat={this.props.imageFormat}
@@ -433,11 +469,22 @@ class PaintEditorComponent extends React.Component {
                                 <ColorPickerBox
                                     canvas={this.props.canvas}
                                     parent={this.editorContainerEle}
+                                    paintAreaEle={this.paintAreaEle}
+                                    headerArea={this.headerAreaEle}
+                                    canvasArea={this.paintCanvasAreaEle}
+                                    leftArea={this.leftAreaEle}
+                                    rightArea={this.rightAreaEle}
                                     isDrawColor={isDrawColor}
                                     setDrawColor={this.onSetDrawColorInColorSelector.bind(this)}
                                 />
                             }
-                            <canvas id='clone-paper-canvas' style={{ display: 'none' }}></canvas>
+                            {
+                                isDrawColor &&
+                                <canvas
+                                    id='clone-paper-canvas'
+                                    className={styles.clonePaperCanvas}
+                                />
+                            }
                             <textarea
                                 className={styles.textArea}
                                 ref={this.props.setTextArea}
@@ -496,7 +543,7 @@ class PaintEditorComponent extends React.Component {
                             </InputGroup>
                         </ScrollableCanvas>
                     </div>
-                    <div className={styles.right}>
+                    <div className={styles.right} ref={ele => { this.rightAreaEle = ele }}>
                         <div className={styles.actionContent}>
                             <div
                                 className={classNames(styles.box, styles.costumeBox)}
@@ -562,7 +609,7 @@ class PaintEditorComponent extends React.Component {
                         }
                         {
                             isVector(this.props.format) &&
-                            this.renderStrokeWidthSelector()
+                            this.renderStrokeOrFillWidthSelector()
                         }
                     </div>
                     <ColorSelector
@@ -582,6 +629,19 @@ class PaintEditorComponent extends React.Component {
                     {
                         isDrawColor &&
                         <div className={styles.mask}></div>
+                    }
+                    {
+                        isSaveBoxShow &&
+                        <SaveConfirmationBox
+                            messages={{
+                                save: this.props.intl.formatMessage(messages.save),
+                                unSave: this.props.intl.formatMessage(messages.unSave),
+                                cancel: this.props.intl.formatMessage(messages.cancel),
+                            }}
+                            onSave={() => { this.handleSaveImageInPaintEditor() }}
+                            OnUnSave={() => { this.handleClosedPaintEditor() }}
+                            onClose={() => { this.handleCloseSaveConfirmationBox() }}
+                        />
                     }
                 </div>
             </div>
@@ -634,6 +694,7 @@ const mapStateToProps = state => ({
         state.scratchPaint.mode === Modes.FILL,
     vectorModeStrokeColor: state.scratchPaint.color.strokeColor,
     vectorModeStrokeWidth: state.scratchPaint.color.strokeWidth,
+    vectorModeBrushSize: state.scratchPaint.brushMode.brushSize,
     mode: state.scratchPaint.mode,
     selectedItems: state.scratchPaint.selectedItems
 });
@@ -641,6 +702,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onChangeStrokeWidth: strokeWidth => {
         dispatch(changeStrokeWidth(strokeWidth));
+    },
+    onBrushSliderChange: brushSize => {
+        dispatch(changeBrushSize(brushSize));
     },
     onChangeFillColor: (fillColor, index) => {
         if (index === 0) {

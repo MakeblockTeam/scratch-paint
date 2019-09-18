@@ -26,6 +26,11 @@ $confirm--box-height_mobile:2.375rem;
     padding: 1rem 0;
 }
 
+.container .content.scroll-disabled {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 .container .color-display-box {
     width: 14.5rem;
     height: 8.75rem;
@@ -44,6 +49,7 @@ $confirm--box-height_mobile:2.375rem;
 }
 
 .container .color-display-box .top.none-color::before {
+    pointer-events: none;
     content: "";
     position: absolute;
     left: 0;
@@ -53,7 +59,7 @@ $confirm--box-height_mobile:2.375rem;
     box-sizing: border-box;
     border-top: 2px solid #FC4144;
     transform-origin: top right;
-    transform:rotateZ(-23deg) scale(1.414);
+    transform: rotateZ(-23deg) scale(1.414);
 }
 
 .container .color-display-box .bottom {
@@ -162,14 +168,15 @@ $confirm--box-height_mobile:2.375rem;
 }
 
 .container .confirm-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     height: 3.75rem;
-    line-height: 3.75rem;
     background-color: #fff;
-    text-align: center;
     font-size: 1.5rem;
     color: #4aa6ff;
     border-top: 1px solid #B4B7B8;
@@ -201,6 +208,7 @@ $confirm--box-height_mobile:2.375rem;
     .container .color-display-box .top {
         height: 4rem;
         border-radius: .375rem .375rem 0 0;
+        overflow: hidden;
     }
 
     .container .color-display-box .top.none-color::before {
@@ -252,7 +260,7 @@ $confirm--box-height_mobile:2.375rem;
     .s-slider,
     .b-slider {
         height: 25px;
-        margin-top: 1rem;
+        margin-top: .5rem;
     }
 
     :global(.rc-slider-handle) {
@@ -262,7 +270,31 @@ $confirm--box-height_mobile:2.375rem;
 
     .container .confirm-box {
         height: 2.375rem;
-        line-height: 2.375rem;
         font-size: 1rem;
+    }
+}
+
+@media only screen and (device-width : 414px) and (device-height : 896px) and (-webkit-device-pixel-ratio : 2) {
+    .container .confirm-box {
+        bottom: 1.2rem;
+    }
+}
+
+
+@media only screen and (device-width : 375px) and (device-height : 812px) and (-webkit-device-pixel-ratio : 3) {
+    .container .confirm-box {
+        bottom: 1.2rem;
+    }
+}
+
+@media only screen and (device-width : 414px) and (device-height : 896px) and (-webkit-device-pixel-ratio : 3) {
+    .container .confirm-box {
+        bottom: 1.2rem;
+    }
+}
+
+@media only screen and (device-width : 1024px) and (device-height : 1366px) {
+    .container .confirm-box {
+        bottom: 1.2rem;
     }
 }

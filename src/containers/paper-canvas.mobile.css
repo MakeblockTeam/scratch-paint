@@ -18,3 +18,10 @@
         height: $canvas-container-height-phone-in-app;
     }
 }
+
+@media (min-height: 1024px) and (min-width: 1366px) { 
+    .paper-canvas {
+        width: $canvas-container-width-max-screen-in-app;
+        height: $canvas-container-height-max-screen-in-app;
+    }
+} 

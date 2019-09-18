@@ -90,7 +90,12 @@ class FillMode extends React.Component {
         );
         this.tool.setFillColor(fillColor);
         this.tool.setFillColor2(fillColor2);
+        // #if MOBILE
+        // 移动端不存在渐变色，默认 SOLID
+        this.tool.setGradientType('SOLID');
+        // #else
         this.tool.setGradientType(gradientType);
+        // #endif
         this.tool.setPrevHoveredItemId(this.props.hoveredItemId);
         this.tool.activate();
     }

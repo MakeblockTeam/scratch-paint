@@ -40,7 +40,8 @@ class ColorSelector extends Component {
             bPickerValue: 100,
             rgbValue: '',
             isColorPickerBoxShow: false,
-            currentStageImageUrl: ''
+            currentStageImageUrl: '',
+            isScrollDisabled: false
         };
     }
 
@@ -108,6 +109,7 @@ class ColorSelector extends Component {
         const { sPickerValue, bPickerValue } = this.state;
         this.hsvToRgb(value / 360, sPickerValue / 100, bPickerValue / 100);
         this.setState({
+            isScrollDisabled: true,
             hPickerValue: value
         });
     }
@@ -116,6 +118,7 @@ class ColorSelector extends Component {
         const { hPickerValue, bPickerValue } = this.state;
         this.hsvToRgb(this.state.hPickerValue / 360, value / 100, bPickerValue / 100);
         this.setState({
+            isScrollDisabled: true,
             sPickerValue: value
         });
     }
@@ -124,8 +127,13 @@ class ColorSelector extends Component {
         const { hPickerValue, sPickerValue } = this.state;
         this.hsvToRgb(this.state.hPickerValue / 360, sPickerValue / 100, value / 100);
         this.setState({
+            isScrollDisabled: true,
             bPickerValue: value
         });
+    }
+
+    handleReleaseScroll() {
+        this.setState({ isScrollDisabled: false });
     }
 
     hsvToRgb(H, S, V) {
@@ -296,8 +304,9 @@ class ColorSelector extends Component {
                             max={item.max}
                             value={item.value}
                             railStyle={item.railStyle}
-                            handleStyle={handleStyle}
+                            handleStyle={item.value === item.max ? Object.assign({}, handleStyle, { marginLeft: '-20px' }) : handleStyle}
                             onChange={item.event}
+                            onAfterChange={this.handleReleaseScroll.bind(this)}
                         />
                     ))
                 }
@@ -308,12 +317,14 @@ class ColorSelector extends Component {
     render() {
         let currentColor;
         const { isShow, copywriting, drawColorRGBValues } = this.props;
-        const { rgbValue } = this.state;
+        const { rgbValue, isScrollDisabled } = this.state;
         return (
             <div className={classNames(styles.container, {
                 [styles.hide]: !isShow
             })}>
-                <div className={styles.content}>
+                <div className={classNames(styles.content, {
+                    [styles.scrollDisabled]: isScrollDisabled
+                })}>
                     <div className={styles.colorDisplayBox}>
                         <div className={classNames(styles.top, {
                             [styles.noneColor]: !rgbValue

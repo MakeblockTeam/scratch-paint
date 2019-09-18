@@ -356,6 +356,8 @@ class TextTool extends paper.Tool {
         if (this.textBox) {
             this.textBox.content = value;
         }
+        // 文字输入被记录到 redo/undo
+        this.onUpdateImage();
         this.deactivateTool();
     }
     // #endif
@@ -396,8 +398,9 @@ class TextTool extends paper.Tool {
         } else {
             this.textBox.justification = 'left';
         }
-
+        // #if !MOBILE
         this.element.focus({ preventScroll: true });
+        // #endif
         this.eventListener = this.handleTextInput.bind(this);
         this.element.addEventListener('input', this.eventListener);
         this.resizeGuide();

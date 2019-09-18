@@ -1,0 +1,78 @@
+$li-height: 4.375rem;
+$li-height_mobile: 3rem;
+
+.modal-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, .5);
+    outline: none;
+    user-select: none;
+    color: #5d647a;
+    overflow: hidden;
+}
+
+.container {
+    width: 31.25rem;
+    list-style: none;
+    text-align: center;
+    line-height: $li-height;
+}
+
+.container .operate {
+    width: 100%;
+    height: $li-height;
+    font-size: 1.5rem;
+    color: #888;
+    background: #fff;
+}
+
+.container .operate.save {
+    color: #4aa6ff;
+    border-radius: 1rem 1rem 0 0;
+    border-bottom: 1px solid #dadada;
+}
+
+.container .operate.un-save {
+    border-radius: 0 0 1rem 1rem;
+}
+
+.container .operate.cancel {
+    margin-top: .5rem;
+    border-radius: 1rem;
+}
+
+.container .operate:active {
+    background-color: #eef6fe;
+}
+
+@media only screen and (max-width: 895px) {
+    .container {
+        width: 20.5rem;
+        line-height: $li-height_mobile;
+    }
+
+    .container .operate {
+        height: $li-height_mobile;
+        font-size: 1rem;
+    }
+
+    .container .operate.save {
+        border-radius: .625rem .625rem 0 0;
+    }
+
+    .container .operate.un-save {
+        border-radius: 0 0 .625rem .625rem;
+    }
+
+    .container .operate.cancel {
+        margin-top: .3125rem;
+        border-radius: .625rem;
+    }
+}
