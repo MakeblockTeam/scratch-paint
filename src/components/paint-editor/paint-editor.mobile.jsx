@@ -50,6 +50,7 @@ import { changeStrokeColor } from '../../reducers/stroke-color';
 import { clearSelectedItems, setSelectedItems } from '../../reducers/selected-items';
 // #if MOBILE
 import { changeSaveStatus } from '../../reducers/save-image';
+import ThirdTool from '../../helper/tools/third-tool';
 // #endif
 
 import Modes from '../../lib/modes';
@@ -68,7 +69,7 @@ import {
 import GradientTypes from '../../lib/gradient-types';
 import styles from './paint-editor.mobile.css';
 
-import bitmapIcon from './icons/bitmap.svg';
+// import bitmapIcon from './icons/bitmap.svg';
 import zoomInIcon from './icons/zoom-in-mobile.svg';
 import zoomOutIcon from './icons/zoom-out-mobile.svg';
 import zoomResetIcon from './icons/zoom-reset-mobile.svg';
@@ -142,6 +143,8 @@ const messages = defineMessages({
         id: 'gui.project.unSave'
     }
 });
+
+const MobileInputBox = ThirdTool.get('mobileInput');
 
 class PaintEditorComponent extends React.Component {
     constructor(props) {
@@ -285,17 +288,16 @@ class PaintEditorComponent extends React.Component {
     }
 
     handleInputValue() {
-        if (!window.InputBoxInMobile) return false;
+        if (!MobileInputBox) return false;
         const { currentCostumeName } = this.state;
-        window.InputBoxInMobile.default(
+        MobileInputBox.default(
             {
                 ok: this.props.intl.formatMessage(messages.confirm),
                 cancel: this.props.intl.formatMessage(messages.cancel)
             },
             currentCostumeName,
-            this.onSetNewCostumName.bind(this),
-            () => { }
-        )
+            this.onSetNewCostumName.bind(this)
+        );
     }
 
     renderStrokeOrFillWidthSelector() {
@@ -551,7 +553,7 @@ class PaintEditorComponent extends React.Component {
                             >
                                 <span className={styles.name}>{this.props.intl.formatMessage(messages.costume)}</span>
                                 <input
-                                    disabled={window.InputBoxInMobile ? true : false}
+                                    disabled={ MobileInputBox ? true : false}
                                     ref={ele => this.costumeNameEle = ele}
                                     className={classNames(styles.value, styles.inputValue)}
                                     type='text'

@@ -5,7 +5,9 @@ import BoundingBoxTool from '../selection-tools/bounding-box-tool';
 import NudgeTool from '../selection-tools/nudge-tool';
 import { hoverBounds } from '../guides';
 import { getRaster } from '../layer';
-
+// #if MOBILE
+import ThirdTool from './third-tool';
+// #endif
 /**
  * Tool for adding text. Text elements have limited editability; they can't be reshaped,
  * drawn on or erased. This way they can preserve their ability to have the text edited.
@@ -368,16 +370,16 @@ class TextTool extends paper.Tool {
         this.textBox = textBox;
         this.mode = TextTool.TEXT_EDIT_MODE;
         // #if MOBILE
-        if (window.InputBoxInMobile) {
-            let that = this;
-            window.InputBoxInMobile.default(
+        const MobileInputBox = ThirdTool.get('mobileInput');
+        if (MobileInputBox) {
+            MobileInputBox.default(
                 {
                     ok: this.messages.ok,
                     cancel: this.messages.cancel
                 },
                 textBox.content,
-                this.setTextContent.bind(that),
-                this.deactivateTool.bind(that)
+                this.setTextContent.bind(this),
+                this.deactivateTool.bind(this)
             );
         }
         // #endif
