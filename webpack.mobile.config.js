@@ -17,7 +17,10 @@ const base = {
         rules: [{
             test: /\.jsx?$/,
             loader: 'babel-loader',
-            include: path.resolve(__dirname, 'src'),
+            include: [
+                path.resolve(__dirname, 'src'),
+                /node_modules[\\/]ui-*/
+            ],
             options: {
                 plugins: ['transform-object-rest-spread'],
                 presets: [['env', { browsers: ['last 3 versions', 'Safari >= 8', 'iOS >= 8'] }], 'react']
@@ -26,13 +29,13 @@ const base = {
             test: /\.jsx?$/,
             loader: 'ifdef-loader',
             options: {
-                MOBILE: true,
-                PC: false,
+                'MOBILE': true,
+                'PC': false,
                 'ifdef-verbose': true, // add this for verbose output
                 'ifdef-triple-slash': false // add this to use double slash comment instead of default triple slash
             }
         }, {
-            test: /\.css$/,
+            test: /\.(css|scss)$/,
             use: [{
                 loader: 'style-loader'
             }, {
@@ -43,6 +46,8 @@ const base = {
                     localIdentName: '[name]_[local]_[hash:base64:5]',
                     camelCase: true
                 }
+            }, {
+                loader: 'sass-loader'
             }, {
                 loader: 'postcss-loader',
                 options: {
@@ -114,7 +119,8 @@ module.exports = [
             'react-responsive': 'react-responsive',
             'react-style-proptype': 'react-style-proptype',
             'react-tooltip': 'react-tooltip',
-            'redux': 'redux'
+            'redux': 'redux',
+            'ui-mobile-input': 'ui-mobile-input'
         },
         entry: {
             'scratch-paint': './src/index.js'
@@ -123,6 +129,9 @@ module.exports = [
             path: path.resolve(__dirname, 'dist'),
             filename: '[name].js',
             libraryTarget: 'commonjs2'
+        },
+        resolve: {
+            extensions: ['.js', '.json', '.jsx', '.svg', 'css', '.ts', '.tsx']
         }
     })
 ];

@@ -50,7 +50,7 @@ import { changeStrokeColor } from '../../reducers/stroke-color';
 import { clearSelectedItems, setSelectedItems } from '../../reducers/selected-items';
 // #if MOBILE
 import { changeSaveStatus } from '../../reducers/save-image';
-import ThirdTool from '../../helper/tools/third-tool';
+import MobileInputBox from 'ui-mobile-input';
 // #endif
 
 import Modes from '../../lib/modes';
@@ -143,8 +143,6 @@ const messages = defineMessages({
         id: 'gui.project.unSave'
     }
 });
-
-const MobileInputBox = ThirdTool.get('mobileInput');
 
 class PaintEditorComponent extends React.Component {
     constructor(props) {

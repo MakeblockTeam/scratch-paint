@@ -6,7 +6,7 @@ import NudgeTool from '../selection-tools/nudge-tool';
 import { hoverBounds } from '../guides';
 import { getRaster } from '../layer';
 // #if MOBILE
-import ThirdTool from './third-tool';
+import MobileInputBox from 'ui-mobile-input';
 // #endif
 /**
  * Tool for adding text. Text elements have limited editability; they can't be reshaped,
@@ -370,7 +370,6 @@ class TextTool extends paper.Tool {
         this.textBox = textBox;
         this.mode = TextTool.TEXT_EDIT_MODE;
         // #if MOBILE
-        const MobileInputBox = ThirdTool.get('mobileInput');
         if (MobileInputBox) {
             MobileInputBox.default(
                 {
