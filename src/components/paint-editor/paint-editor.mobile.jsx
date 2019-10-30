@@ -34,7 +34,7 @@ import RectMode from '../../containers/rect-mode.jsx';
 // import ReshapeMode from '../../containers/reshape-mode.jsx';
 import SelectMode from '../../containers/select-mode.jsx';
 import DeleteMode from '../mobile/delete-mode/delete-mode.jsx';
-import SaveConfirmationBox from '../mobile/save-confirmation-box/save-confirmation-box.jsx';
+import SaveConfirm from 'ui-save-confirm';
 // import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 // import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
@@ -632,14 +632,14 @@ class PaintEditorComponent extends React.Component {
                     }
                     {
                         isSaveBoxShow &&
-                        <SaveConfirmationBox
+                        <SaveConfirm
                             messages={{
                                 save: this.props.intl.formatMessage(messages.save),
                                 unSave: this.props.intl.formatMessage(messages.unSave),
-                                cancel: this.props.intl.formatMessage(messages.cancel),
+                                cancel: this.props.intl.formatMessage(messages.cancel)
                             }}
                             onSave={() => { this.handleSaveImageInPaintEditor() }}
-                            OnUnSave={() => { this.handleClosedPaintEditor() }}
+                            onUnSave={() => { this.handleClosedPaintEditor() }}
                             onClose={() => { this.handleCloseSaveConfirmationBox() }}
                         />
                     }

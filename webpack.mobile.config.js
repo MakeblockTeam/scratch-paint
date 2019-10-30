@@ -120,7 +120,8 @@ module.exports = [
             'react-style-proptype': 'react-style-proptype',
             'react-tooltip': 'react-tooltip',
             'redux': 'redux',
-            'ui-mobile-input': 'ui-mobile-input'
+            'ui-mobile-input': 'ui-mobile-input',
+            'ui-save-confirm': 'ui-save-confirm'
         },
         entry: {
             'scratch-paint': './src/index.js'

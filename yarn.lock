@@ -2023,6 +2023,15 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
+clone-deep@^4.0.1:
+  version "4.0.1"
+  resolved "http://npm.makeblock.com/clone-deep/-/clone-deep-4.0.1.tgz#c19fd9bdbbf85942b4fd979c84dcf7d5f07c2387"
+  integrity sha1-wZ/Zvbv4WUK0/ZechNz31fB8I4c=
+  dependencies:
+    is-plain-object "^2.0.4"
+    kind-of "^6.0.2"
+    shallow-clone "^3.0.0"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "http://npm.makeblock.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -7748,6 +7757,17 @@ sane@^2.0.0:
   optionalDependencies:
     fsevents "^1.2.3"
 
+sass-loader@^8.0.0:
+  version "8.0.0"
+  resolved "http://npm.makeblock.com/sass-loader/-/sass-loader-8.0.0.tgz#e7b07a3e357f965e6b03dd45b016b0a9746af797"
+  integrity sha1-57B6PjV/ll5rA91FsBawqXRq95c=
+  dependencies:
+    clone-deep "^4.0.1"
+    loader-utils "^1.2.3"
+    neo-async "^2.6.1"
+    schema-utils "^2.1.0"
+    semver "^6.3.0"
+
 sax@^1.2.4:
   version "1.2.4"
   resolved "http://npm.makeblock.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -7777,6 +7797,14 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
+
+schema-utils@^2.1.0:
+  version "2.5.0"
+  resolved "http://npm.makeblock.com/schema-utils/-/schema-utils-2.5.0.tgz#8f254f618d402cc80257486213c8970edfd7c22f"
+  integrity sha1-jyVPYY1ALMgCV0hiE8iXDt/Xwi8=
+  dependencies:
+    ajv "^6.10.2"
+    ajv-keywords "^3.4.1"
 
 scratch-l10n@^2.0.0:
   version "2.0.20180511152022"
@@ -7911,6 +7939,13 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+shallow-clone@^3.0.0:
+  version "3.0.1"
+  resolved "http://npm.makeblock.com/shallow-clone/-/shallow-clone-3.0.1.tgz#8f2981ad92531f55035b01fb230769a40e02efa3"
+  integrity sha1-jymBrZJTH1UDWwH7IwdppA4C76M=
+  dependencies:
+    kind-of "^6.0.2"
 
 shallowequal@^0.2.2:
   version "0.2.2"
@@ -8748,6 +8783,24 @@ uglifyjs-webpack-plugin@^1.2.5:
     uglify-es "^3.3.4"
     webpack-sources "^1.1.0"
     worker-farm "^1.5.2"
+
+ui-mobile-input@^0.0.2:
+  version "0.0.2"
+  resolved "http://npm.makeblock.com/ui-mobile-input/-/ui-mobile-input-0.0.2.tgz#0fbb7034dd626f9fff8bc80fe6b713a7e00fa67e"
+  integrity sha512-CmzLrrKOiKki5I0aXiWb1RoIH+DSWbUsApjgbHB+pWQO2b2SpxTp9oMp8XYPodHxnbjlipKJwXnjwCx+X5uO+Q==
+  dependencies:
+    classnames "2.2.5"
+    react "16.2.0"
+    react-dom "16.4.0"
+
+ui-save-confirm@^0.0.1:
+  version "0.0.1"
+  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.1.tgz#3aac618f323f2d8374f1b7a990184daa5ee0bbbc"
+  integrity sha512-9ayEJ+2AsLHIJNLX5erUzP8HLq+DdbwgCPeXl13UixpTXdFT1lBrvNa1ftOCPhgy0wTV/hUpFHFvkD06m10ceA==
+  dependencies:
+    classnames "2.2.5"
+    react "16.2.0"
+    react-dom "16.4.0"
 
 unicode-length@^1.0.0:
   version "1.0.3"
