@@ -1,6 +1,6 @@
 {
   "name": "scratch-paint",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Graphical User Interface for the Scratch 3.0 paint editor, which is used to make and edit sprites for use in projects.",
   "main": "./dist/scratch-paint.js",
   "browser": "./src/index.js",
@@ -25,7 +25,7 @@
     "url": "git+ssh://git@github.com/LLK/scratch-paint.git"
   },
   "dependencies": {
-    "@scratch/paper": "^0.11.20190829152524",
+    "@scratch/paper": "^0.11.20191114161050",
     "babel-preset-es2015": "^6.24.1",
     "classnames": "2.2.5",
     "keymirror": "0.1.1",
