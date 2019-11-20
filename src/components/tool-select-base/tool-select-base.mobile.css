@@ -37,7 +37,7 @@ img.tool-select-icon {
     filter: brightness(0) invert(1);
 }
 
-@media only screen and (max-width: 895px) {
+@media only screen and (max-width: 900px) {
     .mod-tool-select {
         width: 2.3rem;
         height: 2.3rem;

@@ -190,7 +190,7 @@ $confirm--box-height_mobile:2.375rem;
     border: 1px solid #ddd;
 }
 
-@media only screen and (max-width: 895px) {
+@media only screen and (max-width: 900px) {
     .container {
         width: $paint-area-right-width-phone-in-app;
     }

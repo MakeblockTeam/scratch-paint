@@ -87,7 +87,7 @@ $border-radius: 0.25rem;
     margin-right: calc(2 * $grid-unit);
 }
 
-@media only screen and (max-width: 895px) {
+@media only screen and (max-width: 900px) {
     .redo-undo-box {
         margin-top: 1rem;
     }

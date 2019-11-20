@@ -434,7 +434,7 @@ body {
     /* Fixes button text wrapping in Edge */
 }
 
-@media only screen and (max-width: 895px) {
+@media only screen and (max-width: 900px) {
     .editor-container .mask {
         top: $editor-container-header-height_mobile;
     }

@@ -131,7 +131,7 @@
     border-left: 1px solid #dadada;
 }
 
-@media only screen and (max-width: 895px) {
+@media only screen and (max-width: 900px) {
     .content .image .ring-box .ring {
         width: 8rem;
         height: 8rem;
