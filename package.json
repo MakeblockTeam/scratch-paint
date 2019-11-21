@@ -1,6 +1,6 @@
 {
   "name": "scratch-paint",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Graphical User Interface for the Scratch 3.0 paint editor, which is used to make and edit sprites for use in projects.",
   "main": "./dist/scratch-paint.js",
   "browser": "./src/index.js",
@@ -37,7 +37,7 @@
     "sass-loader": "^8.0.0",
     "scratch-l10n": "^2.0.0",
     "scratch-svg-renderer": "latest",
-    "ui-mobile-input": "^0.0.2",
+    "ui-mobile-input": "^0.0.3",
     "ui-save-confirm": "^0.0.1",
     "webpack-cli": "^3.2.1"
   },
@@ -79,6 +79,7 @@
     "jest": "^22.2.2",
     "lodash.defaultsdeep": "4.6.0",
     "mkdirp": "^0.5.1",
+    "node-sass": "^4.13.0",
     "postcss-import": "^12.0.0",
     "postcss-loader": "^3.0.0",
     "postcss-simple-vars": "^4.0.0",

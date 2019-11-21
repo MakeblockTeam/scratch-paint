@@ -5015,7 +5015,7 @@ var Shape = Item.extend({
 		if (!dontPaint && (hasFill || hasStroke)) {
 			this._setStyles(ctx, param, viewMatrix);
 			if (hasFill) {
-				ctx.fill(style.getFillRule());
+				ctx.fill(style.getFillRule() || 'nonzero');
 				ctx.shadowColor = 'rgba(0,0,0,0)';
 			}
 			if (hasStroke)
@@ -9246,7 +9246,7 @@ new function() {
 			if (!dontPaint && (hasFill || hasStroke)) {
 				this._setStyles(ctx, param, viewMatrix);
 				if (hasFill) {
-					ctx.fill(style.getFillRule());
+					ctx.fill(style.getFillRule() || 'nonzero');
 					ctx.shadowColor = 'rgba(0,0,0,0)';
 				}
 				if (hasStroke) {
@@ -9998,7 +9998,7 @@ var CompoundPath = PathItem.extend({
 			this._setStyles(ctx, param, viewMatrix);
 			var style = this._style;
 			if (style.hasFill()) {
-				ctx.fill(style.getFillRule());
+				ctx.fill(style.getFillRule() || 'nonzero');
 				ctx.shadowColor = 'rgba(0,0,0,0)';
 			}
 			if (style.hasStroke())
@@ -26131,9 +26131,20 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/button-group/button-group.css ***!
   \****************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.button-group_button-group_3_c2R {\n  padding: 0 .25rem; }\n", ""]);
+
+// exports
+exports.locals = {
+	"button-group": "button-group_button-group_3_c2R",
+	"buttonGroup": "button-group_button-group_3_c2R"
+};
 
 /***/ }),
 
@@ -26142,9 +26153,22 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/button/button.css ***!
   \****************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n.button_button_lmpwR {\n  background: none;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n.button_button_lmpwR:active {\n  background-color: rgba(77, 151, 255, 0.2); }\n\n.button_highlighted_2c0Ir.button_button_lmpwR {\n  background-color: rgba(77, 151, 255, 0.2); }\n\n.button_mod-disabled_CFsZ2 {\n  cursor: auto;\n  opacity: .5; }\n\n.button_mod-disabled_CFsZ2:active {\n  background: none; }\n", ""]);
+
+// exports
+exports.locals = {
+	"button": "button_button_lmpwR",
+	"highlighted": "button_highlighted_2c0Ir",
+	"mod-disabled": "button_mod-disabled_CFsZ2",
+	"modDisabled": "button_mod-disabled_CFsZ2"
+};
 
 /***/ }),
 
@@ -26153,9 +26177,40 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/fixed-tools/fixed-tools.mobile.css ***!
   \*********************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.fixed-tools-mobile_row_VLupw {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.fixed-tools-mobile_redo-undo-box_2tXFn {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 100%;\n  padding: 0;\n  margin-top: 2rem; }\n\n.fixed-tools-mobile_costume-input_3Lw3u {\n  width: 8rem; }\n\n.fixed-tools-mobile_mod-unselect_3xcyO {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n.fixed-tools-mobile_button-group-button_2Eysk {\n  display: inline-block;\n  border-radius: 50%;\n  background-color: #EEF6FE;\n  width: 3.5rem;\n  height: 3.5rem; }\n\n.fixed-tools-mobile_button-group-button_2Eysk.fixed-tools-mobile_disabled_2q9N6 {\n  pointer-events: none;\n  background-color: #EEF6FE; }\n\n.fixed-tools-mobile_button-group-button_2Eysk:active {\n  background-color: #1EAAFF; }\n\n.fixed-tools-mobile_button-group-button-icon_1h2gH {\n  width: 100%;\n  height: 100%;\n  vertical-align: middle; }\n\n.fixed-tools-mobile_button-group-button_2Eysk:active .fixed-tools-mobile_button-group-button-icon_1h2gH {\n  /* Make the tool icons white while selected by making them black and inverting */\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n\n.fixed-tools-mobile_mod-context-menu_1zdkT {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  -ms-flex-direction: column;\n  flex-direction: column; }\n\n.fixed-tools-mobile_mod-top-divider_3Kr9y {\n  border-top: 1px solid #D9D9D9; }\n\n.fixed-tools-mobile_mod-menu-item_x-ZpH {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 -.25rem;\n  min-width: 6.25rem;\n  padding: calc(3 * .25rem);\n  white-space: nowrap;\n  cursor: pointer;\n  -webkit-transition: 0.1s ease;\n  -o-transition: 0.1s ease;\n  transition: 0.1s ease;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  font-family: \"Helvetica Neue\", Helvetica, sans-serif; }\n\n.fixed-tools-mobile_mod-disabled_2Q_0m {\n  cursor: auto; }\n\n.fixed-tools-mobile_mod-menu-item_x-ZpH:hover {\n  background: rgba(77, 151, 255, 0.2); }\n\n.fixed-tools-mobile_menu-item-icon_3Ns75 {\n  margin-right: calc(2 * .25rem); }\n\n@media only screen and (max-width: 900px) {\n  .fixed-tools-mobile_redo-undo-box_2tXFn {\n    margin-top: 1rem; }\n  .fixed-tools-mobile_button-group-button_2Eysk {\n    width: 2.3rem;\n    height: 2.3rem; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"row": "fixed-tools-mobile_row_VLupw",
+	"redo-undo-box": "fixed-tools-mobile_redo-undo-box_2tXFn",
+	"redoUndoBox": "fixed-tools-mobile_redo-undo-box_2tXFn",
+	"costume-input": "fixed-tools-mobile_costume-input_3Lw3u",
+	"costumeInput": "fixed-tools-mobile_costume-input_3Lw3u",
+	"mod-unselect": "fixed-tools-mobile_mod-unselect_3xcyO",
+	"modUnselect": "fixed-tools-mobile_mod-unselect_3xcyO",
+	"button-group-button": "fixed-tools-mobile_button-group-button_2Eysk",
+	"buttonGroupButton": "fixed-tools-mobile_button-group-button_2Eysk",
+	"disabled": "fixed-tools-mobile_disabled_2q9N6",
+	"button-group-button-icon": "fixed-tools-mobile_button-group-button-icon_1h2gH",
+	"buttonGroupButtonIcon": "fixed-tools-mobile_button-group-button-icon_1h2gH",
+	"mod-context-menu": "fixed-tools-mobile_mod-context-menu_1zdkT",
+	"modContextMenu": "fixed-tools-mobile_mod-context-menu_1zdkT",
+	"mod-top-divider": "fixed-tools-mobile_mod-top-divider_3Kr9y",
+	"modTopDivider": "fixed-tools-mobile_mod-top-divider_3Kr9y",
+	"mod-menu-item": "fixed-tools-mobile_mod-menu-item_x-ZpH",
+	"modMenuItem": "fixed-tools-mobile_mod-menu-item_x-ZpH",
+	"mod-disabled": "fixed-tools-mobile_mod-disabled_2Q_0m",
+	"modDisabled": "fixed-tools-mobile_mod-disabled_2Q_0m",
+	"menu-item-icon": "fixed-tools-mobile_menu-item-icon_3Ns75",
+	"menuItemIcon": "fixed-tools-mobile_menu-item-icon_3Ns75"
+};
 
 /***/ }),
 
@@ -26164,9 +26219,21 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/input-group/input-group.css ***!
   \**************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n[dir=\"ltr\"] .input-group_input-group_3FzNB + .input-group_input-group_3FzNB {\n  margin-left: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .input-group_input-group_3FzNB + .input-group_input-group_3FzNB {\n  margin-right: calc(2 * .25rem); }\n\n.input-group_disabled_3fp6_ {\n  opacity: 0.3;\n  /* Prevent any user actions */\n  pointer-events: none; }\n", ""]);
+
+// exports
+exports.locals = {
+	"input-group": "input-group_input-group_3FzNB",
+	"inputGroup": "input-group_input-group_3FzNB",
+	"disabled": "input-group_disabled_3fp6_"
+};
 
 /***/ }),
 
@@ -26175,9 +26242,20 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/loupe/loupe.css ***!
   \**************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".loupe_eye-dropper_39EHg {\n  position: absolute;\n  border-radius: 100%;\n  border: 1px solid #222; }\n", ""]);
+
+// exports
+exports.locals = {
+	"eye-dropper": "loupe_eye-dropper_39EHg",
+	"eyeDropper": "loupe_eye-dropper_39EHg"
+};
 
 /***/ }),
 
@@ -26186,9 +26264,41 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/color-selector/color-picker-box.css ***!
   \*****************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".color-picker-box_container_1id1j {\n  position: relative;\n  width: 100%;\n  height: 100%; }\n\n.color-picker-box_container_1id1j.color-picker-box_is-draw-color_2EnBG {\n  z-index: 2; }\n\n.color-picker-box_container_1id1j .color-picker-box_content_8H7iJ {\n  width: 100%;\n  height: 100%;\n  background-color: transparent;\n  margin: auto; }\n\n.color-picker-box_container_1id1j .color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM img {\n  width: 100%;\n  height: 100%;\n  pointer-events: none; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 10rem;\n  height: 10rem;\n  background-color: transparent;\n  border-radius: 50%;\n  border-width: 1.5rem;\n  border-style: solid;\n  -webkit-box-shadow: 0 0 0 2px #e3e3e3;\n  box-shadow: 0 0 0 2px #e3e3e3;\n  -webkit-transition: border-color .2s;\n  -o-transition: border-color .2s;\n  transition: border-color .2s;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z.color-picker-box_hidden_1imNi {\n  visibility: hidden; }\n\n.color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_inner-ring_1S7VR {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  width: 7rem;\n  height: 7rem;\n  background-color: transparent;\n  border: 2px solid #e3e3e3;\n  border-radius: 50%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_outer-ring_39d0p {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  margin: auto;\n  width: 12rem;\n  height: 12rem;\n  background-color: transparent;\n  border-radius: 50%; }\n\n.color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_point-icon_26iOD {\n  width: 1rem;\n  height: 1rem; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_loading-mask_BjaMb {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.3); }\n\n.color-picker-box_image_3H8iM .color-picker-box_loading-mask_BjaMb .color-picker-box_icon_BSZ9z {\n  width: 2rem;\n  height: 2rem;\n  -webkit-animation: color-picker-box_rotate_2RnMn 1s steps(12, end) infinite;\n  animation: color-picker-box_rotate_2RnMn 1s steps(12, end) infinite; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_clone-stage-image_1ZQA9 {\n  display: none; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk {\n  height: 12%; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk button {\n  width: 50%;\n  height: 100%;\n  font-size: 1.5rem;\n  color: #888;\n  background-color: transparent;\n  border: none; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk button:active {\n  background-color: #eef6fe; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk .color-picker-box_done_2s2vV {\n  color: #4aa6ff;\n  border-left: 1px solid #dadada; }\n\n@media only screen and (max-width: 900px) {\n  .color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z {\n    width: 8rem;\n    height: 8rem;\n    border-width: 1rem; }\n  .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_inner-ring_1S7VR {\n    width: 6rem;\n    height: 6rem; }\n  .color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk button {\n    font-size: 1rem; } }\n\n@-webkit-keyframes color-picker-box_rotate_2RnMn {\n  from {\n    -webkit-transform: translate3d(0, 0, 0) rotate(0deg);\n    transform: translate3d(0, 0, 0) rotate(0deg); }\n  to {\n    -webkit-transform: translate3d(0, 0, 0) rotate(360deg);\n    transform: translate3d(0, 0, 0) rotate(360deg); } }\n\n@keyframes color-picker-box_rotate_2RnMn {\n  from {\n    -webkit-transform: translate3d(0, 0, 0) rotate(0deg);\n    transform: translate3d(0, 0, 0) rotate(0deg); }\n  to {\n    -webkit-transform: translate3d(0, 0, 0) rotate(360deg);\n    transform: translate3d(0, 0, 0) rotate(360deg); } }\n", ""]);
+
+// exports
+exports.locals = {
+	"container": "color-picker-box_container_1id1j",
+	"is-draw-color": "color-picker-box_is-draw-color_2EnBG",
+	"isDrawColor": "color-picker-box_is-draw-color_2EnBG",
+	"content": "color-picker-box_content_8H7iJ",
+	"image": "color-picker-box_image_3H8iM",
+	"ring-box": "color-picker-box_ring-box_DEqEv",
+	"ringBox": "color-picker-box_ring-box_DEqEv",
+	"ring": "color-picker-box_ring_1-x0z",
+	"hidden": "color-picker-box_hidden_1imNi",
+	"inner-ring": "color-picker-box_inner-ring_1S7VR",
+	"innerRing": "color-picker-box_inner-ring_1S7VR",
+	"outer-ring": "color-picker-box_outer-ring_39d0p",
+	"outerRing": "color-picker-box_outer-ring_39d0p",
+	"point-icon": "color-picker-box_point-icon_26iOD",
+	"pointIcon": "color-picker-box_point-icon_26iOD",
+	"loading-mask": "color-picker-box_loading-mask_BjaMb",
+	"loadingMask": "color-picker-box_loading-mask_BjaMb",
+	"icon": "color-picker-box_icon_BSZ9z",
+	"rotate": "color-picker-box_rotate_2RnMn",
+	"clone-stage-image": "color-picker-box_clone-stage-image_1ZQA9",
+	"cloneStageImage": "color-picker-box_clone-stage-image_1ZQA9",
+	"operation": "color-picker-box_operation_cKCFk",
+	"done": "color-picker-box_done_2s2vV"
+};
 
 /***/ }),
 
@@ -26197,9 +26307,47 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/color-selector/color-selector.css ***!
   \***************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.color-selector_container_3Xe1u {\n  position: absolute;\n  top: 0;\n  right: 0;\n  width: 15.625rem;\n  height: 100%;\n  background-color: #fff;\n  -webkit-box-shadow: -1px 0px 7px 0px rgba(38, 65, 101, 0.2);\n  box-shadow: -1px 0px 7px 0px rgba(38, 65, 101, 0.2);\n  -webkit-transition: .3s;\n  -o-transition: .3s;\n  transition: .3s;\n  overflow: hidden; }\n\n.color-selector_container_3Xe1u.color-selector_hide_3vrZP {\n  -webkit-transform: translate3d(0, 0, 0) translateX(15.625rem);\n  transform: translate3d(0, 0, 0) translateX(15.625rem); }\n\n.color-selector_container_3Xe1u .color-selector_content_1HIog {\n  height: calc(100% - 3.75rem);\n  overflow-x: hidden;\n  overflow-y: auto;\n  padding: 1rem 0; }\n\n.color-selector_container_3Xe1u .color-selector_content_1HIog.color-selector_scroll-disabled_2Es4Q {\n  overflow-x: hidden;\n  overflow-y: hidden; }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 {\n  width: 14.5rem;\n  height: 8.75rem;\n  background-color: #FFFFFF;\n  border-radius: .625rem;\n  border: 1px solid #C2C9D2;\n  margin: auto;\n  overflow: hidden; }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g {\n  position: relative;\n  width: 100%;\n  height: 6.25rem;\n  border-radius: .625rem .625rem 0 0; }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g.color-selector_none-color_sjUl1::before {\n  pointer-events: none;\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-top: 2px solid #FC4144;\n  -webkit-transform-origin: top right;\n  -ms-transform-origin: top right;\n  transform-origin: top right;\n  -webkit-transform: rotateZ(-23deg) scale(1.414);\n  -ms-transform: rotate(-23deg) scale(1.414);\n  transform: rotateZ(-23deg) scale(1.414); }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 100%;\n  height: calc(8.75rem - 6.25rem);\n  border-top: 1px solid #C2C9D2; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 50%;\n  height: 100%;\n  color: #264165;\n  font-size: .75rem;\n  padding: 0 .25rem; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls:active,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC:active {\n  background-color: #eef6fe; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls {\n  border-right: 1px solid #C2C9D2; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls img,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC img {\n  width: 1.25rem;\n  height: 1.25rem;\n  margin-right: .25rem; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls span,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC span {\n  display: block;\n  max-width: 5rem;\n  overflow: hidden;\n  white-space: nowrap;\n  -o-text-overflow: ellipsis;\n  text-overflow: ellipsis; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx {\n  position: relative;\n  padding: calc(2.5rem - 0.75rem) 1rem 0 1rem; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_default-colors_3Yun1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-justify-content: space-around;\n  -ms-flex-pack: distribute;\n  justify-content: space-around;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -webkit-flex-wrap: wrap;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ {\n  display: inline-block;\n  width: 3rem;\n  height: 3rem;\n  margin-top: .75rem;\n  border-radius: 50%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ:nth-child(3n+2) {\n  margin-right: 2rem;\n  margin-left: 2rem; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ:last-child {\n  border: 1px solid #979797; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ.color-selector_active_2bajs {\n  pointer-events: none;\n  border: 4px solid #fff;\n  -webkit-box-shadow: 0 0 0 4px #4aa6ff;\n  box-shadow: 0 0 0 4px #4aa6ff; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_slider_sZMlV {\n  width: 100%;\n  margin-top: 2.5rem; }\n\n.color-selector_h-slider_3jts6,\n.color-selector_s-slider_3DzH8,\n.color-selector_b-slider_3TwOF {\n  position: relative;\n  height: 40px;\n  width: 100%;\n  border-radius: 6px;\n  -ms-touch-action: none;\n  touch-action: none;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  margin-top: 1.25rem; }\n\n.color-selector_h-slider_3jts6 {\n  margin-top: 0; }\n\n.color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 3.75rem;\n  background-color: #fff;\n  font-size: 1.5rem;\n  color: #4aa6ff;\n  border-top: 1px solid #B4B7B8; }\n\n.color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k:active {\n  background-color: #eef6fe; }\n\n.rc-slider-rail {\n  border: 1px solid #ddd; }\n\n@media only screen and (max-width: 900px) {\n  .color-selector_container_3Xe1u {\n    width: 9.5rem; }\n  .color-selector_container_3Xe1u .color-selector_content_1HIog {\n    height: calc(100% - 2.375rem); }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 {\n    width: 9rem;\n    height: 5.5rem;\n    border-radius: .375rem; }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g {\n    height: 4rem;\n    border-radius: .375rem .375rem 0 0;\n    overflow: hidden; }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g.color-selector_none-color_sjUl1::before {\n    border-top: 1px solid #FC4144; }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK {\n    height: calc(5.5rem - 4rem); }\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls,\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC {\n    font-size: .5rem; }\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls img,\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC img {\n    width: .8rem;\n    height: .8rem;\n    margin-right: .2rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx {\n    position: relative;\n    padding: calc(1rem - 0.5rem) 0.5rem 2rem 0.5rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ {\n    width: 1.875rem;\n    height: 1.875rem;\n    margin-top: .5rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ:nth-child(3n+2) {\n    margin-right: 1.2rem;\n    margin-left: 1.2rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ.color-selector_active_2bajs {\n    border: 2px solid #fff;\n    -webkit-box-shadow: 0 0 0 2px #4aa6ff;\n    box-shadow: 0 0 0 2px #4aa6ff; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_slider_sZMlV {\n    margin-top: 1rem; }\n  .color-selector_h-slider_3jts6,\n  .color-selector_s-slider_3DzH8,\n  .color-selector_b-slider_3TwOF {\n    height: 25px;\n    margin-top: .5rem; }\n  .rc-slider-handle {\n    width: 25px !important;\n    height: 25px !important; }\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    height: 2.375rem;\n    font-size: 1rem; } }\n\n@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 1024px) and (device-height: 1366px) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"container": "color-selector_container_3Xe1u",
+	"hide": "color-selector_hide_3vrZP",
+	"content": "color-selector_content_1HIog",
+	"scroll-disabled": "color-selector_scroll-disabled_2Es4Q",
+	"scrollDisabled": "color-selector_scroll-disabled_2Es4Q",
+	"color-display-box": "color-selector_color-display-box_2Fve1",
+	"colorDisplayBox": "color-selector_color-display-box_2Fve1",
+	"top": "color-selector_top_1Q36g",
+	"none-color": "color-selector_none-color_sjUl1",
+	"noneColor": "color-selector_none-color_sjUl1",
+	"bottom": "color-selector_bottom_3YiSK",
+	"left": "color-selector_left_2O4ls",
+	"right": "color-selector_right_IqQlC",
+	"color-select-box": "color-selector_color-select-box_2ohNx",
+	"colorSelectBox": "color-selector_color-select-box_2ohNx",
+	"default-colors": "color-selector_default-colors_3Yun1",
+	"defaultColors": "color-selector_default-colors_3Yun1",
+	"color-item": "color-selector_color-item_1LLHZ",
+	"colorItem": "color-selector_color-item_1LLHZ",
+	"active": "color-selector_active_2bajs",
+	"slider": "color-selector_slider_sZMlV",
+	"h-slider": "color-selector_h-slider_3jts6",
+	"hSlider": "color-selector_h-slider_3jts6",
+	"s-slider": "color-selector_s-slider_3DzH8",
+	"sSlider": "color-selector_s-slider_3DzH8",
+	"b-slider": "color-selector_b-slider_3TwOF",
+	"bSlider": "color-selector_b-slider_3TwOF",
+	"confirm-box": "color-selector_confirm-box_1_h3k",
+	"confirmBox": "color-selector_confirm-box_1_h3k"
+};
 
 /***/ }),
 
@@ -26208,9 +26356,21 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/delete-mode/delete-mode.css ***!
   \*********************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".delete-mode_delete-icon_2LIhC.delete-mode_disabled_3aCCW {\n  pointer-events: none;\n  opacity: .5; }\n\n.delete-mode_delete-icon_2LIhC:active {\n  background-color: #1EAAFF; }\n\n.delete-mode_delete-icon_2LIhC:active img {\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n", ""]);
+
+// exports
+exports.locals = {
+	"delete-icon": "delete-mode_delete-icon_2LIhC",
+	"deleteIcon": "delete-mode_delete-icon_2LIhC",
+	"disabled": "delete-mode_disabled_3aCCW"
+};
 
 /***/ }),
 
@@ -26219,9 +26379,95 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/paint-editor/paint-editor.mobile.css ***!
   \***********************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\nhtml,\nbody {\n  margin: 0;\n  width: 100%;\n  height: 100%; }\n\n.paint-editor-mobile_editor-container_4Tevr {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: #EEF6FE;\n  overflow: hidden;\n  z-index: 9999; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_mask_2Luks {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 3rem;\n  left: 0;\n  z-index: 1;\n  background: rgba(0, 0, 0, 0.2); }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  height: 3rem;\n  background-color: #1EAAFF;\n  font-size: 1.25rem;\n  font-weight: 500;\n  color: #fff; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG .paint-editor-mobile_icon_dAmmk {\n  width: 3rem;\n  height: 3rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG span:last-child {\n  margin-right: .5rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 {\n  position: relative;\n  width: 100%;\n  height: calc(100vh - 3rem); }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf {\n  position: relative;\n  height: 100%;\n  background-color: #fff;\n  overflow: auto;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi {\n  position: absolute;\n  top: 0; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel::after,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi::after {\n  position: absolute;\n  content: '';\n  width: 1px;\n  height: 100%;\n  top: 0;\n  background-color: #B4B7B8;\n  -webkit-transform: scaleX(0.5);\n  -ms-transform: scaleX(0.5);\n  transform: scaleX(0.5);\n  -webkit-transform-origin: 0 0;\n  -ms-transform-origin: 0 0;\n  transform-origin: 0 0; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel {\n  left: 0;\n  width: 11.875rem;\n  padding: .5rem 1.5rem 2rem 1.5rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel::after {\n  right: 0; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: calc(100% - 11.875rem - 15.625rem);\n  margin-left: 11.875rem;\n  background-color: transparent; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf.paint-editor-mobile_is-draw-color_22_DB {\n  z-index: 2; }\n\n.paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf .paint-editor-mobile_clone-paper-canvas_9qXuQ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #fff; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi {\n  right: 0;\n  width: 15.625rem;\n  padding: .5rem 1.25rem 2.5rem 2rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi::after {\n  left: 0; }\n\n.paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv {\n  position: relative;\n  width: 11.625rem;\n  margin: auto; }\n\n.paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv.paint-editor-mobile_disabled_3rVwv {\n  pointer-events: none;\n  opacity: .5; }\n\n.paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY {\n  width: 100%;\n  margin-top: 2rem; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_name_3HnLl {\n  max-width: 100%;\n  font-size: 1.25rem;\n  font-weight: 500;\n  color: #264165;\n  display: block;\n  margin-bottom: .625rem;\n  overflow: hidden;\n  white-space: nowrap;\n  -o-text-overflow: ellipsis;\n  text-overflow: ellipsis; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK {\n  width: 100%;\n  height: 2.5rem;\n  color: #264165 !important;\n  opacity: 1 !important;\n  font-size: 1.25rem;\n  border-radius: 2.5rem;\n  border: 1px solid #BCCCDC;\n  background-color: #fff;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  outline: none;\n  overflow: hidden; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK.paint-editor-mobile_input-value_3ommR {\n  padding: 0 1rem;\n  overflow: unset; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_color_38XOD {\n  position: relative;\n  display: inline-block;\n  width: 75%;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 2.5rem 0 0 2.5rem;\n  border-right: 1px solid #BCCCDC; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_color_38XOD.paint-editor-mobile_none-color_WpUPw::before {\n  pointer-events: none;\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-top: 2px solid #FC4144;\n  -webkit-transform-origin: top right;\n  -ms-transform-origin: top right;\n  transform-origin: top right;\n  -webkit-transform: rotateZ(-23deg) scale(1.414);\n  -ms-transform: rotate(-23deg) scale(1.414);\n  transform: rotateZ(-23deg) scale(1.414); }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_arrow_3u-yM {\n  display: inline-block;\n  width: 25%;\n  height: 100%;\n  background-color: #fff; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_arrow_3u-yM img {\n  width: 100%;\n  height: 100%; }\n\n.paint-editor-mobile_right_QBXmi .paint-editor-mobile_stroke-width-selector_1EIVH {\n  width: 100%; }\n\n.paint-editor-mobile_right_QBXmi .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 11.625rem;\n  height: 2rem;\n  margin: auto;\n  background-color: #EEF6FE;\n  border-radius: 1.25rem;\n  margin-top: 2rem;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY {\n  width: 8.125rem;\n  background-color: #264165; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39.paint-editor-mobile_selected_37ASb {\n  pointer-events: none;\n  border: 4px solid #4AA6FF;\n  -webkit-box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4);\n  box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4); }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line1_1Jjxk {\n  height: .125rem; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line2_2uUQ1 {\n  height: .25rem; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line3_2AW8- {\n  height: .375rem; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line4_25ARN {\n  height: .5rem; }\n\n.paint-editor-mobile_row_3NXVo {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.paint-editor-mobile_editor-container-top_3-hFt {\n  border-bottom: 1px dashed #D9D9D9;\n  padding-bottom: calc(2 * .25rem); }\n\n.paint-editor-mobile_top-align-row_RPPVU {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  padding-top: calc(5 * .25rem);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row; }\n\n.paint-editor-mobile_row_3NXVo + .paint-editor-mobile_row_3NXVo {\n  margin-top: calc(2 * .25rem); }\n\n[dir=\"ltr\"] .paint-editor-mobile_mod-dashed-border_3HOhw {\n  border-right: 1px dashed #D9D9D9;\n  padding-right: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile_mod-dashed-border_3HOhw {\n  border-left: 1px dashed #D9D9D9;\n  padding-left: calc(2 * .25rem); }\n\n.paint-editor-mobile_mod-labeled-icon-height_rtAU3 {\n  height: 2.85rem;\n  /* for the second row so the dashed borders are equal in size */ }\n\n.paint-editor-mobile_button-group_1YSng {\n  padding: 0; }\n\n.paint-editor-mobile_button-group-button_2_Ciw {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 2.75rem;\n  height: 2.75rem;\n  border-radius: 50%;\n  background: #fff;\n  margin-left: 1rem;\n  -webkit-box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3);\n  box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3);\n  -webkit-transition: 0.2s;\n  -o-transition: 0.2s;\n  transition: 0.2s; }\n\n.paint-editor-mobile_button-group-button_2_Ciw:active {\n  background-color: #1EAAFF; }\n\n.paint-editor-mobile_button-group-button-icon_3iWwK {\n  width: 1.75rem;\n  height: 1.75rem;\n  vertical-align: middle;\n  -webkit-transition: 0.2s;\n  -o-transition: 0.2s;\n  transition: 0.2s; }\n\n.paint-editor-mobile_button-group-button-icon_3iWwK:active {\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n\n.paint-editor-mobile_mod-mode-tools_iW_bX {\n  margin-left: calc(2 * .25rem); }\n\n[dir=\"ltr\"] .paint-editor-mobile_mod-margin-after_vfP3P {\n  margin-right: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile_mod-margin-after_vfP3P {\n  margin-left: calc(2 * .25rem); }\n\n.paint-editor-mobile_canvas-container_3f7OI {\n  position: relative;\n  width: 563px;\n  height: 422px;\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n  border-radius: .25rem;\n  -webkit-transform: translate3d(0, 0, 0) translateY(-2rem);\n  transform: translate3d(0, 0, 0) translateY(-2rem);\n  -webkit-transition: .2s;\n  -o-transition: .2s;\n  transition: .2s;\n  -webkit-box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);\n  box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);\n  overflow: visible; }\n\n.paint-editor-mobile_canvas-container_3f7OI.paint-editor-mobile_draw-color_1apDU {\n  -webkit-transform: translate3d(0, 0, 0) translateY(0);\n  transform: translate3d(0, 0, 0) translateY(0); }\n\n.paint-editor-mobile_canvas-container_3f7OI .paint-editor-mobile_hidden_3ErEQ {\n  visibility: hidden;\n  -webkit-transform: translate3d(0, 0, 0) translateY(-50rem);\n  transform: translate3d(0, 0, 0) translateY(-50rem); }\n\n.paint-editor-mobile_mode-selector_GNnUD {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-flex-wrap: wrap;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  -webkit-box-align: start;\n  -webkit-align-items: flex-start;\n  -ms-flex-align: start;\n  align-items: flex-start;\n  -webkit-align-content: flex-start;\n  -ms-flex-line-pack: start;\n  align-content: flex-start;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between; }\n\n.paint-editor-mobile_zoom-controls_3Ialw {\n  position: absolute;\n  bottom: -4rem;\n  right: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: reverse;\n  -webkit-flex-direction: row-reverse;\n  -ms-flex-direction: row-reverse;\n  flex-direction: row-reverse; }\n\n.paint-editor-mobile_zoom-controls_3Ialw.paint-editor-mobile_hide_1vzjK {\n  display: none; }\n\n.paint-editor-mobile_color-picker-wrapper_3muCo {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none; }\n\n.paint-editor-mobile_canvas-controls_1RKRg {\n  position: absolute;\n  bottom: 5rem;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin-top: .25rem;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between; }\n\n.paint-editor-mobile_bitmap-button_2_I5t {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  border-radius: 5px;\n  background-color: #4C97FF;\n  padding: calc(2 * .25rem);\n  line-height: 1.5rem;\n  font-size: calc(3 * .25rem);\n  font-weight: bold;\n  color: white;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n[dir=\"ltr\"] .paint-editor-mobile_bitmap-button-icon_1VKV0 {\n  margin-right: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile_bitmap-button-icon_1VKV0 {\n  margin-left: calc(2 * .25rem); }\n\n.paint-editor-mobile_text-area_2S1aF {\n  background: transparent;\n  border: none;\n  display: none;\n  margin: 0px;\n  opacity: .8;\n  outline: none;\n  overflow: hidden;\n  padding: 0px;\n  position: absolute;\n  resize: none;\n  -webkit-text-fill-color: transparent;\n  text-fill-color: transparent; }\n\n.paint-editor-mobile_button-text_1W6yk {\n  width: 100%;\n  /* Fixes button text wrapping in Edge */ }\n\n@media only screen and (max-width: 900px) {\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_mask_2Luks {\n    top: 2rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG {\n    height: 2rem;\n    font-size: .75rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG .paint-editor-mobile_icon_dAmmk {\n    width: 2rem;\n    height: 2rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 {\n    height: calc(100vh - 2rem); }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel {\n    width: 6.5rem;\n    padding: .2rem .5rem 1.5rem .5rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf {\n    width: calc(100% - 6.5rem - 9.5rem);\n    margin-left: 6.5rem; }\n  .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv {\n    width: 6.6rem; }\n  .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY {\n    margin-top: 1rem; }\n  .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_name_3HnLl {\n    font-size: .75rem;\n    margin-bottom: .25rem; }\n  .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK {\n    height: 1.65rem;\n    font-size: .75rem; }\n  .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_color_38XOD.paint-editor-mobile_none-color_WpUPw::before {\n    border-top: 1px solid #FC4144; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi {\n    width: 9.5rem;\n    padding: .2rem .75rem 1.5rem 1rem; }\n  .paint-editor-mobile_right_QBXmi .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 {\n    width: 6.6rem;\n    height: 1.3rem;\n    margin-top: 1rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY {\n    width: 5.3rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line1_1Jjxk {\n    height: .125rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line2_2uUQ1 {\n    height: .2rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line3_2AW8- {\n    height: .3rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line4_25ARN {\n    height: .45rem; }\n  .paint-editor-mobile_canvas-container_3f7OI {\n    width: 366.85px;\n    height: 274.79px;\n    -webkit-transform: translate3d(0, 0, 0) translateY(-1.5rem);\n    transform: translate3d(0, 0, 0) translateY(-1.5rem); }\n  .paint-editor-mobile_zoom-controls_3Ialw {\n    bottom: -3rem; }\n  .paint-editor-mobile_button-group-button_2_Ciw {\n    width: 2.3rem;\n    height: 2.3rem; }\n  .paint-editor-mobile_button-group-button-icon_3iWwK {\n    width: 1.5rem;\n    height: 1.5rem; } }\n\n@media (min-height: 1024px) and (min-width: 1366px) {\n  .paint-editor-mobile_canvas-container_3f7OI {\n    width: 844.5px;\n    height: 633px; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"editor-container": "paint-editor-mobile_editor-container_4Tevr",
+	"editorContainer": "paint-editor-mobile_editor-container_4Tevr",
+	"mask": "paint-editor-mobile_mask_2Luks",
+	"header": "paint-editor-mobile_header_1DeaG",
+	"icon": "paint-editor-mobile_icon_dAmmk",
+	"paint-area": "paint-editor-mobile_paint-area_1AdH6",
+	"paintArea": "paint-editor-mobile_paint-area_1AdH6",
+	"left": "paint-editor-mobile_left_lLSel",
+	"right": "paint-editor-mobile_right_QBXmi",
+	"canvas-area": "paint-editor-mobile_canvas-area_2NaUf",
+	"canvasArea": "paint-editor-mobile_canvas-area_2NaUf",
+	"is-draw-color": "paint-editor-mobile_is-draw-color_22_DB",
+	"isDrawColor": "paint-editor-mobile_is-draw-color_22_DB",
+	"clone-paper-canvas": "paint-editor-mobile_clone-paper-canvas_9qXuQ",
+	"clonePaperCanvas": "paint-editor-mobile_clone-paper-canvas_9qXuQ",
+	"action-content": "paint-editor-mobile_action-content_3IMSv",
+	"actionContent": "paint-editor-mobile_action-content_3IMSv",
+	"disabled": "paint-editor-mobile_disabled_3rVwv",
+	"box": "paint-editor-mobile_box_1s4lY",
+	"name": "paint-editor-mobile_name_3HnLl",
+	"value": "paint-editor-mobile_value_77JPK",
+	"input-value": "paint-editor-mobile_input-value_3ommR",
+	"inputValue": "paint-editor-mobile_input-value_3ommR",
+	"color": "paint-editor-mobile_color_38XOD",
+	"none-color": "paint-editor-mobile_none-color_WpUPw",
+	"noneColor": "paint-editor-mobile_none-color_WpUPw",
+	"arrow": "paint-editor-mobile_arrow_3u-yM",
+	"stroke-width-selector": "paint-editor-mobile_stroke-width-selector_1EIVH",
+	"strokeWidthSelector": "paint-editor-mobile_stroke-width-selector_1EIVH",
+	"item": "paint-editor-mobile_item_3Yt39",
+	"line": "paint-editor-mobile_line_27YmY",
+	"selected": "paint-editor-mobile_selected_37ASb",
+	"line1": "paint-editor-mobile_line1_1Jjxk",
+	"line2": "paint-editor-mobile_line2_2uUQ1",
+	"line3": "paint-editor-mobile_line3_2AW8-",
+	"line4": "paint-editor-mobile_line4_25ARN",
+	"row": "paint-editor-mobile_row_3NXVo",
+	"editor-container-top": "paint-editor-mobile_editor-container-top_3-hFt",
+	"editorContainerTop": "paint-editor-mobile_editor-container-top_3-hFt",
+	"top-align-row": "paint-editor-mobile_top-align-row_RPPVU",
+	"topAlignRow": "paint-editor-mobile_top-align-row_RPPVU",
+	"mod-dashed-border": "paint-editor-mobile_mod-dashed-border_3HOhw",
+	"modDashedBorder": "paint-editor-mobile_mod-dashed-border_3HOhw",
+	"mod-labeled-icon-height": "paint-editor-mobile_mod-labeled-icon-height_rtAU3",
+	"modLabeledIconHeight": "paint-editor-mobile_mod-labeled-icon-height_rtAU3",
+	"button-group": "paint-editor-mobile_button-group_1YSng",
+	"buttonGroup": "paint-editor-mobile_button-group_1YSng",
+	"button-group-button": "paint-editor-mobile_button-group-button_2_Ciw",
+	"buttonGroupButton": "paint-editor-mobile_button-group-button_2_Ciw",
+	"button-group-button-icon": "paint-editor-mobile_button-group-button-icon_3iWwK",
+	"buttonGroupButtonIcon": "paint-editor-mobile_button-group-button-icon_3iWwK",
+	"mod-mode-tools": "paint-editor-mobile_mod-mode-tools_iW_bX",
+	"modModeTools": "paint-editor-mobile_mod-mode-tools_iW_bX",
+	"mod-margin-after": "paint-editor-mobile_mod-margin-after_vfP3P",
+	"modMarginAfter": "paint-editor-mobile_mod-margin-after_vfP3P",
+	"canvas-container": "paint-editor-mobile_canvas-container_3f7OI",
+	"canvasContainer": "paint-editor-mobile_canvas-container_3f7OI",
+	"draw-color": "paint-editor-mobile_draw-color_1apDU",
+	"drawColor": "paint-editor-mobile_draw-color_1apDU",
+	"hidden": "paint-editor-mobile_hidden_3ErEQ",
+	"mode-selector": "paint-editor-mobile_mode-selector_GNnUD",
+	"modeSelector": "paint-editor-mobile_mode-selector_GNnUD",
+	"zoom-controls": "paint-editor-mobile_zoom-controls_3Ialw",
+	"zoomControls": "paint-editor-mobile_zoom-controls_3Ialw",
+	"hide": "paint-editor-mobile_hide_1vzjK",
+	"color-picker-wrapper": "paint-editor-mobile_color-picker-wrapper_3muCo",
+	"colorPickerWrapper": "paint-editor-mobile_color-picker-wrapper_3muCo",
+	"canvas-controls": "paint-editor-mobile_canvas-controls_1RKRg",
+	"canvasControls": "paint-editor-mobile_canvas-controls_1RKRg",
+	"bitmap-button": "paint-editor-mobile_bitmap-button_2_I5t",
+	"bitmapButton": "paint-editor-mobile_bitmap-button_2_I5t",
+	"bitmap-button-icon": "paint-editor-mobile_bitmap-button-icon_1VKV0",
+	"bitmapButtonIcon": "paint-editor-mobile_bitmap-button-icon_1VKV0",
+	"text-area": "paint-editor-mobile_text-area_2S1aF",
+	"textArea": "paint-editor-mobile_text-area_2S1aF",
+	"button-text": "paint-editor-mobile_button-text_1W6yk",
+	"buttonText": "paint-editor-mobile_button-text_1W6yk"
+};
 
 /***/ }),
 
@@ -26230,9 +26476,28 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/scrollable-canvas/scrollable-canvas.css ***!
   \**************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".scrollable-canvas_vertical-scrollbar_gyXyM, .scrollable-canvas_horizontal-scrollbar_OBOUt {\n  position: absolute;\n  background: rgba(190, 190, 190, 0.8);\n  border-radius: calc(8px / 2);\n  cursor: pointer; }\n\n.scrollable-canvas_vertical-scrollbar-wrapper_1cMNm {\n  position: absolute;\n  width: 8px;\n  right: 0;\n  top: 1px;\n  height: calc(100% - 8px - 1px); }\n\n.scrollable-canvas_horizontal-scrollbar-wrapper_2BUMa {\n  position: absolute;\n  height: 8px;\n  left: 1px;\n  bottom: 0;\n  width: calc(100% - 8px - 1px); }\n\n.scrollable-canvas_vertical-scrollbar_gyXyM {\n  width: 8px; }\n\n.scrollable-canvas_horizontal-scrollbar_OBOUt {\n  height: 8px; }\n\n.scrollable-canvas_hide-cursor_f8-ba {\n  cursor: none; }\n\n.scrollable-canvas_hide-cursor_f8-ba > canvas {\n  cursor: none; }\n", ""]);
+
+// exports
+exports.locals = {
+	"vertical-scrollbar": "scrollable-canvas_vertical-scrollbar_gyXyM",
+	"verticalScrollbar": "scrollable-canvas_vertical-scrollbar_gyXyM",
+	"horizontal-scrollbar": "scrollable-canvas_horizontal-scrollbar_OBOUt",
+	"horizontalScrollbar": "scrollable-canvas_horizontal-scrollbar_OBOUt",
+	"vertical-scrollbar-wrapper": "scrollable-canvas_vertical-scrollbar-wrapper_1cMNm",
+	"verticalScrollbarWrapper": "scrollable-canvas_vertical-scrollbar-wrapper_1cMNm",
+	"horizontal-scrollbar-wrapper": "scrollable-canvas_horizontal-scrollbar-wrapper_2BUMa",
+	"horizontalScrollbarWrapper": "scrollable-canvas_horizontal-scrollbar-wrapper_2BUMa",
+	"hide-cursor": "scrollable-canvas_hide-cursor_f8-ba",
+	"hideCursor": "scrollable-canvas_hide-cursor_f8-ba"
+};
 
 /***/ }),
 
@@ -26241,9 +26506,24 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/tool-select-base/tool-select-base.mobile.css ***!
   \*******************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.tool-select-base-mobile_mod-tool-select_aDjgQ {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 3.5rem;\n  height: 3.5rem;\n  border: none;\n  border-radius: 50%;\n  background-color: #EEF6FE;\n  outline: none;\n  font-size: 0.85rem;\n  -webkit-transition: 0.2s;\n  -o-transition: 0.2s;\n  transition: 0.2s;\n  margin-top: 2rem; }\n\n.tool-select-base-mobile_mod-tool-select_aDjgQ.tool-select-base-mobile_is-selected_2awdl {\n  background-color: #1EAAFF;\n  -webkit-box-shadow: 0px 2.5px 5px 0px #c4e2ff;\n  box-shadow: 0px 2.5px 5px 0px #c4e2ff; }\n\n.tool-select-base-mobile_mod-tool-select_aDjgQ:focus {\n  outline: none; }\n\nimg.tool-select-base-mobile_tool-select-icon_3eKmU {\n  width: 3.75rem;\n  height: 3.75rem; }\n\n.tool-select-base-mobile_mod-tool-select_aDjgQ.tool-select-base-mobile_is-selected_2awdl .tool-select-base-mobile_tool-select-icon_3eKmU {\n  /* Make the tool icons white while selected by making them black and inverting */\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n\n@media only screen and (max-width: 900px) {\n  .tool-select-base-mobile_mod-tool-select_aDjgQ {\n    width: 2.3rem;\n    height: 2.3rem;\n    margin-top: 1rem; }\n  img.tool-select-base-mobile_tool-select-icon_3eKmU {\n    width: 2.3rem;\n    height: 2.3rem; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"mod-tool-select": "tool-select-base-mobile_mod-tool-select_aDjgQ",
+	"modToolSelect": "tool-select-base-mobile_mod-tool-select_aDjgQ",
+	"is-selected": "tool-select-base-mobile_is-selected_2awdl",
+	"isSelected": "tool-select-base-mobile_is-selected_2awdl",
+	"tool-select-icon": "tool-select-base-mobile_tool-select-icon_3eKmU",
+	"toolSelectIcon": "tool-select-base-mobile_tool-select-icon_3eKmU"
+};
 
 /***/ }),
 
@@ -26252,9 +26532,109 @@ throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.j
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/containers/paper-canvas.mobile.css ***!
   \**********************************************************************************************************************************************************************/
 /*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.paper-canvas-mobile_paper-canvas_3MkP4 {\n  width: 563px;\n  height: 422px;\n  margin: auto;\n  position: absolute;\n  background-color: #fff; }\n\n.paper-canvas-mobile_center-mode_5KFfF {\n  cursor: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAEEfUpiAAAABGdBTUEAALGPC/xhBQAAB3NJREFUWAmtF21wVNX1fry3X/kiwNRKgFIErJHpjEbLTDu0nU7rgJAwoI/dTbIfUQztTJnBdrKbTNBsLJavAlIsDGmLS0ASWc1UM1Pp9A/gONNRo7RYFUwBRcWmNUBgd9/ue/fenvuSt91dQgi1Z+a983HPOffcc+497z6ExqAh/PP7JYnlyxeOBIigiwimtcTXGP22ipT7nz+wyZVlxp8sjeCaJz/Rdf0EoaRMWtwEVgeihq3iDbUet+kctpzanC/UluCc1RGKf9ob3/JbW458wZa+HJNHPPBAoIRYvImP5slzZEWFbhRMoWmPT1Xcjhf/lnYv+Xsils1p2sTSpeucNm3jnAewriIu9V0syBWW+ceCRCLxXw/+QHSntPD5IjNsy5Urf/wVSVtBlrnnRiTT27v1M4klOEoq9klMvKFoz+X02d9IRiB0n8T+cOsSgUXS39R+WPJIC0WXWUTea3Ug8oFkR/OQ0gebm5srNC1aIYW+YOThIwc91ZLOB+wLtIa93shd+cIJ6TpYlbcxYgV7I0WlaIDUh9u2ccGnspR7LWKIC1XnUsfX1LYIC5zI0Mzivt9v/6jIDqGGhthMiD1+3UCRIByOubyB6BsgtoqEY7EYOXNGrzAJP0dMVM1cgifi2z6XdpDWckDzQXNA8rXNMU/JSGoKU/A9KuZCF+o7Um6BNxj51KZvhr2BtlUrfD+bJfVGywDEyL9Oza1vav+njMh2oGkxhz/U4rd5ieuD0RWEsDtf7t1xQfK5zSYZCcFgexVs4uOcG+8LTHYhztdTQv6AMYkKxOM9B1ybEIpZiR21mOAtN2d9qH3CMtIJ7JHsFzNvv++LwcE32I30cusdT8E06Rq1wj1tvDFbdl0OYE+rV1KVfoJRB8OiChR0WP/xZEqs609s+dg2tHFBBFowOvtadvoZrJLTPQe33IEEeY6nPd9gKZdW6kGx+lDbLjAssLEdIXmCG8MbPsoJgACDZ/NPuWyb/kDEOv35epLGvlDkLblNiweKebndg8GNVbbcCgcanEcwfCEej+n2wI1wueuOx7Loym57HDc0rCs3RFkNosJNDHYyWe653N8VS0mFsRbzASTymuS1cMtXqY6JcKD3FIYWnsyeG1K4UroHcXMmEmKYq+TfpdmkbMN2p10LdBc8b8KDnEJpz6rciYVQkINuvxvN+7WUIy34eNXqQMsvLGYSL28gkku2lYOzruSQQpVHJ2GLwuEN8xHHv7J1LQcDXV2G4GKnP9jaYg9I3BBsWR4MthXsxAziR0eGU3JZFuQ2RU+3azvG+Ltw1tfbg/Bp+16aodskD8dcqQ+3D5qm+eCrr+7O2DqQ4HyIEX9TpoNg0sQ538FN9k2C8FFB0ApE8T2MZX6U6N5Z0HiKHIw6g9kcp8+l50Mdd5uCd6uMvnz48ObLMAqVvQWQvSB/K49nOm4E4ykWyyzHTqXDkmfMzvwPX7HuRPwtBVBT06xWV5c7hNssN5LuGkHFT6RzjPBejvR3MsqVkU//ukgfGFhrgnhS6bpZAFhraptOTfEQxigsMOwIgd+G3nyMCHaeIxyQARAkDnKM52CkfB/07hWcD2NK48lM8sgrPbuGJgrmRgFg6G2zVEI7oRn+gAmzkyUzPYnEzrScUIJVAgeOWUxWxPJLoGk73LRkyK9gtYNxdswU7IlE9xb5FbouK9cFUAMdeZ4+5TGMaSsVIvZ89+b91iRFr9raZk/ZlMrFUnz18qXX+vu7rAZUpAY9NfIoR7QDsrZp8N1LvxsY6MrdHKVuQQCyxncurPRzgZ8iiK8+3L1VXgG+NNQHI9/iiBxBBD/x4akvevODyHUCOcvX7po+nZmiEwm27f81ufRr+QKfwmSdcg4pswE3NrbcaxDVh3iWYkJncyFqIS/9sNkuSSUnpbqJjD/2xLfZLdqyhWLKK75s17Ku+yCVb1kDYy95zaQCL8tyPnr1xaISmmgdpfjPAuPPKaUmy7LnlKEhcXraDLGfC6RgjqoxQQ9CK+sTWX5c+tKpwXVHyUi+8zH6fcB74ZFlPDMmy6FrDtcJVzZ5khrgEYC60GxTiMXwL3CIEHrKNJDx8aB+oWAPfKcuUjZrCpEX47Kppa7le/bErC9ZzuuXIHyByD5Y+ZxPFPHw6/u3XrVdFQQAQhwIbJhjEPYKJPasi6RD8fgzsgf/z6BpGqWeuZuhpEsNt7LypX0bB8FZ7jgWB2BNtGrV+tudZe6nFUVZYpiZzb0HPM8WXwh/CD8E05y4HWEGNwy88YWDW2VJCsAHfxcE0V1wBF+njLQeOvTLiwUKwBRf8a3xvr5nLsIHcM1D5zMLnIhsaGgyPjON6AnqoHuNq+m/yIZUidxM4CQ0RyxMk1krkqslZbMWUsP5CHz+6uAH4TWDm8sS8zwfgr9xb7TjZqA4Stl0HKW3fV1VM6vAy3KK8AKop0NwuQD42mKSxYKlMSHvwWbuJ8Tov3i+7PyxYze/Zk0qgOKAgMea1j6DOI0n5RjPqE8lEk/L38BcbaV8MjBuCSZhCBOlhqG7vTiqawwDvuXJpe1/AP765dgmh1BWAAAAAElFTkSuQmCC\") 16 16, crosshair; }\n\n@media only screen and (max-width: 900px) {\n  .paper-canvas-mobile_paper-canvas_3MkP4 {\n    width: 366.85px;\n    height: 274.79px; } }\n\n@media (min-height: 1024px) and (min-width: 1366px) {\n  .paper-canvas-mobile_paper-canvas_3MkP4 {\n    width: 844.5px;\n    height: 633px; } }\n", ""]);
+
+// exports
+exports.locals = {
+	"paper-canvas": "paper-canvas-mobile_paper-canvas_3MkP4",
+	"paperCanvas": "paper-canvas-mobile_paper-canvas_3MkP4",
+	"center-mode": "paper-canvas-mobile_center-mode_5KFfF",
+	"centerMode": "paper-canvas-mobile_center-mode_5KFfF"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nError: Missing binding /Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/vendor/darwin-x64-64/binding.node\nNode Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x\n\nFound bindings for the following environments:\n  - OS X 64-bit with Node.js 10.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:192:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)\n    at Module.load (internal/modules/cjs/loader.js:598:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:529:3)\n    at Module.require (internal/modules/cjs/loader.js:636:17)\n    at require (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/v8-compile-cache/v8-compile-cache.js:161:20)\n    at getDefaultSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getDefaultSassImplementation.js:24:10)\n    at getSassImplementation (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/getSassImplementation.js:19:72)\n    at Object.loader (/Users/jeremy_mac1/pro/ide/ide_base_pkg/scratch-paint/node_modules/sass-loader/dist/index.js:40:61)");
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
 
 /***/ }),
 
