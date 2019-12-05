@@ -153,6 +153,7 @@ class PaintEditorComponent extends React.Component {
             colorSelectorMode: 'fill',
             isDrawColor: false,
             drawColorRGBValues: '',
+            originCostumeName: '',
             currentCostumeName: '',
             isSaveBoxShow: false
         };
@@ -160,13 +161,20 @@ class PaintEditorComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ currentCostumeName: this.props.name });
+        this.setState({
+            originCostumeName: this.props.name,
+            currentCostumeName: this.props.name
+        });
     }
 
     componentWillReceiveProps(nextProps) {
         const { onUpdateImage } = this.props;
         if (this._hasChanged) onUpdateImage();
         this._hasChanged = false;
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.saveDelayTimer);
     }
 
     handleChangeVectorModeStrokeOrFillWidth(newWidth) {
@@ -256,13 +264,14 @@ class PaintEditorComponent extends React.Component {
     }
 
     handleClosePaintEditor() {
-        if (this.props.canRedo() || this.props.canUndo()) {
+        const { originCostumeName, currentCostumeName } = this.state;
+        if (this.props.canRedo() || this.props.canUndo() || originCostumeName !== currentCostumeName) {
             this.setState({ isSaveBoxShow: true });
         } else {
             this.handleClosedPaintEditor();
         }
     }
-    
+
     handleClosedPaintEditor() {
         this.setState({ isSaveBoxShow: false });
         const { onClosePaintEditor = () => { } } = this.props;
@@ -281,7 +290,6 @@ class PaintEditorComponent extends React.Component {
             this.props.onUpdateName(this.costumeNameEle && this.costumeNameEle.value);
             this.props.onUpdateImage();
             this.handleClosedPaintEditor();
-            clearTimeout(this.saveDelayTimer);
         }, 100);
     }
 
@@ -551,7 +559,7 @@ class PaintEditorComponent extends React.Component {
                             >
                                 <span className={styles.name}>{this.props.intl.formatMessage(messages.costume)}</span>
                                 <input
-                                    disabled={ MobileInputBox ? true : false}
+                                    disabled={MobileInputBox ? true : false}
                                     ref={ele => this.costumeNameEle = ele}
                                     className={classNames(styles.value, styles.inputValue)}
                                     type='text'
