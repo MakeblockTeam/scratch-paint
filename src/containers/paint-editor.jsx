@@ -27,6 +27,7 @@ import {resetZoom, zoomOnSelection} from '../helper/view';
 import EyeDropperTool from '../helper/tools/eye-dropper';
 
 import Modes from '../lib/modes';
+import {BitmapModes, VectorModes} from '../lib/modes';
 import Formats from '../lib/format';
 import {isBitmap, isVector} from '../lib/format';
 import bindAll from 'lodash.bindall';
@@ -79,7 +80,7 @@ class PaintEditor extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'switchMode',
+            'switchModeForFormat',
             'onMouseDown',
             'setCanvas',
             'setTextArea',
@@ -105,10 +106,10 @@ class PaintEditor extends React.Component {
         document.addEventListener('touchstart', this.onMouseDown);
     }
     componentWillReceiveProps (newProps) {
-        if (isVector(this.props.format) && isBitmap(newProps.format)) {
-            this.switchMode(Formats.BITMAP);
-        } else if (isVector(newProps.format) && isBitmap(this.props.format)) {
-            this.switchMode(Formats.VECTOR);
+        if (!isBitmap(this.props.format) && isBitmap(newProps.format)) {
+            this.switchModeForFormat(Formats.BITMAP);
+        } else if (!isVector(this.props.format) && isVector(newProps.format)) {
+            this.switchModeForFormat(Formats.VECTOR);
         }
         if (newProps.rtl !== this.props.rtl) {
             this.props.setLayout(newProps.rtl ? 'rtl' : 'ltr');
@@ -137,7 +138,12 @@ class PaintEditor extends React.Component {
         document.removeEventListener('mousedown', this.onMouseDown);
         document.removeEventListener('touchstart', this.onMouseDown);
     }
-    switchMode (newFormat) {
+    switchModeForFormat (newFormat) {
+        if ((isVector(newFormat) && (this.props.mode in VectorModes)) ||
+        (isBitmap(newFormat) && (this.props.mode in BitmapModes))) {
+        // Format didn't change; no mode change needed
+            return;
+        }
         if (isVector(newFormat)) {
             switch (this.props.mode) {
             case Modes.BIT_BRUSH:
