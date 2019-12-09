@@ -304,7 +304,7 @@ class ColorSelector extends Component {
                             max={item.max}
                             value={item.value}
                             railStyle={item.railStyle}
-                            handleStyle={item.value === item.max ? Object.assign({}, handleStyle, { marginLeft: '-20px' }) : handleStyle}
+                            handleStyle={item.value === item.max ? Object.assign({}, handleStyle, { marginLeft: '-10px' }) : handleStyle}
                             onChange={item.event}
                             onAfterChange={this.handleReleaseScroll.bind(this)}
                         />
