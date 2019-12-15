@@ -105,48 +105,54 @@ class ScrollableCanvas extends React.Component {
         this.props.updateViewBounds(paper.view.matrix);
         event.preventDefault();
     }
-    handleHorizontalScrollbarMouseUp(event) {
+    handleHorizontalScrollbarMouseUp (event) {
         window.removeEventListener('mousemove', this.handleHorizontalScrollbarMouseMove);
+        window.removeEventListener('touchmove', this.handleHorizontalScrollbarMouseMove, {passive: false});
         window.removeEventListener('mouseup', this.handleHorizontalScrollbarMouseUp);
+        window.removeEventListener('touchend', this.handleHorizontalScrollbarMouseUp);
         this.initialMouseX = null;
         this.initialScreenX = null;
         event.preventDefault();
     }
-    handleVerticalScrollbarMouseDown(event) {
+    handleVerticalScrollbarMouseDown (event) {
         this.initialMouseY = getEventXY(event).y;
         this.initialScreenY = paper.view.matrix.ty;
         window.addEventListener('mousemove', this.handleVerticalScrollbarMouseMove);
+        window.addEventListener('touchmove', this.handleVerticalScrollbarMouseMove, {passive: false});
         window.addEventListener('mouseup', this.handleVerticalScrollbarMouseUp);
+        window.addEventListener('touchend', this.handleVerticalScrollbarMouseUp);
         event.preventDefault();
     }
-    handleVerticalScrollbarMouseMove(event) {
+    handleVerticalScrollbarMouseMove (event) {
         const dy = this.initialMouseY - getEventXY(event).y;
         paper.view.matrix.ty = this.initialScreenY + (dy * paper.view.zoom * 2);
         clampViewBounds();
         this.props.updateViewBounds(paper.view.matrix);
         event.preventDefault();
     }
-    handleVerticalScrollbarMouseUp(event) {
+    handleVerticalScrollbarMouseUp (event) {
         window.removeEventListener('mousemove', this.handleVerticalScrollbarMouseMove);
+        window.removeEventListener('touchmove', this.handleVerticalScrollbarMouseMove, {passive: false});
         window.removeEventListener('mouseup', this.handleVerticalScrollbarMouseUp);
+        window.removeEventListener('touchend', this.handleVerticalScrollbarMouseUp);
         this.initialMouseY = null;
         this.initialScreenY = null;
         event.preventDefault();
     }
-    handleWheel(event) {
+    handleWheel (event) {
         // Multiplier variable, so that non-pixel-deltaModes are supported. Needed for Firefox.
         // See #529 (or LLK/scratch-blocks#1190).
         const multiplier = event.deltaMode === 0x1 ? 15 : 1;
         const deltaX = event.deltaX * multiplier;
         const deltaY = event.deltaY * multiplier;
+        const canvasRect = this.props.canvas.getBoundingClientRect();
+        const offsetX = event.clientX - canvasRect.left;
+        const offsetY = event.clientY - canvasRect.top;
+        const fixedPoint = paper.view.viewToProject(
+            new paper.Point(offsetX, offsetY)
+        );
         if (event.metaKey || event.ctrlKey) {
             // Zoom keeping mouse location fixed
-            const canvasRect = this.props.canvas.getBoundingClientRect();
-            const offsetX = event.clientX - canvasRect.left;
-            const offsetY = event.clientY - canvasRect.top;
-            const fixedPoint = paper.view.viewToProject(
-                new paper.Point(offsetX, offsetY)
-            );
             zoomOnFixedPoint(-deltaY / 1000, fixedPoint);
             this.props.updateViewBounds(paper.view.matrix);
             this.props.redrawSelectionBox(); // Selection handles need to be resized after zoom
@@ -162,16 +168,19 @@ class ScrollableCanvas extends React.Component {
             const dy = deltaY / paper.view.zoom;
             pan(dx, dy);
             this.props.updateViewBounds(paper.view.matrix);
+            if (paper.tool) {
+                paper.tool.view._handleMouseEvent('mousemove', event, fixedPoint);
+            }
         }
         event.preventDefault();
     }
-    render() {
+    render () {
         let widthPercent = 0;
         let heightPercent = 0;
         let topPercent = 0;
         let leftPercent = 0;
         if (paper.project) {
-            const { x, y, width, height } = paper.view.bounds;
+            const {x, y, width, height} = paper.view.bounds;
             widthPercent = Math.min(100, 100 * width / ART_BOARD_WIDTH);
             heightPercent = Math.min(100, 100 * height / ART_BOARD_HEIGHT);
             const centerX = (x + (width / 2)) / ART_BOARD_WIDTH;
@@ -181,7 +190,7 @@ class ScrollableCanvas extends React.Component {
         }
         return (
             <ScrollableCanvasComponent
-                hideCursor={this.props.hideCursor}
+                hideScrollbars={this.props.hideScrollbars}
                 horizontalScrollLengthPercent={widthPercent}
                 horizontalScrollStartPercent={leftPercent}
                 style={this.props.style}
@@ -199,7 +208,7 @@ class ScrollableCanvas extends React.Component {
 ScrollableCanvas.propTypes = {
     canvas: PropTypes.instanceOf(Element),
     children: PropTypes.node.isRequired,
-    hideCursor: PropTypes.bool,
+    hideScrollbars: PropTypes.bool,
     redrawSelectionBox: PropTypes.func.isRequired,
     style: PropTypes.string,
     updateViewBounds: PropTypes.func.isRequired

@@ -3,6 +3,7 @@ import Modes from '../../lib/modes';
 import {commitRectToBitmap} from '../bitmap';
 import {getRaster} from '../layer';
 import {clearSelection} from '../selection';
+import {getSquareDimensions} from '../math';
 import BoundingBoxTool from '../selection-tools/bounding-box-tool';
 import NudgeTool from '../selection-tools/nudge-tool';
 
@@ -16,20 +17,28 @@ class RectTool extends paper.Tool {
     /**
      * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+     * @param {function} setCursor Callback to set the visible mouse cursor
      * @param {!function} onUpdateImage A callback to call when the image visibly changes
      */
-    constructor (setSelectedItems, clearSelectedItems, onUpdateImage) {
+    constructor (setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         super();
         this.setSelectedItems = setSelectedItems;
         this.clearSelectedItems = clearSelectedItems;
         this.onUpdateImage = onUpdateImage;
-        this.boundingBoxTool = new BoundingBoxTool(Modes.BIT_RECT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        this.boundingBoxTool = new BoundingBoxTool(
+            Modes.BIT_RECT,
+            setSelectedItems,
+            clearSelectedItems,
+            setCursor,
+            onUpdateImage
+        );
         const nudgeTool = new NudgeTool(this.boundingBoxTool, onUpdateImage);
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         this.onMouseDown = this.handleMouseDown;
         this.onMouseDrag = this.handleMouseDrag;
+        this.onMouseMove = this.handleMouseMove;
         this.onMouseUp = this.handleMouseUp;
         this.onKeyUp = nudgeTool.onKeyUp;
         this.onKeyDown = nudgeTool.onKeyDown;
@@ -145,10 +154,11 @@ class RectTool extends paper.Tool {
 
         const dimensions = event.point.subtract(event.downPoint);
         const baseRect = new paper.Rectangle(event.downPoint, event.point);
+        const squareDimensions = getSquareDimensions(event.downPoint, event.point);
         if (event.modifiers.shift) {
-            baseRect.height = baseRect.width;
-            dimensions.y = event.downPoint.y > event.point.y ? -Math.abs(baseRect.width) : Math.abs(baseRect.width);
+            baseRect.size = squareDimensions.size.abs();
         }
+
         if (this.rect) this.rect.remove();
         this.rect = new paper.Shape.Rectangle(baseRect);
         if (this.filled) {
@@ -164,9 +174,14 @@ class RectTool extends paper.Tool {
 
         if (event.modifiers.alt) {
             this.rect.position = event.downPoint;
+        } else if (event.modifiers.shift) {
+            this.rect.position = squareDimensions.position;
         } else {
             this.rect.position = event.downPoint.add(dimensions.multiply(.5));
         }
+    }
+    handleMouseMove (event) {
+        this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
     }
     handleMouseUp (event) {
         // #if MOBILE
@@ -202,13 +217,12 @@ class RectTool extends paper.Tool {
         if (!this.rect || !this.rect.isInserted()) return;
 
         commitRectToBitmap(this.rect, getRaster());
-        
         this.rect.remove();
         this.rect = null;
     }
     deactivateTool () {
         this.commitRect();
-        this.boundingBoxTool.removeBoundsPath();
+        this.boundingBoxTool.deactivateTool();
     }
 }
 

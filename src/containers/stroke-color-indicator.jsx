@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import bindAll from 'lodash.bindall';
 import {changeStrokeColor} from '../reducers/stroke-color';
+import {changeStrokeWidth} from '../reducers/stroke-width';
 import {openStrokeColor, closeStrokeColor} from '../reducers/modals';
 import Modes from '../lib/modes';
 import Formats from '../lib/format';
 import {isBitmap} from '../lib/format';
 
 import StrokeColorIndicatorComponent from '../components/stroke-color-indicator.jsx';
-import {applyStrokeColorToSelection} from '../helper/style-path';
+import {applyStrokeColorToSelection, applyStrokeWidthToSelection} from '../helper/style-path';
 
 class StrokeColorIndicator extends React.Component {
     constructor (props) {
@@ -31,11 +32,17 @@ class StrokeColorIndicator extends React.Component {
         }
     }
     handleChangeStrokeColor (newColor) {
-        console.log(newColor)
+        if (this.props.strokeColor === null && newColor !== null) {
+            this._hasChanged = applyStrokeWidthToSelection(1, this.props.textEditTarget) || this._hasChanged;
+            this.props.onChangeStrokeWidth(1);
+        } else if (this.props.strokeColor !== null && newColor === null) {
+            this._hasChanged = applyStrokeWidthToSelection(0, this.props.textEditTarget) || this._hasChanged;
+            this.props.onChangeStrokeWidth(0);
+        }
         // Apply color and update redux, but do not update svg until picker closes.
-        const isDifferent =
-            applyStrokeColorToSelection(newColor, isBitmap(this.props.format), this.props.textEditTarget);
-        this._hasChanged = this._hasChanged || isDifferent;
+        this._hasChanged =
+            applyStrokeColorToSelection(newColor, isBitmap(this.props.format), this.props.textEditTarget) ||
+            this._hasChanged;
         this.props.onChangeStrokeColor(newColor);
     }
     handleCloseStrokeColor () {
@@ -69,6 +76,9 @@ const mapDispatchToProps = dispatch => ({
     onChangeStrokeColor: strokeColor => {
         dispatch(changeStrokeColor(strokeColor));
     },
+    onChangeStrokeWidth: strokeWidth => {
+        dispatch(changeStrokeWidth(strokeWidth));
+    },
     onOpenStrokeColor: () => {
         dispatch(openStrokeColor());
     },
@@ -82,6 +92,7 @@ StrokeColorIndicator.propTypes = {
     format: PropTypes.oneOf(Object.keys(Formats)),
     isEyeDropping: PropTypes.bool.isRequired,
     onChangeStrokeColor: PropTypes.func.isRequired,
+    onChangeStrokeWidth: PropTypes.func.isRequired,
     onCloseStrokeColor: PropTypes.func.isRequired,
     onUpdateImage: PropTypes.func.isRequired,
     strokeColor: PropTypes.string,

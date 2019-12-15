@@ -79,8 +79,29 @@ class FillColorIndicator extends React.Component {
         this.props.onChangeGradientType(gradientType);
     }
     handleCloseFillColor () {
-        if (!this.props.isEyeDropping) {
-            this.props.onCloseFillColor();
+        // If the eyedropper is currently being used, don't
+        // close the fill color menu.
+        if (this.props.isEyeDropping) return;
+
+        // Otherwise, close the fill color menu and
+        // also reset the color index to indicate
+        // that `color1` is selected.
+        this.props.onCloseFillColor();
+        this.props.onChangeColorIndex(0);
+    }
+    handleSwap () {
+        if (getSelectedLeafItems().length) {
+            swapColorsInSelection(
+                isBitmap(this.props.format),
+                this.props.textEditTarget);
+            this.props.setSelectedItems();
+        } else {
+            let color1 = this.props.fillColor;
+            let color2 = this.props.fillColor2;
+            color1 = color1 === null || color1 === MIXED ? color1 : parseColor(color1).hex;
+            color2 = color2 === null || color2 === MIXED ? color2 : parseColor(color2).hex;
+            this.props.onChangeFillColor(color1, 1);
+            this.props.onChangeFillColor(color2, 0);
         }
         this.props.onChangeColorIndex(0);
     }

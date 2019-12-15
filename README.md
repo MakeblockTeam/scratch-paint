@@ -4,7 +4,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/LLK/scratch-paint.svg)](https://greenkeeper.io/)
 - Try it out at [https://llk.github.io/scratch-paint/](https://llk.github.io/scratch-paint/)
 
-- Or, to try it out as part of Scratch 3.0, visit [https://preview.scratch.mit.edu/](https://preview.scratch.mit.edu/)
+- Or, to try it out as part of Scratch 3.0, visit [https://beta.scratch.mit.edu/](https://beta.scratch.mit.edu/)
 
 ### Installation
 It will be easiest if you develop on Mac or Linux. If you are using Windows, I recommend using Ubuntu on Windows, which will allow you to use Linux commands on Windows. You will need administrator permissions.
@@ -37,10 +37,13 @@ You can try out your own copy of the paint editor by running the development ser
 
 In the cloned `scratch-paint` directory, run:
 ```bash
+npm run build
 npm start
 ```
 
 Then go to [http://localhost:8078/playground/](http://localhost:8078/playground/). 8078 is BLOB upside-down. The True Name of this repo is scratch-blobs.
+
+*(Note that the `npm run build` step above seems like it's only necessary for some user and environments, and not others; check for yourself if the server that `npm start` starts is hot-reloading correctly.)*
 
 ### Running locally (as part of Scratch)
 So you've tried out your edits in the playground and they look good. You should now test with the rest of Scratch, to make sure that everything hooks up right, and so that you can use your custom paint editor to make costumes and sprites!

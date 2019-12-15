@@ -55,7 +55,7 @@ const messages = defineMessages({
         defaultMessage: 'Center Point',
         description: 'set center point',
         id: 'paint.centerMode.center'
-    },
+    }
 });
 
 export default messages;

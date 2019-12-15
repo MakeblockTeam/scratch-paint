@@ -33,6 +33,7 @@ class PaperCanvas extends React.Component {
             'clearQueuedImport',
             'setCanvas',
             'importSvg',
+            'initializeSvg',
             'maybeZoomToFit',
             'switchCostume'
         ]);
@@ -167,15 +168,17 @@ class PaperCanvas extends React.Component {
             performSnapshot(this.props.undoSnapshot, Formats.VECTOR_SKIP_CONVERT);
         }
     }
-    maybeZoomToFit(isBitmapMode) {
+    maybeZoomToFit (isBitmapMode) {
         if (this.shouldZoomToFit instanceof paper.Matrix) {
             paper.view.matrix = this.shouldZoomToFit;
+            this.props.updateViewBounds(paper.view.matrix);
         } else if (this.shouldZoomToFit === true) {
             zoomToFit(isBitmapMode);
+            this.props.updateViewBounds(paper.view.matrix);
         }
         this.shouldZoomToFit = false;
     }
-    importSvg(svg, rotationCenterX, rotationCenterY) {
+    importSvg (svg, rotationCenterX, rotationCenterY) {
         const paperCanvas = this;
         // Pre-process SVG to prevent parsing errors (discussion from #213)
         // 1. Remove svg: namespace on elements.
@@ -302,6 +305,7 @@ PaperCanvas.propTypes = {
     clearPasteOffset: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
     clearUndo: PropTypes.func.isRequired,
+    cursor: PropTypes.string,
     image: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.instanceOf(HTMLImageElement)
@@ -321,6 +325,7 @@ PaperCanvas.propTypes = {
 };
 const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
+    cursor: state.scratchPaint.cursor,
     format: state.scratchPaint.format,
     zoomLevels: state.scratchPaint.zoomLevels
 });

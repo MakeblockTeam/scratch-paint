@@ -96,26 +96,35 @@ const UpdateImageHOC = function (WrappedComponent) {
                 } else if (item instanceof paper.Shape && item.type === 'ellipse') {
                     commitOvalToBitmap(item, plasteredRaster);
                 } else if (item instanceof paper.PointText) {
-                    const textRaster = item.rasterize(72, false /* insert */);
+                    const bounds = item.drawnBounds;
+                    const textRaster = item.rasterize(72, false /* insert */, bounds);
                     plasteredRaster.drawImage(
                         textRaster.canvas,
-                        new paper.Point(Math.floor(textRaster.bounds.x), Math.floor(textRaster.bounds.y))
+                        new paper.Point(Math.floor(bounds.x), Math.floor(bounds.y))
                     );
                 }
             }
             const rect = getHitBounds(plasteredRaster);
+            // Use 1x1 instead of 0x0 for getting imageData since paper.js automagically
+            // returns the full artboard in the case of getImageData(0x0).
+            // Bitmaps need a non-zero width/height in order to be saved as PNG.
+            if (rect.width === 0 || rect.height === 0) {
+                rect.width = rect.height = 1;
+            }
+
+            const imageData = plasteredRaster.getImageData(rect);
             // #if MOBILE
             if (this.props.isCanSave) {
                 this.props.onUpdateImage(
                     false /* isVector */,
-                    plasteredRaster.getImageData(rect),
+                    imageData,
                     (ART_BOARD_WIDTH / 2) - rect.x,
                     (ART_BOARD_HEIGHT / 2) - rect.y);
             }
             // #else
             this.props.onUpdateImage(
                 false /* isVector */,
-                plasteredRaster.getImageData(rect),
+                imageData,
                 (ART_BOARD_WIDTH / 2) - rect.x,
                 (ART_BOARD_HEIGHT / 2) - rect.y);
             // #endif
@@ -129,7 +138,7 @@ const UpdateImageHOC = function (WrappedComponent) {
 
             // Export at 0.5x
             scaleWithStrokes(paper.project.activeLayer, .5, new paper.Point());
-            const bounds = paper.project.activeLayer.bounds;
+            const bounds = paper.project.activeLayer.drawnBounds;
             // #if MOBILE
             if (this.props.isCanSave) {
                 this.props.onUpdateImage(

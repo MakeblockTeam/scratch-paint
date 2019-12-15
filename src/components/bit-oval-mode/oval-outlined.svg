@@ -1,1 +1,19 @@
-<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="#575E75" fill-rule="evenodd"><path d="M4 13.33333h1.33333V6.66667H4zM5.33333 6.66667h1.33334V5.33333H5.33333zM5.33333 14.66667h1.33334v-1.33334H5.33333zM6.66667 5.33333h6.66666V4H6.66667zM13.33333 6.66667h1.33334V5.33333h-1.33334zM14.66667 13.33333H16V6.66667h-1.33333zM13.33333 14.66667h1.33334v-1.33334h-1.33334zM6.66667 16h6.66666v-1.33333H6.66667z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>oval-outlined</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="oval-outlined" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(4.000000, 4.000000)" fill="#575E75">
+            <polygon id="Fill-1" points="0 9.33333333 1.33333333 9.33333333 1.33333333 2.66666667 0 2.66666667"></polygon>
+            <polygon id="Fill-2" points="1.33333333 2.66666667 2.66666667 2.66666667 2.66666667 1.33333333 1.33333333 1.33333333"></polygon>
+            <polygon id="Fill-3" points="1.33333333 10.6666667 2.66666667 10.6666667 2.66666667 9.33333333 1.33333333 9.33333333"></polygon>
+            <polygon id="Fill-4" points="2.66666667 1.33333333 9.33333333 1.33333333 9.33333333 0 2.66666667 0"></polygon>
+            <polygon id="Fill-5" points="9.33333333 2.66666667 10.6666667 2.66666667 10.6666667 1.33333333 9.33333333 1.33333333"></polygon>
+            <polygon id="Fill-6" points="10.6666667 9.33333333 12 9.33333333 12 2.66666667 10.6666667 2.66666667"></polygon>
+            <polygon id="Fill-7" points="9.33333333 10.6666667 10.6666667 10.6666667 10.6666667 9.33333333 9.33333333 9.33333333"></polygon>
+            <polygon id="Fill-8" points="2.66666667 12 9.33333333 12 9.33333333 10.6666667 2.66666667 10.6666667"></polygon>
+        </g>
+    </g>
+</svg>

@@ -37,13 +37,14 @@ class TextTool extends paper.Tool {
      * @param {HTMLTextAreaElement} textAreaElement dom element for the editable text field
      * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+     * @param {function} setCursor Callback to set the visible mouse cursor
      * @param {!function} onUpdateImage A callback to call when the image visibly changes
      * @param {!function} setTextEditTarget Call to set text editing target whenever text editing is active
      * @param {!function} changeFont Call to change the font in the dropdown
      * @param {?boolean} isBitmap True if text should be rasterized once it's deselected
      */
-    constructor(textAreaElement, setSelectedItems, clearSelectedItems, onUpdateImage, setTextEditTarget, changeFont,
-        isBitmap) {
+    constructor (textAreaElement, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage, setTextEditTarget,
+        changeFont, isBitmap) {
         super();
         this.element = textAreaElement;
         this.setSelectedItems = setSelectedItems;
@@ -51,7 +52,13 @@ class TextTool extends paper.Tool {
         this.onUpdateImage = onUpdateImage;
         this.setTextEditTarget = setTextEditTarget;
         this.changeFont = changeFont;
-        this.boundingBoxTool = new BoundingBoxTool(Modes.TEXT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        this.boundingBoxTool = new BoundingBoxTool(
+            Modes.TEXT,
+            setSelectedItems,
+            clearSelectedItems,
+            setCursor,
+            onUpdateImage
+        );
         this.nudgeTool = new NudgeTool(this.boundingBoxTool, onUpdateImage);
         this.isBitmap = isBitmap;
         // #if MOBILE
@@ -115,13 +122,13 @@ class TextTool extends paper.Tool {
     onSelectionChanged(selectedItems) {
         this.boundingBoxTool.onSelectionChanged(selectedItems);
         if ((!this.textBox || !this.textBox.parent) &&
-            selectedItems && selectedItems.length === 1 && selectedItems[0] instanceof paper.PointText) {
+                selectedItems && selectedItems.length === 1 && selectedItems[0] instanceof paper.PointText) {
             // Infer that an undo occurred and get back the active text
             this.textBox = selectedItems[0];
             this.mode = TextTool.SELECT_MODE;
         }
     }
-    setFont(font) {
+    setFont (font) {
         this.font = font;
         if (this.textBox) {
             this.textBox.font = font;
@@ -136,7 +143,7 @@ class TextTool extends paper.Tool {
         this.setSelectedItems();
     }
     // Allow other tools to cancel text edit mode
-    onTextEditCancelled() {
+    onTextEditCancelled () {
         if (this.mode !== TextTool.TEXT_EDIT_MODE) {
             return;
         }
@@ -153,7 +160,7 @@ class TextTool extends paper.Tool {
         }
         this.calculateMatrix(viewMtx);
     }
-    calculateMatrix(viewMtx) {
+    calculateMatrix (viewMtx) {
         const textBoxMtx = this.textBox.matrix;
         const calculated = new paper.Matrix();
 
@@ -195,6 +202,7 @@ class TextTool extends paper.Tool {
         } else {
             document.body.style.cursor = 'auto';
         }
+        this.boundingBoxTool.onMouseMove(event, this.getBoundingBoxHitOptions());
     }
     handleMouseDown(event) {
         // #if MOBILE
@@ -211,8 +219,8 @@ class TextTool extends paper.Tool {
             (event.event.timeStamp - this.lastEvent.event.timeStamp) < TextTool.DOUBLE_CLICK_MILLIS;
         this.lastEvent = event;
         if (doubleClicked &&
-            this.mode === TextTool.SELECT_MODE &&
-            this.textBox.hitTest(event.point)) {
+                this.mode === TextTool.SELECT_MODE &&
+                this.textBox.hitTest(event.point)) {
             // Double click in select mode moves you to text edit mode
             this.endSelect();
             this.beginTextEdit(this.textBox);
@@ -342,14 +350,14 @@ class TextTool extends paper.Tool {
                 `${-this.textBox.internalBounds.x}px ${-this.textBox.internalBounds.y}px`;
         }
     }
-    beginSelect() {
+    beginSelect () {
         if (this.textBox) {
             this.mode = TextTool.SELECT_MODE;
             this.textBox.selected = true;
             this.setSelectedItems();
         }
     }
-    endSelect() {
+    endSelect () {
         clearSelection(this.clearSelectedItems);
         this.mode = null;
     }
@@ -366,7 +374,7 @@ class TextTool extends paper.Tool {
     /**
      * @param {paper.PointText} textBox Text object to begin text edit on
      */
-    beginTextEdit(textBox) {
+    beginTextEdit (textBox) {
         this.textBox = textBox;
         this.mode = TextTool.TEXT_EDIT_MODE;
         // #if MOBILE
@@ -440,11 +448,11 @@ class TextTool extends paper.Tool {
             this.lastTypeEvent = null;
         }
     }
-    commitText() {
+    commitText () {
         if (!this.textBox || !this.textBox.parent) return;
 
         // @todo get crisp text https://github.com/LLK/scratch-paint/issues/508
-        const textRaster = this.textBox.rasterize(72, false /* insert */);
+        const textRaster = this.textBox.rasterize(72, false /* insert */, this.textBox.drawnBounds);
         this.textBox.remove();
         this.textBox = null;
         getRaster().drawImage(
@@ -453,7 +461,7 @@ class TextTool extends paper.Tool {
         );
         this.onUpdateImage();
     }
-    deactivateTool() {
+    deactivateTool () {
         if (this.textBox && this.textBox.content.trim() === '') {
             this.textBox.remove();
             this.textBox = null;
@@ -462,7 +470,7 @@ class TextTool extends paper.Tool {
         if (this.isBitmap) {
             this.commitText();
         }
-        this.boundingBoxTool.removeBoundsPath();
+        this.boundingBoxTool.deactivateTool();
     }
 }
 

@@ -8,7 +8,7 @@ const ScrollableCanvasComponent = props => (
     <div
         className={classNames(
             props.style,
-            { [styles.hideCursor]: props.hideCursor }
+            { [styles.hideCursor]: props.hideScrollbars }
         )}
     >
         {props.children}
@@ -25,10 +25,11 @@ const ScrollableCanvasComponent = props => (
                             width: `${props.horizontalScrollLengthPercent}%`,
                             left: `${props.horizontalScrollStartPercent}%`,
                             pointerEvents: 'auto',
-                            display: `${props.hideCursor ||
+                            display: `${props.hideScrollbars ||
                                 Math.abs(props.horizontalScrollLengthPercent - 100) < 1e-8 ? 'none' : 'block'}`
                         }}
                         onMouseDown={props.onHorizontalScrollbarMouseDown}
+                        onTouchStart={props.onHorizontalScrollbarMouseDown}
                     />
                 </div>
                 <div
@@ -41,10 +42,11 @@ const ScrollableCanvasComponent = props => (
                             height: `${props.verticalScrollLengthPercent}%`,
                             top: `${props.verticalScrollStartPercent}%`,
                             pointerEvents: 'auto',
-                            display: `${props.hideCursor ||
+                            display: `${props.hideScrollbars ||
                                 Math.abs(props.verticalScrollLengthPercent - 100) < 1e-8 ? 'none' : 'block'}`
                         }}
                         onMouseDown={props.onVerticalScrollbarMouseDown}
+                        onTouchStart={props.onVerticalScrollbarMouseDown}
                     />
                 </div>
             </React.Fragment>
@@ -55,7 +57,7 @@ const ScrollableCanvasComponent = props => (
 
 ScrollableCanvasComponent.propTypes = {
     children: PropTypes.node.isRequired,
-    hideCursor: PropTypes.bool,
+    hideScrollbars: PropTypes.bool,
     horizontalScrollLengthPercent: PropTypes.number,
     horizontalScrollStartPercent: PropTypes.number,
     onHorizontalScrollbarMouseDown: PropTypes.func.isRequired,

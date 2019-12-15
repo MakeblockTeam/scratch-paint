@@ -212,7 +212,7 @@ const PaintEditorComponent = props => (
                 {/* Canvas */}
                 <ScrollableCanvas
                     canvas={props.canvas}
-                    hideCursor={props.isEyeDropping}
+                    hideScrollbars={props.isEyeDropping}
                     style={styles.canvasContainer}
                 >
                     <PaperCanvas
@@ -346,7 +346,8 @@ PaintEditorComponent.propTypes = {
     setCanvas: PropTypes.func.isRequired,
     setTextArea: PropTypes.func.isRequired,
     textArea: PropTypes.instanceOf(Element),
-    zoomLevelId: PropTypes.string
+    zoomLevelId: PropTypes.string,
+    onUpdateRotateCenter: PropTypes.func
 };
 
 export default injectIntl(PaintEditorComponent);

@@ -2,6 +2,7 @@ import paper from '@scratch/paper';
 import Modes from '../../lib/modes';
 import {styleShape} from '../style-path';
 import {clearSelection} from '../selection';
+import {getSquareDimensions} from '../math';
 import BoundingBoxTool from '../selection-tools/bounding-box-tool';
 import NudgeTool from '../selection-tools/nudge-tool';
 
@@ -15,20 +16,28 @@ class OvalTool extends paper.Tool {
     /**
      * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+     * @param {function} setCursor Callback to set the visible mouse cursor
      * @param {!function} onUpdateImage A callback to call when the image visibly changes
      */
-    constructor (setSelectedItems, clearSelectedItems, onUpdateImage) {
+    constructor (setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         super();
         this.setSelectedItems = setSelectedItems;
         this.clearSelectedItems = clearSelectedItems;
         this.onUpdateImage = onUpdateImage;
-        this.boundingBoxTool = new BoundingBoxTool(Modes.OVAL, setSelectedItems, clearSelectedItems, onUpdateImage);
+        this.boundingBoxTool = new BoundingBoxTool(
+            Modes.OVAL,
+            setSelectedItems,
+            clearSelectedItems,
+            setCursor,
+            onUpdateImage
+        );
         const nudgeTool = new NudgeTool(this.boundingBoxTool, onUpdateImage);
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         this.onMouseDown = this.handleMouseDown;
         this.onMouseDrag = this.handleMouseDrag;
+        this.onMouseMove = this.handleMouseMove;
         this.onMouseUp = this.handleMouseUp;
         this.onKeyUp = nudgeTool.onKeyUp;
         this.onKeyDown = nudgeTool.onKeyDown;
@@ -100,17 +109,23 @@ class OvalTool extends paper.Tool {
 
         const downPoint = new paper.Point(event.downPoint.x, event.downPoint.y);
         const point = new paper.Point(event.point.x, event.point.y);
+        const squareDimensions = getSquareDimensions(event.downPoint, event.point);
         if (event.modifiers.shift) {
-            this.oval.size = new paper.Point(event.downPoint.x - event.point.x, event.downPoint.x - event.point.x);
+            this.oval.size = squareDimensions.size.abs();
         } else {
             this.oval.size = downPoint.subtract(point);
         }
+
         if (event.modifiers.alt) {
             this.oval.position = downPoint;
+        } else if (event.modifiers.shift) {
+            this.oval.position = squareDimensions.position;
         } else {
             this.oval.position = downPoint.subtract(this.oval.size.multiply(0.5));
         }
-
+    }
+    handleMouseMove (event) {
+        this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
     }
     handleMouseUp (event) {
         // #if MOBILE
@@ -145,7 +160,7 @@ class OvalTool extends paper.Tool {
         this.active = false;
     }
     deactivateTool () {
-        this.boundingBoxTool.removeBoundsPath();
+        this.boundingBoxTool.deactivateTool();
     }
 }
 

@@ -82,6 +82,7 @@ class PaintEditor extends React.Component {
         bindAll(this, [
             'switchModeForFormat',
             'onMouseDown',
+            'onMouseUp',
             'setCanvas',
             'setTextArea',
             'startEyeDroppingLoop',
@@ -104,6 +105,8 @@ class PaintEditor extends React.Component {
         // canvas, and should therefore stop the eye dropper
         document.addEventListener('mousedown', this.onMouseDown);
         document.addEventListener('touchstart', this.onMouseDown);
+        document.addEventListener('mouseup', this.onMouseUp);
+        document.addEventListener('touchend', this.onMouseUp);
     }
     componentWillReceiveProps (newProps) {
         if (!isBitmap(this.props.format) && isBitmap(newProps.format)) {
@@ -121,7 +124,7 @@ class PaintEditor extends React.Component {
         } else if (!this.props.isEyeDropping && prevProps.isEyeDropping) {
             this.stopEyeDroppingLoop();
         } else if (this.props.isEyeDropping && this.props.viewBounds !== prevProps.viewBounds) {
-            this.props.previousTool.activate();
+            if (this.props.previousTool) this.props.previousTool.activate();
             this.props.onDeactivateEyeDropper();
             this.stopEyeDroppingLoop();
         }
@@ -137,11 +140,13 @@ class PaintEditor extends React.Component {
         this.stopEyeDroppingLoop();
         document.removeEventListener('mousedown', this.onMouseDown);
         document.removeEventListener('touchstart', this.onMouseDown);
+        document.removeEventListener('mouseup', this.onMouseUp);
+        document.removeEventListener('touchend', this.onMouseUp);
     }
     switchModeForFormat (newFormat) {
         if ((isVector(newFormat) && (this.props.mode in VectorModes)) ||
-        (isBitmap(newFormat) && (this.props.mode in BitmapModes))) {
-        // Format didn't change; no mode change needed
+            (isBitmap(newFormat) && (this.props.mode in BitmapModes))) {
+            // Format didn't change; no mode change needed
             return;
         }
         if (isVector(newFormat)) {
@@ -249,7 +254,8 @@ class PaintEditor extends React.Component {
             // Exit text edit mode if you click anywhere outside of canvas
             this.props.removeTextEditTarget();
         }
-
+    }
+    onMouseUp () {
         if (this.props.isEyeDropping) {
             const colorString = this.eyeDropper.colorString;
             const callback = this.props.changeColorToEyeDropper;
@@ -260,7 +266,7 @@ class PaintEditor extends React.Component {
                 // so apply the new color
                 callback(colorString);
             }
-            this.props.previousTool.activate();
+            if (this.props.previousTool) this.props.previousTool.activate();
             this.props.onDeactivateEyeDropper();
             this.stopEyeDroppingLoop();
         }

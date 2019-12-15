@@ -334,6 +334,14 @@ const getHitBounds = function (raster) {
     while (left < right && columnBlank_(imageData, width, left, top, bottom)) ++left;
     while (right - 1 > left && columnBlank_(imageData, width, right - 1, top, bottom)) --right;
 
+    // Center an empty bitmap
+    if (top === bottom) {
+        top = bottom = imageData.height / 2;
+    }
+    if (left === right) {
+        left = right = imageData.width / 2;
+    }
+
     return new paper.Rectangle(left, top, right - left, bottom - top);
 };
 
@@ -369,7 +377,7 @@ const convertToBitmap = function (clearSelectedItems, onUpdateImage) {
 
     // Export svg
     const guideLayers = hideGuideLayers(true /* includeRaster */);
-    const bounds = paper.project.activeLayer.bounds;
+    const bounds = paper.project.activeLayer.drawnBounds;
     const svg = paper.project.exportSVG({
         bounds: 'content',
         matrix: new paper.Matrix().translate(-bounds.x, -bounds.y)
@@ -379,8 +387,9 @@ const convertToBitmap = function (clearSelectedItems, onUpdateImage) {
     // Get rid of anti-aliasing
     // @todo get crisp text https://github.com/LLK/scratch-paint/issues/508
     svg.setAttribute('shape-rendering', 'crispEdges');
-    const svgString = (new XMLSerializer()).serializeToString(svg);
-    inlineSvgFonts(svgString);
+
+    let svgString = (new XMLSerializer()).serializeToString(svg);
+    svgString = inlineSvgFonts(svgString);
 
     // Put anti-aliased SVG into image, and dump image back into canvas
     const img = new Image();
