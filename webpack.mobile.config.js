@@ -40,11 +40,18 @@ const base = {
                 loader: 'style-loader'
             }, {
                 loader: 'css-loader',
+                // options: {
+                //     modules: true,
+                //     importLoaders: 1,
+                //     localIdentName: '[name]_[local]_[hash:base64:5]'
+                //     camelCase: true
+                // }
                 options: {
-                    modules: true,
-                    importLoaders: 1,
-                    localIdentName: '[name]_[local]_[hash:base64:5]',
-                    camelCase: true
+                    modules: {
+                        mode: 'local',
+                        localIdentName: '[name]__[local]--[hash:base64:5]'
+                    },
+                    localsConvention: 'camelCase',
                 }
             }, {
                 loader: 'sass-loader'
