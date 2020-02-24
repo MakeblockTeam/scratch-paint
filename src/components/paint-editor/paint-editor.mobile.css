@@ -195,7 +195,7 @@ body {
     box-sizing: border-box;
     border-top: 2px solid #FC4144;
     transform-origin: top right;
-    transform: rotateZ(-23deg) scale(1.414);
+    transform: rotateZ(-15deg) scale(1.414);
 }
 
 .action-content .box .value .arrow {

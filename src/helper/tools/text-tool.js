@@ -63,7 +63,7 @@ class TextTool extends paper.Tool {
         this.isBitmap = isBitmap;
         // #if MOBILE
         const argumentsLength = arguments.length;
-        if (argumentsLength === 8 && arguments[argumentsLength - 1].ok) {
+        if (argumentsLength === 9 && arguments[argumentsLength - 1].ok) {
             this.messages = arguments[argumentsLength - 1];
         }
         // #endif
@@ -376,6 +376,7 @@ class TextTool extends paper.Tool {
      */
     beginTextEdit (textBox) {
         this.textBox = textBox;
+        console.log(this);
         this.mode = TextTool.TEXT_EDIT_MODE;
         // #if MOBILE
         if (MobileInputBox) {
