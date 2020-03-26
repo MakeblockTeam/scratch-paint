@@ -67,7 +67,7 @@ import {
     selectAllSegments
 } from '../../helper/selection';
 import GradientTypes from '../../lib/gradient-types';
-import styles from './paint-editor.mobile.css';
+import styles from './paint-editor.mobile.scss';
 
 // import bitmapIcon from './icons/bitmap.svg';
 import zoomInIcon from './icons/zoom-in-mobile.svg';
@@ -158,6 +158,7 @@ class PaintEditorComponent extends React.Component {
             isSaveBoxShow: false
         };
         this._hasChanged = false;
+        document.body.setAttribute('class', 'theme-dark');
     }
 
     componentDidMount() {

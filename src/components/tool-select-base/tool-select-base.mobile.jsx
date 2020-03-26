@@ -5,7 +5,7 @@ import {injectIntl, intlShape} from 'react-intl';
 
 import Button from '../button/button.jsx';
 
-import styles from './tool-select-base.mobile.css';
+import styles from './tool-select-base.mobile.scss';
 
 const ToolSelectComponent = props => (
     <Button

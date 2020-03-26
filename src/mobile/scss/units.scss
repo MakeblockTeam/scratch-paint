@@ -1,0 +1,40 @@
+/* DO NOT EDIT
+@todo This file is copied from GUI and should be pulled out into a shared library.
+See https://github.com/LLK/scratch-paint/issues/13 */
+
+/* ACTUALLY, THIS IS EDITED ;)
+THIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST
+GRID UNITS.
+
+ALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/
+
+$space: 0.5rem;
+$grid-unit: .25rem;
+
+$sprites-per-row: 5;
+
+$menu-bar-height: 3rem;
+$sprite-info-height: 6rem;
+$stage-menu-height: 2.75rem;
+
+$library-header-height: 4.375rem;
+
+$form-radius: calc($space / 2);
+
+/* layout contants from `layout-constants.js`, minus 1px */
+$full-size: 1095px;
+$full-size-paint: 1249px;
+
+$canvas-container-width-max-screen-in-app: 844.5px;
+$canvas-container-height-max-screen-in-app: 633px;
+$canvas-container-width-in-app: 563px;
+$canvas-container-height-in-app: 422px;
+$canvas-container-width-phone-in-app: 366.85px;
+$canvas-container-height-phone-in-app: 274.79px;
+$editor-container-header-height: 3rem;
+$editor-container-header-height_mobile: 2rem;
+
+$paint-area-left-width-in-app: 11.875rem;
+$paint-area-right-width-in-app: 15.625rem;
+$paint-area-left-width-phone-in-app:  6.5rem;
+$paint-area-right-width-phone-in-app:  9.5rem;

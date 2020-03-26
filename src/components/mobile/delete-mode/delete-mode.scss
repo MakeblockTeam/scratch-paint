@@ -1,0 +1,23 @@
+@import '../../../mobile/theme/themes.scss';
+
+.delete-icon.disabled {
+    pointer-events: none;
+    opacity: .5;
+    @include themify($themes) {
+        background-color: themed('paint-editor-mode-select-tool-disabled-background-color');
+    }
+}
+
+.delete-icon:active {
+    @include themify($themes) {
+        background-color: themed('paint-editor-mode-select-tool-selected-background-color');
+    }
+}
+
+.delete-icon img {
+    filter: unset !important;
+}
+
+.delete-icon:active img {
+    filter: brightness(0) invert(1);
+}

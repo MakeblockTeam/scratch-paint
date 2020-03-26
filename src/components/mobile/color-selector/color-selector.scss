@@ -1,4 +1,5 @@
-@import "../../../css/units.css";
+@import '../../../mobile/scss/units.scss';
+@import '../../../mobile/theme/themes.scss';
 
 $confirm-box-height: 3.75rem;
 $confirm--box-height_mobile:2.375rem;
@@ -9,7 +10,11 @@ $confirm--box-height_mobile:2.375rem;
     right: 0;
     width: $paint-area-right-width-in-app;
     height: 100%;
-    background-color: #fff;
+
+    @include themify($themes) {
+        background-color: themed('paint-editor-left-right-background-color');
+    }
+
     box-shadow: -1px 0px 7px 0px rgba(38, 65, 101, 0.2);
     transition: .3s;
     overflow: hidden;
@@ -178,14 +183,20 @@ $confirm--box-height_mobile:2.375rem;
     right: 0;
     bottom: 0;
     height: 3.75rem;
-    background-color: #fff;
+
+    @include themify($themes) {
+        background-color: themed('color-selector-confirm-box-background-color');
+        color: themed('color-selector-confirm-box-font-color');
+        border-top: 1px solid themed('color-selector-confirm-box-border-color');
+    }
+    
     font-size: 1.5rem;
-    color: #4aa6ff;
-    border-top: 1px solid #B4B7B8;
 }
 
 .container .confirm-box:active {
-    background-color: #eef6fe;
+    @include themify($themes) {
+        background-color: themed('color-selector-confirm-box-active-background-color');
+    }
 }
 
 :global(.rc-slider-rail) {

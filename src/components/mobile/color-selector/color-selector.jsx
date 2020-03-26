@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Slider from 'rc-slider';
-import styles from './color-selector.css';
+import styles from './color-selector.scss';
 import colorPickerIcon from './icons/color-picker.svg';
 import transparentIcon from './icons/transparent.svg';
 

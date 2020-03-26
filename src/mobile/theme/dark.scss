@@ -1,0 +1,27 @@
+$dark: (
+    default-background-color: #151D45,
+    default-font-color: rgba(255, 255, 255, .6),
+    default-opacity-value: .8,
+
+    header-background-color: #1f3972,
+
+    paint-editor-left-right-background-color: #20274e,
+    paint-editor-left-right-border-color: transparent,
+    paint-editor-mode-select-tool-background-color: rgba(255, 255, 255, .16),
+    paint-editor-mode-select-tool-filter-value: brightness(0) invert(1),
+    paint-editor-mode-select-tool-selected-background-color: #1f3972,
+    paint-editor-mode-select-tool-disabled-background-color: rgba(255, 255, 255, .1),
+    paint-editor-mode-select-tool-selected-box-shadow-color: transparent,
+    paint-editor-action-content-font-color: #fff,
+    paint-editor-action-content-background-color: rgba(255, 255, 255, .16),
+    paint-editor-action-content-border-color: transparent,
+    paint-editor-color-border-color: transparent,
+    paint-editor-arrow-icon-filer-value: brightness(0) invert(.8),
+    paint-editor-stroke-width-selector-item-border-color: #2952ac,
+    paint-editor-stroke-width-selector-item-box-shadow-color: transparent,
+
+    color-selector-confirm-box-background-color: #2952AC,
+    color-selector-confirm-box-font-color: rgba(255, 255, 255, .8),
+    color-selector-confirm-box-border-color: transparent,
+    color-selector-confirm-box-active-background-color: #4062B7,
+)

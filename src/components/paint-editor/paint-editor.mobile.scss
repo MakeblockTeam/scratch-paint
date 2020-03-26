@@ -1,5 +1,6 @@
-@import "../../css/colors.css";
-@import "../../css/units.css";
+@import '../../mobile/scss/colors.scss';
+@import '../../mobile/scss/units.scss';
+@import '../../mobile/theme/themes.scss';
 
 html,
 body {
@@ -14,9 +15,13 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #EEF6FE;
     overflow: hidden;
     z-index: 9999;
+
+    @include themify($themes) {
+        background-color: themed('default-background-color');
+    }
+
 }
 
 .editor-container .mask {
@@ -34,7 +39,11 @@ body {
     justify-content: space-between;
     align-items: center;
     height: $editor-container-header-height;
-    background-color: #1EAAFF;
+
+    @include themify($themes) {
+        background-color: themed('header-background-color');
+    }
+
     font-size: 1.25rem;
     font-weight: 500;
     color: #fff;
@@ -43,16 +52,24 @@ body {
 .editor-container .header .icon {
     width: $editor-container-header-height;
     height: $editor-container-header-height;
+
+    @include themify($themes) {
+        opacity: themed('default-opacity-value');
+    }
 }
 
 .editor-container .header span:last-child {
     margin-right: .5rem;
+
+    @include themify($themes) {
+        opacity: themed('default-opacity-value');
+    }
 }
 
 .editor-container .paint-area {
     position: relative;
     width: 100%;
-    height: calc(100vh - $editor-container-header-height);
+    height: calc(100vh - #{$editor-container-header-height});
 }
 
 .editor-container .paint-area .left,
@@ -60,15 +77,22 @@ body {
 .editor-container .paint-area .canvas-area {
     position: relative;
     height: 100%;
-    background-color: #fff;
     overflow: auto;
     box-sizing: border-box;
+}
+
+.editor-container .paint-area .canvas-area {
+    background-color: #fff;
 }
 
 .editor-container .paint-area .left,
 .editor-container .paint-area .right {
     position: absolute;
     top: 0;
+
+    @include themify($themes) {
+        background-color: themed('paint-editor-left-right-background-color');
+    }
 }
 
 .editor-container .paint-area .left::after,
@@ -78,7 +102,11 @@ body {
     width: 1px;
     height: 100%;
     top: 0;
-    background-color: #B4B7B8;
+
+    @include themify($themes) {
+        background-color: themed('paint-editor-left-right-border-color');
+    }
+
     transform: scaleX(0.5);
     transform-origin: 0 0;
 }
@@ -97,7 +125,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% - $paint-area-left-width-in-app - $paint-area-right-width-in-app);
+    width: calc(100% - #{$paint-area-left-width-in-app} - #{$paint-area-right-width-in-app});
     margin-left: $paint-area-left-width-in-app;
     background-color: transparent;
 }
@@ -147,7 +175,11 @@ body {
     max-width: 100%;
     font-size: 1.25rem;
     font-weight: 500;
-    color: #264165;
+
+    @include themify($themes) {
+        color: themed('default-font-color');
+    }
+
     display: block;
     margin-bottom: .625rem;
     overflow: hidden;
@@ -158,12 +190,16 @@ body {
 .action-content .box .value {
     width: 100%;
     height: 2.5rem;
-    color: #264165 !important;
     opacity: 1 !important;
     font-size: 1.25rem;
     border-radius: 2.5rem;
-    border: 1px solid #BCCCDC;
-    background-color: #fff;
+
+    @include themify($themes) {
+        color: themed('paint-editor-action-content-font-color') !important;
+        border: 1px solid themed('paint-editor-action-content-border-color');
+        background-color: themed('paint-editor-action-content-background-color');
+    }
+
     box-sizing: border-box;
     outline: none;
     overflow: hidden;
@@ -181,7 +217,11 @@ body {
     height: 100%;
     box-sizing: border-box;
     border-radius: 2.5rem 0 0 2.5rem;
-    border-right: 1px solid #BCCCDC;
+    background-color: #fff;
+
+    @include themify($themes) {
+        border-right: 1px solid themed('paint-editor-color-border-color');
+    }
 }
 
 .action-content .box .value .color.none-color::before {
@@ -202,12 +242,16 @@ body {
     display: inline-block;
     width: 25%;
     height: 100%;
-    background-color: #fff;
+    background-color: transparent;
 }
 
 .action-content .box .value .arrow img {
     width: 100%;
     height: 100%;
+
+    @include themify($themes) {
+        filter: themed('paint-editor-arrow-icon-filer-value');
+    }
 }
 
 .right .stroke-width-selector {
@@ -234,8 +278,12 @@ body {
 
 .stroke-width-selector .item.selected {
     pointer-events: none;
-    border: 4px solid #4AA6FF;
-    box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4);
+
+    @include themify($themes) {
+        border: 4px solid themed('paint-editor-stroke-width-selector-item-border-color');
+        box-shadow: 0px 5px 5px 0px themed('paint-editor-stroke-width-selector-item-box-shadow-color');
+    }
+
 }
 
 .stroke-width-selector .item .line.line1 {
@@ -263,27 +311,27 @@ body {
 
 .editor-container-top {
     border-bottom: 1px dashed $ui-pane-border;
-    padding-bottom: calc(2 * $grid-unit);
+    padding-bottom: calc(2 * #{$grid-unit});
 }
 
 .top-align-row {
     display: flex;
-    padding-top: calc(5 * $grid-unit);
+    padding-top: calc(5 * #{$grid-unit});
     flex-direction: row;
 }
 
 .row+.row {
-    margin-top: calc(2 * $grid-unit);
+    margin-top: calc(2 * #{$grid-unit});
 }
 
 [dir="ltr"] .mod-dashed-border {
     border-right: 1px dashed $ui-pane-border;
-    padding-right: calc(2 * $grid-unit);
+    padding-right: calc(2 * #{$grid-unit});
 }
 
 [dir="rtl"] .mod-dashed-border {
     border-left: 1px dashed $ui-pane-border;
-    padding-left: calc(2 * $grid-unit);
+    padding-left: calc(2 * #{$grid-unit});
 }
 
 .mod-labeled-icon-height {
@@ -302,14 +350,20 @@ body {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 50%;
-    background: #fff;
+
+    @include themify($themes) {
+        background-color: themed('paint-editor-mode-select-tool-background-color');
+    }
+
     margin-left: 1rem;
     box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3);
     transition: 0.2s;
 }
 
 .button-group-button:active {
-    background-color: #1EAAFF;
+    @include themify($themes) {
+        background-color: themed('paint-editor-mode-select-tool-selected-background-color');
+    }
 }
 
 .button-group-button-icon {
@@ -317,6 +371,10 @@ body {
     height: 1.75rem;
     vertical-align: middle;
     transition: 0.2s;
+
+    @include themify($themes) {
+        filter: themed('paint-editor-mode-select-tool-filter-value');
+    }
 }
 
 .button-group-button-icon:active {
@@ -324,15 +382,15 @@ body {
 }
 
 .mod-mode-tools {
-    margin-left: calc(2 * $grid-unit);
+    margin-left: calc(2 * #{$grid-unit});
 }
 
 [dir="ltr"] .mod-margin-after {
-    margin-right: calc(2 * $grid-unit);
+    margin-right: calc(2 * #{$grid-unit});
 }
 
 [dir="rtl"] .mod-margin-after {
-    margin-left: calc(2 * $grid-unit);
+    margin-left: calc(2 * #{$grid-unit});
 }
 
 .canvas-container {
@@ -398,20 +456,20 @@ body {
     display: flex;
     border-radius: 5px;
     background-color: $motion-primary;
-    padding: calc(2 * $grid-unit);
+    padding: calc(2 * #{$grid-unit});
     line-height: 1.5rem;
-    font-size: calc(3 * $grid-unit);
+    font-size: calc(3 * #{$grid-unit});
     font-weight: bold;
     color: white;
     justify-content: center;
 }
 
 [dir="ltr"] .bitmap-button-icon {
-    margin-right: calc(2 * $grid-unit);
+    margin-right: calc(2 * #{$grid-unit});
 }
 
 [dir="rtl"] .bitmap-button-icon {
-    margin-left: calc(2 * $grid-unit);
+    margin-left: calc(2 * #{$grid-unit});
 }
 
 .text-area {
@@ -450,7 +508,7 @@ body {
     }
 
     .editor-container .paint-area {
-        height: calc(100vh - $editor-container-header-height_mobile);
+        height: calc(100vh - #{$editor-container-header-height_mobile});
     }
 
     .editor-container .paint-area .left {
@@ -459,7 +517,7 @@ body {
     }
 
     .editor-container .paint-area .canvas-area {
-        width: calc(100% - $paint-area-left-width-phone-in-app - $paint-area-right-width-phone-in-app);
+        width: calc(100% - #{$paint-area-left-width-phone-in-app} - #{$paint-area-right-width-phone-in-app});
         margin-left: $paint-area-left-width-phone-in-app;
     }
 
@@ -537,9 +595,9 @@ body {
     }
 }
 
-@media (min-height: 1024px) and (min-width: 1366px) { 
+@media (min-height: 1024px) and (min-width: 1366px) {
     .canvas-container {
         width: $canvas-container-width-max-screen-in-app;
         height: $canvas-container-height-max-screen-in-app;
     }
-} 
+}

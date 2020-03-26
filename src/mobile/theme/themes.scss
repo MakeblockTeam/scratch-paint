@@ -1,0 +1,9 @@
+@import './themify.scss';
+@import './themed.scss';
+@import './light.scss';
+@import './dark.scss';
+
+$themes: (
+    light: $light,
+    dark: $dark,
+)
