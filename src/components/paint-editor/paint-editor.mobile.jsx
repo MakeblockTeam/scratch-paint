@@ -158,7 +158,6 @@ class PaintEditorComponent extends React.Component {
             isSaveBoxShow: false
         };
         this._hasChanged = false;
-        document.body.setAttribute('class', 'theme-dark');
     }
 
     componentDidMount() {
