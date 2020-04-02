@@ -18,7 +18,8 @@ $dark: (
     paint-editor-color-border-color: transparent,
     paint-editor-arrow-icon-filer-value: brightness(0) invert(.8),
     paint-editor-stroke-width-selector-item-border-color: #2952ac,
-    paint-editor-stroke-width-selector-item-box-shadow-color: transparent,
+    paint-editor-stroke-width-selector-item-box-shadow-color: rgba(21, 29, 70, 1),
+    paint-editor-stroke-width-selector-item-box-background-color: rgba(255, 255, 255, .8),
 
     color-selector-confirm-box-background-color: transparent,
     color-selector-confirm-box-font-color: #4AA6FF,

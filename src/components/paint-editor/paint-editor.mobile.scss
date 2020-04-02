@@ -265,10 +265,13 @@ body {
     width: 9.375rem;
     height: 2rem;
     margin: auto;
-    background-color: #EEF6FE;
     border-radius: 1.25rem;
     margin-top: 2rem;
     box-sizing: border-box;
+
+    @include themify($themes) {
+        background-color: themed('paint-editor-stroke-width-selector-item-box-background-color');
+    }
 }
 
 .stroke-width-selector .item .line {
