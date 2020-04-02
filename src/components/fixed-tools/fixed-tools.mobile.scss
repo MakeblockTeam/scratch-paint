@@ -79,9 +79,9 @@ $border-radius: 0.25rem;
 
 .mod-menu-item {
     display: flex;
-    margin: 0 -$grid-unit;
+    margin: 0 -#{$grid-unit};
     min-width: 6.25rem;
-    padding: calc(3 * $grid-unit);
+    padding: calc(3 * #{$grid-unit});
     white-space: nowrap;
     cursor: pointer;
     transition: 0.1s ease;
@@ -98,7 +98,7 @@ $border-radius: 0.25rem;
 }
 
 .menu-item-icon {
-    margin-right: calc(2 * $grid-unit);
+    margin-right: calc(2 * #{$grid-unit});
 }
 
 @media only screen and (max-width: 900px) {

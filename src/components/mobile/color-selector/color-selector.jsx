@@ -19,9 +19,9 @@ const commonRailStyle = {
 };
 const handleStyle = {
     position: 'absolute',
-    marginLeft: '-10px',
-    width: '40px',
-    height: '40px',
+    marginLeft: 0,
+    width: '30px',
+    height: '30px',
     backgroundColor: '#fff',
     borderRadius: '50%',
     border: 'solid 4px #cfcfcf',
@@ -304,7 +304,7 @@ class ColorSelector extends Component {
                             max={item.max}
                             value={item.value}
                             railStyle={item.railStyle}
-                            handleStyle={item.value === item.max ? Object.assign({}, handleStyle, { marginLeft: '-10px' }) : handleStyle}
+                            handleStyle={handleStyle}
                             onChange={item.event}
                             onAfterChange={this.handleReleaseScroll.bind(this)}
                         />
