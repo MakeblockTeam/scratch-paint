@@ -39,11 +39,13 @@ $confirm--box-height_mobile:2.375rem;
 .container .color-display-box {
     width: 11.25rem;
     height: 8.75rem;
-    background-color: #FFFFFF;
     border-radius: .625rem;
-    border: 1px solid #C2C9D2;
     margin: auto;
     overflow: hidden;
+
+    @include themify($themes) {
+        border: 1px solid themed('color-selector-color-display-box-border-color');
+    }
 }
 
 .container .color-display-box .top {
@@ -51,6 +53,10 @@ $confirm--box-height_mobile:2.375rem;
     width: 100%;
     height: 6.25rem;
     border-radius: .625rem .625rem 0 0;
+}
+
+.container .color-display-box .top.none-color {
+    background-color: #fff;
 }
 
 .container .color-display-box .top.none-color::before {
@@ -74,6 +80,7 @@ $confirm--box-height_mobile:2.375rem;
     width: 100%;
     height: calc(8.75rem - 6.25rem);
     border-top: 1px solid #C2C9D2;
+    background-color: #FFFFFF;
 }
 
 .color-display-box .bottom .left,
@@ -144,8 +151,11 @@ $confirm--box-height_mobile:2.375rem;
 
 .container .color-select-box .color-item.active {
     pointer-events: none;
-    border: 4px solid #fff;
-    box-shadow: 0 0 0 4px #4aa6ff;
+
+    @include themify($themes) {
+        border: 2.5px solid themed('color-selector-color-item-active-border-color');
+        box-shadow: 0 0 0 2px themed('color-selector-color-item-active-box-shadow-color');
+    }
 }
 
 .container .color-select-box .slider {
@@ -192,7 +202,7 @@ $confirm--box-height_mobile:2.375rem;
         color: themed('color-selector-confirm-box-font-color');
         border-top: 1px solid themed('color-selector-confirm-box-border-color');
     }
-    
+
     font-size: 1.5rem;
 }
 
@@ -260,8 +270,10 @@ $confirm--box-height_mobile:2.375rem;
     }
 
     .container .color-select-box .color-item.active {
-        border: 2px solid #fff;
-        box-shadow: 0 0 0 2px #4aa6ff;
+        @include themify($themes) {
+            border: 2px solid themed('color-selector-color-item-active-border-color');
+            box-shadow: 0 0 0 2px themed('color-selector-color-item-active-box-shadow-color');
+        }
     }
 
     .container .color-select-box .slider {
