@@ -76,6 +76,7 @@ import zoomResetIcon from './icons/zoom-reset-mobile.svg';
 import backIcon from './icons/back.svg';
 import arrowRightIcon from './icons/arrow-right-mobile.svg';
 
+document.body.setAttribute('class', 'theme-dark')
 const messages = defineMessages({
     title: {
         defaultMessage: '编辑造型',
