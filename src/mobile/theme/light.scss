@@ -12,13 +12,14 @@ $light: (
     paint-editor-mode-select-tool-selected-background-color: #1eaaff,
     paint-editor-mode-select-tool-disabled-background-color: #eef6fe,
     paint-editor-mode-select-tool-selected-box-shadow-color:rgba(196, 226, 255, 1),
+    paint-editor-mode-button-group-button-color:#fff,
     paint-editor-action-content-font-color: #264165,
     paint-editor-action-content-background-color: #fff,
     paint-editor-action-content-border-color: #BCCCDC,
     paint-editor-color-border-color: #BCCCDC,
     paint-editor-arrow-icon-filer-value: unset,
     paint-editor-stroke-width-selector-item-border-color: #4aa6ff,
-    paint-editor-stroke-width-selector-item-box-shadow-color: rgba(74, 166, 255, 0.4),
+    paint-editor-stroke-width-selector-item-box-shadow-color: transparent,
     paint-editor-stroke-width-selector-item-box-background-color: #EEF6FE,
 
     color-selector-confirm-box-background-color: #fff,
@@ -29,4 +30,5 @@ $light: (
     color-selector-color-item-active-border-color: #fff,
     color-selector-color-item-active-box-shadow-color: #4aa6ff,
     color-selector-rc-slider-handle-border-color: rgb(207, 207, 207),
+    color-selector-color-display-box-bottom-border-color: #C2C9D2,
 )

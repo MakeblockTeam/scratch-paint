@@ -355,7 +355,7 @@ body {
     border-radius: 50%;
 
     @include themify($themes) {
-        background-color: themed('paint-editor-mode-select-tool-background-color');
+        background-color: themed('paint-editor-mode-button-group-button-color');
     }
 
     margin-left: 1rem;
