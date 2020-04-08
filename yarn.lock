@@ -9030,18 +9030,19 @@ uglifyjs-webpack-plugin@^2.0.1:
     webpack-sources "^1.4.0"
     worker-farm "^1.7.0"
 
-ui-mobile-input@^0.0.3:
-  version "0.0.3"
-  resolved "http://npm.makeblock.com/ui-mobile-input/-/ui-mobile-input-0.0.3.tgz#1ecc3e438fbf879208571cd34f24b722bf78b3f5"
-  integrity sha512-+ZNHuHNw6RHy/JoObDcn7L9pNhrA6CPx7Wxtyg3evzpvze2MPHfEjr1pMGGTjJurY8kSyMYFiBz3Ix+SQA+MkQ==
+ui-mobile-input@^0.0.4:
+  version "0.0.4"
+  resolved "http://npm.makeblock.com/ui-mobile-input/-/ui-mobile-input-0.0.4.tgz#ee74c2caba4fee4e88eab3a741d36b45ba2f9980"
+  integrity sha512-C/EaHaBZUMG+3AppJKDOONLutYNTf/McKxL1VDR0Ds+CymMQEUohw3cVN88yTjkO/PPcE6VowGqkyQBVww202w==
   dependencies:
     classnames "2.2.5"
     react "16.2.0"
     react-dom "16.4.0"
 
-ui-save-confirm@^0.0.1:
-  version "0.0.1"
-  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.1.tgz#3aac618f323f2d8374f1b7a990184daa5ee0bbbc"
+ui-save-confirm@^0.0.4:
+  version "0.0.4"
+  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.4.tgz#797442705e1e4300d727b371c7b210237c229503"
+  integrity sha512-vRQ+/tgv9qMa2u5LuvLU0ZUX1NLZ+merxx6faR0LXYWSbrQZj/Dija+EVGQ/zAJdcrJgw+BcLGjhmtUOhK3axg==
   dependencies:
     classnames "2.2.5"
     react "16.2.0"
