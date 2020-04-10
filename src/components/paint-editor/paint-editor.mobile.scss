@@ -196,6 +196,7 @@ body {
 
     @include themify($themes) {
         color: themed('paint-editor-action-content-font-color') !important;
+        -webkit-text-fill-color: themed('paint-editor-action-content-font-color') !important;
         border: 1px solid themed('paint-editor-action-content-border-color');
         background-color: themed('paint-editor-action-content-background-color');
     }
@@ -235,7 +236,7 @@ body {
     box-sizing: border-box;
     border-top: 2px solid #FC4144;
     transform-origin: top right;
-    transform: rotateZ(-15deg) scale(1.414);
+    transform: rotateZ(-21deg) scale(1.414);
 }
 
 .action-content .box .value .arrow {
