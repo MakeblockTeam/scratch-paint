@@ -9039,10 +9039,10 @@ ui-mobile-input@^0.0.4:
     react "16.2.0"
     react-dom "16.4.0"
 
-ui-save-confirm@^0.0.4:
-  version "0.0.4"
-  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.4.tgz#797442705e1e4300d727b371c7b210237c229503"
-  integrity sha512-vRQ+/tgv9qMa2u5LuvLU0ZUX1NLZ+merxx6faR0LXYWSbrQZj/Dija+EVGQ/zAJdcrJgw+BcLGjhmtUOhK3axg==
+ui-save-confirm@^0.0.5:
+  version "0.0.5"
+  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.5.tgz#94a5b8096182c6c8c82a2875b168fd7530057c9c"
+  integrity sha512-3TJuldfk+/VGYAdGabw0waaxau6PCSbmkkFtKJmmWxx98/ygbdkJ4qNMboCaqFxGAY1U8CBChInsg25xOc8vNQ==
   dependencies:
     classnames "2.2.5"
     react "16.2.0"
