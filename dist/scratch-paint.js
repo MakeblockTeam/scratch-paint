@@ -105,7 +105,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
  *
  * All rights reserved.
  *
- * Date: Mon Jul 29 11:21:04 2019 -0400
+ * Date: Sun Dec 15 22:20:14 2019 +0800
  *
  ***
  *
@@ -5015,7 +5015,7 @@ var Shape = Item.extend({
 		if (!dontPaint && (hasFill || hasStroke)) {
 			this._setStyles(ctx, param, viewMatrix);
 			if (hasFill) {
-				ctx.fill(style.getFillRule() || 'nonzero');
+				ctx.fill(style.getFillRule());
 				ctx.shadowColor = 'rgba(0,0,0,0)';
 			}
 			if (hasStroke)
@@ -7977,6 +7977,9 @@ var PathItem = Item.extend({
 				break;
 			case 'a':
 				for (var j = 0; j < length; j += 7) {
+					if (coords.length < 7 && coords[3] && coords[3].length >= 2) {
+						coords = coords.slice(0, 3).concat([coords[3][0], coords[3][1]], coords[3].slice(2) ? coords[3].slice(2) : [], coords.slice(4));
+					}
 					this.arcTo(current = getPoint(j + 5),
 							new Size(+coords[j], +coords[j + 1]),
 							+coords[j + 2], +coords[j + 4], +coords[j + 3]);
@@ -9246,7 +9249,7 @@ new function() {
 			if (!dontPaint && (hasFill || hasStroke)) {
 				this._setStyles(ctx, param, viewMatrix);
 				if (hasFill) {
-					ctx.fill(style.getFillRule() || 'nonzero');
+					ctx.fill(style.getFillRule());
 					ctx.shadowColor = 'rgba(0,0,0,0)';
 				}
 				if (hasStroke) {
@@ -9361,6 +9364,9 @@ new function() {
 				through = to;
 				to = Point.read(arguments);
 			} else {
+				if (from.equals(to)) {
+					return;
+				}
 				var radius = Size.read(arguments),
 					isZero = Numerical.isZero;
 				if (isZero(radius.width) || isZero(radius.height))
@@ -9387,7 +9393,7 @@ new function() {
 				}
 				factor = (rxSq * rySq - rxSq * ySq - rySq * xSq) /
 						(rxSq * ySq + rySq * xSq);
-				if (abs(factor) < 1e-12 || !isFinite(factor))
+				if (abs(factor) < 1e-12)
 					factor = 0;
 				if (factor < 0)
 					throw new Error(
@@ -9998,7 +10004,7 @@ var CompoundPath = PathItem.extend({
 			this._setStyles(ctx, param, viewMatrix);
 			var style = this._style;
 			if (style.hasFill()) {
-				ctx.fill(style.getFillRule() || 'nonzero');
+				ctx.fill(style.getFillRule());
 				ctx.shadowColor = 'rgba(0,0,0,0)';
 			}
 			if (style.hasStroke())
@@ -14129,6 +14135,11 @@ var SvgElement = new function() {
 				namespace = attributeNamespace[name];
 			if (typeof value === 'number' && formatter)
 				value = formatter.number(value);
+			if (typeof value === 'string') {
+				value = value.replace(/NaN/g, '0');
+			} else if (isNaN(value)) {
+				value = 0;
+			}
 			if (namespace) {
 				node.setAttributeNS(namespace, name, value);
 			} else {
@@ -26126,515 +26137,481 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button-group/button-group.css":
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button-group/button-group.css":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/button-group/button-group.css ***!
+  \****************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.button-group__button-group--3_c2R {\n  padding: 0 .25rem; }\n", ""]);
+// Exports
+exports.locals = {
+	"button-group": "button-group__button-group--3_c2R",
+	"buttonGroup": "button-group__button-group--3_c2R"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button/button.css":
 /*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/button-group/button-group.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/button/button.css ***!
   \****************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.button-group_button-group_3_c2R {\n  padding: 0 .25rem; }\n", ""]);
-
-// exports
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n.button__button--lmpwR {\n  background: none;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n.button__button--lmpwR:active {\n  background-color: rgba(77, 151, 255, 0.2); }\n\n.button__highlighted--2c0Ir.button__button--lmpwR {\n  background-color: rgba(77, 151, 255, 0.2); }\n\n.button__mod-disabled--CFsZ2 {\n  cursor: auto;\n  opacity: .5; }\n\n.button__mod-disabled--CFsZ2:active {\n  background: none; }\n", ""]);
+// Exports
 exports.locals = {
-	"button-group": "button-group_button-group_3_c2R",
-	"buttonGroup": "button-group_button-group_3_c2R"
+	"button": "button__button--lmpwR",
+	"highlighted": "button__highlighted--2c0Ir",
+	"mod-disabled": "button__mod-disabled--CFsZ2",
+	"modDisabled": "button__mod-disabled--CFsZ2"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button/button.css":
-/*!****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/button/button.css ***!
-  \****************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n.button_button_lmpwR {\n  background: none;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n.button_button_lmpwR:active {\n  background-color: rgba(77, 151, 255, 0.2); }\n\n.button_highlighted_2c0Ir.button_button_lmpwR {\n  background-color: rgba(77, 151, 255, 0.2); }\n\n.button_mod-disabled_CFsZ2 {\n  cursor: auto;\n  opacity: .5; }\n\n.button_mod-disabled_CFsZ2:active {\n  background: none; }\n", ""]);
-
-// exports
-exports.locals = {
-	"button": "button_button_lmpwR",
-	"highlighted": "button_highlighted_2c0Ir",
-	"mod-disabled": "button_mod-disabled_CFsZ2",
-	"modDisabled": "button_mod-disabled_CFsZ2"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/fixed-tools/fixed-tools.mobile.css":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/fixed-tools/fixed-tools.mobile.css ***!
-  \*********************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.fixed-tools-mobile_row_VLupw {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.fixed-tools-mobile_redo-undo-box_2tXFn {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 100%;\n  padding: 0;\n  margin-top: 2rem; }\n\n.fixed-tools-mobile_costume-input_3Lw3u {\n  width: 8rem; }\n\n.fixed-tools-mobile_mod-unselect_3xcyO {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n.fixed-tools-mobile_button-group-button_2Eysk {\n  display: inline-block;\n  border-radius: 50%;\n  background-color: #EEF6FE;\n  width: 3.5rem;\n  height: 3.5rem; }\n\n.fixed-tools-mobile_button-group-button_2Eysk.fixed-tools-mobile_disabled_2q9N6 {\n  pointer-events: none;\n  background-color: #EEF6FE; }\n\n.fixed-tools-mobile_button-group-button_2Eysk:active {\n  background-color: #1EAAFF; }\n\n.fixed-tools-mobile_button-group-button-icon_1h2gH {\n  width: 100%;\n  height: 100%;\n  vertical-align: middle; }\n\n.fixed-tools-mobile_button-group-button_2Eysk:active .fixed-tools-mobile_button-group-button-icon_1h2gH {\n  /* Make the tool icons white while selected by making them black and inverting */\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n\n.fixed-tools-mobile_mod-context-menu_1zdkT {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  -ms-flex-direction: column;\n  flex-direction: column; }\n\n.fixed-tools-mobile_mod-top-divider_3Kr9y {\n  border-top: 1px solid #D9D9D9; }\n\n.fixed-tools-mobile_mod-menu-item_x-ZpH {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 -.25rem;\n  min-width: 6.25rem;\n  padding: calc(3 * .25rem);\n  white-space: nowrap;\n  cursor: pointer;\n  -webkit-transition: 0.1s ease;\n  -o-transition: 0.1s ease;\n  transition: 0.1s ease;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  font-family: \"Helvetica Neue\", Helvetica, sans-serif; }\n\n.fixed-tools-mobile_mod-disabled_2Q_0m {\n  cursor: auto; }\n\n.fixed-tools-mobile_mod-menu-item_x-ZpH:hover {\n  background: rgba(77, 151, 255, 0.2); }\n\n.fixed-tools-mobile_menu-item-icon_3Ns75 {\n  margin-right: calc(2 * .25rem); }\n\n@media only screen and (max-width: 900px) {\n  .fixed-tools-mobile_redo-undo-box_2tXFn {\n    margin-top: 1rem; }\n  .fixed-tools-mobile_button-group-button_2Eysk {\n    width: 2.3rem;\n    height: 2.3rem; } }\n", ""]);
-
-// exports
-exports.locals = {
-	"row": "fixed-tools-mobile_row_VLupw",
-	"redo-undo-box": "fixed-tools-mobile_redo-undo-box_2tXFn",
-	"redoUndoBox": "fixed-tools-mobile_redo-undo-box_2tXFn",
-	"costume-input": "fixed-tools-mobile_costume-input_3Lw3u",
-	"costumeInput": "fixed-tools-mobile_costume-input_3Lw3u",
-	"mod-unselect": "fixed-tools-mobile_mod-unselect_3xcyO",
-	"modUnselect": "fixed-tools-mobile_mod-unselect_3xcyO",
-	"button-group-button": "fixed-tools-mobile_button-group-button_2Eysk",
-	"buttonGroupButton": "fixed-tools-mobile_button-group-button_2Eysk",
-	"disabled": "fixed-tools-mobile_disabled_2q9N6",
-	"button-group-button-icon": "fixed-tools-mobile_button-group-button-icon_1h2gH",
-	"buttonGroupButtonIcon": "fixed-tools-mobile_button-group-button-icon_1h2gH",
-	"mod-context-menu": "fixed-tools-mobile_mod-context-menu_1zdkT",
-	"modContextMenu": "fixed-tools-mobile_mod-context-menu_1zdkT",
-	"mod-top-divider": "fixed-tools-mobile_mod-top-divider_3Kr9y",
-	"modTopDivider": "fixed-tools-mobile_mod-top-divider_3Kr9y",
-	"mod-menu-item": "fixed-tools-mobile_mod-menu-item_x-ZpH",
-	"modMenuItem": "fixed-tools-mobile_mod-menu-item_x-ZpH",
-	"mod-disabled": "fixed-tools-mobile_mod-disabled_2Q_0m",
-	"modDisabled": "fixed-tools-mobile_mod-disabled_2Q_0m",
-	"menu-item-icon": "fixed-tools-mobile_menu-item-icon_3Ns75",
-	"menuItemIcon": "fixed-tools-mobile_menu-item-icon_3Ns75"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/input-group/input-group.css":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/input-group/input-group.css ***!
-  \**************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n[dir=\"ltr\"] .input-group_input-group_3FzNB + .input-group_input-group_3FzNB {\n  margin-left: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .input-group_input-group_3FzNB + .input-group_input-group_3FzNB {\n  margin-right: calc(2 * .25rem); }\n\n.input-group_disabled_3fp6_ {\n  opacity: 0.3;\n  /* Prevent any user actions */\n  pointer-events: none; }\n", ""]);
-
-// exports
-exports.locals = {
-	"input-group": "input-group_input-group_3FzNB",
-	"inputGroup": "input-group_input-group_3FzNB",
-	"disabled": "input-group_disabled_3fp6_"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/loupe/loupe.css":
-/*!**************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/loupe/loupe.css ***!
-  \**************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".loupe_eye-dropper_39EHg {\n  position: absolute;\n  border-radius: 100%;\n  border: 1px solid #222; }\n", ""]);
-
-// exports
-exports.locals = {
-	"eye-dropper": "loupe_eye-dropper_39EHg",
-	"eyeDropper": "loupe_eye-dropper_39EHg"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/color-selector/color-picker-box.css":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/color-selector/color-picker-box.css ***!
-  \*****************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".color-picker-box_container_1id1j {\n  position: relative;\n  width: 100%;\n  height: 100%; }\n\n.color-picker-box_container_1id1j.color-picker-box_is-draw-color_2EnBG {\n  z-index: 2; }\n\n.color-picker-box_container_1id1j .color-picker-box_content_8H7iJ {\n  width: 100%;\n  height: 100%;\n  background-color: transparent;\n  margin: auto; }\n\n.color-picker-box_container_1id1j .color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM img {\n  width: 100%;\n  height: 100%;\n  pointer-events: none; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 10rem;\n  height: 10rem;\n  background-color: transparent;\n  border-radius: 50%;\n  border-width: 1.5rem;\n  border-style: solid;\n  -webkit-box-shadow: 0 0 0 2px #e3e3e3;\n  box-shadow: 0 0 0 2px #e3e3e3;\n  -webkit-transition: border-color .2s;\n  -o-transition: border-color .2s;\n  transition: border-color .2s;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z.color-picker-box_hidden_1imNi {\n  visibility: hidden; }\n\n.color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_inner-ring_1S7VR {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  width: 7rem;\n  height: 7rem;\n  background-color: transparent;\n  border: 2px solid #e3e3e3;\n  border-radius: 50%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_outer-ring_39d0p {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  margin: auto;\n  width: 12rem;\n  height: 12rem;\n  background-color: transparent;\n  border-radius: 50%; }\n\n.color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_point-icon_26iOD {\n  width: 1rem;\n  height: 1rem; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_loading-mask_BjaMb {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.3); }\n\n.color-picker-box_image_3H8iM .color-picker-box_loading-mask_BjaMb .color-picker-box_icon_BSZ9z {\n  width: 2rem;\n  height: 2rem;\n  -webkit-animation: color-picker-box_rotate_2RnMn 1s steps(12, end) infinite;\n  animation: color-picker-box_rotate_2RnMn 1s steps(12, end) infinite; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_clone-stage-image_1ZQA9 {\n  display: none; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk {\n  height: 12%; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk button {\n  width: 50%;\n  height: 100%;\n  font-size: 1.5rem;\n  color: #888;\n  background-color: transparent;\n  border: none; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk button:active {\n  background-color: #eef6fe; }\n\n.color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk .color-picker-box_done_2s2vV {\n  color: #4aa6ff;\n  border-left: 1px solid #dadada; }\n\n@media only screen and (max-width: 900px) {\n  .color-picker-box_content_8H7iJ .color-picker-box_image_3H8iM .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z {\n    width: 8rem;\n    height: 8rem;\n    border-width: 1rem; }\n  .color-picker-box_ring-box_DEqEv .color-picker-box_ring_1-x0z .color-picker-box_inner-ring_1S7VR {\n    width: 6rem;\n    height: 6rem; }\n  .color-picker-box_content_8H7iJ .color-picker-box_operation_cKCFk button {\n    font-size: 1rem; } }\n\n@-webkit-keyframes color-picker-box_rotate_2RnMn {\n  from {\n    -webkit-transform: translate3d(0, 0, 0) rotate(0deg);\n    transform: translate3d(0, 0, 0) rotate(0deg); }\n  to {\n    -webkit-transform: translate3d(0, 0, 0) rotate(360deg);\n    transform: translate3d(0, 0, 0) rotate(360deg); } }\n\n@keyframes color-picker-box_rotate_2RnMn {\n  from {\n    -webkit-transform: translate3d(0, 0, 0) rotate(0deg);\n    transform: translate3d(0, 0, 0) rotate(0deg); }\n  to {\n    -webkit-transform: translate3d(0, 0, 0) rotate(360deg);\n    transform: translate3d(0, 0, 0) rotate(360deg); } }\n", ""]);
-
-// exports
-exports.locals = {
-	"container": "color-picker-box_container_1id1j",
-	"is-draw-color": "color-picker-box_is-draw-color_2EnBG",
-	"isDrawColor": "color-picker-box_is-draw-color_2EnBG",
-	"content": "color-picker-box_content_8H7iJ",
-	"image": "color-picker-box_image_3H8iM",
-	"ring-box": "color-picker-box_ring-box_DEqEv",
-	"ringBox": "color-picker-box_ring-box_DEqEv",
-	"ring": "color-picker-box_ring_1-x0z",
-	"hidden": "color-picker-box_hidden_1imNi",
-	"inner-ring": "color-picker-box_inner-ring_1S7VR",
-	"innerRing": "color-picker-box_inner-ring_1S7VR",
-	"outer-ring": "color-picker-box_outer-ring_39d0p",
-	"outerRing": "color-picker-box_outer-ring_39d0p",
-	"point-icon": "color-picker-box_point-icon_26iOD",
-	"pointIcon": "color-picker-box_point-icon_26iOD",
-	"loading-mask": "color-picker-box_loading-mask_BjaMb",
-	"loadingMask": "color-picker-box_loading-mask_BjaMb",
-	"icon": "color-picker-box_icon_BSZ9z",
-	"rotate": "color-picker-box_rotate_2RnMn",
-	"clone-stage-image": "color-picker-box_clone-stage-image_1ZQA9",
-	"cloneStageImage": "color-picker-box_clone-stage-image_1ZQA9",
-	"operation": "color-picker-box_operation_cKCFk",
-	"done": "color-picker-box_done_2s2vV"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/color-selector/color-selector.css":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/color-selector/color-selector.css ***!
-  \***************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.color-selector_container_3Xe1u {\n  position: absolute;\n  top: 0;\n  right: 0;\n  width: 15.625rem;\n  height: 100%;\n  background-color: #fff;\n  -webkit-box-shadow: -1px 0px 7px 0px rgba(38, 65, 101, 0.2);\n  box-shadow: -1px 0px 7px 0px rgba(38, 65, 101, 0.2);\n  -webkit-transition: .3s;\n  -o-transition: .3s;\n  transition: .3s;\n  overflow: hidden; }\n\n.color-selector_container_3Xe1u.color-selector_hide_3vrZP {\n  -webkit-transform: translate3d(0, 0, 0) translateX(15.625rem);\n  transform: translate3d(0, 0, 0) translateX(15.625rem); }\n\n.color-selector_container_3Xe1u .color-selector_content_1HIog {\n  height: calc(100% - 3.75rem);\n  overflow-x: hidden;\n  overflow-y: auto;\n  padding: 1rem 0; }\n\n.color-selector_container_3Xe1u .color-selector_content_1HIog.color-selector_scroll-disabled_2Es4Q {\n  overflow-x: hidden;\n  overflow-y: hidden; }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 {\n  width: 14.5rem;\n  height: 8.75rem;\n  background-color: #FFFFFF;\n  border-radius: .625rem;\n  border: 1px solid #C2C9D2;\n  margin: auto;\n  overflow: hidden; }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g {\n  position: relative;\n  width: 100%;\n  height: 6.25rem;\n  border-radius: .625rem .625rem 0 0; }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g.color-selector_none-color_sjUl1::before {\n  pointer-events: none;\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-top: 2px solid #FC4144;\n  -webkit-transform-origin: top right;\n  -ms-transform-origin: top right;\n  transform-origin: top right;\n  -webkit-transform: rotateZ(-23deg) scale(1.414);\n  -ms-transform: rotate(-23deg) scale(1.414);\n  transform: rotateZ(-23deg) scale(1.414); }\n\n.color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 100%;\n  height: calc(8.75rem - 6.25rem);\n  border-top: 1px solid #C2C9D2; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 50%;\n  height: 100%;\n  color: #264165;\n  font-size: .75rem;\n  padding: 0 .25rem; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls:active,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC:active {\n  background-color: #eef6fe; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls {\n  border-right: 1px solid #C2C9D2; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls img,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC img {\n  width: 1.25rem;\n  height: 1.25rem;\n  margin-right: .25rem; }\n\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls span,\n.color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC span {\n  display: block;\n  max-width: 5rem;\n  overflow: hidden;\n  white-space: nowrap;\n  -o-text-overflow: ellipsis;\n  text-overflow: ellipsis; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx {\n  position: relative;\n  padding: calc(2.5rem - 0.75rem) 1rem 0 1rem; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_default-colors_3Yun1 {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-justify-content: space-around;\n  -ms-flex-pack: distribute;\n  justify-content: space-around;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  -webkit-flex-wrap: wrap;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ {\n  display: inline-block;\n  width: 3rem;\n  height: 3rem;\n  margin-top: .75rem;\n  border-radius: 50%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ:nth-child(3n+2) {\n  margin-right: 2rem;\n  margin-left: 2rem; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ:last-child {\n  border: 1px solid #979797; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ.color-selector_active_2bajs {\n  pointer-events: none;\n  border: 4px solid #fff;\n  -webkit-box-shadow: 0 0 0 4px #4aa6ff;\n  box-shadow: 0 0 0 4px #4aa6ff; }\n\n.color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_slider_sZMlV {\n  width: 100%;\n  margin-top: 2.5rem; }\n\n.color-selector_h-slider_3jts6,\n.color-selector_s-slider_3DzH8,\n.color-selector_b-slider_3TwOF {\n  position: relative;\n  height: 40px;\n  width: 100%;\n  border-radius: 6px;\n  -ms-touch-action: none;\n  touch-action: none;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  margin-top: 1.25rem; }\n\n.color-selector_h-slider_3jts6 {\n  margin-top: 0; }\n\n.color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 3.75rem;\n  background-color: #fff;\n  font-size: 1.5rem;\n  color: #4aa6ff;\n  border-top: 1px solid #B4B7B8; }\n\n.color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k:active {\n  background-color: #eef6fe; }\n\n.rc-slider-rail {\n  border: 1px solid #ddd; }\n\n@media only screen and (max-width: 900px) {\n  .color-selector_container_3Xe1u {\n    width: 9.5rem; }\n  .color-selector_container_3Xe1u .color-selector_content_1HIog {\n    height: calc(100% - 2.375rem); }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 {\n    width: 9rem;\n    height: 5.5rem;\n    border-radius: .375rem; }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g {\n    height: 4rem;\n    border-radius: .375rem .375rem 0 0;\n    overflow: hidden; }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_top_1Q36g.color-selector_none-color_sjUl1::before {\n    border-top: 1px solid #FC4144; }\n  .color-selector_container_3Xe1u .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK {\n    height: calc(5.5rem - 4rem); }\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls,\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC {\n    font-size: .5rem; }\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_left_2O4ls img,\n  .color-selector_color-display-box_2Fve1 .color-selector_bottom_3YiSK .color-selector_right_IqQlC img {\n    width: .8rem;\n    height: .8rem;\n    margin-right: .2rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx {\n    position: relative;\n    padding: calc(1rem - 0.5rem) 0.5rem 2rem 0.5rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ {\n    width: 1.875rem;\n    height: 1.875rem;\n    margin-top: .5rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ:nth-child(3n+2) {\n    margin-right: 1.2rem;\n    margin-left: 1.2rem; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_color-item_1LLHZ.color-selector_active_2bajs {\n    border: 2px solid #fff;\n    -webkit-box-shadow: 0 0 0 2px #4aa6ff;\n    box-shadow: 0 0 0 2px #4aa6ff; }\n  .color-selector_container_3Xe1u .color-selector_color-select-box_2ohNx .color-selector_slider_sZMlV {\n    margin-top: 1rem; }\n  .color-selector_h-slider_3jts6,\n  .color-selector_s-slider_3DzH8,\n  .color-selector_b-slider_3TwOF {\n    height: 25px;\n    margin-top: .5rem; }\n  .rc-slider-handle {\n    width: 25px !important;\n    height: 25px !important; }\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    height: 2.375rem;\n    font-size: 1rem; } }\n\n@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 1024px) and (device-height: 1366px) {\n  .color-selector_container_3Xe1u .color-selector_confirm-box_1_h3k {\n    bottom: 1.2rem; } }\n", ""]);
-
-// exports
-exports.locals = {
-	"container": "color-selector_container_3Xe1u",
-	"hide": "color-selector_hide_3vrZP",
-	"content": "color-selector_content_1HIog",
-	"scroll-disabled": "color-selector_scroll-disabled_2Es4Q",
-	"scrollDisabled": "color-selector_scroll-disabled_2Es4Q",
-	"color-display-box": "color-selector_color-display-box_2Fve1",
-	"colorDisplayBox": "color-selector_color-display-box_2Fve1",
-	"top": "color-selector_top_1Q36g",
-	"none-color": "color-selector_none-color_sjUl1",
-	"noneColor": "color-selector_none-color_sjUl1",
-	"bottom": "color-selector_bottom_3YiSK",
-	"left": "color-selector_left_2O4ls",
-	"right": "color-selector_right_IqQlC",
-	"color-select-box": "color-selector_color-select-box_2ohNx",
-	"colorSelectBox": "color-selector_color-select-box_2ohNx",
-	"default-colors": "color-selector_default-colors_3Yun1",
-	"defaultColors": "color-selector_default-colors_3Yun1",
-	"color-item": "color-selector_color-item_1LLHZ",
-	"colorItem": "color-selector_color-item_1LLHZ",
-	"active": "color-selector_active_2bajs",
-	"slider": "color-selector_slider_sZMlV",
-	"h-slider": "color-selector_h-slider_3jts6",
-	"hSlider": "color-selector_h-slider_3jts6",
-	"s-slider": "color-selector_s-slider_3DzH8",
-	"sSlider": "color-selector_s-slider_3DzH8",
-	"b-slider": "color-selector_b-slider_3TwOF",
-	"bSlider": "color-selector_b-slider_3TwOF",
-	"confirm-box": "color-selector_confirm-box_1_h3k",
-	"confirmBox": "color-selector_confirm-box_1_h3k"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/delete-mode/delete-mode.css":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/delete-mode/delete-mode.css ***!
-  \*********************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".delete-mode_delete-icon_2LIhC.delete-mode_disabled_3aCCW {\n  pointer-events: none;\n  opacity: .5; }\n\n.delete-mode_delete-icon_2LIhC:active {\n  background-color: #1EAAFF; }\n\n.delete-mode_delete-icon_2LIhC:active img {\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n", ""]);
-
-// exports
-exports.locals = {
-	"delete-icon": "delete-mode_delete-icon_2LIhC",
-	"deleteIcon": "delete-mode_delete-icon_2LIhC",
-	"disabled": "delete-mode_disabled_3aCCW"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/paint-editor/paint-editor.mobile.css":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/paint-editor/paint-editor.mobile.css ***!
-  \***********************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\nhtml,\nbody {\n  margin: 0;\n  width: 100%;\n  height: 100%; }\n\n.paint-editor-mobile_editor-container_4Tevr {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: #EEF6FE;\n  overflow: hidden;\n  z-index: 9999; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_mask_2Luks {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 3rem;\n  left: 0;\n  z-index: 1;\n  background: rgba(0, 0, 0, 0.2); }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  height: 3rem;\n  background-color: #1EAAFF;\n  font-size: 1.25rem;\n  font-weight: 500;\n  color: #fff; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG .paint-editor-mobile_icon_dAmmk {\n  width: 3rem;\n  height: 3rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG span:last-child {\n  margin-right: .5rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 {\n  position: relative;\n  width: 100%;\n  height: calc(100vh - 3rem); }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf {\n  position: relative;\n  height: 100%;\n  background-color: #fff;\n  overflow: auto;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi {\n  position: absolute;\n  top: 0; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel::after,\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi::after {\n  position: absolute;\n  content: '';\n  width: 1px;\n  height: 100%;\n  top: 0;\n  background-color: #B4B7B8;\n  -webkit-transform: scaleX(0.5);\n  -ms-transform: scaleX(0.5);\n  transform: scaleX(0.5);\n  -webkit-transform-origin: 0 0;\n  -ms-transform-origin: 0 0;\n  transform-origin: 0 0; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel {\n  left: 0;\n  width: 11.875rem;\n  padding: .5rem 1.5rem 2rem 1.5rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel::after {\n  right: 0; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: calc(100% - 11.875rem - 15.625rem);\n  margin-left: 11.875rem;\n  background-color: transparent; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf.paint-editor-mobile_is-draw-color_22_DB {\n  z-index: 2; }\n\n.paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf .paint-editor-mobile_clone-paper-canvas_9qXuQ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #fff; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi {\n  right: 0;\n  width: 15.625rem;\n  padding: .5rem 1.25rem 2.5rem 2rem; }\n\n.paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi::after {\n  left: 0; }\n\n.paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv {\n  position: relative;\n  width: 11.625rem;\n  margin: auto; }\n\n.paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv.paint-editor-mobile_disabled_3rVwv {\n  pointer-events: none;\n  opacity: .5; }\n\n.paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY {\n  width: 100%;\n  margin-top: 2rem; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_name_3HnLl {\n  max-width: 100%;\n  font-size: 1.25rem;\n  font-weight: 500;\n  color: #264165;\n  display: block;\n  margin-bottom: .625rem;\n  overflow: hidden;\n  white-space: nowrap;\n  -o-text-overflow: ellipsis;\n  text-overflow: ellipsis; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK {\n  width: 100%;\n  height: 2.5rem;\n  color: #264165 !important;\n  opacity: 1 !important;\n  font-size: 1.25rem;\n  border-radius: 2.5rem;\n  border: 1px solid #BCCCDC;\n  background-color: #fff;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  outline: none;\n  overflow: hidden; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK.paint-editor-mobile_input-value_3ommR {\n  padding: 0 1rem;\n  overflow: unset; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_color_38XOD {\n  position: relative;\n  display: inline-block;\n  width: 75%;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 2.5rem 0 0 2.5rem;\n  border-right: 1px solid #BCCCDC; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_color_38XOD.paint-editor-mobile_none-color_WpUPw::before {\n  pointer-events: none;\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  border-top: 2px solid #FC4144;\n  -webkit-transform-origin: top right;\n  -ms-transform-origin: top right;\n  transform-origin: top right;\n  -webkit-transform: rotateZ(-23deg) scale(1.414);\n  -ms-transform: rotate(-23deg) scale(1.414);\n  transform: rotateZ(-23deg) scale(1.414); }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_arrow_3u-yM {\n  display: inline-block;\n  width: 25%;\n  height: 100%;\n  background-color: #fff; }\n\n.paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_arrow_3u-yM img {\n  width: 100%;\n  height: 100%; }\n\n.paint-editor-mobile_right_QBXmi .paint-editor-mobile_stroke-width-selector_1EIVH {\n  width: 100%; }\n\n.paint-editor-mobile_right_QBXmi .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 11.625rem;\n  height: 2rem;\n  margin: auto;\n  background-color: #EEF6FE;\n  border-radius: 1.25rem;\n  margin-top: 2rem;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY {\n  width: 8.125rem;\n  background-color: #264165; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39.paint-editor-mobile_selected_37ASb {\n  pointer-events: none;\n  border: 4px solid #4AA6FF;\n  -webkit-box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4);\n  box-shadow: 0px 5px 5px 0px rgba(74, 166, 255, 0.4); }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line1_1Jjxk {\n  height: .125rem; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line2_2uUQ1 {\n  height: .25rem; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line3_2AW8- {\n  height: .375rem; }\n\n.paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line4_25ARN {\n  height: .5rem; }\n\n.paint-editor-mobile_row_3NXVo {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center; }\n\n.paint-editor-mobile_editor-container-top_3-hFt {\n  border-bottom: 1px dashed #D9D9D9;\n  padding-bottom: calc(2 * .25rem); }\n\n.paint-editor-mobile_top-align-row_RPPVU {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  padding-top: calc(5 * .25rem);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row; }\n\n.paint-editor-mobile_row_3NXVo + .paint-editor-mobile_row_3NXVo {\n  margin-top: calc(2 * .25rem); }\n\n[dir=\"ltr\"] .paint-editor-mobile_mod-dashed-border_3HOhw {\n  border-right: 1px dashed #D9D9D9;\n  padding-right: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile_mod-dashed-border_3HOhw {\n  border-left: 1px dashed #D9D9D9;\n  padding-left: calc(2 * .25rem); }\n\n.paint-editor-mobile_mod-labeled-icon-height_rtAU3 {\n  height: 2.85rem;\n  /* for the second row so the dashed borders are equal in size */ }\n\n.paint-editor-mobile_button-group_1YSng {\n  padding: 0; }\n\n.paint-editor-mobile_button-group-button_2_Ciw {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 2.75rem;\n  height: 2.75rem;\n  border-radius: 50%;\n  background: #fff;\n  margin-left: 1rem;\n  -webkit-box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3);\n  box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3);\n  -webkit-transition: 0.2s;\n  -o-transition: 0.2s;\n  transition: 0.2s; }\n\n.paint-editor-mobile_button-group-button_2_Ciw:active {\n  background-color: #1EAAFF; }\n\n.paint-editor-mobile_button-group-button-icon_3iWwK {\n  width: 1.75rem;\n  height: 1.75rem;\n  vertical-align: middle;\n  -webkit-transition: 0.2s;\n  -o-transition: 0.2s;\n  transition: 0.2s; }\n\n.paint-editor-mobile_button-group-button-icon_3iWwK:active {\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n\n.paint-editor-mobile_mod-mode-tools_iW_bX {\n  margin-left: calc(2 * .25rem); }\n\n[dir=\"ltr\"] .paint-editor-mobile_mod-margin-after_vfP3P {\n  margin-right: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile_mod-margin-after_vfP3P {\n  margin-left: calc(2 * .25rem); }\n\n.paint-editor-mobile_canvas-container_3f7OI {\n  position: relative;\n  width: 563px;\n  height: 422px;\n  -webkit-box-sizing: content-box;\n  box-sizing: content-box;\n  border-radius: .25rem;\n  -webkit-transform: translate3d(0, 0, 0) translateY(-2rem);\n  transform: translate3d(0, 0, 0) translateY(-2rem);\n  -webkit-transition: .2s;\n  -o-transition: .2s;\n  transition: .2s;\n  -webkit-box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);\n  box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);\n  overflow: visible; }\n\n.paint-editor-mobile_canvas-container_3f7OI.paint-editor-mobile_draw-color_1apDU {\n  -webkit-transform: translate3d(0, 0, 0) translateY(0);\n  transform: translate3d(0, 0, 0) translateY(0); }\n\n.paint-editor-mobile_canvas-container_3f7OI .paint-editor-mobile_hidden_3ErEQ {\n  visibility: hidden;\n  -webkit-transform: translate3d(0, 0, 0) translateY(-50rem);\n  transform: translate3d(0, 0, 0) translateY(-50rem); }\n\n.paint-editor-mobile_mode-selector_GNnUD {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-flex-wrap: wrap;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  -webkit-box-align: start;\n  -webkit-align-items: flex-start;\n  -ms-flex-align: start;\n  align-items: flex-start;\n  -webkit-align-content: flex-start;\n  -ms-flex-line-pack: start;\n  align-content: flex-start;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between; }\n\n.paint-editor-mobile_zoom-controls_3Ialw {\n  position: absolute;\n  bottom: -4rem;\n  right: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: reverse;\n  -webkit-flex-direction: row-reverse;\n  -ms-flex-direction: row-reverse;\n  flex-direction: row-reverse; }\n\n.paint-editor-mobile_zoom-controls_3Ialw.paint-editor-mobile_hide_1vzjK {\n  display: none; }\n\n.paint-editor-mobile_color-picker-wrapper_3muCo {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none; }\n\n.paint-editor-mobile_canvas-controls_1RKRg {\n  position: absolute;\n  bottom: 5rem;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin-top: .25rem;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n  -ms-flex-pack: justify;\n  justify-content: space-between; }\n\n.paint-editor-mobile_bitmap-button_2_I5t {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  border-radius: 5px;\n  background-color: #4C97FF;\n  padding: calc(2 * .25rem);\n  line-height: 1.5rem;\n  font-size: calc(3 * .25rem);\n  font-weight: bold;\n  color: white;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center; }\n\n[dir=\"ltr\"] .paint-editor-mobile_bitmap-button-icon_1VKV0 {\n  margin-right: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile_bitmap-button-icon_1VKV0 {\n  margin-left: calc(2 * .25rem); }\n\n.paint-editor-mobile_text-area_2S1aF {\n  background: transparent;\n  border: none;\n  display: none;\n  margin: 0px;\n  opacity: .8;\n  outline: none;\n  overflow: hidden;\n  padding: 0px;\n  position: absolute;\n  resize: none;\n  -webkit-text-fill-color: transparent;\n  text-fill-color: transparent; }\n\n.paint-editor-mobile_button-text_1W6yk {\n  width: 100%;\n  /* Fixes button text wrapping in Edge */ }\n\n@media only screen and (max-width: 900px) {\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_mask_2Luks {\n    top: 2rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG {\n    height: 2rem;\n    font-size: .75rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_header_1DeaG .paint-editor-mobile_icon_dAmmk {\n    width: 2rem;\n    height: 2rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 {\n    height: calc(100vh - 2rem); }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_left_lLSel {\n    width: 6.5rem;\n    padding: .2rem .5rem 1.5rem .5rem; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_canvas-area_2NaUf {\n    width: calc(100% - 6.5rem - 9.5rem);\n    margin-left: 6.5rem; }\n  .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv {\n    width: 6.6rem; }\n  .paint-editor-mobile_right_QBXmi .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY {\n    margin-top: 1rem; }\n  .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_name_3HnLl {\n    font-size: .75rem;\n    margin-bottom: .25rem; }\n  .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK {\n    height: 1.65rem;\n    font-size: .75rem; }\n  .paint-editor-mobile_action-content_3IMSv .paint-editor-mobile_box_1s4lY .paint-editor-mobile_value_77JPK .paint-editor-mobile_color_38XOD.paint-editor-mobile_none-color_WpUPw::before {\n    border-top: 1px solid #FC4144; }\n  .paint-editor-mobile_editor-container_4Tevr .paint-editor-mobile_paint-area_1AdH6 .paint-editor-mobile_right_QBXmi {\n    width: 9.5rem;\n    padding: .2rem .75rem 1.5rem 1rem; }\n  .paint-editor-mobile_right_QBXmi .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 {\n    width: 6.6rem;\n    height: 1.3rem;\n    margin-top: 1rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY {\n    width: 5.3rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line1_1Jjxk {\n    height: .125rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line2_2uUQ1 {\n    height: .2rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line3_2AW8- {\n    height: .3rem; }\n  .paint-editor-mobile_stroke-width-selector_1EIVH .paint-editor-mobile_item_3Yt39 .paint-editor-mobile_line_27YmY.paint-editor-mobile_line4_25ARN {\n    height: .45rem; }\n  .paint-editor-mobile_canvas-container_3f7OI {\n    width: 366.85px;\n    height: 274.79px;\n    -webkit-transform: translate3d(0, 0, 0) translateY(-1.5rem);\n    transform: translate3d(0, 0, 0) translateY(-1.5rem); }\n  .paint-editor-mobile_zoom-controls_3Ialw {\n    bottom: -3rem; }\n  .paint-editor-mobile_button-group-button_2_Ciw {\n    width: 2.3rem;\n    height: 2.3rem; }\n  .paint-editor-mobile_button-group-button-icon_3iWwK {\n    width: 1.5rem;\n    height: 1.5rem; } }\n\n@media (min-height: 1024px) and (min-width: 1366px) {\n  .paint-editor-mobile_canvas-container_3f7OI {\n    width: 844.5px;\n    height: 633px; } }\n", ""]);
-
-// exports
-exports.locals = {
-	"editor-container": "paint-editor-mobile_editor-container_4Tevr",
-	"editorContainer": "paint-editor-mobile_editor-container_4Tevr",
-	"mask": "paint-editor-mobile_mask_2Luks",
-	"header": "paint-editor-mobile_header_1DeaG",
-	"icon": "paint-editor-mobile_icon_dAmmk",
-	"paint-area": "paint-editor-mobile_paint-area_1AdH6",
-	"paintArea": "paint-editor-mobile_paint-area_1AdH6",
-	"left": "paint-editor-mobile_left_lLSel",
-	"right": "paint-editor-mobile_right_QBXmi",
-	"canvas-area": "paint-editor-mobile_canvas-area_2NaUf",
-	"canvasArea": "paint-editor-mobile_canvas-area_2NaUf",
-	"is-draw-color": "paint-editor-mobile_is-draw-color_22_DB",
-	"isDrawColor": "paint-editor-mobile_is-draw-color_22_DB",
-	"clone-paper-canvas": "paint-editor-mobile_clone-paper-canvas_9qXuQ",
-	"clonePaperCanvas": "paint-editor-mobile_clone-paper-canvas_9qXuQ",
-	"action-content": "paint-editor-mobile_action-content_3IMSv",
-	"actionContent": "paint-editor-mobile_action-content_3IMSv",
-	"disabled": "paint-editor-mobile_disabled_3rVwv",
-	"box": "paint-editor-mobile_box_1s4lY",
-	"name": "paint-editor-mobile_name_3HnLl",
-	"value": "paint-editor-mobile_value_77JPK",
-	"input-value": "paint-editor-mobile_input-value_3ommR",
-	"inputValue": "paint-editor-mobile_input-value_3ommR",
-	"color": "paint-editor-mobile_color_38XOD",
-	"none-color": "paint-editor-mobile_none-color_WpUPw",
-	"noneColor": "paint-editor-mobile_none-color_WpUPw",
-	"arrow": "paint-editor-mobile_arrow_3u-yM",
-	"stroke-width-selector": "paint-editor-mobile_stroke-width-selector_1EIVH",
-	"strokeWidthSelector": "paint-editor-mobile_stroke-width-selector_1EIVH",
-	"item": "paint-editor-mobile_item_3Yt39",
-	"line": "paint-editor-mobile_line_27YmY",
-	"selected": "paint-editor-mobile_selected_37ASb",
-	"line1": "paint-editor-mobile_line1_1Jjxk",
-	"line2": "paint-editor-mobile_line2_2uUQ1",
-	"line3": "paint-editor-mobile_line3_2AW8-",
-	"line4": "paint-editor-mobile_line4_25ARN",
-	"row": "paint-editor-mobile_row_3NXVo",
-	"editor-container-top": "paint-editor-mobile_editor-container-top_3-hFt",
-	"editorContainerTop": "paint-editor-mobile_editor-container-top_3-hFt",
-	"top-align-row": "paint-editor-mobile_top-align-row_RPPVU",
-	"topAlignRow": "paint-editor-mobile_top-align-row_RPPVU",
-	"mod-dashed-border": "paint-editor-mobile_mod-dashed-border_3HOhw",
-	"modDashedBorder": "paint-editor-mobile_mod-dashed-border_3HOhw",
-	"mod-labeled-icon-height": "paint-editor-mobile_mod-labeled-icon-height_rtAU3",
-	"modLabeledIconHeight": "paint-editor-mobile_mod-labeled-icon-height_rtAU3",
-	"button-group": "paint-editor-mobile_button-group_1YSng",
-	"buttonGroup": "paint-editor-mobile_button-group_1YSng",
-	"button-group-button": "paint-editor-mobile_button-group-button_2_Ciw",
-	"buttonGroupButton": "paint-editor-mobile_button-group-button_2_Ciw",
-	"button-group-button-icon": "paint-editor-mobile_button-group-button-icon_3iWwK",
-	"buttonGroupButtonIcon": "paint-editor-mobile_button-group-button-icon_3iWwK",
-	"mod-mode-tools": "paint-editor-mobile_mod-mode-tools_iW_bX",
-	"modModeTools": "paint-editor-mobile_mod-mode-tools_iW_bX",
-	"mod-margin-after": "paint-editor-mobile_mod-margin-after_vfP3P",
-	"modMarginAfter": "paint-editor-mobile_mod-margin-after_vfP3P",
-	"canvas-container": "paint-editor-mobile_canvas-container_3f7OI",
-	"canvasContainer": "paint-editor-mobile_canvas-container_3f7OI",
-	"draw-color": "paint-editor-mobile_draw-color_1apDU",
-	"drawColor": "paint-editor-mobile_draw-color_1apDU",
-	"hidden": "paint-editor-mobile_hidden_3ErEQ",
-	"mode-selector": "paint-editor-mobile_mode-selector_GNnUD",
-	"modeSelector": "paint-editor-mobile_mode-selector_GNnUD",
-	"zoom-controls": "paint-editor-mobile_zoom-controls_3Ialw",
-	"zoomControls": "paint-editor-mobile_zoom-controls_3Ialw",
-	"hide": "paint-editor-mobile_hide_1vzjK",
-	"color-picker-wrapper": "paint-editor-mobile_color-picker-wrapper_3muCo",
-	"colorPickerWrapper": "paint-editor-mobile_color-picker-wrapper_3muCo",
-	"canvas-controls": "paint-editor-mobile_canvas-controls_1RKRg",
-	"canvasControls": "paint-editor-mobile_canvas-controls_1RKRg",
-	"bitmap-button": "paint-editor-mobile_bitmap-button_2_I5t",
-	"bitmapButton": "paint-editor-mobile_bitmap-button_2_I5t",
-	"bitmap-button-icon": "paint-editor-mobile_bitmap-button-icon_1VKV0",
-	"bitmapButtonIcon": "paint-editor-mobile_bitmap-button-icon_1VKV0",
-	"text-area": "paint-editor-mobile_text-area_2S1aF",
-	"textArea": "paint-editor-mobile_text-area_2S1aF",
-	"button-text": "paint-editor-mobile_button-text_1W6yk",
-	"buttonText": "paint-editor-mobile_button-text_1W6yk"
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/scrollable-canvas/scrollable-canvas.css":
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/input-group/input-group.css":
 /*!**************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/scrollable-canvas/scrollable-canvas.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/input-group/input-group.css ***!
   \**************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".scrollable-canvas_vertical-scrollbar_gyXyM, .scrollable-canvas_horizontal-scrollbar_OBOUt {\n  position: absolute;\n  background: rgba(190, 190, 190, 0.8);\n  border-radius: calc(8px / 2);\n  cursor: pointer; }\n\n.scrollable-canvas_vertical-scrollbar-wrapper_1cMNm {\n  position: absolute;\n  width: 8px;\n  right: 0;\n  top: 1px;\n  height: calc(100% - 8px - 1px); }\n\n.scrollable-canvas_horizontal-scrollbar-wrapper_2BUMa {\n  position: absolute;\n  height: 8px;\n  left: 1px;\n  bottom: 0;\n  width: calc(100% - 8px - 1px); }\n\n.scrollable-canvas_vertical-scrollbar_gyXyM {\n  width: 8px; }\n\n.scrollable-canvas_horizontal-scrollbar_OBOUt {\n  height: 8px; }\n\n.scrollable-canvas_hide-cursor_f8-ba {\n  cursor: none; }\n\n.scrollable-canvas_hide-cursor_f8-ba > canvas {\n  cursor: none; }\n", ""]);
-
-// exports
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n[dir=\"ltr\"] .input-group__input-group--3FzNB + .input-group__input-group--3FzNB {\n  margin-left: calc(2 * .25rem); }\n\n[dir=\"rtl\"] .input-group__input-group--3FzNB + .input-group__input-group--3FzNB {\n  margin-right: calc(2 * .25rem); }\n\n.input-group__disabled--3fp6_ {\n  opacity: 0.3;\n  /* Prevent any user actions */\n  pointer-events: none; }\n", ""]);
+// Exports
 exports.locals = {
-	"vertical-scrollbar": "scrollable-canvas_vertical-scrollbar_gyXyM",
-	"verticalScrollbar": "scrollable-canvas_vertical-scrollbar_gyXyM",
-	"horizontal-scrollbar": "scrollable-canvas_horizontal-scrollbar_OBOUt",
-	"horizontalScrollbar": "scrollable-canvas_horizontal-scrollbar_OBOUt",
-	"vertical-scrollbar-wrapper": "scrollable-canvas_vertical-scrollbar-wrapper_1cMNm",
-	"verticalScrollbarWrapper": "scrollable-canvas_vertical-scrollbar-wrapper_1cMNm",
-	"horizontal-scrollbar-wrapper": "scrollable-canvas_horizontal-scrollbar-wrapper_2BUMa",
-	"horizontalScrollbarWrapper": "scrollable-canvas_horizontal-scrollbar-wrapper_2BUMa",
-	"hide-cursor": "scrollable-canvas_hide-cursor_f8-ba",
-	"hideCursor": "scrollable-canvas_hide-cursor_f8-ba"
+	"input-group": "input-group__input-group--3FzNB",
+	"inputGroup": "input-group__input-group--3FzNB",
+	"disabled": "input-group__disabled--3fp6_"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/tool-select-base/tool-select-base.mobile.css":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/tool-select-base/tool-select-base.mobile.css ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/loupe/loupe.css":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/loupe/loupe.css ***!
+  \**************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.tool-select-base-mobile_mod-tool-select_aDjgQ {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 3.5rem;\n  height: 3.5rem;\n  border: none;\n  border-radius: 50%;\n  background-color: #EEF6FE;\n  outline: none;\n  font-size: 0.85rem;\n  -webkit-transition: 0.2s;\n  -o-transition: 0.2s;\n  transition: 0.2s;\n  margin-top: 2rem; }\n\n.tool-select-base-mobile_mod-tool-select_aDjgQ.tool-select-base-mobile_is-selected_2awdl {\n  background-color: #1EAAFF;\n  -webkit-box-shadow: 0px 2.5px 5px 0px #c4e2ff;\n  box-shadow: 0px 2.5px 5px 0px #c4e2ff; }\n\n.tool-select-base-mobile_mod-tool-select_aDjgQ:focus {\n  outline: none; }\n\nimg.tool-select-base-mobile_tool-select-icon_3eKmU {\n  width: 3.75rem;\n  height: 3.75rem; }\n\n.tool-select-base-mobile_mod-tool-select_aDjgQ.tool-select-base-mobile_is-selected_2awdl .tool-select-base-mobile_tool-select-icon_3eKmU {\n  /* Make the tool icons white while selected by making them black and inverting */\n  -webkit-filter: brightness(0) invert(1);\n  filter: brightness(0) invert(1); }\n\n@media only screen and (max-width: 900px) {\n  .tool-select-base-mobile_mod-tool-select_aDjgQ {\n    width: 2.3rem;\n    height: 2.3rem;\n    margin-top: 1rem; }\n  img.tool-select-base-mobile_tool-select-icon_3eKmU {\n    width: 2.3rem;\n    height: 2.3rem; } }\n", ""]);
-
-// exports
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".loupe__eye-dropper--39EHg {\n  position: absolute;\n  border-radius: 100%;\n  border: 1px solid #222; }\n", ""]);
+// Exports
 exports.locals = {
-	"mod-tool-select": "tool-select-base-mobile_mod-tool-select_aDjgQ",
-	"modToolSelect": "tool-select-base-mobile_mod-tool-select_aDjgQ",
-	"is-selected": "tool-select-base-mobile_is-selected_2awdl",
-	"isSelected": "tool-select-base-mobile_is-selected_2awdl",
-	"tool-select-icon": "tool-select-base-mobile_tool-select-icon_3eKmU",
-	"toolSelectIcon": "tool-select-base-mobile_tool-select-icon_3eKmU"
+	"eye-dropper": "loupe__eye-dropper--39EHg",
+	"eyeDropper": "loupe__eye-dropper--39EHg"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/containers/paper-canvas.mobile.css":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/containers/paper-canvas.mobile.css ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/color-selector/color-picker-box.css":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/mobile/color-selector/color-picker-box.css ***!
+  \*****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.paper-canvas-mobile_paper-canvas_3MkP4 {\n  width: 563px;\n  height: 422px;\n  margin: auto;\n  position: absolute;\n  background-color: #fff; }\n\n.paper-canvas-mobile_center-mode_5KFfF {\n  cursor: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAEEfUpiAAAABGdBTUEAALGPC/xhBQAAB3NJREFUWAmtF21wVNX1fry3X/kiwNRKgFIErJHpjEbLTDu0nU7rgJAwoI/dTbIfUQztTJnBdrKbTNBsLJavAlIsDGmLS0ASWc1UM1Pp9A/gONNRo7RYFUwBRcWmNUBgd9/ue/fenvuSt91dQgi1Z+a983HPOffcc+497z6ExqAh/PP7JYnlyxeOBIigiwimtcTXGP22ipT7nz+wyZVlxp8sjeCaJz/Rdf0EoaRMWtwEVgeihq3iDbUet+kctpzanC/UluCc1RGKf9ob3/JbW458wZa+HJNHPPBAoIRYvImP5slzZEWFbhRMoWmPT1Xcjhf/lnYv+Xsils1p2sTSpeucNm3jnAewriIu9V0syBWW+ceCRCLxXw/+QHSntPD5IjNsy5Urf/wVSVtBlrnnRiTT27v1M4klOEoq9klMvKFoz+X02d9IRiB0n8T+cOsSgUXS39R+WPJIC0WXWUTea3Ug8oFkR/OQ0gebm5srNC1aIYW+YOThIwc91ZLOB+wLtIa93shd+cIJ6TpYlbcxYgV7I0WlaIDUh9u2ccGnspR7LWKIC1XnUsfX1LYIC5zI0Mzivt9v/6jIDqGGhthMiD1+3UCRIByOubyB6BsgtoqEY7EYOXNGrzAJP0dMVM1cgifi2z6XdpDWckDzQXNA8rXNMU/JSGoKU/A9KuZCF+o7Um6BNxj51KZvhr2BtlUrfD+bJfVGywDEyL9Oza1vav+njMh2oGkxhz/U4rd5ieuD0RWEsDtf7t1xQfK5zSYZCcFgexVs4uOcG+8LTHYhztdTQv6AMYkKxOM9B1ybEIpZiR21mOAtN2d9qH3CMtIJ7JHsFzNvv++LwcE32I30cusdT8E06Rq1wj1tvDFbdl0OYE+rV1KVfoJRB8OiChR0WP/xZEqs609s+dg2tHFBBFowOvtadvoZrJLTPQe33IEEeY6nPd9gKZdW6kGx+lDbLjAssLEdIXmCG8MbPsoJgACDZ/NPuWyb/kDEOv35epLGvlDkLblNiweKebndg8GNVbbcCgcanEcwfCEej+n2wI1wueuOx7Loym57HDc0rCs3RFkNosJNDHYyWe653N8VS0mFsRbzASTymuS1cMtXqY6JcKD3FIYWnsyeG1K4UroHcXMmEmKYq+TfpdmkbMN2p10LdBc8b8KDnEJpz6rciYVQkINuvxvN+7WUIy34eNXqQMsvLGYSL28gkku2lYOzruSQQpVHJ2GLwuEN8xHHv7J1LQcDXV2G4GKnP9jaYg9I3BBsWR4MthXsxAziR0eGU3JZFuQ2RU+3azvG+Ltw1tfbg/Bp+16aodskD8dcqQ+3D5qm+eCrr+7O2DqQ4HyIEX9TpoNg0sQ538FN9k2C8FFB0ApE8T2MZX6U6N5Z0HiKHIw6g9kcp8+l50Mdd5uCd6uMvnz48ObLMAqVvQWQvSB/K49nOm4E4ykWyyzHTqXDkmfMzvwPX7HuRPwtBVBT06xWV5c7hNssN5LuGkHFT6RzjPBejvR3MsqVkU//ukgfGFhrgnhS6bpZAFhraptOTfEQxigsMOwIgd+G3nyMCHaeIxyQARAkDnKM52CkfB/07hWcD2NK48lM8sgrPbuGJgrmRgFg6G2zVEI7oRn+gAmzkyUzPYnEzrScUIJVAgeOWUxWxPJLoGk73LRkyK9gtYNxdswU7IlE9xb5FbouK9cFUAMdeZ4+5TGMaSsVIvZ89+b91iRFr9raZk/ZlMrFUnz18qXX+vu7rAZUpAY9NfIoR7QDsrZp8N1LvxsY6MrdHKVuQQCyxncurPRzgZ8iiK8+3L1VXgG+NNQHI9/iiBxBBD/x4akvevODyHUCOcvX7po+nZmiEwm27f81ufRr+QKfwmSdcg4pswE3NrbcaxDVh3iWYkJncyFqIS/9sNkuSSUnpbqJjD/2xLfZLdqyhWLKK75s17Ku+yCVb1kDYy95zaQCL8tyPnr1xaISmmgdpfjPAuPPKaUmy7LnlKEhcXraDLGfC6RgjqoxQQ9CK+sTWX5c+tKpwXVHyUi+8zH6fcB74ZFlPDMmy6FrDtcJVzZ5khrgEYC60GxTiMXwL3CIEHrKNJDx8aB+oWAPfKcuUjZrCpEX47Kppa7le/bErC9ZzuuXIHyByD5Y+ZxPFPHw6/u3XrVdFQQAQhwIbJhjEPYKJPasi6RD8fgzsgf/z6BpGqWeuZuhpEsNt7LypX0bB8FZ7jgWB2BNtGrV+tudZe6nFUVZYpiZzb0HPM8WXwh/CD8E05y4HWEGNwy88YWDW2VJCsAHfxcE0V1wBF+njLQeOvTLiwUKwBRf8a3xvr5nLsIHcM1D5zMLnIhsaGgyPjON6AnqoHuNq+m/yIZUidxM4CQ0RyxMk1krkqslZbMWUsP5CHz+6uAH4TWDm8sS8zwfgr9xb7TjZqA4Stl0HKW3fV1VM6vAy3KK8AKop0NwuQD42mKSxYKlMSHvwWbuJ8Tov3i+7PyxYze/Zk0qgOKAgMea1j6DOI0n5RjPqE8lEk/L38BcbaV8MjBuCSZhCBOlhqG7vTiqawwDvuXJpe1/AP765dgmh1BWAAAAAElFTkSuQmCC\") 16 16, crosshair; }\n\n@media only screen and (max-width: 900px) {\n  .paper-canvas-mobile_paper-canvas_3MkP4 {\n    width: 366.85px;\n    height: 274.79px; } }\n\n@media (min-height: 1024px) and (min-width: 1366px) {\n  .paper-canvas-mobile_paper-canvas_3MkP4 {\n    width: 844.5px;\n    height: 633px; } }\n", ""]);
-
-// exports
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".color-picker-box__container--1id1j {\n  position: relative;\n  width: 100%;\n  height: 100%; }\n\n.color-picker-box__container--1id1j.color-picker-box__is-draw-color--2EnBG {\n  z-index: 2; }\n\n.color-picker-box__container--1id1j .color-picker-box__content--8H7iJ {\n  width: 100%;\n  height: 100%;\n  background-color: transparent;\n  margin: auto; }\n\n.color-picker-box__container--1id1j .color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM img {\n  width: 100%;\n  height: 100%;\n  pointer-events: none; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM .color-picker-box__ring-box--DEqEv {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM .color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  width: 10rem;\n  height: 10rem;\n  background-color: transparent;\n  border-radius: 50%;\n  border-width: 1.5rem;\n  border-style: solid;\n  -webkit-box-shadow: 0 0 0 2px #e3e3e3;\n  box-shadow: 0 0 0 2px #e3e3e3;\n  -webkit-transition: border-color .2s;\n  -o-transition: border-color .2s;\n  transition: border-color .2s;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM .color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z.color-picker-box__hidden--1imNi {\n  visibility: hidden; }\n\n.color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z .color-picker-box__inner-ring--1S7VR {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  width: 7rem;\n  height: 7rem;\n  background-color: transparent;\n  border: 2px solid #e3e3e3;\n  border-radius: 50%;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z .color-picker-box__outer-ring--39d0p {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  margin: auto;\n  width: 12rem;\n  height: 12rem;\n  background-color: transparent;\n  border-radius: 50%; }\n\n.color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z .color-picker-box__point-icon--26iOD {\n  width: 1rem;\n  height: 1rem; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM .color-picker-box__loading-mask--BjaMb {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  -ms-flex-align: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.3); }\n\n.color-picker-box__image--3H8iM .color-picker-box__loading-mask--BjaMb .color-picker-box__icon--BSZ9z {\n  width: 2rem;\n  height: 2rem;\n  -webkit-animation: color-picker-box__rotate--2RnMn 1s steps(12, end) infinite;\n  animation: color-picker-box__rotate--2RnMn 1s steps(12, end) infinite; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__clone-stage-image--1ZQA9 {\n  display: none; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__operation--cKCFk {\n  height: 12%; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__operation--cKCFk button {\n  width: 50%;\n  height: 100%;\n  font-size: 1.5rem;\n  color: #888;\n  background-color: transparent;\n  border: none; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__operation--cKCFk button:active {\n  background-color: #eef6fe; }\n\n.color-picker-box__content--8H7iJ .color-picker-box__operation--cKCFk .color-picker-box__done--2s2vV {\n  color: #4aa6ff;\n  border-left: 1px solid #dadada; }\n\n@media only screen and (max-width: 900px) {\n  .color-picker-box__content--8H7iJ .color-picker-box__image--3H8iM .color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z {\n    width: 8rem;\n    height: 8rem;\n    border-width: 1rem; }\n  .color-picker-box__ring-box--DEqEv .color-picker-box__ring--1-x0z .color-picker-box__inner-ring--1S7VR {\n    width: 6rem;\n    height: 6rem; }\n  .color-picker-box__content--8H7iJ .color-picker-box__operation--cKCFk button {\n    font-size: 1rem; } }\n\n@-webkit-keyframes color-picker-box__rotate--2RnMn {\n  from {\n    -webkit-transform: translate3d(0, 0, 0) rotate(0deg);\n    transform: translate3d(0, 0, 0) rotate(0deg); }\n  to {\n    -webkit-transform: translate3d(0, 0, 0) rotate(360deg);\n    transform: translate3d(0, 0, 0) rotate(360deg); } }\n\n@keyframes color-picker-box__rotate--2RnMn {\n  from {\n    -webkit-transform: translate3d(0, 0, 0) rotate(0deg);\n    transform: translate3d(0, 0, 0) rotate(0deg); }\n  to {\n    -webkit-transform: translate3d(0, 0, 0) rotate(360deg);\n    transform: translate3d(0, 0, 0) rotate(360deg); } }\n", ""]);
+// Exports
 exports.locals = {
-	"paper-canvas": "paper-canvas-mobile_paper-canvas_3MkP4",
-	"paperCanvas": "paper-canvas-mobile_paper-canvas_3MkP4",
-	"center-mode": "paper-canvas-mobile_center-mode_5KFfF",
-	"centerMode": "paper-canvas-mobile_center-mode_5KFfF"
+	"container": "color-picker-box__container--1id1j",
+	"is-draw-color": "color-picker-box__is-draw-color--2EnBG",
+	"isDrawColor": "color-picker-box__is-draw-color--2EnBG",
+	"content": "color-picker-box__content--8H7iJ",
+	"image": "color-picker-box__image--3H8iM",
+	"ring-box": "color-picker-box__ring-box--DEqEv",
+	"ringBox": "color-picker-box__ring-box--DEqEv",
+	"ring": "color-picker-box__ring--1-x0z",
+	"hidden": "color-picker-box__hidden--1imNi",
+	"inner-ring": "color-picker-box__inner-ring--1S7VR",
+	"innerRing": "color-picker-box__inner-ring--1S7VR",
+	"outer-ring": "color-picker-box__outer-ring--39d0p",
+	"outerRing": "color-picker-box__outer-ring--39d0p",
+	"point-icon": "color-picker-box__point-icon--26iOD",
+	"pointIcon": "color-picker-box__point-icon--26iOD",
+	"loading-mask": "color-picker-box__loading-mask--BjaMb",
+	"loadingMask": "color-picker-box__loading-mask--BjaMb",
+	"icon": "color-picker-box__icon--BSZ9z",
+	"rotate": "color-picker-box__rotate--2RnMn",
+	"clone-stage-image": "color-picker-box__clone-stage-image--1ZQA9",
+	"cloneStageImage": "color-picker-box__clone-stage-image--1ZQA9",
+	"operation": "color-picker-box__operation--cKCFk",
+	"done": "color-picker-box__done--2s2vV"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/scrollable-canvas/scrollable-canvas.css":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/components/scrollable-canvas/scrollable-canvas.css ***!
+  \**************************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".scrollable-canvas__vertical-scrollbar--gyXyM, .scrollable-canvas__horizontal-scrollbar--OBOUt {\n  position: absolute;\n  background: rgba(190, 190, 190, 0.8);\n  border-radius: calc(8px / 2);\n  cursor: pointer; }\n\n.scrollable-canvas__vertical-scrollbar-wrapper--1cMNm {\n  position: absolute;\n  width: 8px;\n  right: 0;\n  top: 1px;\n  height: calc(100% - 8px - 1px); }\n\n.scrollable-canvas__horizontal-scrollbar-wrapper--2BUMa {\n  position: absolute;\n  height: 8px;\n  left: 1px;\n  bottom: 0;\n  width: calc(100% - 8px - 1px); }\n\n.scrollable-canvas__vertical-scrollbar--gyXyM {\n  width: 8px; }\n\n.scrollable-canvas__horizontal-scrollbar--OBOUt {\n  height: 8px; }\n\n.scrollable-canvas__hide-cursor--f8-ba {\n  cursor: none; }\n\n.scrollable-canvas__hide-cursor--f8-ba > canvas {\n  cursor: none; }\n", ""]);
+// Exports
+exports.locals = {
+	"vertical-scrollbar": "scrollable-canvas__vertical-scrollbar--gyXyM",
+	"verticalScrollbar": "scrollable-canvas__vertical-scrollbar--gyXyM",
+	"horizontal-scrollbar": "scrollable-canvas__horizontal-scrollbar--OBOUt",
+	"horizontalScrollbar": "scrollable-canvas__horizontal-scrollbar--OBOUt",
+	"vertical-scrollbar-wrapper": "scrollable-canvas__vertical-scrollbar-wrapper--1cMNm",
+	"verticalScrollbarWrapper": "scrollable-canvas__vertical-scrollbar-wrapper--1cMNm",
+	"horizontal-scrollbar-wrapper": "scrollable-canvas__horizontal-scrollbar-wrapper--2BUMa",
+	"horizontalScrollbarWrapper": "scrollable-canvas__horizontal-scrollbar-wrapper--2BUMa",
+	"hide-cursor": "scrollable-canvas__hide-cursor--f8-ba",
+	"hideCursor": "scrollable-canvas__hide-cursor--f8-ba"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/containers/paper-canvas.mobile.css":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src??postcss!./src/containers/paper-canvas.mobile.css ***!
+  \**********************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.paper-canvas-mobile__paper-canvas--3MkP4 {\n  width: 563px;\n  height: 422px;\n  margin: auto;\n  position: absolute;\n  background-color: #fff;\n  border-radius: 6px; }\n\n.paper-canvas-mobile__center-mode--5KFfF {\n  cursor: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAEEfUpiAAAABGdBTUEAALGPC/xhBQAAB3NJREFUWAmtF21wVNX1fry3X/kiwNRKgFIErJHpjEbLTDu0nU7rgJAwoI/dTbIfUQztTJnBdrKbTNBsLJavAlIsDGmLS0ASWc1UM1Pp9A/gONNRo7RYFUwBRcWmNUBgd9/ue/fenvuSt91dQgi1Z+a983HPOffcc+497z6ExqAh/PP7JYnlyxeOBIigiwimtcTXGP22ipT7nz+wyZVlxp8sjeCaJz/Rdf0EoaRMWtwEVgeihq3iDbUet+kctpzanC/UluCc1RGKf9ob3/JbW458wZa+HJNHPPBAoIRYvImP5slzZEWFbhRMoWmPT1Xcjhf/lnYv+Xsils1p2sTSpeucNm3jnAewriIu9V0syBWW+ceCRCLxXw/+QHSntPD5IjNsy5Urf/wVSVtBlrnnRiTT27v1M4klOEoq9klMvKFoz+X02d9IRiB0n8T+cOsSgUXS39R+WPJIC0WXWUTea3Ug8oFkR/OQ0gebm5srNC1aIYW+YOThIwc91ZLOB+wLtIa93shd+cIJ6TpYlbcxYgV7I0WlaIDUh9u2ccGnspR7LWKIC1XnUsfX1LYIC5zI0Mzivt9v/6jIDqGGhthMiD1+3UCRIByOubyB6BsgtoqEY7EYOXNGrzAJP0dMVM1cgifi2z6XdpDWckDzQXNA8rXNMU/JSGoKU/A9KuZCF+o7Um6BNxj51KZvhr2BtlUrfD+bJfVGywDEyL9Oza1vav+njMh2oGkxhz/U4rd5ieuD0RWEsDtf7t1xQfK5zSYZCcFgexVs4uOcG+8LTHYhztdTQv6AMYkKxOM9B1ybEIpZiR21mOAtN2d9qH3CMtIJ7JHsFzNvv++LwcE32I30cusdT8E06Rq1wj1tvDFbdl0OYE+rV1KVfoJRB8OiChR0WP/xZEqs609s+dg2tHFBBFowOvtadvoZrJLTPQe33IEEeY6nPd9gKZdW6kGx+lDbLjAssLEdIXmCG8MbPsoJgACDZ/NPuWyb/kDEOv35epLGvlDkLblNiweKebndg8GNVbbcCgcanEcwfCEej+n2wI1wueuOx7Loym57HDc0rCs3RFkNosJNDHYyWe653N8VS0mFsRbzASTymuS1cMtXqY6JcKD3FIYWnsyeG1K4UroHcXMmEmKYq+TfpdmkbMN2p10LdBc8b8KDnEJpz6rciYVQkINuvxvN+7WUIy34eNXqQMsvLGYSL28gkku2lYOzruSQQpVHJ2GLwuEN8xHHv7J1LQcDXV2G4GKnP9jaYg9I3BBsWR4MthXsxAziR0eGU3JZFuQ2RU+3azvG+Ltw1tfbg/Bp+16aodskD8dcqQ+3D5qm+eCrr+7O2DqQ4HyIEX9TpoNg0sQ538FN9k2C8FFB0ApE8T2MZX6U6N5Z0HiKHIw6g9kcp8+l50Mdd5uCd6uMvnz48ObLMAqVvQWQvSB/K49nOm4E4ykWyyzHTqXDkmfMzvwPX7HuRPwtBVBT06xWV5c7hNssN5LuGkHFT6RzjPBejvR3MsqVkU//ukgfGFhrgnhS6bpZAFhraptOTfEQxigsMOwIgd+G3nyMCHaeIxyQARAkDnKM52CkfB/07hWcD2NK48lM8sgrPbuGJgrmRgFg6G2zVEI7oRn+gAmzkyUzPYnEzrScUIJVAgeOWUxWxPJLoGk73LRkyK9gtYNxdswU7IlE9xb5FbouK9cFUAMdeZ4+5TGMaSsVIvZ89+b91iRFr9raZk/ZlMrFUnz18qXX+vu7rAZUpAY9NfIoR7QDsrZp8N1LvxsY6MrdHKVuQQCyxncurPRzgZ8iiK8+3L1VXgG+NNQHI9/iiBxBBD/x4akvevODyHUCOcvX7po+nZmiEwm27f81ufRr+QKfwmSdcg4pswE3NrbcaxDVh3iWYkJncyFqIS/9sNkuSSUnpbqJjD/2xLfZLdqyhWLKK75s17Ku+yCVb1kDYy95zaQCL8tyPnr1xaISmmgdpfjPAuPPKaUmy7LnlKEhcXraDLGfC6RgjqoxQQ9CK+sTWX5c+tKpwXVHyUi+8zH6fcB74ZFlPDMmy6FrDtcJVzZ5khrgEYC60GxTiMXwL3CIEHrKNJDx8aB+oWAPfKcuUjZrCpEX47Kppa7le/bErC9ZzuuXIHyByD5Y+ZxPFPHw6/u3XrVdFQQAQhwIbJhjEPYKJPasi6RD8fgzsgf/z6BpGqWeuZuhpEsNt7LypX0bB8FZ7jgWB2BNtGrV+tudZe6nFUVZYpiZzb0HPM8WXwh/CD8E05y4HWEGNwy88YWDW2VJCsAHfxcE0V1wBF+njLQeOvTLiwUKwBRf8a3xvr5nLsIHcM1D5zMLnIhsaGgyPjON6AnqoHuNq+m/yIZUidxM4CQ0RyxMk1krkqslZbMWUsP5CHz+6uAH4TWDm8sS8zwfgr9xb7TjZqA4Stl0HKW3fV1VM6vAy3KK8AKop0NwuQD42mKSxYKlMSHvwWbuJ8Tov3i+7PyxYze/Zk0qgOKAgMea1j6DOI0n5RjPqE8lEk/L38BcbaV8MjBuCSZhCBOlhqG7vTiqawwDvuXJpe1/AP765dgmh1BWAAAAAElFTkSuQmCC\") 16 16, crosshair; }\n\n@media only screen and (max-width: 900px) {\n  .paper-canvas-mobile__paper-canvas--3MkP4 {\n    width: 366.85px;\n    height: 274.79px; } }\n\n@media (min-height: 1024px) and (min-width: 1366px) {\n  .paper-canvas-mobile__paper-canvas--3MkP4 {\n    width: 844.5px;\n    height: 633px; } }\n", ""]);
+// Exports
+exports.locals = {
+	"paper-canvas": "paper-canvas-mobile__paper-canvas--3MkP4",
+	"paperCanvas": "paper-canvas-mobile__paper-canvas--3MkP4",
+	"center-mode": "paper-canvas-mobile__center-mode--5KFfF",
+	"centerMode": "paper-canvas-mobile__center-mode--5KFfF"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/fixed-tools/fixed-tools.mobile.scss":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/sass-loader/dist/cjs.js!./src/components/fixed-tools/fixed-tools.mobile.scss ***!
+  \***************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.fixed-tools-mobile__row--VXajx {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n\n.fixed-tools-mobile__redo-undo-box--2sG7C {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 100%;\n  padding: 0;\n  margin-top: 2rem; }\n\n.fixed-tools-mobile__costume-input--2ST0K {\n  width: 8rem; }\n\n.fixed-tools-mobile__mod-unselect--3EQJ1 {\n  user-select: none; }\n\n.fixed-tools-mobile__button-group-button--3uE8H {\n  display: inline-block;\n  border-radius: 50%;\n  width: 3.5rem;\n  height: 3.5rem; }\n  .theme-light .fixed-tools-mobile__button-group-button--3uE8H {\n    background-color: #eef6fe; }\n  .theme-dark .fixed-tools-mobile__button-group-button--3uE8H {\n    background-color: rgba(255, 255, 255, 0.16); }\n\n.fixed-tools-mobile__button-group-button--3uE8H.fixed-tools-mobile__disabled--3yW3u {\n  pointer-events: none; }\n  .theme-light .fixed-tools-mobile__button-group-button--3uE8H.fixed-tools-mobile__disabled--3yW3u {\n    background-color: #eef6fe; }\n  .theme-dark .fixed-tools-mobile__button-group-button--3uE8H.fixed-tools-mobile__disabled--3yW3u {\n    background-color: rgba(255, 255, 255, 0.1); }\n\n.theme-light .fixed-tools-mobile__button-group-button--3uE8H:active {\n  background-color: #1eaaff; }\n\n.theme-dark .fixed-tools-mobile__button-group-button--3uE8H:active {\n  background-color: #2952AC; }\n\n.fixed-tools-mobile__button-group-button-icon--34Cdo {\n  width: 100%;\n  height: 100%;\n  vertical-align: middle; }\n  .theme-light .fixed-tools-mobile__button-group-button-icon--34Cdo {\n    filter: unset; }\n  .theme-dark .fixed-tools-mobile__button-group-button-icon--34Cdo {\n    filter: brightness(0) invert(1); }\n\n.fixed-tools-mobile__button-group-button--3uE8H:active .fixed-tools-mobile__button-group-button-icon--34Cdo {\n  /* Make the tool icons white while selected by making them black and inverting */\n  filter: brightness(0) invert(1); }\n\n.fixed-tools-mobile__mod-context-menu--WZMhw {\n  display: flex;\n  flex-direction: column; }\n\n.fixed-tools-mobile__mod-top-divider--3N7hq {\n  border-top: 1px solid #D9D9D9; }\n\n.fixed-tools-mobile__mod-menu-item--8VgYM {\n  display: flex;\n  margin: 0 -0.25rem;\n  min-width: 6.25rem;\n  padding: calc(3 * 0.25rem);\n  white-space: nowrap;\n  cursor: pointer;\n  transition: 0.1s ease;\n  align-items: center;\n  font-family: \"Helvetica Neue\", Helvetica, sans-serif; }\n\n.fixed-tools-mobile__mod-disabled--1a1pD {\n  cursor: auto; }\n\n.fixed-tools-mobile__mod-menu-item--8VgYM:hover {\n  background: rgba(77, 151, 255, 0.2); }\n\n.fixed-tools-mobile__menu-item-icon--mm82i {\n  margin-right: calc(2 * 0.25rem); }\n\n@media only screen and (max-width: 900px) {\n  .fixed-tools-mobile__redo-undo-box--2sG7C {\n    margin-top: 1rem; }\n  .fixed-tools-mobile__button-group-button--3uE8H {\n    width: 2.3rem;\n    height: 2.3rem; } }\n", ""]);
+// Exports
+exports.locals = {
+	"row": "fixed-tools-mobile__row--VXajx",
+	"redo-undo-box": "fixed-tools-mobile__redo-undo-box--2sG7C",
+	"redoUndoBox": "fixed-tools-mobile__redo-undo-box--2sG7C",
+	"costume-input": "fixed-tools-mobile__costume-input--2ST0K",
+	"costumeInput": "fixed-tools-mobile__costume-input--2ST0K",
+	"mod-unselect": "fixed-tools-mobile__mod-unselect--3EQJ1",
+	"modUnselect": "fixed-tools-mobile__mod-unselect--3EQJ1",
+	"button-group-button": "fixed-tools-mobile__button-group-button--3uE8H",
+	"buttonGroupButton": "fixed-tools-mobile__button-group-button--3uE8H",
+	"disabled": "fixed-tools-mobile__disabled--3yW3u",
+	"button-group-button-icon": "fixed-tools-mobile__button-group-button-icon--34Cdo",
+	"buttonGroupButtonIcon": "fixed-tools-mobile__button-group-button-icon--34Cdo",
+	"mod-context-menu": "fixed-tools-mobile__mod-context-menu--WZMhw",
+	"modContextMenu": "fixed-tools-mobile__mod-context-menu--WZMhw",
+	"mod-top-divider": "fixed-tools-mobile__mod-top-divider--3N7hq",
+	"modTopDivider": "fixed-tools-mobile__mod-top-divider--3N7hq",
+	"mod-menu-item": "fixed-tools-mobile__mod-menu-item--8VgYM",
+	"modMenuItem": "fixed-tools-mobile__mod-menu-item--8VgYM",
+	"mod-disabled": "fixed-tools-mobile__mod-disabled--1a1pD",
+	"modDisabled": "fixed-tools-mobile__mod-disabled--1a1pD",
+	"menu-item-icon": "fixed-tools-mobile__menu-item-icon--mm82i",
+	"menuItemIcon": "fixed-tools-mobile__menu-item-icon--mm82i"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/mobile/color-selector/color-selector.scss":
+/*!*********************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/sass-loader/dist/cjs.js!./src/components/mobile/color-selector/color-selector.scss ***!
+  \*********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.color-selector__container--23JOJ {\n  position: absolute;\n  top: 0;\n  right: 0;\n  width: 12.5rem;\n  height: 100%;\n  box-shadow: -1px 0px 7px 0px rgba(38, 65, 101, 0.2);\n  transition: .3s;\n  overflow: hidden; }\n  .theme-light .color-selector__container--23JOJ {\n    background-color: #fff; }\n  .theme-dark .color-selector__container--23JOJ {\n    background-color: #20274e; }\n  .theme-light .color-selector__container--23JOJ .rc-slider-handle {\n    border: 4px solid #cfcfcf !important; }\n  .theme-dark .color-selector__container--23JOJ .rc-slider-handle {\n    border: 4px solid rgba(44, 83, 180, 0.6) !important; }\n\n.color-selector__container--23JOJ.color-selector__hide--3dqT2 {\n  transform: translate3d(0, 0, 0) translateX(12.5rem); }\n\n.color-selector__container--23JOJ .color-selector__content--1ND3h {\n  height: calc(100% - 3.75rem);\n  overflow-x: hidden;\n  overflow-y: auto;\n  padding: 2.5rem 0; }\n\n.color-selector__container--23JOJ .color-selector__content--1ND3h.color-selector__scroll-disabled--34plz {\n  overflow-x: hidden;\n  overflow-y: hidden; }\n\n.color-selector__container--23JOJ .color-selector__color-display-box--3fqpL {\n  width: 11.25rem;\n  height: 8.75rem;\n  border-radius: .625rem;\n  margin: auto;\n  overflow: hidden; }\n  .theme-light .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL {\n    border: 1px solid #C2C9D2; }\n  .theme-dark .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL {\n    border: 1px solid #20274e; }\n\n.color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__top--22AGx {\n  position: relative;\n  width: 100%;\n  height: 6.25rem;\n  border-radius: .625rem .625rem 0 0; }\n\n.color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__top--22AGx.color-selector__none-color--ZA7qE {\n  background-color: #fff; }\n\n.color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__top--22AGx.color-selector__none-color--ZA7qE::before {\n  pointer-events: none;\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  box-sizing: border-box;\n  border-top: 2px solid #FC4144;\n  transform-origin: top right;\n  transform: rotateZ(-28deg) scale(1.414); }\n\n.color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: calc(8.75rem - 6.25rem);\n  background-color: #FFFFFF; }\n  .theme-light .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph {\n    border-top: 1px solid #C2C9D2; }\n  .theme-dark .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph {\n    border-top: 1px solid rgba(67, 73, 106, 0.32); }\n\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ,\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__right--I6nsY {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-width: 50%;\n  height: 100%;\n  color: #264165;\n  font-size: .75rem; }\n\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ:active,\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__right--I6nsY:active {\n  background-color: #eef6fe; }\n\n.theme-light .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ {\n  border-right: 1px solid #C2C9D2; }\n\n.theme-dark .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ {\n  border-right: 1px solid rgba(67, 73, 106, 0.32); }\n\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ img,\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__right--I6nsY img {\n  width: 1.25rem;\n  height: 1.25rem;\n  margin-right: .25rem; }\n\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ span,\n.color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__right--I6nsY span {\n  display: block;\n  max-width: 5rem;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx {\n  position: relative;\n  padding: calc(2.5rem - 0.75rem) 1rem 0 1rem; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__default-colors--OXiMW {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n  flex-wrap: wrap; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah {\n  display: inline-block;\n  width: 2.625rem;\n  height: 2.625rem;\n  margin-top: .75rem;\n  border-radius: 50%;\n  box-sizing: border-box; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah:nth-child(3n+2) {\n  margin-right: 1.125rem;\n  margin-left: 1.125rem; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah:last-child {\n  border: 1px solid #979797; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah.color-selector__active--dE27v {\n  pointer-events: none; }\n  .theme-light .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah.color-selector__active--dE27v {\n    border: 2.5px solid #fff;\n    box-shadow: 0 0 0 2px #4aa6ff; }\n  .theme-dark .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah.color-selector__active--dE27v {\n    border: 2.5px solid #20274E;\n    box-shadow: 0 0 0 2px #4B7AEC; }\n\n.color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__slider--s8sW2 {\n  width: 100%;\n  margin-top: 2.5rem;\n  padding: 0 .75rem;\n  box-sizing: border-box; }\n\n.color-selector__h-slider--2B65e,\n.color-selector__s-slider--H8m7A,\n.color-selector__b-slider--2_BDE {\n  position: relative;\n  height: 30px;\n  width: 100%;\n  border-radius: 6px;\n  -ms-touch-action: none;\n  touch-action: none;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  margin-top: 1.25rem; }\n\n.color-selector__h-slider--2B65e {\n  margin-top: 0; }\n\n.color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 3.75rem;\n  font-size: 1.5rem; }\n  .theme-light .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    background-color: #fff;\n    color: #4aa6ff;\n    border-top: 1px solid #B4B7B8; }\n  .theme-dark .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    background-color: transparent;\n    color: #4AA6FF;\n    border-top: 1px solid rgba(255, 255, 255, 0.16); }\n\n.theme-light .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O:active {\n  background-color: #eef6fe; }\n\n.theme-dark .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O:active {\n  background-color: transparent; }\n\n@media only screen and (max-width: 900px) {\n  .color-selector__container--23JOJ {\n    width: 8rem; }\n    .theme-light .color-selector__container--23JOJ .rc-slider-handle {\n      border: 2px solid #cfcfcf !important; }\n    .theme-dark .color-selector__container--23JOJ .rc-slider-handle {\n      border: 2px solid rgba(44, 83, 180, 0.6) !important; }\n  .color-selector__container--23JOJ .color-selector__content--1ND3h {\n    height: calc(100% - 2.375rem);\n    padding: 1.2rem 0; }\n  .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL {\n    width: 7.5rem;\n    height: 5.5rem;\n    border-radius: .375rem; }\n  .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__top--22AGx {\n    height: 4rem;\n    border-radius: .375rem .375rem 0 0;\n    overflow: hidden; }\n  .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__top--22AGx.color-selector__none-color--ZA7qE::before {\n    border-top: 1px solid #FC4144; }\n  .color-selector__container--23JOJ .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph {\n    height: calc(5.5rem - 4rem); }\n  .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ,\n  .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__right--I6nsY {\n    font-size: .5rem; }\n  .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__left--6SfgJ img,\n  .color-selector__color-display-box--3fqpL .color-selector__bottom--3oJph .color-selector__right--I6nsY img {\n    width: .8rem;\n    height: .8rem;\n    margin-right: .2rem; }\n  .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx {\n    position: relative;\n    padding: calc(1rem - 0.5rem) 0.5rem 2rem 0.5rem; }\n  .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah {\n    width: 1.5rem;\n    height: 1.5rem;\n    margin-top: .5rem; }\n  .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah:nth-child(3n+2) {\n    margin-right: 1rem;\n    margin-left: 1rem; }\n  .theme-light .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah.color-selector__active--dE27v {\n    border: 2px solid #fff;\n    box-shadow: 0 0 0 2px #4aa6ff; }\n  .theme-dark .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__color-item--3zQah.color-selector__active--dE27v {\n    border: 2px solid #20274E;\n    box-shadow: 0 0 0 2px #4B7AEC; }\n  .color-selector__container--23JOJ .color-selector__color-select-box--1gTyx .color-selector__slider--s8sW2 {\n    margin-top: 1rem; }\n  .color-selector__h-slider--2B65e,\n  .color-selector__s-slider--H8m7A,\n  .color-selector__b-slider--2_BDE {\n    height: 20px;\n    margin-top: .5rem;\n    padding: 0 .5rem; }\n  .rc-slider-handle {\n    width: 20px !important;\n    height: 20px !important; }\n  .rc-slider-rail {\n    height: 5px !important; }\n  .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    height: 2.375rem;\n    font-size: 1rem; } }\n\n@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {\n  .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {\n  .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {\n  .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    bottom: 1.2rem; } }\n\n@media only screen and (device-width: 1024px) and (device-height: 1366px) {\n  .color-selector__container--23JOJ .color-selector__confirm-box--2VW_O {\n    bottom: 1.2rem; } }\n", ""]);
+// Exports
+exports.locals = {
+	"container": "color-selector__container--23JOJ",
+	"hide": "color-selector__hide--3dqT2",
+	"content": "color-selector__content--1ND3h",
+	"scroll-disabled": "color-selector__scroll-disabled--34plz",
+	"scrollDisabled": "color-selector__scroll-disabled--34plz",
+	"color-display-box": "color-selector__color-display-box--3fqpL",
+	"colorDisplayBox": "color-selector__color-display-box--3fqpL",
+	"top": "color-selector__top--22AGx",
+	"none-color": "color-selector__none-color--ZA7qE",
+	"noneColor": "color-selector__none-color--ZA7qE",
+	"bottom": "color-selector__bottom--3oJph",
+	"left": "color-selector__left--6SfgJ",
+	"right": "color-selector__right--I6nsY",
+	"color-select-box": "color-selector__color-select-box--1gTyx",
+	"colorSelectBox": "color-selector__color-select-box--1gTyx",
+	"default-colors": "color-selector__default-colors--OXiMW",
+	"defaultColors": "color-selector__default-colors--OXiMW",
+	"color-item": "color-selector__color-item--3zQah",
+	"colorItem": "color-selector__color-item--3zQah",
+	"active": "color-selector__active--dE27v",
+	"slider": "color-selector__slider--s8sW2",
+	"h-slider": "color-selector__h-slider--2B65e",
+	"hSlider": "color-selector__h-slider--2B65e",
+	"s-slider": "color-selector__s-slider--H8m7A",
+	"sSlider": "color-selector__s-slider--H8m7A",
+	"b-slider": "color-selector__b-slider--2_BDE",
+	"bSlider": "color-selector__b-slider--2_BDE",
+	"confirm-box": "color-selector__confirm-box--2VW_O",
+	"confirmBox": "color-selector__confirm-box--2VW_O"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/mobile/delete-mode/delete-mode.scss":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/sass-loader/dist/cjs.js!./src/components/mobile/delete-mode/delete-mode.scss ***!
+  \***************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".delete-mode__delete-icon--3v4ec.delete-mode__disabled--3imTx {\n  pointer-events: none;\n  opacity: .5; }\n  .theme-light .delete-mode__delete-icon--3v4ec.delete-mode__disabled--3imTx {\n    background-color: #eef6fe; }\n  .theme-dark .delete-mode__delete-icon--3v4ec.delete-mode__disabled--3imTx {\n    background-color: rgba(255, 255, 255, 0.1); }\n\n.theme-light .delete-mode__delete-icon--3v4ec:active {\n  background-color: #1eaaff; }\n\n.theme-dark .delete-mode__delete-icon--3v4ec:active {\n  background-color: #2952AC; }\n\n.delete-mode__delete-icon--3v4ec img {\n  filter: unset !important; }\n\n.delete-mode__delete-icon--3v4ec:active img {\n  filter: brightness(0) invert(1); }\n", ""]);
+// Exports
+exports.locals = {
+	"delete-icon": "delete-mode__delete-icon--3v4ec",
+	"deleteIcon": "delete-mode__delete-icon--3v4ec",
+	"disabled": "delete-mode__disabled--3imTx"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/paint-editor/paint-editor.mobile.scss":
+/*!*****************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/sass-loader/dist/cjs.js!./src/components/paint-editor/paint-editor.mobile.scss ***!
+  \*****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\nhtml,\nbody {\n  margin: 0;\n  width: 100%;\n  height: 100%; }\n\n.paint-editor-mobile__editor-container--3DsUj {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  overflow: hidden;\n  z-index: 9999; }\n  .theme-light .paint-editor-mobile__editor-container--3DsUj {\n    background-color: #eef6fe; }\n  .theme-dark .paint-editor-mobile__editor-container--3DsUj {\n    background-color: #151D45; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__mask--1AVTb {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 3.125rem;\n  left: 0;\n  z-index: 1;\n  background: rgba(0, 0, 0, 0.2); }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  height: 3.125rem;\n  font-size: 1.25rem;\n  font-weight: 500;\n  color: #fff; }\n  .theme-light .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN {\n    background-color: #1eaaff; }\n  .theme-dark .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN {\n    background-color: #19377b; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN .paint-editor-mobile__icon--1vJnk {\n  width: 3.125rem;\n  height: 3.125rem; }\n  .theme-light .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN .paint-editor-mobile__icon--1vJnk {\n    opacity: 1; }\n  .theme-dark .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN .paint-editor-mobile__icon--1vJnk {\n    opacity: 0.8; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN span:last-child {\n  margin-right: .5rem; }\n  .theme-light .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN span:last-child {\n    opacity: 1; }\n  .theme-dark .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN span:last-child {\n    opacity: 0.8; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 {\n  position: relative;\n  width: 100%;\n  height: calc(100vh - 3.125rem); }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF,\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_,\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__canvas-area--FbjFQ {\n  position: relative;\n  height: 100%;\n  overflow: auto;\n  box-sizing: border-box; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__canvas-area--FbjFQ {\n  background-color: #fff; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF,\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ {\n  position: absolute;\n  top: 0; }\n  .theme-light .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF, .theme-light\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ {\n    background-color: #fff; }\n  .theme-dark .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF, .theme-dark\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ {\n    background-color: #20274e; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF::after,\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_::after {\n  position: absolute;\n  content: '';\n  width: 1px;\n  height: 100%;\n  top: 0;\n  transform: scaleX(0.5);\n  transform-origin: 0 0; }\n  .theme-light .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF::after, .theme-light\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_::after {\n    background-color: #B4B7B8; }\n  .theme-dark .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF::after, .theme-dark\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_::after {\n    background-color: transparent; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF {\n  left: 0;\n  width: 12.5rem;\n  padding: .5rem 1.8125rem 2rem 1.8125rem; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF::after {\n  right: 0; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__canvas-area--FbjFQ {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: calc(100% - 12.5rem - 12.5rem);\n  margin-left: 12.5rem;\n  background-color: transparent; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__canvas-area--FbjFQ.paint-editor-mobile__is-draw-color--3VYZl {\n  z-index: 2; }\n\n.paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__canvas-area--FbjFQ .paint-editor-mobile__clone-paper-canvas--3paM_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #fff; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ {\n  right: 0;\n  width: 12.5rem;\n  padding: .5rem 1.4375rem 2.5rem 1.5625rem; }\n\n.paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_::after {\n  left: 0; }\n\n.paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__action-content--5BCJc {\n  position: relative;\n  width: 11.625rem;\n  margin: auto; }\n\n.paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__action-content--5BCJc.paint-editor-mobile__disabled--2X9jr {\n  pointer-events: none;\n  opacity: .5; }\n\n.paint-editor-mobile__right--2sUl_ .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo {\n  width: 100%;\n  margin-top: 2rem; }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__name--3OnOx {\n  max-width: 100%;\n  font-size: 1.25rem;\n  display: block;\n  margin-bottom: .625rem;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis; }\n  .theme-light .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__name--3OnOx {\n    color: #264165; }\n  .theme-dark .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__name--3OnOx {\n    color: rgba(255, 255, 255, 0.6); }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y {\n  width: 9.375rem;\n  height: 2.5rem;\n  opacity: 1 !important;\n  font-size: 1.25rem;\n  border-radius: 2.5rem;\n  box-sizing: border-box;\n  outline: none;\n  overflow: hidden; }\n  .theme-light .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y {\n    color: #264165 !important;\n    -webkit-text-fill-color: #264165 !important;\n    border: 1px solid #BCCCDC;\n    background-color: #fff; }\n  .theme-dark .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y {\n    color: rgba(255, 255, 255, 0.8) !important;\n    -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;\n    border: 1px solid transparent;\n    background-color: rgba(255, 255, 255, 0.08); }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y.paint-editor-mobile__input-value--2wsxH {\n  padding: 0 1rem;\n  overflow: unset; }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__color--3Dxi6 {\n  position: relative;\n  display: inline-block;\n  width: 75%;\n  height: 100%;\n  box-sizing: border-box;\n  border-radius: 2.5rem 0 0 2.5rem;\n  background-color: #fff; }\n  .theme-light .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__color--3Dxi6 {\n    border-right: 1px solid #BCCCDC; }\n  .theme-dark .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__color--3Dxi6 {\n    border-right: 1px solid transparent; }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__color--3Dxi6.paint-editor-mobile__none-color--2ml8m::before {\n  pointer-events: none;\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  box-sizing: border-box;\n  border-top: 2px solid #FC4144;\n  transform-origin: top right;\n  transform: rotateZ(-21deg) scale(1.414); }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__arrow--3ULs0 {\n  display: inline-block;\n  width: 25%;\n  height: 100%;\n  background-color: transparent; }\n\n.paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__arrow--3ULs0 img {\n  width: 100%;\n  height: 100%; }\n  .theme-light .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__arrow--3ULs0 img {\n    filter: unset; }\n  .theme-dark .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__arrow--3ULs0 img {\n    filter: brightness(0) invert(0.8); }\n\n.paint-editor-mobile__right--2sUl_ .paint-editor-mobile__stroke-width-selector--3EMs_ {\n  width: 100%; }\n\n.paint-editor-mobile__right--2sUl_ .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 9.375rem;\n  height: 2rem;\n  margin: auto;\n  border-radius: 1.25rem;\n  margin-top: 2rem;\n  box-sizing: border-box; }\n  .theme-light .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl {\n    background-color: #EEF6FE; }\n  .theme-dark .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl {\n    background-color: rgba(255, 255, 255, 0.8); }\n\n.paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi {\n  width: 6.5625rem;\n  background-color: #264165; }\n\n.paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl.paint-editor-mobile__selected--1jAre {\n  pointer-events: none; }\n  .theme-light .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl.paint-editor-mobile__selected--1jAre {\n    border: 4px solid #4aa6ff;\n    box-shadow: 0px 5px 5px 0px transparent; }\n  .theme-dark .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl.paint-editor-mobile__selected--1jAre {\n    border: 4px solid #2952ac;\n    box-shadow: 0px 5px 5px 0px #151d46; }\n\n.paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line1--hb3Q1 {\n  height: .125rem; }\n\n.paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line2--16Kb7 {\n  height: .25rem; }\n\n.paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line3--jPvHw {\n  height: .375rem; }\n\n.paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line4--1gMnC {\n  height: .5rem; }\n\n.paint-editor-mobile__row--1de9V {\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n\n.paint-editor-mobile__editor-container-top--s_9Gp {\n  border-bottom: 1px dashed #D9D9D9;\n  padding-bottom: calc(2 * 0.25rem); }\n\n.paint-editor-mobile__top-align-row--1E_US {\n  display: flex;\n  padding-top: calc(5 * 0.25rem);\n  flex-direction: row; }\n\n.paint-editor-mobile__row--1de9V + .paint-editor-mobile__row--1de9V {\n  margin-top: calc(2 * 0.25rem); }\n\n[dir=\"ltr\"] .paint-editor-mobile__mod-dashed-border--3OlTZ {\n  border-right: 1px dashed #D9D9D9;\n  padding-right: calc(2 * 0.25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile__mod-dashed-border--3OlTZ {\n  border-left: 1px dashed #D9D9D9;\n  padding-left: calc(2 * 0.25rem); }\n\n.paint-editor-mobile__mod-labeled-icon-height--1mDws {\n  height: 2.85rem;\n  /* for the second row so the dashed borders are equal in size */ }\n\n.paint-editor-mobile__button-group--wT7nh {\n  padding: 0; }\n\n.paint-editor-mobile__button-group-button--17NAh {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  width: 2.75rem;\n  height: 2.75rem;\n  border-radius: 50%;\n  margin-left: 1rem;\n  transition: 0.2s; }\n  .theme-light .paint-editor-mobile__button-group-button--17NAh {\n    background-color: #fff;\n    box-shadow: 0px 2px 2px 0px rgba(181, 184, 185, 0.3); }\n  .theme-dark .paint-editor-mobile__button-group-button--17NAh {\n    background-color: rgba(255, 255, 255, 0.16);\n    box-shadow: 0px 2px 2px 0px transparent; }\n\n.theme-light .paint-editor-mobile__button-group-button--17NAh:active {\n  background-color: #1eaaff; }\n\n.theme-dark .paint-editor-mobile__button-group-button--17NAh:active {\n  background-color: #2952AC; }\n\n.paint-editor-mobile__button-group-button-icon--2EY4x {\n  width: 1.75rem;\n  height: 1.75rem;\n  vertical-align: middle;\n  transition: 0.2s; }\n  .theme-light .paint-editor-mobile__button-group-button-icon--2EY4x {\n    filter: unset; }\n  .theme-dark .paint-editor-mobile__button-group-button-icon--2EY4x {\n    filter: brightness(0) invert(1); }\n\n.paint-editor-mobile__button-group-button-icon--2EY4x:active {\n  filter: brightness(0) invert(1); }\n\n.paint-editor-mobile__mod-mode-tools--2sd1f {\n  margin-left: calc(2 * 0.25rem); }\n\n[dir=\"ltr\"] .paint-editor-mobile__mod-margin-after--3uuGc {\n  margin-right: calc(2 * 0.25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile__mod-margin-after--3uuGc {\n  margin-left: calc(2 * 0.25rem); }\n\n.paint-editor-mobile__canvas-container--2h8uD {\n  position: relative;\n  width: 563px;\n  height: 422px;\n  box-sizing: content-box;\n  border-radius: .25rem;\n  transform: translate3d(0, 0, 0) translateY(-2rem);\n  transition: .2s;\n  box-shadow: 0px 2px 1px 0px rgba(181, 184, 185, 0.21);\n  overflow: visible; }\n\n.paint-editor-mobile__canvas-container--2h8uD.paint-editor-mobile__draw-color--4d0NQ {\n  transform: translate3d(0, 0, 0) translateY(0); }\n\n.paint-editor-mobile__canvas-container--2h8uD .paint-editor-mobile__hidden--o-Pco {\n  visibility: hidden;\n  transform: translate3d(0, 0, 0) translateY(-50rem); }\n\n.paint-editor-mobile__mode-selector--V4X7V {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  align-items: flex-start;\n  align-content: flex-start;\n  justify-content: space-between; }\n\n.paint-editor-mobile__zoom-controls--2qq48 {\n  position: absolute;\n  bottom: -4rem;\n  right: 0;\n  display: flex;\n  flex-direction: row-reverse; }\n\n.paint-editor-mobile__zoom-controls--2qq48.paint-editor-mobile__hide--3EyJM {\n  display: none; }\n\n.paint-editor-mobile__color-picker-wrapper--W9deT {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none; }\n\n.paint-editor-mobile__canvas-controls--25unZ {\n  position: absolute;\n  bottom: 5rem;\n  display: flex;\n  margin-top: .25rem;\n  justify-content: space-between; }\n\n.paint-editor-mobile__bitmap-button--2tSoq {\n  display: flex;\n  border-radius: 5px;\n  background-color: #4C97FF;\n  padding: calc(2 * 0.25rem);\n  line-height: 1.5rem;\n  font-size: calc(3 * 0.25rem);\n  font-weight: bold;\n  color: white;\n  justify-content: center; }\n\n[dir=\"ltr\"] .paint-editor-mobile__bitmap-button-icon--1hECE {\n  margin-right: calc(2 * 0.25rem); }\n\n[dir=\"rtl\"] .paint-editor-mobile__bitmap-button-icon--1hECE {\n  margin-left: calc(2 * 0.25rem); }\n\n.paint-editor-mobile__text-area--pqhb7 {\n  background: transparent;\n  border: none;\n  display: none;\n  margin: 0px;\n  opacity: .8;\n  outline: none;\n  overflow: hidden;\n  padding: 0px;\n  position: absolute;\n  resize: none;\n  -webkit-text-fill-color: transparent;\n  text-fill-color: transparent; }\n\n.paint-editor-mobile__button-text--36xke {\n  width: 100%;\n  /* Fixes button text wrapping in Edge */ }\n\n@media only screen and (max-width: 900px) {\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__mask--1AVTb {\n    top: 2rem; }\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN {\n    height: 2rem;\n    font-size: .75rem; }\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__header--1nRhN .paint-editor-mobile__icon--1vJnk {\n    width: 2rem;\n    height: 2rem; }\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 {\n    height: calc(100vh - 2rem); }\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__left--2xvpF {\n    width: 8rem;\n    padding: .2rem 1rem 1.5rem 1rem; }\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__canvas-area--FbjFQ {\n    width: calc(100% - 8rem - 8rem);\n    margin-left: 8rem; }\n  .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__action-content--5BCJc {\n    width: 6.6rem; }\n  .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo {\n    margin-top: 1rem; }\n  .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__name--3OnOx {\n    font-size: .75rem;\n    margin-bottom: .25rem; }\n  .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y {\n    width: 6rem;\n    height: 1.65rem;\n    font-size: .75rem; }\n  .paint-editor-mobile__action-content--5BCJc .paint-editor-mobile__box--1uaYo .paint-editor-mobile__value--2q40Y .paint-editor-mobile__color--3Dxi6.paint-editor-mobile__none-color--2ml8m::before {\n    border-top: 1px solid #FC4144; }\n  .paint-editor-mobile__editor-container--3DsUj .paint-editor-mobile__paint-area--3Tsg5 .paint-editor-mobile__right--2sUl_ {\n    width: 8rem;\n    padding: .2rem .75rem 1.5rem 1rem; }\n  .paint-editor-mobile__right--2sUl_ .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl {\n    width: 6rem;\n    height: 1.3rem;\n    margin-top: 1rem; }\n  .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi {\n    width: 4rem; }\n  .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line1--hb3Q1 {\n    height: .125rem; }\n  .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line2--16Kb7 {\n    height: .2rem; }\n  .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line3--jPvHw {\n    height: .3rem; }\n  .paint-editor-mobile__stroke-width-selector--3EMs_ .paint-editor-mobile__item--3jEtl .paint-editor-mobile__line--3r5vi.paint-editor-mobile__line4--1gMnC {\n    height: .45rem; }\n  .paint-editor-mobile__canvas-container--2h8uD {\n    width: 366.85px;\n    height: 274.79px;\n    transform: translate3d(0, 0, 0) translateY(-1.5rem); }\n  .paint-editor-mobile__zoom-controls--2qq48 {\n    bottom: -3rem; }\n  .paint-editor-mobile__button-group-button--17NAh {\n    width: 2.3rem;\n    height: 2.3rem; }\n  .paint-editor-mobile__button-group-button-icon--2EY4x {\n    width: 1.5rem;\n    height: 1.5rem; } }\n\n@media (min-height: 1024px) and (min-width: 1366px) {\n  .paint-editor-mobile__canvas-container--2h8uD {\n    width: 844.5px;\n    height: 633px; } }\n", ""]);
+// Exports
+exports.locals = {
+	"editor-container": "paint-editor-mobile__editor-container--3DsUj",
+	"editorContainer": "paint-editor-mobile__editor-container--3DsUj",
+	"mask": "paint-editor-mobile__mask--1AVTb",
+	"header": "paint-editor-mobile__header--1nRhN",
+	"icon": "paint-editor-mobile__icon--1vJnk",
+	"paint-area": "paint-editor-mobile__paint-area--3Tsg5",
+	"paintArea": "paint-editor-mobile__paint-area--3Tsg5",
+	"left": "paint-editor-mobile__left--2xvpF",
+	"right": "paint-editor-mobile__right--2sUl_",
+	"canvas-area": "paint-editor-mobile__canvas-area--FbjFQ",
+	"canvasArea": "paint-editor-mobile__canvas-area--FbjFQ",
+	"is-draw-color": "paint-editor-mobile__is-draw-color--3VYZl",
+	"isDrawColor": "paint-editor-mobile__is-draw-color--3VYZl",
+	"clone-paper-canvas": "paint-editor-mobile__clone-paper-canvas--3paM_",
+	"clonePaperCanvas": "paint-editor-mobile__clone-paper-canvas--3paM_",
+	"action-content": "paint-editor-mobile__action-content--5BCJc",
+	"actionContent": "paint-editor-mobile__action-content--5BCJc",
+	"disabled": "paint-editor-mobile__disabled--2X9jr",
+	"box": "paint-editor-mobile__box--1uaYo",
+	"name": "paint-editor-mobile__name--3OnOx",
+	"value": "paint-editor-mobile__value--2q40Y",
+	"input-value": "paint-editor-mobile__input-value--2wsxH",
+	"inputValue": "paint-editor-mobile__input-value--2wsxH",
+	"color": "paint-editor-mobile__color--3Dxi6",
+	"none-color": "paint-editor-mobile__none-color--2ml8m",
+	"noneColor": "paint-editor-mobile__none-color--2ml8m",
+	"arrow": "paint-editor-mobile__arrow--3ULs0",
+	"stroke-width-selector": "paint-editor-mobile__stroke-width-selector--3EMs_",
+	"strokeWidthSelector": "paint-editor-mobile__stroke-width-selector--3EMs_",
+	"item": "paint-editor-mobile__item--3jEtl",
+	"line": "paint-editor-mobile__line--3r5vi",
+	"selected": "paint-editor-mobile__selected--1jAre",
+	"line1": "paint-editor-mobile__line1--hb3Q1",
+	"line2": "paint-editor-mobile__line2--16Kb7",
+	"line3": "paint-editor-mobile__line3--jPvHw",
+	"line4": "paint-editor-mobile__line4--1gMnC",
+	"row": "paint-editor-mobile__row--1de9V",
+	"editor-container-top": "paint-editor-mobile__editor-container-top--s_9Gp",
+	"editorContainerTop": "paint-editor-mobile__editor-container-top--s_9Gp",
+	"top-align-row": "paint-editor-mobile__top-align-row--1E_US",
+	"topAlignRow": "paint-editor-mobile__top-align-row--1E_US",
+	"mod-dashed-border": "paint-editor-mobile__mod-dashed-border--3OlTZ",
+	"modDashedBorder": "paint-editor-mobile__mod-dashed-border--3OlTZ",
+	"mod-labeled-icon-height": "paint-editor-mobile__mod-labeled-icon-height--1mDws",
+	"modLabeledIconHeight": "paint-editor-mobile__mod-labeled-icon-height--1mDws",
+	"button-group": "paint-editor-mobile__button-group--wT7nh",
+	"buttonGroup": "paint-editor-mobile__button-group--wT7nh",
+	"button-group-button": "paint-editor-mobile__button-group-button--17NAh",
+	"buttonGroupButton": "paint-editor-mobile__button-group-button--17NAh",
+	"button-group-button-icon": "paint-editor-mobile__button-group-button-icon--2EY4x",
+	"buttonGroupButtonIcon": "paint-editor-mobile__button-group-button-icon--2EY4x",
+	"mod-mode-tools": "paint-editor-mobile__mod-mode-tools--2sd1f",
+	"modModeTools": "paint-editor-mobile__mod-mode-tools--2sd1f",
+	"mod-margin-after": "paint-editor-mobile__mod-margin-after--3uuGc",
+	"modMarginAfter": "paint-editor-mobile__mod-margin-after--3uuGc",
+	"canvas-container": "paint-editor-mobile__canvas-container--2h8uD",
+	"canvasContainer": "paint-editor-mobile__canvas-container--2h8uD",
+	"draw-color": "paint-editor-mobile__draw-color--4d0NQ",
+	"drawColor": "paint-editor-mobile__draw-color--4d0NQ",
+	"hidden": "paint-editor-mobile__hidden--o-Pco",
+	"mode-selector": "paint-editor-mobile__mode-selector--V4X7V",
+	"modeSelector": "paint-editor-mobile__mode-selector--V4X7V",
+	"zoom-controls": "paint-editor-mobile__zoom-controls--2qq48",
+	"zoomControls": "paint-editor-mobile__zoom-controls--2qq48",
+	"hide": "paint-editor-mobile__hide--3EyJM",
+	"color-picker-wrapper": "paint-editor-mobile__color-picker-wrapper--W9deT",
+	"colorPickerWrapper": "paint-editor-mobile__color-picker-wrapper--W9deT",
+	"canvas-controls": "paint-editor-mobile__canvas-controls--25unZ",
+	"canvasControls": "paint-editor-mobile__canvas-controls--25unZ",
+	"bitmap-button": "paint-editor-mobile__bitmap-button--2tSoq",
+	"bitmapButton": "paint-editor-mobile__bitmap-button--2tSoq",
+	"bitmap-button-icon": "paint-editor-mobile__bitmap-button-icon--1hECE",
+	"bitmapButtonIcon": "paint-editor-mobile__bitmap-button-icon--1hECE",
+	"text-area": "paint-editor-mobile__text-area--pqhb7",
+	"textArea": "paint-editor-mobile__text-area--pqhb7",
+	"button-text": "paint-editor-mobile__button-text--36xke",
+	"buttonText": "paint-editor-mobile__button-text--36xke"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/tool-select-base/tool-select-base.mobile.scss":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--7-1!./node_modules/sass-loader/dist/cjs.js!./src/components/tool-select-base/tool-select-base.mobile.scss ***!
+  \*************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.\nSee https://github.com/LLK/scratch-paint/issues/13 */\n/* ACTUALLY, THIS IS EDITED ;)\nTHIS WAS CHANGED ON 10/25/2017 BY @mewtaylor TO ADD A VARIABLE FOR THE SMALLEST\nGRID UNITS.\n\nALSO EDITED ON 11/13/2017 TO ADD IN CONTANTS FOR LAYOUT FROM `layout-contents.js`*/\n/* layout contants from `layout-constants.js`, minus 1px */\n.tool-select-base-mobile__mod-tool-select--2RJmU {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 3.5rem;\n  height: 3.5rem;\n  border: none;\n  border-radius: 50%;\n  outline: none;\n  font-size: 0.85rem;\n  transition: 0.2s;\n  margin-top: 2rem; }\n  .theme-light .tool-select-base-mobile__mod-tool-select--2RJmU {\n    background-color: #eef6fe; }\n  .theme-dark .tool-select-base-mobile__mod-tool-select--2RJmU {\n    background-color: rgba(255, 255, 255, 0.16); }\n\n.theme-light .tool-select-base-mobile__mod-tool-select--2RJmU.tool-select-base-mobile__is-selected--1Hkku {\n  background-color: #1eaaff;\n  box-shadow: 0px 2.5px 5px 0px #c4e2ff; }\n\n.theme-dark .tool-select-base-mobile__mod-tool-select--2RJmU.tool-select-base-mobile__is-selected--1Hkku {\n  background-color: #2952AC;\n  box-shadow: 0px 2.5px 5px 0px transparent; }\n\n.tool-select-base-mobile__mod-tool-select--2RJmU:focus {\n  outline: none; }\n\nimg.tool-select-base-mobile__tool-select-icon--1lhin {\n  width: 3.75rem;\n  height: 3.75rem; }\n  .theme-light img.tool-select-base-mobile__tool-select-icon--1lhin {\n    filter: unset; }\n  .theme-dark img.tool-select-base-mobile__tool-select-icon--1lhin {\n    filter: brightness(0) invert(1); }\n\n.tool-select-base-mobile__mod-tool-select--2RJmU.tool-select-base-mobile__is-selected--1Hkku .tool-select-base-mobile__tool-select-icon--1lhin {\n  /* Make the tool icons white while selected by making them black and inverting */\n  filter: brightness(0) invert(1); }\n\n@media only screen and (max-width: 900px) {\n  .tool-select-base-mobile__mod-tool-select--2RJmU {\n    width: 2.3rem;\n    height: 2.3rem;\n    margin-top: 1rem; }\n  img.tool-select-base-mobile__tool-select-icon--1lhin {\n    width: 2.3rem;\n    height: 2.3rem; } }\n", ""]);
+// Exports
+exports.locals = {
+	"mod-tool-select": "tool-select-base-mobile__mod-tool-select--2RJmU",
+	"modToolSelect": "tool-select-base-mobile__mod-tool-select--2RJmU",
+	"is-selected": "tool-select-base-mobile__is-selected--1Hkku",
+	"isSelected": "tool-select-base-mobile__is-selected--1Hkku",
+	"tool-select-icon": "tool-select-base-mobile__tool-select-icon--1lhin",
+	"toolSelectIcon": "tool-select-base-mobile__tool-select-icon--1lhin"
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
 */
 // css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
+// eslint-disable-next-line func-names
+module.exports = function (useSourceMap) {
+  var list = []; // return the list of modules as css string
 
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
 
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
+      if (item[2]) {
+        return "@media ".concat(item[2], "{").concat(content, "}");
+      }
+
+      return content;
+    }).join('');
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery) {
+    if (typeof modules === 'string') {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, '']];
+    }
+
+    var alreadyImportedModules = {};
+
+    for (var i = 0; i < this.length; i++) {
+      // eslint-disable-next-line prefer-destructuring
+      var id = this[i][0];
+
+      if (id != null) {
+        alreadyImportedModules[id] = true;
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = modules[_i]; // skip already imported module
+      // this implementation is not 100% perfect for weird media query combinations
+      // when a module is imported multiple times with different media queries.
+      // I hope this will never occur (Hey this way we have smaller bundles)
+
+      if (item[0] == null || !alreadyImportedModules[item[0]]) {
+        if (mediaQuery && !item[2]) {
+          item[2] = mediaQuery;
+        } else if (mediaQuery) {
+          item[2] = "(".concat(item[2], ") and (").concat(mediaQuery, ")");
+        }
+
+        list.push(item);
+      }
+    }
+  };
+
+  return list;
 };
 
 function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
+  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
 
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
+  var cssMapping = item[3];
 
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
+  if (!cssMapping) {
+    return content;
+  }
 
-	return [content].join('\n');
-}
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot).concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
 
-// Adapted from convert-source-map (MIT)
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
+
+
 function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+  return "/*# ".concat(data, " */");
 }
-
 
 /***/ }),
 
@@ -38091,2222 +38068,20 @@ Portal.propTypes = {
 
 /***/ }),
 
-/***/ "./node_modules/react-draggable/dist/react-draggable.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/react-draggable/dist/react-draggable.js ***!
-  \**************************************************************/
+/***/ "./node_modules/react-draggable/build/web/react-draggable.min.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-draggable/build/web/react-draggable.min.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (global, factory) {
-	 true ? module.exports = factory(__webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! react */ "react")) :
-	undefined;
-}(this, (function (ReactDOM,React) { 'use strict';
-
-	ReactDOM = ReactDOM && ReactDOM.hasOwnProperty('default') ? ReactDOM['default'] : ReactDOM;
-	React = React && React.hasOwnProperty('default') ? React['default'] : React;
-
-	function createCommonjsModule(fn, module) {
-		return module = { exports: {} }, fn(module, module.exports), module.exports;
-	}
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 * 
-	 */
-
-	function makeEmptyFunction(arg) {
-	  return function () {
-	    return arg;
-	  };
-	}
-
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	var emptyFunction = function emptyFunction() {};
-
-	emptyFunction.thatReturns = makeEmptyFunction;
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-	emptyFunction.thatReturnsThis = function () {
-	  return this;
-	};
-	emptyFunction.thatReturnsArgument = function (arg) {
-	  return arg;
-	};
-
-	var emptyFunction_1 = emptyFunction;
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 *
-	 */
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var validateFormat = function validateFormat(format) {};
-
-	{
-	  validateFormat = function validateFormat(format) {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  };
-	}
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  validateFormat(format);
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	}
-
-	var invariant_1 = invariant;
-
-	/**
-	 * Similar to invariant but only logs a warning if the condition is not met.
-	 * This can be used to log issues in development environments in critical
-	 * paths. Removing the logging code for production environments will keep the
-	 * same logic and follow the same code paths.
-	 */
-
-	var warning = emptyFunction_1;
-
-	{
-	  var printWarning = function printWarning(format) {
-	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	      args[_key - 1] = arguments[_key];
-	    }
-
-	    var argIndex = 0;
-	    var message = 'Warning: ' + format.replace(/%s/g, function () {
-	      return args[argIndex++];
-	    });
-	    if (typeof console !== 'undefined') {
-	      console.error(message);
-	    }
-	    try {
-	      // --- Welcome to debugging React ---
-	      // This error was thrown as a convenience so that you can use this stack
-	      // to find the callsite that caused this warning to fire.
-	      throw new Error(message);
-	    } catch (x) {}
-	  };
-
-	  warning = function warning(condition, format) {
-	    if (format === undefined) {
-	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	    }
-
-	    if (format.indexOf('Failed Composite propType: ') === 0) {
-	      return; // Ignore CompositeComponent proptype check.
-	    }
-
-	    if (!condition) {
-	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-	        args[_key2 - 2] = arguments[_key2];
-	      }
-
-	      printWarning.apply(undefined, [format].concat(args));
-	    }
-	  };
-	}
-
-	var warning_1 = warning;
-
-	/*
-	object-assign
-	(c) Sindre Sorhus
-	@license MIT
-	*/
-	/* eslint-disable no-unused-vars */
-	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-
-		return Object(val);
-	}
-
-	function shouldUseNative() {
-		try {
-			if (!Object.assign) {
-				return false;
-			}
-
-			// Detect buggy property enumeration order in older V8 versions.
-
-			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-			test1[5] = 'de';
-			if (Object.getOwnPropertyNames(test1)[0] === '5') {
-				return false;
-			}
-
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test2 = {};
-			for (var i = 0; i < 10; i++) {
-				test2['_' + String.fromCharCode(i)] = i;
-			}
-			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-				return test2[n];
-			});
-			if (order2.join('') !== '0123456789') {
-				return false;
-			}
-
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test3 = {};
-			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-				test3[letter] = letter;
-			});
-			if (Object.keys(Object.assign({}, test3)).join('') !==
-					'abcdefghijklmnopqrst') {
-				return false;
-			}
-
-			return true;
-		} catch (err) {
-			// We don't expect any of the above to throw, but better to be safe.
-			return false;
-		}
-	}
-
-	var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-		var from;
-		var to = toObject(target);
-		var symbols;
-
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments[s]);
-
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
-
-			if (getOwnPropertySymbols) {
-				symbols = getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
-
-		return to;
-	};
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-
-	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-	var ReactPropTypesSecret_1 = ReactPropTypesSecret;
-
-	{
-	  var invariant$1 = invariant_1;
-	  var warning$1 = warning_1;
-	  var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
-	  var loggedTypeFailures = {};
-	}
-
-	/**
-	 * Assert that the values match with the type specs.
-	 * Error messages are memorized and will only be shown once.
-	 *
-	 * @param {object} typeSpecs Map of name to a ReactPropType
-	 * @param {object} values Runtime values that need to be type-checked
-	 * @param {string} location e.g. "prop", "context", "child context"
-	 * @param {string} componentName Name of the component for error messages.
-	 * @param {?Function} getStack Returns the component stack.
-	 * @private
-	 */
-	function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-	  {
-	    for (var typeSpecName in typeSpecs) {
-	      if (typeSpecs.hasOwnProperty(typeSpecName)) {
-	        var error;
-	        // Prop type validation may throw. In case they do, we don't want to
-	        // fail the render phase where it didn't fail before. So we log it.
-	        // After these have been cleaned up, we'll let them throw.
-	        try {
-	          // This is intentionally an invariant that gets caught. It's the same
-	          // behavior as without this statement except with a better message.
-	          invariant$1(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
-	          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret$1);
-	        } catch (ex) {
-	          error = ex;
-	        }
-	        warning$1(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
-	        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-	          // Only monitor this failure once because there tends to be a lot of the
-	          // same error.
-	          loggedTypeFailures[error.message] = true;
-
-	          var stack = getStack ? getStack() : '';
-
-	          warning$1(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
-	        }
-	      }
-	    }
-	  }
-	}
-
-	var checkPropTypes_1 = checkPropTypes;
-
-	var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
-	  /* global Symbol */
-	  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-	  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-	  /**
-	   * Returns the iterator method function contained on the iterable object.
-	   *
-	   * Be sure to invoke the function with the iterable as context:
-	   *
-	   *     var iteratorFn = getIteratorFn(myIterable);
-	   *     if (iteratorFn) {
-	   *       var iterator = iteratorFn.call(myIterable);
-	   *       ...
-	   *     }
-	   *
-	   * @param {?object} maybeIterable
-	   * @return {?function}
-	   */
-	  function getIteratorFn(maybeIterable) {
-	    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-	    if (typeof iteratorFn === 'function') {
-	      return iteratorFn;
-	    }
-	  }
-
-	  /**
-	   * Collection of methods that allow declaration and validation of props that are
-	   * supplied to React components. Example usage:
-	   *
-	   *   var Props = require('ReactPropTypes');
-	   *   var MyArticle = React.createClass({
-	   *     propTypes: {
-	   *       // An optional string prop named "description".
-	   *       description: Props.string,
-	   *
-	   *       // A required enum prop named "category".
-	   *       category: Props.oneOf(['News','Photos']).isRequired,
-	   *
-	   *       // A prop named "dialog" that requires an instance of Dialog.
-	   *       dialog: Props.instanceOf(Dialog).isRequired
-	   *     },
-	   *     render: function() { ... }
-	   *   });
-	   *
-	   * A more formal specification of how these methods are used:
-	   *
-	   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
-	   *   decl := ReactPropTypes.{type}(.isRequired)?
-	   *
-	   * Each and every declaration produces a function with the same signature. This
-	   * allows the creation of custom validation functions. For example:
-	   *
-	   *  var MyLink = React.createClass({
-	   *    propTypes: {
-	   *      // An optional string or URI prop named "href".
-	   *      href: function(props, propName, componentName) {
-	   *        var propValue = props[propName];
-	   *        if (propValue != null && typeof propValue !== 'string' &&
-	   *            !(propValue instanceof URI)) {
-	   *          return new Error(
-	   *            'Expected a string or an URI for ' + propName + ' in ' +
-	   *            componentName
-	   *          );
-	   *        }
-	   *      }
-	   *    },
-	   *    render: function() {...}
-	   *  });
-	   *
-	   * @internal
-	   */
-
-	  var ANONYMOUS = '<<anonymous>>';
-
-	  // Important!
-	  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
-	  var ReactPropTypes = {
-	    array: createPrimitiveTypeChecker('array'),
-	    bool: createPrimitiveTypeChecker('boolean'),
-	    func: createPrimitiveTypeChecker('function'),
-	    number: createPrimitiveTypeChecker('number'),
-	    object: createPrimitiveTypeChecker('object'),
-	    string: createPrimitiveTypeChecker('string'),
-	    symbol: createPrimitiveTypeChecker('symbol'),
-
-	    any: createAnyTypeChecker(),
-	    arrayOf: createArrayOfTypeChecker,
-	    element: createElementTypeChecker(),
-	    instanceOf: createInstanceTypeChecker,
-	    node: createNodeChecker(),
-	    objectOf: createObjectOfTypeChecker,
-	    oneOf: createEnumTypeChecker,
-	    oneOfType: createUnionTypeChecker,
-	    shape: createShapeTypeChecker,
-	    exact: createStrictShapeTypeChecker,
-	  };
-
-	  /**
-	   * inlined Object.is polyfill to avoid requiring consumers ship their own
-	   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-	   */
-	  /*eslint-disable no-self-compare*/
-	  function is(x, y) {
-	    // SameValue algorithm
-	    if (x === y) {
-	      // Steps 1-5, 7-10
-	      // Steps 6.b-6.e: +0 != -0
-	      return x !== 0 || 1 / x === 1 / y;
-	    } else {
-	      // Step 6.a: NaN == NaN
-	      return x !== x && y !== y;
-	    }
-	  }
-	  /*eslint-enable no-self-compare*/
-
-	  /**
-	   * We use an Error-like object for backward compatibility as people may call
-	   * PropTypes directly and inspect their output. However, we don't use real
-	   * Errors anymore. We don't inspect their stack anyway, and creating them
-	   * is prohibitively expensive if they are created too often, such as what
-	   * happens in oneOfType() for any type before the one that matched.
-	   */
-	  function PropTypeError(message) {
-	    this.message = message;
-	    this.stack = '';
-	  }
-	  // Make `instanceof Error` still work for returned errors.
-	  PropTypeError.prototype = Error.prototype;
-
-	  function createChainableTypeChecker(validate) {
-	    {
-	      var manualPropTypeCallCache = {};
-	      var manualPropTypeWarningCount = 0;
-	    }
-	    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-	      componentName = componentName || ANONYMOUS;
-	      propFullName = propFullName || propName;
-
-	      if (secret !== ReactPropTypesSecret_1) {
-	        if (throwOnDirectAccess) {
-	          // New behavior only for users of `prop-types` package
-	          invariant_1(
-	            false,
-	            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-	            'Use `PropTypes.checkPropTypes()` to call them. ' +
-	            'Read more at http://fb.me/use-check-prop-types'
-	          );
-	        } else if ( true && typeof console !== 'undefined') {
-	          // Old behavior for people using React.PropTypes
-	          var cacheKey = componentName + ':' + propName;
-	          if (
-	            !manualPropTypeCallCache[cacheKey] &&
-	            // Avoid spamming the console because they are often not actionable except for lib authors
-	            manualPropTypeWarningCount < 3
-	          ) {
-	            warning_1(
-	              false,
-	              'You are manually calling a React.PropTypes validation ' +
-	              'function for the `%s` prop on `%s`. This is deprecated ' +
-	              'and will throw in the standalone `prop-types` package. ' +
-	              'You may be seeing this warning due to a third-party PropTypes ' +
-	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
-	              propFullName,
-	              componentName
-	            );
-	            manualPropTypeCallCache[cacheKey] = true;
-	            manualPropTypeWarningCount++;
-	          }
-	        }
-	      }
-	      if (props[propName] == null) {
-	        if (isRequired) {
-	          if (props[propName] === null) {
-	            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
-	          }
-	          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
-	        }
-	        return null;
-	      } else {
-	        return validate(props, propName, componentName, location, propFullName);
-	      }
-	    }
-
-	    var chainedCheckType = checkType.bind(null, false);
-	    chainedCheckType.isRequired = checkType.bind(null, true);
-
-	    return chainedCheckType;
-	  }
-
-	  function createPrimitiveTypeChecker(expectedType) {
-	    function validate(props, propName, componentName, location, propFullName, secret) {
-	      var propValue = props[propName];
-	      var propType = getPropType(propValue);
-	      if (propType !== expectedType) {
-	        // `propValue` being instance of, say, date/regexp, pass the 'object'
-	        // check, but we can offer a more precise error message here rather than
-	        // 'of type `object`'.
-	        var preciseType = getPreciseType(propValue);
-
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createAnyTypeChecker() {
-	    return createChainableTypeChecker(emptyFunction_1.thatReturnsNull);
-	  }
-
-	  function createArrayOfTypeChecker(typeChecker) {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      if (typeof typeChecker !== 'function') {
-	        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
-	      }
-	      var propValue = props[propName];
-	      if (!Array.isArray(propValue)) {
-	        var propType = getPropType(propValue);
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
-	      }
-	      for (var i = 0; i < propValue.length; i++) {
-	        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret_1);
-	        if (error instanceof Error) {
-	          return error;
-	        }
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createElementTypeChecker() {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      var propValue = props[propName];
-	      if (!isValidElement(propValue)) {
-	        var propType = getPropType(propValue);
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createInstanceTypeChecker(expectedClass) {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      if (!(props[propName] instanceof expectedClass)) {
-	        var expectedClassName = expectedClass.name || ANONYMOUS;
-	        var actualClassName = getClassName(props[propName]);
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createEnumTypeChecker(expectedValues) {
-	    if (!Array.isArray(expectedValues)) {
-	      warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.');
-	      return emptyFunction_1.thatReturnsNull;
-	    }
-
-	    function validate(props, propName, componentName, location, propFullName) {
-	      var propValue = props[propName];
-	      for (var i = 0; i < expectedValues.length; i++) {
-	        if (is(propValue, expectedValues[i])) {
-	          return null;
-	        }
-	      }
-
-	      var valuesString = JSON.stringify(expectedValues);
-	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createObjectOfTypeChecker(typeChecker) {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      if (typeof typeChecker !== 'function') {
-	        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
-	      }
-	      var propValue = props[propName];
-	      var propType = getPropType(propValue);
-	      if (propType !== 'object') {
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
-	      }
-	      for (var key in propValue) {
-	        if (propValue.hasOwnProperty(key)) {
-	          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
-	          if (error instanceof Error) {
-	            return error;
-	          }
-	        }
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createUnionTypeChecker(arrayOfTypeCheckers) {
-	    if (!Array.isArray(arrayOfTypeCheckers)) {
-	      warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.');
-	      return emptyFunction_1.thatReturnsNull;
-	    }
-
-	    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-	      var checker = arrayOfTypeCheckers[i];
-	      if (typeof checker !== 'function') {
-	        warning_1(
-	          false,
-	          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
-	          'received %s at index %s.',
-	          getPostfixForTypeWarning(checker),
-	          i
-	        );
-	        return emptyFunction_1.thatReturnsNull;
-	      }
-	    }
-
-	    function validate(props, propName, componentName, location, propFullName) {
-	      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-	        var checker = arrayOfTypeCheckers[i];
-	        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret_1) == null) {
-	          return null;
-	        }
-	      }
-
-	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createNodeChecker() {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      if (!isNode(props[propName])) {
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createShapeTypeChecker(shapeTypes) {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      var propValue = props[propName];
-	      var propType = getPropType(propValue);
-	      if (propType !== 'object') {
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-	      }
-	      for (var key in shapeTypes) {
-	        var checker = shapeTypes[key];
-	        if (!checker) {
-	          continue;
-	        }
-	        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
-	        if (error) {
-	          return error;
-	        }
-	      }
-	      return null;
-	    }
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function createStrictShapeTypeChecker(shapeTypes) {
-	    function validate(props, propName, componentName, location, propFullName) {
-	      var propValue = props[propName];
-	      var propType = getPropType(propValue);
-	      if (propType !== 'object') {
-	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-	      }
-	      // We need to check all keys in case some are required but missing from
-	      // props.
-	      var allKeys = objectAssign({}, props[propName], shapeTypes);
-	      for (var key in allKeys) {
-	        var checker = shapeTypes[key];
-	        if (!checker) {
-	          return new PropTypeError(
-	            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
-	            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
-	            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
-	          );
-	        }
-	        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
-	        if (error) {
-	          return error;
-	        }
-	      }
-	      return null;
-	    }
-
-	    return createChainableTypeChecker(validate);
-	  }
-
-	  function isNode(propValue) {
-	    switch (typeof propValue) {
-	      case 'number':
-	      case 'string':
-	      case 'undefined':
-	        return true;
-	      case 'boolean':
-	        return !propValue;
-	      case 'object':
-	        if (Array.isArray(propValue)) {
-	          return propValue.every(isNode);
-	        }
-	        if (propValue === null || isValidElement(propValue)) {
-	          return true;
-	        }
-
-	        var iteratorFn = getIteratorFn(propValue);
-	        if (iteratorFn) {
-	          var iterator = iteratorFn.call(propValue);
-	          var step;
-	          if (iteratorFn !== propValue.entries) {
-	            while (!(step = iterator.next()).done) {
-	              if (!isNode(step.value)) {
-	                return false;
-	              }
-	            }
-	          } else {
-	            // Iterator will provide entry [k,v] tuples rather than values.
-	            while (!(step = iterator.next()).done) {
-	              var entry = step.value;
-	              if (entry) {
-	                if (!isNode(entry[1])) {
-	                  return false;
-	                }
-	              }
-	            }
-	          }
-	        } else {
-	          return false;
-	        }
-
-	        return true;
-	      default:
-	        return false;
-	    }
-	  }
-
-	  function isSymbol(propType, propValue) {
-	    // Native Symbol.
-	    if (propType === 'symbol') {
-	      return true;
-	    }
-
-	    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-	    if (propValue['@@toStringTag'] === 'Symbol') {
-	      return true;
-	    }
-
-	    // Fallback for non-spec compliant Symbols which are polyfilled.
-	    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-	      return true;
-	    }
-
-	    return false;
-	  }
-
-	  // Equivalent of `typeof` but with special handling for array and regexp.
-	  function getPropType(propValue) {
-	    var propType = typeof propValue;
-	    if (Array.isArray(propValue)) {
-	      return 'array';
-	    }
-	    if (propValue instanceof RegExp) {
-	      // Old webkits (at least until Android 4.0) return 'function' rather than
-	      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-	      // passes PropTypes.object.
-	      return 'object';
-	    }
-	    if (isSymbol(propType, propValue)) {
-	      return 'symbol';
-	    }
-	    return propType;
-	  }
-
-	  // This handles more types than `getPropType`. Only used for error messages.
-	  // See `createPrimitiveTypeChecker`.
-	  function getPreciseType(propValue) {
-	    if (typeof propValue === 'undefined' || propValue === null) {
-	      return '' + propValue;
-	    }
-	    var propType = getPropType(propValue);
-	    if (propType === 'object') {
-	      if (propValue instanceof Date) {
-	        return 'date';
-	      } else if (propValue instanceof RegExp) {
-	        return 'regexp';
-	      }
-	    }
-	    return propType;
-	  }
-
-	  // Returns a string that is postfixed to a warning about an invalid type.
-	  // For example, "undefined" or "of type array"
-	  function getPostfixForTypeWarning(value) {
-	    var type = getPreciseType(value);
-	    switch (type) {
-	      case 'array':
-	      case 'object':
-	        return 'an ' + type;
-	      case 'boolean':
-	      case 'date':
-	      case 'regexp':
-	        return 'a ' + type;
-	      default:
-	        return type;
-	    }
-	  }
-
-	  // Returns class name of the object, if any.
-	  function getClassName(propValue) {
-	    if (!propValue.constructor || !propValue.constructor.name) {
-	      return ANONYMOUS;
-	    }
-	    return propValue.constructor.name;
-	  }
-
-	  ReactPropTypes.checkPropTypes = checkPropTypes_1;
-	  ReactPropTypes.PropTypes = ReactPropTypes;
-
-	  return ReactPropTypes;
-	};
-
-	var propTypes = createCommonjsModule(function (module) {
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-
-	{
-	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-	    Symbol.for &&
-	    Symbol.for('react.element')) ||
-	    0xeac7;
-
-	  var isValidElement = function(object) {
-	    return typeof object === 'object' &&
-	      object !== null &&
-	      object.$$typeof === REACT_ELEMENT_TYPE;
-	  };
-
-	  // By explicitly using `prop-types` you are opting into new development behavior.
-	  // http://fb.me/prop-types-in-prod
-	  var throwOnDirectAccess = true;
-	  module.exports = factoryWithTypeCheckers(isValidElement, throwOnDirectAccess);
-	}
-	});
-
-	var classnames = createCommonjsModule(function (module) {
-	/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if ( true && module.exports) {
-			module.exports = classNames;
-		} else if (false) {} else {
-			window.classNames = classNames;
-		}
-	}());
-	});
-
-	// @credits https://gist.github.com/rogozhnikoff/a43cfed27c41e4e68cdc
-	function findInArray(array /*: Array<any> | TouchList*/, callback /*: Function*/) /*: any*/ {
-	  for (var i = 0, length = array.length; i < length; i++) {
-	    if (callback.apply(callback, [array[i], i, array])) return array[i];
-	  }
-	}
-
-	function isFunction(func /*: any*/) /*: boolean*/ {
-	  return typeof func === 'function' || Object.prototype.toString.call(func) === '[object Function]';
-	}
-
-	function isNum(num /*: any*/) /*: boolean*/ {
-	  return typeof num === 'number' && !isNaN(num);
-	}
-
-	function int(a /*: string*/) /*: number*/ {
-	  return parseInt(a, 10);
-	}
-
-	function dontSetMe(props /*: Object*/, propName /*: string*/, componentName /*: string*/) {
-	  if (props[propName]) {
-	    return new Error('Invalid prop ' + propName + ' passed to ' + componentName + ' - do not set this, set it on the child.');
-	  }
-	}
-
-	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
-	function getPrefix() /*: string*/ {
-	  var prop /*: string*/ = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'transform';
-
-	  // Checking specifically for 'window.document' is for pseudo-browser server-side
-	  // environments that define 'window' as the global context.
-	  // E.g. React-rails (see https://github.com/reactjs/react-rails/pull/84)
-	  if (typeof window === 'undefined' || typeof window.document === 'undefined') return '';
-
-	  var style = window.document.documentElement.style;
-
-	  if (prop in style) return '';
-
-	  for (var i = 0; i < prefixes.length; i++) {
-	    if (browserPrefixToKey(prop, prefixes[i]) in style) return prefixes[i];
-	  }
-
-	  return '';
-	}
-
-	function browserPrefixToKey(prop /*: string*/, prefix /*: string*/) /*: string*/ {
-	  return prefix ? '' + prefix + kebabToTitleCase(prop) : prop;
-	}
-
-	function kebabToTitleCase(str /*: string*/) /*: string*/ {
-	  var out = '';
-	  var shouldCapitalize = true;
-	  for (var i = 0; i < str.length; i++) {
-	    if (shouldCapitalize) {
-	      out += str[i].toUpperCase();
-	      shouldCapitalize = false;
-	    } else if (str[i] === '-') {
-	      shouldCapitalize = true;
-	    } else {
-	      out += str[i];
-	    }
-	  }
-	  return out;
-	}
-
-	// Default export is the prefix itself, like 'Moz', 'Webkit', etc
-	// Note that you may have to re-test for certain things; for instance, Chrome 50
-	// can handle unprefixed `transform`, but not unprefixed `user-select`
-	var browserPrefix = getPrefix();
-
-	var classCallCheck = function (instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	};
-
-	var createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];
-	      descriptor.enumerable = descriptor.enumerable || false;
-	      descriptor.configurable = true;
-	      if ("value" in descriptor) descriptor.writable = true;
-	      Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }
-
-	  return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-	    if (staticProps) defineProperties(Constructor, staticProps);
-	    return Constructor;
-	  };
-	}();
-
-	var defineProperty = function (obj, key, value) {
-	  if (key in obj) {
-	    Object.defineProperty(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-
-	  return obj;
-	};
-
-	var _extends = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-
-	  return target;
-	};
-
-	var inherits = function (subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }
-
-	  subClass.prototype = Object.create(superClass && superClass.prototype, {
-	    constructor: {
-	      value: subClass,
-	      enumerable: false,
-	      writable: true,
-	      configurable: true
-	    }
-	  });
-	  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	};
-
-	var possibleConstructorReturn = function (self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }
-
-	  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	};
-
-	var slicedToArray = function () {
-	  function sliceIterator(arr, i) {
-	    var _arr = [];
-	    var _n = true;
-	    var _d = false;
-	    var _e = undefined;
-
-	    try {
-	      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	        _arr.push(_s.value);
-
-	        if (i && _arr.length === i) break;
-	      }
-	    } catch (err) {
-	      _d = true;
-	      _e = err;
-	    } finally {
-	      try {
-	        if (!_n && _i["return"]) _i["return"]();
-	      } finally {
-	        if (_d) throw _e;
-	      }
-	    }
-
-	    return _arr;
-	  }
-
-	  return function (arr, i) {
-	    if (Array.isArray(arr)) {
-	      return arr;
-	    } else if (Symbol.iterator in Object(arr)) {
-	      return sliceIterator(arr, i);
-	    } else {
-	      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-	    }
-	  };
-	}();
-
-	/*:: import type {ControlPosition, PositionOffsetControlPosition, MouseTouchEvent} from './types';*/
-
-
-	var matchesSelectorFunc = '';
-	function matchesSelector(el /*: Node*/, selector /*: string*/) /*: boolean*/ {
-	  if (!matchesSelectorFunc) {
-	    matchesSelectorFunc = findInArray(['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'], function (method) {
-	      // $FlowIgnore: Doesn't think elements are indexable
-	      return isFunction(el[method]);
-	    });
-	  }
-
-	  // Might not be found entirely (not an Element?) - in that case, bail
-	  // $FlowIgnore: Doesn't think elements are indexable
-	  if (!isFunction(el[matchesSelectorFunc])) return false;
-
-	  // $FlowIgnore: Doesn't think elements are indexable
-	  return el[matchesSelectorFunc](selector);
-	}
-
-	// Works up the tree to the draggable itself attempting to match selector.
-	function matchesSelectorAndParentsTo(el /*: Node*/, selector /*: string*/, baseNode /*: Node*/) /*: boolean*/ {
-	  var node = el;
-	  do {
-	    if (matchesSelector(node, selector)) return true;
-	    if (node === baseNode) return false;
-	    node = node.parentNode;
-	  } while (node);
-
-	  return false;
-	}
-
-	function addEvent(el /*: ?Node*/, event /*: string*/, handler /*: Function*/) /*: void*/ {
-	  if (!el) {
-	    return;
-	  }
-	  if (el.attachEvent) {
-	    el.attachEvent('on' + event, handler);
-	  } else if (el.addEventListener) {
-	    el.addEventListener(event, handler, true);
-	  } else {
-	    // $FlowIgnore: Doesn't think elements are indexable
-	    el['on' + event] = handler;
-	  }
-	}
-
-	function removeEvent(el /*: ?Node*/, event /*: string*/, handler /*: Function*/) /*: void*/ {
-	  if (!el) {
-	    return;
-	  }
-	  if (el.detachEvent) {
-	    el.detachEvent('on' + event, handler);
-	  } else if (el.removeEventListener) {
-	    el.removeEventListener(event, handler, true);
-	  } else {
-	    // $FlowIgnore: Doesn't think elements are indexable
-	    el['on' + event] = null;
-	  }
-	}
-
-	function outerHeight(node /*: HTMLElement*/) /*: number*/ {
-	  // This is deliberately excluding margin for our calculations, since we are using
-	  // offsetTop which is including margin. See getBoundPosition
-	  var height = node.clientHeight;
-	  var computedStyle = node.ownerDocument.defaultView.getComputedStyle(node);
-	  height += int(computedStyle.borderTopWidth);
-	  height += int(computedStyle.borderBottomWidth);
-	  return height;
-	}
-
-	function outerWidth(node /*: HTMLElement*/) /*: number*/ {
-	  // This is deliberately excluding margin for our calculations, since we are using
-	  // offsetLeft which is including margin. See getBoundPosition
-	  var width = node.clientWidth;
-	  var computedStyle = node.ownerDocument.defaultView.getComputedStyle(node);
-	  width += int(computedStyle.borderLeftWidth);
-	  width += int(computedStyle.borderRightWidth);
-	  return width;
-	}
-	function innerHeight(node /*: HTMLElement*/) /*: number*/ {
-	  var height = node.clientHeight;
-	  var computedStyle = node.ownerDocument.defaultView.getComputedStyle(node);
-	  height -= int(computedStyle.paddingTop);
-	  height -= int(computedStyle.paddingBottom);
-	  return height;
-	}
-
-	function innerWidth(node /*: HTMLElement*/) /*: number*/ {
-	  var width = node.clientWidth;
-	  var computedStyle = node.ownerDocument.defaultView.getComputedStyle(node);
-	  width -= int(computedStyle.paddingLeft);
-	  width -= int(computedStyle.paddingRight);
-	  return width;
-	}
-
-	// Get from offsetParent
-	function offsetXYFromParent(evt /*: {clientX: number, clientY: number}*/, offsetParent /*: HTMLElement*/) /*: ControlPosition*/ {
-	  var isBody = offsetParent === offsetParent.ownerDocument.body;
-	  var offsetParentRect = isBody ? { left: 0, top: 0 } : offsetParent.getBoundingClientRect();
-
-	  var x = evt.clientX + offsetParent.scrollLeft - offsetParentRect.left;
-	  var y = evt.clientY + offsetParent.scrollTop - offsetParentRect.top;
-
-	  return { x: x, y: y };
-	}
-
-	function createCSSTransform(controlPos /*: ControlPosition*/, positionOffset /*: PositionOffsetControlPosition*/) /*: Object*/ {
-	  var translation = getTranslation(controlPos, positionOffset, 'px');
-	  return defineProperty({}, browserPrefixToKey('transform', browserPrefix), translation);
-	}
-
-	function createSVGTransform(controlPos /*: ControlPosition*/, positionOffset /*: PositionOffsetControlPosition*/) /*: string*/ {
-	  var translation = getTranslation(controlPos, positionOffset, '');
-	  return translation;
-	}
-	function getTranslation(_ref2, positionOffset /*: PositionOffsetControlPosition*/, unitSuffix /*: string*/) /*: string*/ {
-	  var x = _ref2.x,
-	      y = _ref2.y;
-
-	  var translation = 'translate(' + x + unitSuffix + ',' + y + unitSuffix + ')';
-	  if (positionOffset) {
-	    var defaultX = '' + (typeof positionOffset.x === 'string' ? positionOffset.x : positionOffset.x + unitSuffix);
-	    var defaultY = '' + (typeof positionOffset.y === 'string' ? positionOffset.y : positionOffset.y + unitSuffix);
-	    translation = 'translate(' + defaultX + ', ' + defaultY + ')' + translation;
-	  }
-	  return translation;
-	}
-
-	function getTouch(e /*: MouseTouchEvent*/, identifier /*: number*/) /*: ?{clientX: number, clientY: number}*/ {
-	  return e.targetTouches && findInArray(e.targetTouches, function (t) {
-	    return identifier === t.identifier;
-	  }) || e.changedTouches && findInArray(e.changedTouches, function (t) {
-	    return identifier === t.identifier;
-	  });
-	}
-
-	function getTouchIdentifier(e /*: MouseTouchEvent*/) /*: ?number*/ {
-	  if (e.targetTouches && e.targetTouches[0]) return e.targetTouches[0].identifier;
-	  if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].identifier;
-	}
-
-	// User-select Hacks:
-	//
-	// Useful for preventing blue highlights all over everything when dragging.
-
-	// Note we're passing `document` b/c we could be iframed
-	function addUserSelectStyles(doc /*: ?Document*/) {
-	  if (!doc) return;
-	  var styleEl = doc.getElementById('react-draggable-style-el');
-	  if (!styleEl) {
-	    styleEl = doc.createElement('style');
-	    styleEl.type = 'text/css';
-	    styleEl.id = 'react-draggable-style-el';
-	    styleEl.innerHTML = '.react-draggable-transparent-selection *::-moz-selection {all: inherit;}\n';
-	    styleEl.innerHTML += '.react-draggable-transparent-selection *::selection {all: inherit;}\n';
-	    doc.getElementsByTagName('head')[0].appendChild(styleEl);
-	  }
-	  if (doc.body) addClassName(doc.body, 'react-draggable-transparent-selection');
-	}
-
-	function removeUserSelectStyles(doc /*: ?Document*/) {
-	  try {
-	    if (doc && doc.body) removeClassName(doc.body, 'react-draggable-transparent-selection');
-	    // $FlowIgnore: IE
-	    if (doc.selection) {
-	      // $FlowIgnore: IE
-	      doc.selection.empty();
-	    } else {
-	      window.getSelection().removeAllRanges(); // remove selection caused by scroll
-	    }
-	  } catch (e) {
-	    // probably IE
-	  }
-	}
-
-	function styleHacks() /*: Object*/ {
-	  var childStyle /*: Object*/ = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-	  // Workaround IE pointer events; see #51
-	  // https://github.com/mzabriskie/react-draggable/issues/51#issuecomment-103488278
-	  return _extends({
-	    touchAction: 'none'
-	  }, childStyle);
-	}
-
-	function addClassName(el /*: HTMLElement*/, className /*: string*/) {
-	  if (el.classList) {
-	    el.classList.add(className);
-	  } else {
-	    if (!el.className.match(new RegExp('(?:^|\\s)' + className + '(?!\\S)'))) {
-	      el.className += ' ' + className;
-	    }
-	  }
-	}
-
-	function removeClassName(el /*: HTMLElement*/, className /*: string*/) {
-	  if (el.classList) {
-	    el.classList.remove(className);
-	  } else {
-	    el.className = el.className.replace(new RegExp('(?:^|\\s)' + className + '(?!\\S)', 'g'), '');
-	  }
-	}
-
-	/*:: import type Draggable from '../Draggable';*/
-	/*:: import type {Bounds, ControlPosition, DraggableData, MouseTouchEvent} from './types';*/
-	/*:: import type DraggableCore from '../DraggableCore';*/
-
-
-	function getBoundPosition(draggable /*: Draggable*/, x /*: number*/, y /*: number*/) /*: [number, number]*/ {
-	  // If no bounds, short-circuit and move on
-	  if (!draggable.props.bounds) return [x, y];
-
-	  // Clone new bounds
-	  var bounds = draggable.props.bounds;
-
-	  bounds = typeof bounds === 'string' ? bounds : cloneBounds(bounds);
-	  var node = findDOMNode(draggable);
-
-	  if (typeof bounds === 'string') {
-	    var ownerDocument = node.ownerDocument;
-
-	    var ownerWindow = ownerDocument.defaultView;
-	    var boundNode = void 0;
-	    if (bounds === 'parent') {
-	      boundNode = node.parentNode;
-	    } else {
-	      boundNode = ownerDocument.querySelector(bounds);
-	    }
-	    if (!(boundNode instanceof ownerWindow.HTMLElement)) {
-	      throw new Error('Bounds selector "' + bounds + '" could not find an element.');
-	    }
-	    var nodeStyle = ownerWindow.getComputedStyle(node);
-	    var boundNodeStyle = ownerWindow.getComputedStyle(boundNode);
-	    // Compute bounds. This is a pain with padding and offsets but this gets it exactly right.
-	    bounds = {
-	      left: -node.offsetLeft + int(boundNodeStyle.paddingLeft) + int(nodeStyle.marginLeft),
-	      top: -node.offsetTop + int(boundNodeStyle.paddingTop) + int(nodeStyle.marginTop),
-	      right: innerWidth(boundNode) - outerWidth(node) - node.offsetLeft + int(boundNodeStyle.paddingRight) - int(nodeStyle.marginRight),
-	      bottom: innerHeight(boundNode) - outerHeight(node) - node.offsetTop + int(boundNodeStyle.paddingBottom) - int(nodeStyle.marginBottom)
-	    };
-	  }
-
-	  // Keep x and y below right and bottom limits...
-	  if (isNum(bounds.right)) x = Math.min(x, bounds.right);
-	  if (isNum(bounds.bottom)) y = Math.min(y, bounds.bottom);
-
-	  // But above left and top limits.
-	  if (isNum(bounds.left)) x = Math.max(x, bounds.left);
-	  if (isNum(bounds.top)) y = Math.max(y, bounds.top);
-
-	  return [x, y];
-	}
-
-	function snapToGrid(grid /*: [number, number]*/, pendingX /*: number*/, pendingY /*: number*/) /*: [number, number]*/ {
-	  var x = Math.round(pendingX / grid[0]) * grid[0];
-	  var y = Math.round(pendingY / grid[1]) * grid[1];
-	  return [x, y];
-	}
-
-	function canDragX(draggable /*: Draggable*/) /*: boolean*/ {
-	  return draggable.props.axis === 'both' || draggable.props.axis === 'x';
-	}
-
-	function canDragY(draggable /*: Draggable*/) /*: boolean*/ {
-	  return draggable.props.axis === 'both' || draggable.props.axis === 'y';
-	}
-
-	// Get {x, y} positions from event.
-	function getControlPosition(e /*: MouseTouchEvent*/, touchIdentifier /*: ?number*/, draggableCore /*: DraggableCore*/) /*: ?ControlPosition*/ {
-	  var touchObj = typeof touchIdentifier === 'number' ? getTouch(e, touchIdentifier) : null;
-	  if (typeof touchIdentifier === 'number' && !touchObj) return null; // not the right touch
-	  var node = findDOMNode(draggableCore);
-	  // User can provide an offsetParent if desired.
-	  var offsetParent = draggableCore.props.offsetParent || node.offsetParent || node.ownerDocument.body;
-	  return offsetXYFromParent(touchObj || e, offsetParent);
-	}
-
-	// Create an data object exposed by <DraggableCore>'s events
-	function createCoreData(draggable /*: DraggableCore*/, x /*: number*/, y /*: number*/) /*: DraggableData*/ {
-	  var state = draggable.state;
-	  var isStart = !isNum(state.lastX);
-	  var node = findDOMNode(draggable);
-
-	  if (isStart) {
-	    // If this is our first move, use the x and y as last coords.
-	    return {
-	      node: node,
-	      deltaX: 0, deltaY: 0,
-	      lastX: x, lastY: y,
-	      x: x, y: y
-	    };
-	  } else {
-	    // Otherwise calculate proper values.
-	    return {
-	      node: node,
-	      deltaX: x - state.lastX, deltaY: y - state.lastY,
-	      lastX: state.lastX, lastY: state.lastY,
-	      x: x, y: y
-	    };
-	  }
-	}
-
-	// Create an data exposed by <Draggable>'s events
-	function createDraggableData(draggable /*: Draggable*/, coreData /*: DraggableData*/) /*: DraggableData*/ {
-	  var scale = draggable.props.scale;
-	  return {
-	    node: coreData.node,
-	    x: draggable.state.x + coreData.deltaX / scale,
-	    y: draggable.state.y + coreData.deltaY / scale,
-	    deltaX: coreData.deltaX / scale,
-	    deltaY: coreData.deltaY / scale,
-	    lastX: draggable.state.x,
-	    lastY: draggable.state.y
-	  };
-	}
-
-	// A lot faster than stringify/parse
-	function cloneBounds(bounds /*: Bounds*/) /*: Bounds*/ {
-	  return {
-	    left: bounds.left,
-	    top: bounds.top,
-	    right: bounds.right,
-	    bottom: bounds.bottom
-	  };
-	}
-
-	function findDOMNode(draggable /*: Draggable | DraggableCore*/) /*: HTMLElement*/ {
-	  var node = ReactDOM.findDOMNode(draggable);
-	  if (!node) {
-	    throw new Error('<DraggableCore>: Unmounted during event!');
-	  }
-	  // $FlowIgnore we can't assert on HTMLElement due to tests... FIXME
-	  return node;
-	}
-
-	/*eslint no-console:0*/
-	function log() {
-	}
-
-	/*:: import type {EventHandler, MouseTouchEvent} from './utils/types';*/
-
-
-	// Simple abstraction for dragging events names.
-	/*:: import type {Element as ReactElement} from 'react';*/
-	var eventsFor = {
-	  touch: {
-	    start: 'touchstart',
-	    move: 'touchmove',
-	    stop: 'touchend'
-	  },
-	  mouse: {
-	    start: 'mousedown',
-	    move: 'mousemove',
-	    stop: 'mouseup'
-	  }
-	};
-
-	// Default to mouse events.
-	var dragEventFor = eventsFor.mouse;
-
-	/*:: type DraggableCoreState = {
-	  dragging: boolean,
-	  lastX: number,
-	  lastY: number,
-	  touchIdentifier: ?number
-	};*/
-	/*:: export type DraggableBounds = {
-	  left: number,
-	  right: number,
-	  top: number,
-	  bottom: number,
-	};*/
-	/*:: export type DraggableData = {
-	  node: HTMLElement,
-	  x: number, y: number,
-	  deltaX: number, deltaY: number,
-	  lastX: number, lastY: number,
-	};*/
-	/*:: export type DraggableEventHandler = (e: MouseEvent, data: DraggableData) => void;*/
-	/*:: export type ControlPosition = {x: number, y: number};*/
-	/*:: export type PositionOffsetControlPosition = {x: number|string, y: number|string};*/
-
-
-	//
-	// Define <DraggableCore>.
-	//
-	// <DraggableCore> is for advanced usage of <Draggable>. It maintains minimal internal state so it can
-	// work well with libraries that require more control over the element.
-	//
-
-	/*:: export type DraggableCoreProps = {
-	  allowAnyClick: boolean,
-	  cancel: string,
-	  children: ReactElement<any>,
-	  disabled: boolean,
-	  enableUserSelectHack: boolean,
-	  offsetParent: HTMLElement,
-	  grid: [number, number],
-	  handle: string,
-	  onStart: DraggableEventHandler,
-	  onDrag: DraggableEventHandler,
-	  onStop: DraggableEventHandler,
-	  onMouseDown: (e: MouseEvent) => void,
-	};*/
-
-	var DraggableCore = function (_React$Component) {
-	  inherits(DraggableCore, _React$Component);
-
-	  function DraggableCore() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    classCallCheck(this, DraggableCore);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = DraggableCore.__proto__ || Object.getPrototypeOf(DraggableCore)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      dragging: false,
-	      // Used while dragging to determine deltas.
-	      lastX: NaN, lastY: NaN,
-	      touchIdentifier: null
-	    }, _this.handleDragStart = function (e) {
-	      // Make it possible to attach event handlers on top of this one.
-	      _this.props.onMouseDown(e);
-
-	      // Only accept left-clicks.
-	      if (!_this.props.allowAnyClick && typeof e.button === 'number' && e.button !== 0) return false;
-
-	      // Get nodes. Be sure to grab relative document (could be iframed)
-	      var thisNode = ReactDOM.findDOMNode(_this);
-	      if (!thisNode || !thisNode.ownerDocument || !thisNode.ownerDocument.body) {
-	        throw new Error('<DraggableCore> not mounted on DragStart!');
-	      }
-	      var ownerDocument = thisNode.ownerDocument;
-
-	      // Short circuit if handle or cancel prop was provided and selector doesn't match.
-
-	      if (_this.props.disabled || !(e.target instanceof ownerDocument.defaultView.Node) || _this.props.handle && !matchesSelectorAndParentsTo(e.target, _this.props.handle, thisNode) || _this.props.cancel && matchesSelectorAndParentsTo(e.target, _this.props.cancel, thisNode)) {
-	        return;
-	      }
-
-	      // Set touch identifier in component state if this is a touch event. This allows us to
-	      // distinguish between individual touches on multitouch screens by identifying which
-	      // touchpoint was set to this element.
-	      var touchIdentifier = getTouchIdentifier(e);
-	      _this.setState({ touchIdentifier: touchIdentifier });
-
-	      // Get the current drag point from the event. This is used as the offset.
-	      var position = getControlPosition(e, touchIdentifier, _this);
-	      if (position == null) return; // not possible but satisfies flow
-	      var x = position.x,
-	          y = position.y;
-
-	      // Create an event object with all the data parents need to make a decision here.
-
-	      var coreEvent = createCoreData(_this, x, y);
-
-	      // Call event handler. If it returns explicit false, cancel.
-	      log('calling', _this.props.onStart);
-	      var shouldUpdate = _this.props.onStart(e, coreEvent);
-	      if (shouldUpdate === false) return;
-
-	      // Add a style to the body to disable user-select. This prevents text from
-	      // being selected all over the page.
-	      if (_this.props.enableUserSelectHack) addUserSelectStyles(ownerDocument);
-
-	      // Initiate dragging. Set the current x and y as offsets
-	      // so we know how much we've moved during the drag. This allows us
-	      // to drag elements around even if they have been moved, without issue.
-	      _this.setState({
-	        dragging: true,
-
-	        lastX: x,
-	        lastY: y
-	      });
-
-	      // Add events to the document directly so we catch when the user's mouse/touch moves outside of
-	      // this element. We use different events depending on whether or not we have detected that this
-	      // is a touch-capable device.
-	      addEvent(ownerDocument, dragEventFor.move, _this.handleDrag);
-	      addEvent(ownerDocument, dragEventFor.stop, _this.handleDragStop);
-	    }, _this.handleDrag = function (e) {
-
-	      // Prevent scrolling on mobile devices, like ipad/iphone.
-	      if (e.type === 'touchmove') e.preventDefault();
-
-	      // Get the current drag point from the event. This is used as the offset.
-	      var position = getControlPosition(e, _this.state.touchIdentifier, _this);
-	      if (position == null) return;
-	      var x = position.x,
-	          y = position.y;
-
-	      // Snap to grid if prop has been provided
-
-	      if (Array.isArray(_this.props.grid)) {
-	        var _deltaX = x - _this.state.lastX,
-	            _deltaY = y - _this.state.lastY;
-
-	        var _snapToGrid = snapToGrid(_this.props.grid, _deltaX, _deltaY);
-
-	        var _snapToGrid2 = slicedToArray(_snapToGrid, 2);
-
-	        _deltaX = _snapToGrid2[0];
-	        _deltaY = _snapToGrid2[1];
-
-	        if (!_deltaX && !_deltaY) return; // skip useless drag
-	        x = _this.state.lastX + _deltaX, y = _this.state.lastY + _deltaY;
-	      }
-
-	      var coreEvent = createCoreData(_this, x, y);
-
-	      // Call event handler. If it returns explicit false, trigger end.
-	      var shouldUpdate = _this.props.onDrag(e, coreEvent);
-	      if (shouldUpdate === false) {
-	        try {
-	          // $FlowIgnore
-	          _this.handleDragStop(new MouseEvent('mouseup'));
-	        } catch (err) {
-	          // Old browsers
-	          var event = ((document.createEvent('MouseEvents') /*: any*/) /*: MouseTouchEvent*/);
-	          // I see why this insanity was deprecated
-	          // $FlowIgnore
-	          event.initMouseEvent('mouseup', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-	          _this.handleDragStop(event);
-	        }
-	        return;
-	      }
-
-	      _this.setState({
-	        lastX: x,
-	        lastY: y
-	      });
-	    }, _this.handleDragStop = function (e) {
-	      if (!_this.state.dragging) return;
-
-	      var position = getControlPosition(e, _this.state.touchIdentifier, _this);
-	      if (position == null) return;
-	      var x = position.x,
-	          y = position.y;
-
-	      var coreEvent = createCoreData(_this, x, y);
-
-	      var thisNode = ReactDOM.findDOMNode(_this);
-	      if (thisNode) {
-	        // Remove user-select hack
-	        if (_this.props.enableUserSelectHack) removeUserSelectStyles(thisNode.ownerDocument);
-	      }
-
-	      // Reset the el.
-	      _this.setState({
-	        dragging: false,
-	        lastX: NaN,
-	        lastY: NaN
-	      });
-
-	      // Call event handler
-	      _this.props.onStop(e, coreEvent);
-
-	      if (thisNode) {
-	        removeEvent(thisNode.ownerDocument, dragEventFor.move, _this.handleDrag);
-	        removeEvent(thisNode.ownerDocument, dragEventFor.stop, _this.handleDragStop);
-	      }
-	    }, _this.onMouseDown = function (e) {
-	      dragEventFor = eventsFor.mouse; // on touchscreen laptops we could switch back to mouse
-
-	      return _this.handleDragStart(e);
-	    }, _this.onMouseUp = function (e) {
-	      dragEventFor = eventsFor.mouse;
-
-	      return _this.handleDragStop(e);
-	    }, _this.onTouchStart = function (e) {
-	      // We're on a touch device now, so change the event handlers
-	      dragEventFor = eventsFor.touch;
-
-	      return _this.handleDragStart(e);
-	    }, _this.onTouchEnd = function (e) {
-	      // We're on a touch device now, so change the event handlers
-	      dragEventFor = eventsFor.touch;
-
-	      return _this.handleDragStop(e);
-	    }, _temp), possibleConstructorReturn(_this, _ret);
-	  }
-
-	  createClass(DraggableCore, [{
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      // Remove any leftover event handlers. Remove both touch and mouse handlers in case
-	      // some browser quirk caused a touch event to fire during a mouse move, or vice versa.
-	      var thisNode = ReactDOM.findDOMNode(this);
-	      if (thisNode) {
-	        var ownerDocument = thisNode.ownerDocument;
-
-	        removeEvent(ownerDocument, eventsFor.mouse.move, this.handleDrag);
-	        removeEvent(ownerDocument, eventsFor.touch.move, this.handleDrag);
-	        removeEvent(ownerDocument, eventsFor.mouse.stop, this.handleDragStop);
-	        removeEvent(ownerDocument, eventsFor.touch.stop, this.handleDragStop);
-	        if (this.props.enableUserSelectHack) removeUserSelectStyles(ownerDocument);
-	      }
-	    }
-
-	    // Same as onMouseDown (start drag), but now consider this a touch device.
-
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      // Reuse the child provided
-	      // This makes it flexible to use whatever element is wanted (div, ul, etc)
-	      return React.cloneElement(React.Children.only(this.props.children), {
-	        style: styleHacks(this.props.children.props.style),
-
-	        // Note: mouseMove handler is attached to document so it will still function
-	        // when the user drags quickly and leaves the bounds of the element.
-	        onMouseDown: this.onMouseDown,
-	        onTouchStart: this.onTouchStart,
-	        onMouseUp: this.onMouseUp,
-	        onTouchEnd: this.onTouchEnd
-	      });
-	    }
-	  }]);
-	  return DraggableCore;
-	}(React.Component);
-
-	DraggableCore.displayName = 'DraggableCore';
-	DraggableCore.propTypes = {
-	  /**
-	   * `allowAnyClick` allows dragging using any mouse button.
-	   * By default, we only accept the left button.
-	   *
-	   * Defaults to `false`.
-	   */
-	  allowAnyClick: propTypes.bool,
-
-	  /**
-	   * `disabled`, if true, stops the <Draggable> from dragging. All handlers,
-	   * with the exception of `onMouseDown`, will not fire.
-	   */
-	  disabled: propTypes.bool,
-
-	  /**
-	   * By default, we add 'user-select:none' attributes to the document body
-	   * to prevent ugly text selection during drag. If this is causing problems
-	   * for your app, set this to `false`.
-	   */
-	  enableUserSelectHack: propTypes.bool,
-
-	  /**
-	   * `offsetParent`, if set, uses the passed DOM node to compute drag offsets
-	   * instead of using the parent node.
-	   */
-	  offsetParent: function offsetParent(props /*: DraggableCoreProps*/, propName /*: $Keys<DraggableCoreProps>*/) {
-	    if (props[propName] && props[propName].nodeType !== 1) {
-	      throw new Error('Draggable\'s offsetParent must be a DOM Node.');
-	    }
-	  },
-
-	  /**
-	   * `grid` specifies the x and y that dragging should snap to.
-	   */
-	  grid: propTypes.arrayOf(propTypes.number),
-
-	  /**
-	   * `scale` specifies the scale of the area you are dragging inside of. It allows
-	   * the drag deltas to scale correctly with how far zoomed in/out you are.
-	   */
-	  scale: propTypes.number,
-
-	  /**
-	   * `handle` specifies a selector to be used as the handle that initiates drag.
-	   *
-	   * Example:
-	   *
-	   * ```jsx
-	   *   let App = React.createClass({
-	   *       render: function () {
-	   *         return (
-	   *            <Draggable handle=".handle">
-	   *              <div>
-	   *                  <div className="handle">Click me to drag</div>
-	   *                  <div>This is some other content</div>
-	   *              </div>
-	   *           </Draggable>
-	   *         );
-	   *       }
-	   *   });
-	   * ```
-	   */
-	  handle: propTypes.string,
-
-	  /**
-	   * `cancel` specifies a selector to be used to prevent drag initialization.
-	   *
-	   * Example:
-	   *
-	   * ```jsx
-	   *   let App = React.createClass({
-	   *       render: function () {
-	   *           return(
-	   *               <Draggable cancel=".cancel">
-	   *                   <div>
-	   *                     <div className="cancel">You can't drag from here</div>
-	   *                     <div>Dragging here works fine</div>
-	   *                   </div>
-	   *               </Draggable>
-	   *           );
-	   *       }
-	   *   });
-	   * ```
-	   */
-	  cancel: propTypes.string,
-
-	  /**
-	   * Called when dragging starts.
-	   * If this function returns the boolean false, dragging will be canceled.
-	   */
-	  onStart: propTypes.func,
-
-	  /**
-	   * Called while dragging.
-	   * If this function returns the boolean false, dragging will be canceled.
-	   */
-	  onDrag: propTypes.func,
-
-	  /**
-	   * Called when dragging stops.
-	   * If this function returns the boolean false, the drag will remain active.
-	   */
-	  onStop: propTypes.func,
-
-	  /**
-	   * A workaround option which can be passed if onMouseDown needs to be accessed,
-	   * since it'll always be blocked (as there is internal use of onMouseDown)
-	   */
-	  onMouseDown: propTypes.func,
-
-	  /**
-	   * These properties should be defined on the child, not here.
-	   */
-	  className: dontSetMe,
-	  style: dontSetMe,
-	  transform: dontSetMe
-	};
-	DraggableCore.defaultProps = {
-	  allowAnyClick: false, // by default only accept left click
-	  cancel: null,
-	  disabled: false,
-	  enableUserSelectHack: true,
-	  offsetParent: null,
-	  handle: null,
-	  grid: null,
-	  transform: null,
-	  onStart: function onStart() {},
-	  onDrag: function onDrag() {},
-	  onStop: function onStop() {},
-	  onMouseDown: function onMouseDown() {}
-	};
-
-	/*:: import type {DraggableEventHandler} from './utils/types';*/
-	/*:: import type {Element as ReactElement} from 'react';*/
-	/*:: type DraggableState = {
-	  dragging: boolean,
-	  dragged: boolean,
-	  x: number, y: number,
-	  slackX: number, slackY: number,
-	  isElementSVG: boolean
-	};*/
-
-
-	//
-	// Define <Draggable>
-	//
-
-	/*:: export type DraggableProps = {
-	  ...$Exact<DraggableCoreProps>,
-	  axis: 'both' | 'x' | 'y' | 'none',
-	  bounds: DraggableBounds | string | false,
-	  defaultClassName: string,
-	  defaultClassNameDragging: string,
-	  defaultClassNameDragged: string,
-	  defaultPosition: ControlPosition,
-	  positionOffset: PositionOffsetControlPosition,
-	  position: ControlPosition,
-	  scale: number
-	};*/
-
-	var Draggable = function (_React$Component) {
-	  inherits(Draggable, _React$Component);
-
-	  function Draggable(props /*: DraggableProps*/) {
-	    classCallCheck(this, Draggable);
-
-	    var _this = possibleConstructorReturn(this, (Draggable.__proto__ || Object.getPrototypeOf(Draggable)).call(this, props));
-
-	    _this.onDragStart = function (e, coreData) {
-
-	      // Short-circuit if user's callback killed it.
-	      var shouldStart = _this.props.onStart(e, createDraggableData(_this, coreData));
-	      // Kills start event on core as well, so move handlers are never bound.
-	      if (shouldStart === false) return false;
-
-	      _this.setState({ dragging: true, dragged: true });
-	    };
-
-	    _this.onDrag = function (e, coreData) {
-	      if (!_this.state.dragging) return false;
-
-	      var uiData = createDraggableData(_this, coreData);
-
-	      var newState /*: $Shape<DraggableState>*/ = {
-	        x: uiData.x,
-	        y: uiData.y
-	      };
-
-	      // Keep within bounds.
-	      if (_this.props.bounds) {
-	        // Save original x and y.
-	        var _x = newState.x,
-	            _y = newState.y;
-
-	        // Add slack to the values used to calculate bound position. This will ensure that if
-	        // we start removing slack, the element won't react to it right away until it's been
-	        // completely removed.
-
-	        newState.x += _this.state.slackX;
-	        newState.y += _this.state.slackY;
-
-	        // Get bound position. This will ceil/floor the x and y within the boundaries.
-
-	        var _getBoundPosition = getBoundPosition(_this, newState.x, newState.y),
-	            _getBoundPosition2 = slicedToArray(_getBoundPosition, 2),
-	            newStateX = _getBoundPosition2[0],
-	            newStateY = _getBoundPosition2[1];
-
-	        newState.x = newStateX;
-	        newState.y = newStateY;
-
-	        // Recalculate slack by noting how much was shaved by the boundPosition handler.
-	        newState.slackX = _this.state.slackX + (_x - newState.x);
-	        newState.slackY = _this.state.slackY + (_y - newState.y);
-
-	        // Update the event we fire to reflect what really happened after bounds took effect.
-	        uiData.x = newState.x;
-	        uiData.y = newState.y;
-	        uiData.deltaX = newState.x - _this.state.x;
-	        uiData.deltaY = newState.y - _this.state.y;
-	      }
-
-	      // Short-circuit if user's callback killed it.
-	      var shouldUpdate = _this.props.onDrag(e, uiData);
-	      if (shouldUpdate === false) return false;
-
-	      _this.setState(newState);
-	    };
-
-	    _this.onDragStop = function (e, coreData) {
-	      if (!_this.state.dragging) return false;
-
-	      // Short-circuit if user's callback killed it.
-	      var shouldStop = _this.props.onStop(e, createDraggableData(_this, coreData));
-	      if (shouldStop === false) return false;
-
-	      var newState /*: $Shape<DraggableState>*/ = {
-	        dragging: false,
-	        slackX: 0,
-	        slackY: 0
-	      };
-
-	      // If this is a controlled component, the result of this operation will be to
-	      // revert back to the old position. We expect a handler on `onDragStop`, at the least.
-	      var controlled = Boolean(_this.props.position);
-	      if (controlled) {
-	        var _this$props$position = _this.props.position,
-	            _x2 = _this$props$position.x,
-	            _y2 = _this$props$position.y;
-
-	        newState.x = _x2;
-	        newState.y = _y2;
-	      }
-
-	      _this.setState(newState);
-	    };
-
-	    _this.state = {
-	      // Whether or not we are currently dragging.
-	      dragging: false,
-
-	      // Whether or not we have been dragged before.
-	      dragged: false,
-
-	      // Current transform x and y.
-	      x: props.position ? props.position.x : props.defaultPosition.x,
-	      y: props.position ? props.position.y : props.defaultPosition.y,
-
-	      // Used for compensating for out-of-bounds drags
-	      slackX: 0, slackY: 0,
-
-	      // Can only determine if SVG after mounting
-	      isElementSVG: false
-	    };
-
-	    if (props.position && !(props.onDrag || props.onStop)) {
-	      // eslint-disable-next-line no-console
-	      console.warn('A `position` was applied to this <Draggable>, without drag handlers. This will make this ' + 'component effectively undraggable. Please attach `onDrag` or `onStop` handlers so you can adjust the ' + '`position` of this element.');
-	    }
-	    return _this;
-	  }
-
-	  createClass(Draggable, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // Check to see if the element passed is an instanceof SVGElement
-	      if (typeof window.SVGElement !== 'undefined' && ReactDOM.findDOMNode(this) instanceof window.SVGElement) {
-	        this.setState({ isElementSVG: true });
-	      }
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps /*: Object*/) {
-	      // Set x/y if position has changed
-	      if (nextProps.position && (!this.props.position || nextProps.position.x !== this.props.position.x || nextProps.position.y !== this.props.position.y)) {
-	        this.setState({ x: nextProps.position.x, y: nextProps.position.y });
-	      }
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      this.setState({ dragging: false }); // prevents invariant if unmounted while dragging
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() /*: ReactElement<any>*/ {
-	      var _classNames;
-
-	      var style = {},
-	          svgTransform = null;
-
-	      // If this is controlled, we don't want to move it - unless it's dragging.
-	      var controlled = Boolean(this.props.position);
-	      var draggable = !controlled || this.state.dragging;
-
-	      var position = this.props.position || this.props.defaultPosition;
-	      var transformOpts = {
-	        // Set left if horizontal drag is enabled
-	        x: canDragX(this) && draggable ? this.state.x : position.x,
-
-	        // Set top if vertical drag is enabled
-	        y: canDragY(this) && draggable ? this.state.y : position.y
-	      };
-
-	      // If this element was SVG, we use the `transform` attribute.
-	      if (this.state.isElementSVG) {
-	        svgTransform = createSVGTransform(transformOpts, this.props.positionOffset);
-	      } else {
-	        // Add a CSS transform to move the element around. This allows us to move the element around
-	        // without worrying about whether or not it is relatively or absolutely positioned.
-	        // If the item you are dragging already has a transform set, wrap it in a <span> so <Draggable>
-	        // has a clean slate.
-	        style = createCSSTransform(transformOpts, this.props.positionOffset);
-	      }
-
-	      var _props = this.props,
-	          defaultClassName = _props.defaultClassName,
-	          defaultClassNameDragging = _props.defaultClassNameDragging,
-	          defaultClassNameDragged = _props.defaultClassNameDragged;
-
-
-	      var children = React.Children.only(this.props.children);
-
-	      // Mark with class while dragging
-	      var className = classnames(children.props.className || '', defaultClassName, (_classNames = {}, defineProperty(_classNames, defaultClassNameDragging, this.state.dragging), defineProperty(_classNames, defaultClassNameDragged, this.state.dragged), _classNames));
-
-	      // Reuse the child provided
-	      // This makes it flexible to use whatever element is wanted (div, ul, etc)
-	      return React.createElement(
-	        DraggableCore,
-	        _extends({}, this.props, { onStart: this.onDragStart, onDrag: this.onDrag, onStop: this.onDragStop }),
-	        React.cloneElement(children, {
-	          className: className,
-	          style: _extends({}, children.props.style, style),
-	          transform: svgTransform
-	        })
-	      );
-	    }
-	  }]);
-	  return Draggable;
-	}(React.Component);
-
-	Draggable.displayName = 'Draggable';
-	Draggable.propTypes = _extends({}, DraggableCore.propTypes, {
-
-	  /**
-	   * `axis` determines which axis the draggable can move.
-	   *
-	   *  Note that all callbacks will still return data as normal. This only
-	   *  controls flushing to the DOM.
-	   *
-	   * 'both' allows movement horizontally and vertically.
-	   * 'x' limits movement to horizontal axis.
-	   * 'y' limits movement to vertical axis.
-	   * 'none' limits all movement.
-	   *
-	   * Defaults to 'both'.
-	   */
-	  axis: propTypes.oneOf(['both', 'x', 'y', 'none']),
-
-	  /**
-	   * `bounds` determines the range of movement available to the element.
-	   * Available values are:
-	   *
-	   * 'parent' restricts movement within the Draggable's parent node.
-	   *
-	   * Alternatively, pass an object with the following properties, all of which are optional:
-	   *
-	   * {left: LEFT_BOUND, right: RIGHT_BOUND, bottom: BOTTOM_BOUND, top: TOP_BOUND}
-	   *
-	   * All values are in px.
-	   *
-	   * Example:
-	   *
-	   * ```jsx
-	   *   let App = React.createClass({
-	   *       render: function () {
-	   *         return (
-	   *            <Draggable bounds={{right: 300, bottom: 300}}>
-	   *              <div>Content</div>
-	   *           </Draggable>
-	   *         );
-	   *       }
-	   *   });
-	   * ```
-	   */
-	  bounds: propTypes.oneOfType([propTypes.shape({
-	    left: propTypes.number,
-	    right: propTypes.number,
-	    top: propTypes.number,
-	    bottom: propTypes.number
-	  }), propTypes.string, propTypes.oneOf([false])]),
-
-	  defaultClassName: propTypes.string,
-	  defaultClassNameDragging: propTypes.string,
-	  defaultClassNameDragged: propTypes.string,
-
-	  /**
-	   * `defaultPosition` specifies the x and y that the dragged item should start at
-	   *
-	   * Example:
-	   *
-	   * ```jsx
-	   *      let App = React.createClass({
-	   *          render: function () {
-	   *              return (
-	   *                  <Draggable defaultPosition={{x: 25, y: 25}}>
-	   *                      <div>I start with transformX: 25px and transformY: 25px;</div>
-	   *                  </Draggable>
-	   *              );
-	   *          }
-	   *      });
-	   * ```
-	   */
-	  defaultPosition: propTypes.shape({
-	    x: propTypes.number,
-	    y: propTypes.number
-	  }),
-	  positionOffset: propTypes.shape({
-	    x: propTypes.oneOfType([propTypes.number, propTypes.string]),
-	    y: propTypes.oneOfType([propTypes.number, propTypes.string])
-	  }),
-
-	  /**
-	   * `position`, if present, defines the current position of the element.
-	   *
-	   *  This is similar to how form elements in React work - if no `position` is supplied, the component
-	   *  is uncontrolled.
-	   *
-	   * Example:
-	   *
-	   * ```jsx
-	   *      let App = React.createClass({
-	   *          render: function () {
-	   *              return (
-	   *                  <Draggable position={{x: 25, y: 25}}>
-	   *                      <div>I start with transformX: 25px and transformY: 25px;</div>
-	   *                  </Draggable>
-	   *              );
-	   *          }
-	   *      });
-	   * ```
-	   */
-	  position: propTypes.shape({
-	    x: propTypes.number,
-	    y: propTypes.number
-	  }),
-
-	  /**
-	   * These properties should be defined on the child, not here.
-	   */
-	  className: dontSetMe,
-	  style: dontSetMe,
-	  transform: dontSetMe
-	});
-	Draggable.defaultProps = _extends({}, DraggableCore.defaultProps, {
-	  axis: 'both',
-	  bounds: false,
-	  defaultClassName: 'react-draggable',
-	  defaultClassNameDragging: 'react-draggable-dragging',
-	  defaultClassNameDragged: 'react-draggable-dragged',
-	  defaultPosition: { x: 0, y: 0 },
-	  position: null,
-	  scale: 1
-	});
-
-	// Previous versions of this lib exported <Draggable> as the root export. As to not break
-	// them, or TypeScript, we export *both* as the root and as 'default'.
-	// See https://github.com/mzabriskie/react-draggable/pull/254
-	// and https://github.com/mzabriskie/react-draggable/issues/266
-	Draggable.default = Draggable;
-	Draggable.DraggableCore = DraggableCore;
-
-	return Draggable;
-
-})));
-//# sourceMappingURL=react-draggable.js.map
-
+!function(t,e){ true?module.exports=e(__webpack_require__(/*! react */ "react"),__webpack_require__(/*! react-dom */ "react-dom")):undefined}(window,function(t,e){return function(t){var e={};function n(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(r,o,function(e){return t[e]}.bind(null,o));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=4)}([function(t,e,n){t.exports=n(5)()},function(e,n){e.exports=t},function(t,n){t.exports=e},function(t,e,n){var r;
+/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/!function(){"use strict";var n={}.hasOwnProperty;function o(){for(var t=[],e=0;e<arguments.length;e++){var r=arguments[e];if(r){var a=typeof r;if("string"===a||"number"===a)t.push(r);else if(Array.isArray(r)&&r.length){var i=o.apply(null,r);i&&t.push(i)}else if("object"===a)for(var s in r)n.call(r,s)&&r[s]&&t.push(s)}}return t.join(" ")}t.exports?(o.default=o,t.exports=o):void 0===(r=function(){return o}.apply(e,[]))||(t.exports=r)}()},function(t,e,n){var r=n(7),o=r.default,a=r.DraggableCore;t.exports=o,t.exports.default=o,t.exports.DraggableCore=a},function(t,e,n){"use strict";var r=n(6);function o(){}function a(){}a.resetWarningCache=o,t.exports=function(){function t(t,e,n,o,a,i){if(i!==r){var s=new Error("Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types");throw s.name="Invariant Violation",s}}function e(){return t}t.isRequired=t;var n={array:t,bool:t,func:t,number:t,object:t,string:t,symbol:t,any:t,arrayOf:e,element:t,elementType:t,instanceOf:e,node:t,objectOf:e,oneOf:e,oneOfType:e,shape:e,exact:e,checkPropTypes:a,resetWarningCache:o};return n.PropTypes=n,n}},function(t,e,n){"use strict";t.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},function(t,e,n){"use strict";n.r(e);var r=n(1),o=n.n(r),a=n(0),i=n.n(a),s=n(2),u=n.n(s),c=n(3),l=n.n(c);function f(t,e){for(var n=0,r=t.length;n<r;n++)if(e.apply(e,[t[n],n,t]))return t[n]}function p(t){return"function"==typeof t||"[object Function]"===Object.prototype.toString.call(t)}function d(t){return"number"==typeof t&&!isNaN(t)}function g(t){return parseInt(t,10)}function y(t,e,n){if(t[e])return new Error("Invalid prop ".concat(e," passed to ").concat(n," - do not set this, set it on the child."))}var h=["Moz","Webkit","O","ms"];function b(t,e){return e?"".concat(e).concat(function(t){for(var e="",n=!0,r=0;r<t.length;r++)n?(e+=t[r].toUpperCase(),n=!1):"-"===t[r]?n=!0:e+=t[r];return e}(t)):t}var m=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"transform";if("undefined"==typeof window||void 0===window.document)return"";var e=window.document.documentElement.style;if(t in e)return"";for(var n=0;n<h.length;n++)if(b(t,h[n])in e)return h[n];return""}();function v(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(t);e&&(r=r.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),n.push.apply(n,r)}return n}function w(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}var O="";function S(t,e){return O||(O=f(["matches","webkitMatchesSelector","mozMatchesSelector","msMatchesSelector","oMatchesSelector"],function(e){return p(t[e])})),!!p(t[O])&&t[O](e)}function D(t,e,n){var r=t;do{if(S(r,e))return!0;if(r===n)return!1;r=r.parentNode}while(r);return!1}function x(t,e,n){t&&(t.attachEvent?t.attachEvent("on"+e,n):t.addEventListener?t.addEventListener(e,n,!0):t["on"+e]=n)}function P(t,e,n){t&&(t.detachEvent?t.detachEvent("on"+e,n):t.removeEventListener?t.removeEventListener(e,n,!0):t["on"+e]=null)}function j(t){var e=t.clientHeight,n=t.ownerDocument.defaultView.getComputedStyle(t);return e+=g(n.borderTopWidth),e+=g(n.borderBottomWidth)}function E(t){var e=t.clientWidth,n=t.ownerDocument.defaultView.getComputedStyle(t);return e+=g(n.borderLeftWidth),e+=g(n.borderRightWidth)}function T(t){var e=t.clientHeight,n=t.ownerDocument.defaultView.getComputedStyle(t);return e-=g(n.paddingTop),e-=g(n.paddingBottom)}function N(t){var e=t.clientWidth,n=t.ownerDocument.defaultView.getComputedStyle(t);return e-=g(n.paddingLeft),e-=g(n.paddingRight)}function C(t,e,n){var r=t.x,o=t.y,a="translate(".concat(r).concat(n,",").concat(o).concat(n,")");if(e){var i="".concat("string"==typeof e.x?e.x:e.x+n),s="".concat("string"==typeof e.y?e.y:e.y+n);a="translate(".concat(i,", ").concat(s,")")+a}return a}function M(t){if(t){var e,n,r=t.getElementById("react-draggable-style-el");r||((r=t.createElement("style")).type="text/css",r.id="react-draggable-style-el",r.innerHTML=".react-draggable-transparent-selection *::-moz-selection {all: inherit;}\n",r.innerHTML+=".react-draggable-transparent-selection *::selection {all: inherit;}\n",t.getElementsByTagName("head")[0].appendChild(r)),t.body&&(e=t.body,n="react-draggable-transparent-selection",e.classList?e.classList.add(n):e.className.match(new RegExp("(?:^|\\s)".concat(n,"(?!\\S)")))||(e.className+=" ".concat(n)))}}function k(t){try{t&&t.body&&(e=t.body,n="react-draggable-transparent-selection",e.classList?e.classList.remove(n):e.className=e.className.replace(new RegExp("(?:^|\\s)".concat(n,"(?!\\S)"),"g"),"")),t.selection?t.selection.empty():window.getSelection().removeAllRanges()}catch(t){}var e,n}function _(){return function(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?v(n,!0).forEach(function(e){w(t,e,n[e])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):v(n).forEach(function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))})}return t}({touchAction:"none"},arguments.length>0&&void 0!==arguments[0]?arguments[0]:{})}function X(t){return"both"===t.props.axis||"x"===t.props.axis}function Y(t){return"both"===t.props.axis||"y"===t.props.axis}function L(t,e,n){var r="number"==typeof e?function(t,e){return t.targetTouches&&f(t.targetTouches,function(t){return e===t.identifier})||t.changedTouches&&f(t.changedTouches,function(t){return e===t.identifier})}(t,e):null;if("number"==typeof e&&!r)return null;var o=I(n);return function(t,e,n){var r=e===e.ownerDocument.body?{left:0,top:0}:e.getBoundingClientRect();return{x:(t.clientX+e.scrollLeft-r.left)/n,y:(t.clientY+e.scrollTop-r.top)/n}}(r||t,n.props.offsetParent||o.offsetParent||o.ownerDocument.body,n.props.scale)}function R(t,e,n){var r=t.state,o=!d(r.lastX),a=I(t);return o?{node:a,deltaX:0,deltaY:0,lastX:e,lastY:n,x:e,y:n}:{node:a,deltaX:e-r.lastX,deltaY:n-r.lastY,lastX:r.lastX,lastY:r.lastY,x:e,y:n}}function A(t,e){var n=t.props.scale;return{node:e.node,x:t.state.x+e.deltaX/n,y:t.state.y+e.deltaY/n,deltaX:e.deltaX/n,deltaY:e.deltaY/n,lastX:t.state.x,lastY:t.state.y}}function I(t){var e=u.a.findDOMNode(t);if(!e)throw new Error("<DraggableCore>: Unmounted during event!");return e}function U(t){return(U="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function V(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var n=[],r=!0,o=!1,a=void 0;try{for(var i,s=t[Symbol.iterator]();!(r=(i=s.next()).done)&&(n.push(i.value),!e||n.length!==e);r=!0);}catch(t){o=!0,a=t}finally{try{r||null==s.return||s.return()}finally{if(o)throw a}}return n}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}()}function W(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}function B(t){return(B=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}function H(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function q(t,e){return(q=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function G(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}var z={touch:{start:"touchstart",move:"touchmove",stop:"touchend"},mouse:{start:"mousedown",move:"mousemove",stop:"mouseup"}},F=z.mouse,J=function(t){function e(){var t,n,r,o;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,e);for(var a=arguments.length,i=new Array(a),s=0;s<a;s++)i[s]=arguments[s];return r=this,o=(t=B(e)).call.apply(t,[this].concat(i)),n=!o||"object"!==U(o)&&"function"!=typeof o?H(r):o,G(H(n),"state",{dragging:!1,lastX:NaN,lastY:NaN,touchIdentifier:null}),G(H(n),"handleDragStart",function(t){if(n.props.onMouseDown(t),!n.props.allowAnyClick&&"number"==typeof t.button&&0!==t.button)return!1;var e=u.a.findDOMNode(H(n));if(!e||!e.ownerDocument||!e.ownerDocument.body)throw new Error("<DraggableCore> not mounted on DragStart!");var r=e.ownerDocument;if(!(n.props.disabled||!(t.target instanceof r.defaultView.Node)||n.props.handle&&!D(t.target,n.props.handle,e)||n.props.cancel&&D(t.target,n.props.cancel,e))){var o=function(t){return t.targetTouches&&t.targetTouches[0]?t.targetTouches[0].identifier:t.changedTouches&&t.changedTouches[0]?t.changedTouches[0].identifier:void 0}(t);n.setState({touchIdentifier:o});var a=L(t,o,H(n));if(null!=a){var i=a.x,s=a.y,c=R(H(n),i,s);n.props.onStart,!1!==n.props.onStart(t,c)&&(n.props.enableUserSelectHack&&M(r),n.setState({dragging:!0,lastX:i,lastY:s}),x(r,F.move,n.handleDrag),x(r,F.stop,n.handleDragStop))}}}),G(H(n),"handleDrag",function(t){"touchmove"===t.type&&t.preventDefault();var e=L(t,n.state.touchIdentifier,H(n));if(null!=e){var r,o,a,i=e.x,s=e.y;if(Array.isArray(n.props.grid)){var u=i-n.state.lastX,c=s-n.state.lastY,l=V((r=n.props.grid,o=u,a=c,[Math.round(o/r[0])*r[0],Math.round(a/r[1])*r[1]]),2);if(u=l[0],c=l[1],!u&&!c)return;i=n.state.lastX+u,s=n.state.lastY+c}var f=R(H(n),i,s);if(!1!==n.props.onDrag(t,f))n.setState({lastX:i,lastY:s});else try{n.handleDragStop(new MouseEvent("mouseup"))}catch(t){var p=document.createEvent("MouseEvents");p.initMouseEvent("mouseup",!0,!0,window,0,0,0,0,0,!1,!1,!1,!1,0,null),n.handleDragStop(p)}}}),G(H(n),"handleDragStop",function(t){if(n.state.dragging){var e=L(t,n.state.touchIdentifier,H(n));if(null!=e){var r=e.x,o=e.y,a=R(H(n),r,o),i=u.a.findDOMNode(H(n));i&&n.props.enableUserSelectHack&&k(i.ownerDocument),n.setState({dragging:!1,lastX:NaN,lastY:NaN}),n.props.onStop(t,a),i&&(P(i.ownerDocument,F.move,n.handleDrag),P(i.ownerDocument,F.stop,n.handleDragStop))}}}),G(H(n),"onMouseDown",function(t){return F=z.mouse,n.handleDragStart(t)}),G(H(n),"onMouseUp",function(t){return F=z.mouse,n.handleDragStop(t)}),G(H(n),"onTouchStart",function(t){return F=z.touch,n.handleDragStart(t)}),G(H(n),"onTouchEnd",function(t){return F=z.touch,n.handleDragStop(t)}),n}var n,r,a;return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&q(t,e)}(e,o.a.Component),n=e,(r=[{key:"componentWillUnmount",value:function(){var t=u.a.findDOMNode(this);if(t){var e=t.ownerDocument;P(e,z.mouse.move,this.handleDrag),P(e,z.touch.move,this.handleDrag),P(e,z.mouse.stop,this.handleDragStop),P(e,z.touch.stop,this.handleDragStop),this.props.enableUserSelectHack&&k(e)}}},{key:"render",value:function(){return o.a.cloneElement(o.a.Children.only(this.props.children),{style:_(this.props.children.props.style),onMouseDown:this.onMouseDown,onTouchStart:this.onTouchStart,onMouseUp:this.onMouseUp,onTouchEnd:this.onTouchEnd})}}])&&W(n.prototype,r),a&&W(n,a),e}();function K(t){return(K="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function Q(){return(Q=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(t[r]=n[r])}return t}).apply(this,arguments)}function Z(t,e){if(null==t)return{};var n,r,o=function(t,e){if(null==t)return{};var n,r,o={},a=Object.keys(t);for(r=0;r<a.length;r++)n=a[r],e.indexOf(n)>=0||(o[n]=t[n]);return o}(t,e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(t);for(r=0;r<a.length;r++)n=a[r],e.indexOf(n)>=0||Object.prototype.propertyIsEnumerable.call(t,n)&&(o[n]=t[n])}return o}function $(t,e){return function(t){if(Array.isArray(t))return t}(t)||function(t,e){var n=[],r=!0,o=!1,a=void 0;try{for(var i,s=t[Symbol.iterator]();!(r=(i=s.next()).done)&&(n.push(i.value),!e||n.length!==e);r=!0);}catch(t){o=!0,a=t}finally{try{r||null==s.return||s.return()}finally{if(o)throw a}}return n}(t,e)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}()}function tt(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(t);e&&(r=r.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),n.push.apply(n,r)}return n}function et(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?tt(n,!0).forEach(function(e){st(t,e,n[e])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):tt(n).forEach(function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))})}return t}function nt(t){return(nt=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}function rt(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function ot(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}function at(t,e,n){return e&&ot(t.prototype,e),n&&ot(t,n),t}function it(t,e){return(it=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function st(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}G(J,"displayName","DraggableCore"),G(J,"propTypes",{allowAnyClick:i.a.bool,disabled:i.a.bool,enableUserSelectHack:i.a.bool,offsetParent:function(t,e){if(t[e]&&1!==t[e].nodeType)throw new Error("Draggable's offsetParent must be a DOM Node.")},grid:i.a.arrayOf(i.a.number),handle:i.a.string,cancel:i.a.string,onStart:i.a.func,onDrag:i.a.func,onStop:i.a.func,onMouseDown:i.a.func,scale:i.a.number,className:y,style:y,transform:y}),G(J,"defaultProps",{allowAnyClick:!1,cancel:null,disabled:!1,enableUserSelectHack:!0,offsetParent:null,handle:null,grid:null,transform:null,onStart:function(){},onDrag:function(){},onStop:function(){},onMouseDown:function(){},scale:1}),n.d(e,"default",function(){return ut}),n.d(e,"DraggableCore",function(){return J});var ut=function(t){function e(t){var n,r,o;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,e),r=this,o=nt(e).call(this,t),n=!o||"object"!==K(o)&&"function"!=typeof o?rt(r):o,st(rt(n),"onDragStart",function(t,e){if(!1===n.props.onStart(t,A(rt(n),e)))return!1;n.setState({dragging:!0,dragged:!0})}),st(rt(n),"onDrag",function(t,e){if(!n.state.dragging)return!1;var r=A(rt(n),e),o={x:r.x,y:r.y};if(n.props.bounds){var a=o.x,i=o.y;o.x+=n.state.slackX,o.y+=n.state.slackY;var s=$(function(t,e,n){if(!t.props.bounds)return[e,n];var r=t.props.bounds;r="string"==typeof r?r:function(t){return{left:t.left,top:t.top,right:t.right,bottom:t.bottom}}(r);var o=I(t);if("string"==typeof r){var a,i=o.ownerDocument,s=i.defaultView;if(!((a="parent"===r?o.parentNode:i.querySelector(r))instanceof s.HTMLElement))throw new Error('Bounds selector "'+r+'" could not find an element.');var u=s.getComputedStyle(o),c=s.getComputedStyle(a);r={left:-o.offsetLeft+g(c.paddingLeft)+g(u.marginLeft),top:-o.offsetTop+g(c.paddingTop)+g(u.marginTop),right:N(a)-E(o)-o.offsetLeft+g(c.paddingRight)-g(u.marginRight),bottom:T(a)-j(o)-o.offsetTop+g(c.paddingBottom)-g(u.marginBottom)}}return d(r.right)&&(e=Math.min(e,r.right)),d(r.bottom)&&(n=Math.min(n,r.bottom)),d(r.left)&&(e=Math.max(e,r.left)),d(r.top)&&(n=Math.max(n,r.top)),[e,n]}(rt(n),o.x,o.y),2),u=s[0],c=s[1];o.x=u,o.y=c,o.slackX=n.state.slackX+(a-o.x),o.slackY=n.state.slackY+(i-o.y),r.x=o.x,r.y=o.y,r.deltaX=o.x-n.state.x,r.deltaY=o.y-n.state.y}if(!1===n.props.onDrag(t,r))return!1;n.setState(o)}),st(rt(n),"onDragStop",function(t,e){if(!n.state.dragging)return!1;if(!1===n.props.onStop(t,A(rt(n),e)))return!1;var r={dragging:!1,slackX:0,slackY:0};if(Boolean(n.props.position)){var o=n.props.position,a=o.x,i=o.y;r.x=a,r.y=i}n.setState(r)}),n.state={dragging:!1,dragged:!1,x:t.position?t.position.x:t.defaultPosition.x,y:t.position?t.position.y:t.defaultPosition.y,prevPropsPosition:et({},t.position),slackX:0,slackY:0,isElementSVG:!1},!t.position||t.onDrag||t.onStop||console.warn("A `position` was applied to this <Draggable>, without drag handlers. This will make this component effectively undraggable. Please attach `onDrag` or `onStop` handlers so you can adjust the `position` of this element."),n}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&it(t,e)}(e,o.a.Component),at(e,null,[{key:"getDerivedStateFromProps",value:function(t,e){var n=t.position,r=e.prevPropsPosition;return!n||r&&n.x===r.x&&n.y===r.y?null:{x:n.x,y:n.y,prevPropsPosition:et({},n)}}}]),at(e,[{key:"componentDidMount",value:function(){void 0!==window.SVGElement&&u.a.findDOMNode(this)instanceof window.SVGElement&&this.setState({isElementSVG:!0})}},{key:"componentWillUnmount",value:function(){this.setState({dragging:!1})}},{key:"render",value:function(){var t,e=this.props,n=(e.axis,e.bounds,e.children),r=e.defaultPosition,a=e.defaultClassName,i=e.defaultClassNameDragging,s=e.defaultClassNameDragged,u=e.position,c=e.positionOffset,f=(e.scale,Z(e,["axis","bounds","children","defaultPosition","defaultClassName","defaultClassNameDragging","defaultClassNameDragged","position","positionOffset","scale"])),p={},d=null,g=!Boolean(u)||this.state.dragging,y=u||r,h={x:X(this)&&g?this.state.x:y.x,y:Y(this)&&g?this.state.y:y.y};this.state.isElementSVG?d=function(t,e){return C(t,e,"")}(h,c):p=function(t,e){var n=C(t,e,"px");return w({},b("transform",m),n)}(h,c);var v=l()(n.props.className||"",a,(st(t={},i,this.state.dragging),st(t,s,this.state.dragged),t));return o.a.createElement(J,Q({},f,{onStart:this.onDragStart,onDrag:this.onDrag,onStop:this.onDragStop}),o.a.cloneElement(o.a.Children.only(n),{className:v,style:et({},n.props.style,{},p),transform:d}))}}]),e}();st(ut,"displayName","Draggable"),st(ut,"propTypes",et({},J.propTypes,{axis:i.a.oneOf(["both","x","y","none"]),bounds:i.a.oneOfType([i.a.shape({left:i.a.number,right:i.a.number,top:i.a.number,bottom:i.a.number}),i.a.string,i.a.oneOf([!1])]),defaultClassName:i.a.string,defaultClassNameDragging:i.a.string,defaultClassNameDragged:i.a.string,defaultPosition:i.a.shape({x:i.a.number,y:i.a.number}),positionOffset:i.a.shape({x:i.a.oneOfType([i.a.number,i.a.string]),y:i.a.oneOfType([i.a.number,i.a.string])}),position:i.a.shape({x:i.a.number,y:i.a.number}),className:y,style:y,transform:y})),st(ut,"defaultProps",et({},J.defaultProps,{axis:"both",bounds:!1,defaultClassName:"react-draggable",defaultClassNameDragging:"react-draggable-dragging",defaultClassNameDragged:"react-draggable-dragged",defaultPosition:{x:0,y:0},position:null,scale:1}))}])});
+//# sourceMappingURL=react-draggable.min.js.map
 
 /***/ }),
 
@@ -42096,510 +39871,283 @@ module.exports = function shallowEqual(objA, objB, compare, compareContext) {
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/lib/addStyles.js":
-/*!****************************************************!*\
-  !*** ./node_modules/style-loader/lib/addStyles.js ***!
-  \****************************************************/
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
+"use strict";
 
-var stylesInDom = {};
 
-var	memoize = function (fn) {
-	var memo;
+var isOldIE = function isOldIE() {
+  var memo;
+  return function memorize() {
+    if (typeof memo === 'undefined') {
+      // Test for IE <= 9 as proposed by Browserhacks
+      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+      // Tests for existence of standard globals is to allow style-loader
+      // to operate correctly into non-standard environments
+      // @see https://github.com/webpack-contrib/style-loader/issues/177
+      memo = Boolean(window && document && document.all && !window.atob);
+    }
 
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
+    return memo;
+  };
+}();
 
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
+var getTarget = function getTarget() {
+  var memo = {};
+  return function memorize(target) {
+    if (typeof memo[target] === 'undefined') {
+      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
 
-var getTarget = function (target, parent) {
-  if (parent){
-    return parent.querySelector(target);
+      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+        try {
+          // This will throw an exception if access to iframe is blocked
+          // due to cross-origin restrictions
+          styleTarget = styleTarget.contentDocument.head;
+        } catch (e) {
+          // istanbul ignore next
+          styleTarget = null;
+        }
+      }
+
+      memo[target] = styleTarget;
+    }
+
+    return memo[target];
+  };
+}();
+
+var stylesInDom = [];
+
+function getIndexByIdentifier(identifier) {
+  var result = -1;
+
+  for (var i = 0; i < stylesInDom.length; i++) {
+    if (stylesInDom[i].identifier === identifier) {
+      result = i;
+      break;
+    }
   }
-  return document.querySelector(target);
-};
 
-var getElement = (function (fn) {
-	var memo = {};
+  return result;
+}
 
-	return function(target, parent) {
-                // If passing function in options, then use it for resolve "head" element.
-                // Useful for Shadow Root style i.e
-                // {
-                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
-                // }
-                if (typeof target === 'function') {
-                        return target();
-                }
-                if (typeof memo[target] === "undefined") {
-			var styleTarget = getTarget.call(this, target, parent);
-			// Special case to return head of iframe instead of iframe itself
-			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-				try {
-					// This will throw an exception if access to iframe is blocked
-					// due to cross-origin restrictions
-					styleTarget = styleTarget.contentDocument.head;
-				} catch(e) {
-					styleTarget = null;
-				}
-			}
-			memo[target] = styleTarget;
-		}
-		return memo[target]
-	};
-})();
+function modulesToDom(list, options) {
+  var idCountMap = {};
+  var identifiers = [];
+
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var count = idCountMap[id] || 0;
+    var identifier = "".concat(id, " ").concat(count);
+    idCountMap[id] = count + 1;
+    var index = getIndexByIdentifier(identifier);
+    var obj = {
+      css: item[1],
+      media: item[2],
+      sourceMap: item[3]
+    };
+
+    if (index !== -1) {
+      stylesInDom[index].references++;
+      stylesInDom[index].updater(obj);
+    } else {
+      stylesInDom.push({
+        identifier: identifier,
+        updater: addStyle(obj, options),
+        references: 1
+      });
+    }
+
+    identifiers.push(identifier);
+  }
+
+  return identifiers;
+}
+
+function insertStyleElement(options) {
+  var style = document.createElement('style');
+  var attributes = options.attributes || {};
+
+  if (typeof attributes.nonce === 'undefined') {
+    var nonce =  true ? __webpack_require__.nc : undefined;
+
+    if (nonce) {
+      attributes.nonce = nonce;
+    }
+  }
+
+  Object.keys(attributes).forEach(function (key) {
+    style.setAttribute(key, attributes[key]);
+  });
+
+  if (typeof options.insert === 'function') {
+    options.insert(style);
+  } else {
+    var target = getTarget(options.insert || 'head');
+
+    if (!target) {
+      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+    }
+
+    target.appendChild(style);
+  }
+
+  return style;
+}
+
+function removeStyleElement(style) {
+  // istanbul ignore if
+  if (style.parentNode === null) {
+    return false;
+  }
+
+  style.parentNode.removeChild(style);
+}
+/* istanbul ignore next  */
+
+
+var replaceText = function replaceText() {
+  var textStore = [];
+  return function replace(index, replacement) {
+    textStore[index] = replacement;
+    return textStore.filter(Boolean).join('\n');
+  };
+}();
+
+function applyToSingletonTag(style, index, remove, obj) {
+  var css = remove ? '' : obj.media ? "@media ".concat(obj.media, " {").concat(obj.css, "}") : obj.css; // For old IE
+
+  /* istanbul ignore if  */
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = replaceText(index, css);
+  } else {
+    var cssNode = document.createTextNode(css);
+    var childNodes = style.childNodes;
+
+    if (childNodes[index]) {
+      style.removeChild(childNodes[index]);
+    }
+
+    if (childNodes.length) {
+      style.insertBefore(cssNode, childNodes[index]);
+    } else {
+      style.appendChild(cssNode);
+    }
+  }
+}
+
+function applyToTag(style, options, obj) {
+  var css = obj.css;
+  var media = obj.media;
+  var sourceMap = obj.sourceMap;
+
+  if (media) {
+    style.setAttribute('media', media);
+  } else {
+    style.removeAttribute('media');
+  }
+
+  if (sourceMap && btoa) {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  } // For old IE
+
+  /* istanbul ignore if  */
+
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    while (style.firstChild) {
+      style.removeChild(style.firstChild);
+    }
+
+    style.appendChild(document.createTextNode(css));
+  }
+}
 
 var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
-
-var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
-
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
-
-	options = options || {};
-
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
-
-	// By default, add <style> tags to the <head> element
-        if (!options.insertInto) options.insertInto = "head";
-
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
-
-	var styles = listToStyles(list, options);
-
-	addStylesToDom(styles, options);
-
-	return function update (newList) {
-		var mayRemove = [];
-
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
-
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
-};
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
-}
-
-function listToStyles (list, options) {
-	var styles = [];
-	var newStyles = {};
-
-	for (var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = options.base ? item[0] + options.base : item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-
-		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
-		else newStyles[id].parts.push(part);
-	}
-
-	return styles;
-}
-
-function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
-
-	if (!target) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-
-	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-	if (options.insertAt === "top") {
-		if (!lastStyleElementInsertedAtTop) {
-			target.insertBefore(style, target.firstChild);
-		} else if (lastStyleElementInsertedAtTop.nextSibling) {
-			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			target.appendChild(style);
-		}
-		stylesInsertedAtTop.push(style);
-	} else if (options.insertAt === "bottom") {
-		target.appendChild(style);
-	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
-		var nextSibling = getElement(options.insertAt.before, target);
-		target.insertBefore(style, nextSibling);
-	} else {
-		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
-	}
-}
-
-function removeStyleElement (style) {
-	if (style.parentNode === null) return false;
-	style.parentNode.removeChild(style);
-
-	var idx = stylesInsertedAtTop.indexOf(style);
-	if(idx >= 0) {
-		stylesInsertedAtTop.splice(idx, 1);
-	}
-}
-
-function createStyleElement (options) {
-	var style = document.createElement("style");
-
-	if(options.attrs.type === undefined) {
-		options.attrs.type = "text/css";
-	}
-
-	if(options.attrs.nonce === undefined) {
-		var nonce = getNonce();
-		if (nonce) {
-			options.attrs.nonce = nonce;
-		}
-	}
-
-	addAttrs(style, options.attrs);
-	insertStyleElement(options, style);
-
-	return style;
-}
-
-function createLinkElement (options) {
-	var link = document.createElement("link");
-
-	if(options.attrs.type === undefined) {
-		options.attrs.type = "text/css";
-	}
-	options.attrs.rel = "stylesheet";
-
-	addAttrs(link, options.attrs);
-	insertStyleElement(options, link);
-
-	return link;
-}
-
-function addAttrs (el, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		el.setAttribute(key, attrs[key]);
-	});
-}
-
-function getNonce() {
-	if (false) {}
-
-	return __webpack_require__.nc;
-}
-
-function addStyle (obj, options) {
-	var style, update, remove, result;
-
-	// If a transform function was defined, run it on the css
-	if (options.transform && obj.css) {
-	    result = options.transform(obj.css);
-
-	    if (result) {
-	    	// If transform returns a value, use that instead of the original css.
-	    	// This allows running runtime transformations on the css.
-	    	obj.css = result;
-	    } else {
-	    	// If the transform function returns a falsy value, don't add this css.
-	    	// This allows conditional loading of css
-	    	return function() {
-	    		// noop
-	    	};
-	    }
-	}
-
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-
-		style = singleton || (singleton = createStyleElement(options));
-
-		update = applyToSingletonTag.bind(null, style, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-
-	} else if (
-		obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function"
-	) {
-		style = createLinkElement(options);
-		update = updateLink.bind(null, style, options);
-		remove = function () {
-			removeStyleElement(style);
-
-			if(style.href) URL.revokeObjectURL(style.href);
-		};
-	} else {
-		style = createStyleElement(options);
-		update = applyToTag.bind(null, style);
-		remove = function () {
-			removeStyleElement(style);
-		};
-	}
-
-	update(obj);
-
-	return function updateStyle (newObj) {
-		if (newObj) {
-			if (
-				newObj.css === obj.css &&
-				newObj.media === obj.media &&
-				newObj.sourceMap === obj.sourceMap
-			) {
-				return;
-			}
-
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
-}
-
-var replaceText = (function () {
-	var textStore = [];
-
-	return function (index, replacement) {
-		textStore[index] = replacement;
-
-		return textStore.filter(Boolean).join('\n');
-	};
-})();
-
-function applyToSingletonTag (style, index, remove, obj) {
-	var css = remove ? "" : obj.css;
-
-	if (style.styleSheet) {
-		style.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = style.childNodes;
-
-		if (childNodes[index]) style.removeChild(childNodes[index]);
-
-		if (childNodes.length) {
-			style.insertBefore(cssNode, childNodes[index]);
-		} else {
-			style.appendChild(cssNode);
-		}
-	}
-}
-
-function applyToTag (style, obj) {
-	var css = obj.css;
-	var media = obj.media;
-
-	if(media) {
-		style.setAttribute("media", media)
-	}
-
-	if(style.styleSheet) {
-		style.styleSheet.cssText = css;
-	} else {
-		while(style.firstChild) {
-			style.removeChild(style.firstChild);
-		}
-
-		style.appendChild(document.createTextNode(css));
-	}
-}
-
-function updateLink (link, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
-
-	/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-	if (options.convertToAbsoluteUrls || autoFixUrls) {
-		css = fixUrls(css);
-	}
-
-	if (sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
-
-	var blob = new Blob([css], { type: "text/css" });
-
-	var oldSrc = link.href;
-
-	link.href = URL.createObjectURL(blob);
-
-	if(oldSrc) URL.revokeObjectURL(oldSrc);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/lib/urls.js":
-/*!***********************************************!*\
-  !*** ./node_modules/style-loader/lib/urls.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-/**
- * When source maps are enabled, `style-loader` uses a link element with a data-uri to
- * embed the css on the page. This breaks all relative urls because now they are relative to a
- * bundle instead of the current page.
- *
- * One solution is to only use full urls, but that may be impossible.
- *
- * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
- *
- * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
- *
- */
-
-module.exports = function (css) {
-  // get current location
-  var location = typeof window !== "undefined" && window.location;
-
-  if (!location) {
-    throw new Error("fixUrls requires window.location");
+var singletonCounter = 0;
+
+function addStyle(obj, options) {
+  var style;
+  var update;
+  var remove;
+
+  if (options.singleton) {
+    var styleIndex = singletonCounter++;
+    style = singleton || (singleton = insertStyleElement(options));
+    update = applyToSingletonTag.bind(null, style, styleIndex, false);
+    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+  } else {
+    style = insertStyleElement(options);
+    update = applyToTag.bind(null, style, options);
+
+    remove = function remove() {
+      removeStyleElement(style);
+    };
   }
 
-	// blank or null?
-	if (!css || typeof css !== "string") {
-	  return css;
+  update(obj);
+  return function updateStyle(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
+        return;
+      }
+
+      update(obj = newObj);
+    } else {
+      remove();
+    }
+  };
+}
+
+module.exports = function (list, options) {
+  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+  // tags it will allow on a page
+
+  if (!options.singleton && typeof options.singleton !== 'boolean') {
+    options.singleton = isOldIE();
   }
 
-  var baseUrl = location.protocol + "//" + location.host;
-  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+  list = list || [];
+  var lastIdentifiers = modulesToDom(list, options);
+  return function update(newList) {
+    newList = newList || [];
 
-	// convert each url(...)
-	/*
-	This regular expression is just a way to recursively match brackets within
-	a string.
+    if (Object.prototype.toString.call(newList) !== '[object Array]') {
+      return;
+    }
 
-	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-	   (  = Start a capturing group
-	     (?:  = Start a non-capturing group
-	         [^)(]  = Match anything that isn't a parentheses
-	         |  = OR
-	         \(  = Match a start parentheses
-	             (?:  = Start another non-capturing groups
-	                 [^)(]+  = Match anything that isn't a parentheses
-	                 |  = OR
-	                 \(  = Match a start parentheses
-	                     [^)(]*  = Match anything that isn't a parentheses
-	                 \)  = Match a end parentheses
-	             )  = End Group
-              *\) = Match anything and then a close parens
-          )  = Close non-capturing group
-          *  = Match anything
-       )  = Close capturing group
-	 \)  = Match a close parens
+    for (var i = 0; i < lastIdentifiers.length; i++) {
+      var identifier = lastIdentifiers[i];
+      var index = getIndexByIdentifier(identifier);
+      stylesInDom[index].references--;
+    }
 
-	 /gi  = Get all matches, not the first.  Be case insensitive.
-	 */
-	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
-		// strip quotes (if they exist)
-		var unquotedOrigUrl = origUrl
-			.trim()
-			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
-			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+    var newLastIdentifiers = modulesToDom(newList, options);
 
-		// already a full url? no change
-		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
-		  return fullMatch;
-		}
+    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+      var _identifier = lastIdentifiers[_i];
 
-		// convert the url to a full url
-		var newUrl;
+      var _index = getIndexByIdentifier(_identifier);
 
-		if (unquotedOrigUrl.indexOf("//") === 0) {
-		  	//TODO: should we add protocol?
-			newUrl = unquotedOrigUrl;
-		} else if (unquotedOrigUrl.indexOf("/") === 0) {
-			// path should be relative to the base url
-			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-		} else {
-			// path should be relative to current directory
-			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-		}
+      if (stylesInDom[_index].references === 0) {
+        stylesInDom[_index].updater();
 
-		// send back the fixed url(...)
-		return "url(" + JSON.stringify(newUrl) + ")";
-	});
+        stylesInDom.splice(_index, 1);
+      }
+    }
 
-	// send back the fixed css
-	return fixedCss;
+    lastIdentifiers = newLastIdentifiers;
+  };
 };
-
 
 /***/ }),
 
@@ -43418,26 +40966,27 @@ exports.default = BrushModeComponent;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./button-group.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button-group/button-group.css");
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./button-group.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button-group/button-group.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -43497,26 +41046,27 @@ exports.default = ButtonGroup;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./button.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button/button.css");
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./button.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/button/button.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -43781,36 +41331,6 @@ exports.default = FillModeComponent;
 
 /***/ }),
 
-/***/ "./src/components/fixed-tools/fixed-tools.mobile.css":
-/*!***********************************************************!*\
-  !*** ./src/components/fixed-tools/fixed-tools.mobile.css ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./fixed-tools.mobile.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/fixed-tools/fixed-tools.mobile.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/components/fixed-tools/fixed-tools.mobile.jsx":
 /*!***********************************************************!*\
   !*** ./src/components/fixed-tools/fixed-tools.mobile.jsx ***!
@@ -43857,7 +41377,7 @@ var _inputGroup = __webpack_require__(/*! ../input-group/input-group.jsx */ "./s
 
 var _inputGroup2 = _interopRequireDefault(_inputGroup);
 
-var _fixedToolsMobile = __webpack_require__(/*! ./fixed-tools.mobile.css */ "./src/components/fixed-tools/fixed-tools.mobile.css");
+var _fixedToolsMobile = __webpack_require__(/*! ./fixed-tools.mobile.scss */ "./src/components/fixed-tools/fixed-tools.mobile.scss");
 
 var _fixedToolsMobile2 = _interopRequireDefault(_fixedToolsMobile);
 
@@ -44023,6 +41543,37 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)((0, _reactIntl.injec
 
 /***/ }),
 
+/***/ "./src/components/fixed-tools/fixed-tools.mobile.scss":
+/*!************************************************************!*\
+  !*** ./src/components/fixed-tools/fixed-tools.mobile.scss ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/sass-loader/dist/cjs.js!./fixed-tools.mobile.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/fixed-tools/fixed-tools.mobile.scss");
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
+
+
+
+module.exports = exported;
+
+/***/ }),
+
 /***/ "./src/components/fixed-tools/icons/redo-mobile.svg":
 /*!**********************************************************!*\
   !*** ./src/components/fixed-tools/icons/redo-mobile.svg ***!
@@ -44052,26 +41603,27 @@ module.exports = "data:image/svg+xml,%3C?xml version='1.0' encoding='UTF-8'?%3E 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./input-group.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/input-group/input-group.css");
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./input-group.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/input-group/input-group.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -44198,26 +41750,27 @@ exports.default = LineModeComponent;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./loupe.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/loupe/loupe.css");
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./loupe.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/loupe/loupe.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -44342,6 +41895,11 @@ var LoupeComponent = function (_React$Component) {
         key: 'setCanvas',
         value: function setCanvas(element) {
             this.canvas = element;
+            // Make sure to draw a frame when this component is first mounted
+            // Check for null ref because refs are called with null when unmounted
+            if (this.canvas) {
+                this.draw();
+            }
         }
     }, {
         key: 'render',
@@ -44392,26 +41950,27 @@ exports.default = LoupeComponent;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/postcss-loader/src??postcss!./color-picker-box.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/color-selector/color-picker-box.css");
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/postcss-loader/src??postcss!./color-picker-box.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/color-selector/color-picker-box.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -44435,7 +41994,7 @@ var _react = __webpack_require__(/*! react */ "react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDraggable = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/dist/react-draggable.js");
+var _reactDraggable = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/build/web/react-draggable.min.js");
 
 var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
 
@@ -44578,17 +42137,25 @@ var ColorPickerBox = function (_Component) {
         key: 'getImagePositionRGB',
         value: function getImagePositionRGB() {
             if (!this.ringEle || !this.stageCanvasCtx) return null;
+            // 针对一些异形屏幕的偏移量，比如 iPhone XR 等
+            var padding = {
+                left: 0,
+                right: 0,
+                bottom: 0,
+                top: 0
+            };
+            if (window.AppGlobals && window.AppGlobals.getAppConfig) {
+                padding = window.AppGlobals.getAppConfig().padding;
+            }
             var _props = this.props,
-                parent = _props.parent,
                 paintAreaEle = _props.paintAreaEle,
                 headerArea = _props.headerArea,
                 canvasArea = _props.canvasArea,
                 leftArea = _props.leftArea,
-                rightArea = _props.rightArea,
                 canvas = _props.canvas;
 
             var ringCrt = this.ringEle.getBoundingClientRect();
-            var imagePixelX = Math.ceil(ringCrt.left - leftArea.offsetWidth - (canvasArea.offsetWidth - canvas.offsetWidth) / 2 + this.ringEle.offsetWidth / 2 - 1);
+            var imagePixelX = Math.ceil(ringCrt.left - leftArea.offsetWidth - (canvasArea.offsetWidth - canvas.offsetWidth) / 2 + this.ringEle.offsetWidth / 2 - 1) - padding.left;
             var imagePixelY = Math.ceil(ringCrt.top - (paintAreaEle.offsetHeight - canvas.offsetHeight) / 2 - headerArea.offsetHeight + this.ringEle.offsetHeight / 2 - 1);
             var pixel = this.stageCanvasCtx.getImageData(imagePixelX * 2, imagePixelY * 2, 1, 1);
             var data = pixel.data;
@@ -44717,36 +42284,6 @@ exports.default = ColorPickerBox;
 
 /***/ }),
 
-/***/ "./src/components/mobile/color-selector/color-selector.css":
-/*!*****************************************************************!*\
-  !*** ./src/components/mobile/color-selector/color-selector.css ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/postcss-loader/src??postcss!./color-selector.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/color-selector/color-selector.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/components/mobile/color-selector/color-selector.jsx":
 /*!*****************************************************************!*\
   !*** ./src/components/mobile/color-selector/color-selector.jsx ***!
@@ -44775,7 +42312,7 @@ var _rcSlider = __webpack_require__(/*! rc-slider */ "./node_modules/rc-slider/e
 
 var _rcSlider2 = _interopRequireDefault(_rcSlider);
 
-var _colorSelector = __webpack_require__(/*! ./color-selector.css */ "./src/components/mobile/color-selector/color-selector.css");
+var _colorSelector = __webpack_require__(/*! ./color-selector.scss */ "./src/components/mobile/color-selector/color-selector.scss");
 
 var _colorSelector2 = _interopRequireDefault(_colorSelector);
 
@@ -44811,9 +42348,9 @@ var commonRailStyle = {
 };
 var handleStyle = {
     position: 'absolute',
-    marginLeft: '-10px',
-    width: '40px',
-    height: '40px',
+    marginLeft: 0,
+    width: '30px',
+    height: '30px',
     backgroundColor: '#fff',
     borderRadius: '50%',
     border: 'solid 4px #cfcfcf',
@@ -45126,7 +42663,7 @@ var ColorSelector = function (_Component) {
             }, {
                 id: 's-slider',
                 min: 0,
-                max: 359,
+                max: 100,
                 value: sPickerValue,
                 railStyle: Object.assign({}, commonRailStyle, satBackground),
                 event: this.onSatSliderChange.bind(this)
@@ -45149,7 +42686,7 @@ var ColorSelector = function (_Component) {
                         max: item.max,
                         value: item.value,
                         railStyle: item.railStyle,
-                        handleStyle: item.value === item.max ? Object.assign({}, handleStyle, { marginLeft: '-20px' }) : handleStyle,
+                        handleStyle: handleStyle,
                         onChange: item.event,
                         onAfterChange: _this3.handleReleaseScroll.bind(_this3)
                     });
@@ -45226,6 +42763,37 @@ exports.default = ColorSelector;
 
 /***/ }),
 
+/***/ "./src/components/mobile/color-selector/color-selector.scss":
+/*!******************************************************************!*\
+  !*** ./src/components/mobile/color-selector/color-selector.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var api = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../../node_modules/sass-loader/dist/cjs.js!./color-selector.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/mobile/color-selector/color-selector.scss");
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
+
+
+
+module.exports = exported;
+
+/***/ }),
+
 /***/ "./src/components/mobile/color-selector/icons/color-picker.svg":
 /*!*********************************************************************!*\
   !*** ./src/components/mobile/color-selector/icons/color-picker.svg ***!
@@ -45270,36 +42838,6 @@ module.exports = "data:image/svg+xml,%3Csvg width='40px' height='40px' viewBox='
 
 /***/ }),
 
-/***/ "./src/components/mobile/delete-mode/delete-mode.css":
-/*!***********************************************************!*\
-  !*** ./src/components/mobile/delete-mode/delete-mode.css ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!../../../../node_modules/postcss-loader/src??postcss!./delete-mode.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/mobile/delete-mode/delete-mode.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/components/mobile/delete-mode/delete-mode.jsx":
 /*!***********************************************************!*\
   !*** ./src/components/mobile/delete-mode/delete-mode.jsx ***!
@@ -45338,7 +42876,7 @@ var _deleteMobile = __webpack_require__(/*! ../icons/delete-mobile.svg */ "./src
 
 var _deleteMobile2 = _interopRequireDefault(_deleteMobile);
 
-var _deleteMode = __webpack_require__(/*! ./delete-mode.css */ "./src/components/mobile/delete-mode/delete-mode.css");
+var _deleteMode = __webpack_require__(/*! ./delete-mode.scss */ "./src/components/mobile/delete-mode/delete-mode.scss");
 
 var _deleteMode2 = _interopRequireDefault(_deleteMode);
 
@@ -45361,6 +42899,37 @@ SelectModeComponent.propTypes = {
 };
 
 exports.default = SelectModeComponent;
+
+/***/ }),
+
+/***/ "./src/components/mobile/delete-mode/delete-mode.scss":
+/*!************************************************************!*\
+  !*** ./src/components/mobile/delete-mode/delete-mode.scss ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var api = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../../node_modules/sass-loader/dist/cjs.js!./delete-mode.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/mobile/delete-mode/delete-mode.scss");
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
+
+
+
+module.exports = exported;
 
 /***/ }),
 
@@ -45600,36 +43169,6 @@ module.exports = "data:image/svg+xml,%3C?xml version='1.0' encoding='UTF-8'?%3E 
 
 /***/ }),
 
-/***/ "./src/components/paint-editor/paint-editor.mobile.css":
-/*!*************************************************************!*\
-  !*** ./src/components/paint-editor/paint-editor.mobile.css ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./paint-editor.mobile.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/paint-editor/paint-editor.mobile.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/components/paint-editor/paint-editor.mobile.jsx":
 /*!*************************************************************!*\
   !*** ./src/components/paint-editor/paint-editor.mobile.jsx ***!
@@ -45820,7 +43359,7 @@ var _gradientTypes = __webpack_require__(/*! ../../lib/gradient-types */ "./src/
 
 var _gradientTypes2 = _interopRequireDefault(_gradientTypes);
 
-var _paintEditorMobile = __webpack_require__(/*! ./paint-editor.mobile.css */ "./src/components/paint-editor/paint-editor.mobile.css");
+var _paintEditorMobile = __webpack_require__(/*! ./paint-editor.mobile.scss */ "./src/components/paint-editor/paint-editor.mobile.scss");
 
 var _paintEditorMobile2 = _interopRequireDefault(_paintEditorMobile);
 
@@ -45936,6 +43475,7 @@ var PaintEditorComponent = function (_React$Component) {
             colorSelectorMode: 'fill',
             isDrawColor: false,
             drawColorRGBValues: '',
+            originCostumeName: '',
             currentCostumeName: '',
             isSaveBoxShow: false
         };
@@ -45946,7 +43486,10 @@ var PaintEditorComponent = function (_React$Component) {
     _createClass(PaintEditorComponent, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.setState({ currentCostumeName: this.props.name });
+            this.setState({
+                originCostumeName: this.props.name,
+                currentCostumeName: this.props.name
+            });
         }
     }, {
         key: 'componentWillReceiveProps',
@@ -45955,6 +43498,11 @@ var PaintEditorComponent = function (_React$Component) {
 
             if (this._hasChanged) onUpdateImage();
             this._hasChanged = false;
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            clearTimeout(this.saveDelayTimer);
         }
     }, {
         key: 'handleChangeVectorModeStrokeOrFillWidth',
@@ -46059,7 +43607,11 @@ var PaintEditorComponent = function (_React$Component) {
     }, {
         key: 'handleClosePaintEditor',
         value: function handleClosePaintEditor() {
-            if (this.props.canRedo() || this.props.canUndo()) {
+            var _state = this.state,
+                originCostumeName = _state.originCostumeName,
+                currentCostumeName = _state.currentCostumeName;
+
+            if (this.props.canRedo() || this.props.canUndo() || originCostumeName !== currentCostumeName) {
                 this.setState({ isSaveBoxShow: true });
             } else {
                 this.handleClosedPaintEditor();
@@ -46091,7 +43643,6 @@ var PaintEditorComponent = function (_React$Component) {
                 _this2.props.onUpdateName(_this2.costumeNameEle && _this2.costumeNameEle.value);
                 _this2.props.onUpdateImage();
                 _this2.handleClosedPaintEditor();
-                clearTimeout(_this2.saveDelayTimer);
             }, 100);
         }
     }, {
@@ -46138,13 +43689,13 @@ var PaintEditorComponent = function (_React$Component) {
         value: function render() {
             var _this4 = this;
 
-            var _state = this.state,
-                isColorSelectorShow = _state.isColorSelectorShow,
-                isDrawColor = _state.isDrawColor,
-                drawColorRGBValues = _state.drawColorRGBValues,
-                currentCostumeName = _state.currentCostumeName,
-                colorSelectorMode = _state.colorSelectorMode,
-                isSaveBoxShow = _state.isSaveBoxShow;
+            var _state2 = this.state,
+                isColorSelectorShow = _state2.isColorSelectorShow,
+                isDrawColor = _state2.isDrawColor,
+                drawColorRGBValues = _state2.drawColorRGBValues,
+                currentCostumeName = _state2.currentCostumeName,
+                colorSelectorMode = _state2.colorSelectorMode,
+                isSaveBoxShow = _state2.isSaveBoxShow;
 
             return _react2.default.createElement(
                 'div',
@@ -46598,6 +44149,37 @@ exports.default = (0, _reactIntl.injectIntl)((0, _reactRedux.connect)(mapStateTo
 
 /***/ }),
 
+/***/ "./src/components/paint-editor/paint-editor.mobile.scss":
+/*!**************************************************************!*\
+  !*** ./src/components/paint-editor/paint-editor.mobile.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/sass-loader/dist/cjs.js!./paint-editor.mobile.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/paint-editor/paint-editor.mobile.scss");
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
+
+
+
+module.exports = exported;
+
+/***/ }),
+
 /***/ "./src/components/rect-mode/rect-mode.jsx":
 /*!************************************************!*\
   !*** ./src/components/rect-mode/rect-mode.jsx ***!
@@ -46665,26 +44247,27 @@ exports.default = RectModeComponent;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./scrollable-canvas.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/scrollable-canvas/scrollable-canvas.css");
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./scrollable-canvas.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/scrollable-canvas/scrollable-canvas.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -46726,7 +44309,7 @@ var ScrollableCanvasComponent = function ScrollableCanvasComponent(props) {
     return _react2.default.createElement(
         'div',
         {
-            className: (0, _classnames2.default)(props.style, _defineProperty({}, _scrollableCanvas2.default.hideCursor, props.hideCursor))
+            className: (0, _classnames2.default)(props.style, _defineProperty({}, _scrollableCanvas2.default.hideCursor, props.hideScrollbars))
         },
         props.children
     );
@@ -46734,7 +44317,7 @@ var ScrollableCanvasComponent = function ScrollableCanvasComponent(props) {
 
 ScrollableCanvasComponent.propTypes = {
     children: _propTypes2.default.node.isRequired,
-    hideCursor: _propTypes2.default.bool,
+    hideScrollbars: _propTypes2.default.bool,
     horizontalScrollLengthPercent: _propTypes2.default.number,
     horizontalScrollStartPercent: _propTypes2.default.number,
     onHorizontalScrollbarMouseDown: _propTypes2.default.func.isRequired,
@@ -46869,36 +44452,6 @@ exports.default = TextModeComponent;
 
 /***/ }),
 
-/***/ "./src/components/tool-select-base/tool-select-base.mobile.css":
-/*!*********************************************************************!*\
-  !*** ./src/components/tool-select-base/tool-select-base.mobile.css ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/sass-loader/dist/cjs.js!../../../node_modules/postcss-loader/src??postcss!./tool-select-base.mobile.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/components/tool-select-base/tool-select-base.mobile.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./src/components/tool-select-base/tool-select-base.mobile.jsx":
 /*!*********************************************************************!*\
   !*** ./src/components/tool-select-base/tool-select-base.mobile.jsx ***!
@@ -46931,7 +44484,7 @@ var _button = __webpack_require__(/*! ../button/button.jsx */ "./src/components/
 
 var _button2 = _interopRequireDefault(_button);
 
-var _toolSelectBaseMobile = __webpack_require__(/*! ./tool-select-base.mobile.css */ "./src/components/tool-select-base/tool-select-base.mobile.css");
+var _toolSelectBaseMobile = __webpack_require__(/*! ./tool-select-base.mobile.scss */ "./src/components/tool-select-base/tool-select-base.mobile.scss");
 
 var _toolSelectBaseMobile2 = _interopRequireDefault(_toolSelectBaseMobile);
 
@@ -46972,6 +44525,37 @@ ToolSelectComponent.propTypes = {
 };
 
 exports.default = (0, _reactIntl.injectIntl)(ToolSelectComponent);
+
+/***/ }),
+
+/***/ "./src/components/tool-select-base/tool-select-base.mobile.scss":
+/*!**********************************************************************!*\
+  !*** ./src/components/tool-select-base/tool-select-base.mobile.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--7-1!../../../node_modules/sass-loader/dist/cjs.js!./tool-select-base.mobile.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/components/tool-select-base/tool-select-base.mobile.scss");
+
+            content = content.__esModule ? content.default : content;
+
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
+
+
+
+module.exports = exported;
 
 /***/ }),
 
@@ -47925,6 +45509,8 @@ var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./sr
 
 var _selectionGradientType = __webpack_require__(/*! ../reducers/selection-gradient-type */ "./src/reducers/selection-gradient-type.js");
 
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
+
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
 var _ovalTool = __webpack_require__(/*! ../helper/bit-tools/oval-tool */ "./src/helper/bit-tools/oval-tool.js");
@@ -48008,7 +45594,7 @@ var BitOvalMode = function (_React$Component) {
             if (!fillColorPresent) {
                 this.props.onChangeFillColor(_fillColor.DEFAULT_COLOR);
             }
-            this.tool = new _ovalTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage);
+            this.tool = new _ovalTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage);
             this.tool.setColor(this.props.color);
             this.tool.setFilled(this.props.filled);
             this.tool.setThickness(this.props.thickness);
@@ -48044,6 +45630,7 @@ BitOvalMode.propTypes = {
     onChangeFillColor: _propTypes2.default.func.isRequired,
     onUpdateImage: _propTypes2.default.func.isRequired,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired,
     thickness: _propTypes2.default.number.isRequired,
     zoom: _propTypes2.default.number.isRequired
@@ -48066,6 +45653,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         clearGradient: function clearGradient() {
             dispatch((0, _selectionGradientType.clearGradient)());
+        },
+        setCursor: function setCursor(cursorString) {
+            dispatch((0, _cursor.setCursor)(cursorString));
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)(), true /* bitmapMode */));
@@ -48130,6 +45720,8 @@ var _modes3 = __webpack_require__(/*! ../reducers/modes */ "./src/reducers/modes
 var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./src/reducers/selected-items.js");
 
 var _selectionGradientType = __webpack_require__(/*! ../reducers/selection-gradient-type */ "./src/reducers/selection-gradient-type.js");
+
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
 
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
@@ -48214,7 +45806,7 @@ var BitRectMode = function (_React$Component) {
             if (!fillColorPresent) {
                 this.props.onChangeFillColor(_fillColor.DEFAULT_COLOR);
             }
-            this.tool = new _rectTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage);
+            this.tool = new _rectTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage);
             this.tool.setColor(this.props.color);
             this.tool.setFilled(this.props.filled);
             this.tool.setThickness(this.props.thickness);
@@ -48250,6 +45842,7 @@ BitRectMode.propTypes = {
     onChangeFillColor: _propTypes2.default.func.isRequired,
     onUpdateImage: _propTypes2.default.func.isRequired,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired,
     thickness: _propTypes2.default.number.isRequired,
     zoom: _propTypes2.default.number.isRequired
@@ -48272,6 +45865,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         clearGradient: function clearGradient() {
             dispatch((0, _selectionGradientType.clearGradient)());
+        },
+        setCursor: function setCursor(cursorString) {
+            dispatch((0, _cursor.setCursor)(cursorString));
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)(), true /* bitmapMode */));
@@ -48332,6 +45928,8 @@ var _modes3 = __webpack_require__(/*! ../reducers/modes */ "./src/reducers/modes
 var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./src/reducers/selected-items.js");
 
 var _selectionGradientType = __webpack_require__(/*! ../reducers/selection-gradient-type */ "./src/reducers/selection-gradient-type.js");
+
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
 
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
@@ -48399,7 +45997,7 @@ var BitSelectMode = function (_React$Component) {
         key: 'activateTool',
         value: function activateTool() {
             this.props.clearGradient();
-            this.tool = new _selectTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage);
+            this.tool = new _selectTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage);
             this.tool.activate();
         }
     }, {
@@ -48429,6 +46027,7 @@ BitSelectMode.propTypes = {
     isSelectModeActive: _propTypes2.default.bool.isRequired,
     onUpdateImage: _propTypes2.default.func.isRequired,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired
 };
 
@@ -48445,6 +46044,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         clearSelectedItems: function clearSelectedItems() {
             dispatch((0, _selectedItems.clearSelectedItems)());
+        },
+        setCursor: function setCursor(cursorType) {
+            dispatch((0, _cursor.setCursor)(cursorType));
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)()));
@@ -49599,6 +47201,7 @@ var LineMode = function (_React$Component) {
             // If not near other path, start a new path
             if (!this.path) {
                 this.path = new _paper2.default.Path();
+                this.path.strokeCap = 'round';
                 (0, _stylePath.stylePath)(this.path, this.props.colorState.strokeColor, this.props.colorState.strokeWidth);
 
                 this.path.add(event.point);
@@ -49855,6 +47458,8 @@ var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./sr
 
 var _selectionGradientType = __webpack_require__(/*! ../reducers/selection-gradient-type */ "./src/reducers/selection-gradient-type.js");
 
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
+
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
 var _ovalTool = __webpack_require__(/*! ../helper/tools/oval-tool */ "./src/helper/tools/oval-tool.js");
@@ -49943,7 +47548,7 @@ var OvalMode = function (_React$Component) {
             } else if (fillColorPresent && !strokeColorPresent) {
                 this.props.onChangeStrokeColor(null);
             }
-            this.tool = new _ovalTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage);
+            this.tool = new _ovalTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage);
             this.tool.setColorState(this.props.colorState);
             this.tool.activate();
         }
@@ -49981,6 +47586,7 @@ OvalMode.propTypes = {
     onChangeStrokeColor: _propTypes2.default.func.isRequired,
     onUpdateImage: _propTypes2.default.func.isRequired,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired
 };
 
@@ -49998,6 +47604,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         clearGradient: function clearGradient() {
             dispatch((0, _selectionGradientType.clearGradient)());
+        },
+        setCursor: function setCursor(cursorString) {
+            dispatch((0, _cursor.setCursor)(cursorString));
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)(), false /* bitmapMode */));
@@ -50178,7 +47787,7 @@ var PaintEditor = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (PaintEditor.__proto__ || Object.getPrototypeOf(PaintEditor)).call(this, props));
 
-        (0, _lodash2.default)(_this, ['switchMode', 'onMouseDown', 'setCanvas', 'setTextArea', 'startEyeDroppingLoop', 'stopEyeDroppingLoop', 'handleSetSelectedItems', 'handleZoomIn', 'handleZoomOut', 'handleZoomReset']);
+        (0, _lodash2.default)(_this, ['switchModeForFormat', 'onMouseDown', 'onMouseUp', 'setCanvas', 'setTextArea', 'startEyeDroppingLoop', 'stopEyeDroppingLoop', 'handleSetSelectedItems', 'handleZoomIn', 'handleZoomOut', 'handleZoomReset']);
         _this.state = {
             canvas: null,
             colorInfo: null
@@ -50196,14 +47805,16 @@ var PaintEditor = function (_React$Component) {
             // canvas, and should therefore stop the eye dropper
             document.addEventListener('mousedown', this.onMouseDown);
             document.addEventListener('touchstart', this.onMouseDown);
+            document.addEventListener('mouseup', this.onMouseUp);
+            document.addEventListener('touchend', this.onMouseUp);
         }
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(newProps) {
-            if ((0, _format2.isVector)(this.props.format) && (0, _format2.isBitmap)(newProps.format)) {
-                this.switchMode(_format3.default.BITMAP);
-            } else if ((0, _format2.isVector)(newProps.format) && (0, _format2.isBitmap)(this.props.format)) {
-                this.switchMode(_format3.default.VECTOR);
+            if (!(0, _format2.isBitmap)(this.props.format) && (0, _format2.isBitmap)(newProps.format)) {
+                this.switchModeForFormat(_format3.default.BITMAP);
+            } else if (!(0, _format2.isVector)(this.props.format) && (0, _format2.isVector)(newProps.format)) {
+                this.switchModeForFormat(_format3.default.VECTOR);
             }
             if (newProps.rtl !== this.props.rtl) {
                 this.props.setLayout(newProps.rtl ? 'rtl' : 'ltr');
@@ -50217,7 +47828,7 @@ var PaintEditor = function (_React$Component) {
             } else if (!this.props.isEyeDropping && prevProps.isEyeDropping) {
                 this.stopEyeDroppingLoop();
             } else if (this.props.isEyeDropping && this.props.viewBounds !== prevProps.viewBounds) {
-                this.props.previousTool.activate();
+                if (this.props.previousTool) this.props.previousTool.activate();
                 this.props.onDeactivateEyeDropper();
                 this.stopEyeDroppingLoop();
             }
@@ -50235,10 +47846,16 @@ var PaintEditor = function (_React$Component) {
             this.stopEyeDroppingLoop();
             document.removeEventListener('mousedown', this.onMouseDown);
             document.removeEventListener('touchstart', this.onMouseDown);
+            document.removeEventListener('mouseup', this.onMouseUp);
+            document.removeEventListener('touchend', this.onMouseUp);
         }
     }, {
-        key: 'switchMode',
-        value: function switchMode(newFormat) {
+        key: 'switchModeForFormat',
+        value: function switchModeForFormat(newFormat) {
+            if ((0, _format2.isVector)(newFormat) && this.props.mode in _modes2.VectorModes || (0, _format2.isBitmap)(newFormat) && this.props.mode in _modes2.BitmapModes) {
+                // Format didn't change; no mode change needed
+                return;
+            }
             if ((0, _format2.isVector)(newFormat)) {
                 switch (this.props.mode) {
                     case _modes3.default.BIT_BRUSH:
@@ -50357,7 +47974,10 @@ var PaintEditor = function (_React$Component) {
                 // Exit text edit mode if you click anywhere outside of canvas
                 this.props.removeTextEditTarget();
             }
-
+        }
+    }, {
+        key: 'onMouseUp',
+        value: function onMouseUp() {
             if (this.props.isEyeDropping) {
                 var colorString = this.eyeDropper.colorString;
                 var callback = this.props.changeColorToEyeDropper;
@@ -50368,7 +47988,7 @@ var PaintEditor = function (_React$Component) {
                     // so apply the new color
                     callback(colorString);
                 }
-                this.props.previousTool.activate();
+                if (this.props.previousTool) this.props.previousTool.activate();
                 this.props.onDeactivateEyeDropper();
                 this.stopEyeDroppingLoop();
             }
@@ -50618,7 +48238,7 @@ var PaperCanvas = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (PaperCanvas.__proto__ || Object.getPrototypeOf(PaperCanvas)).call(this, props));
 
-        (0, _lodash2.default)(_this, ['clearQueuedImport', 'setCanvas', 'importSvg', 'maybeZoomToFit', 'switchCostume']);
+        (0, _lodash2.default)(_this, ['clearQueuedImport', 'setCanvas', 'importSvg', 'initializeSvg', 'maybeZoomToFit', 'switchCostume']);
         return _this;
     }
 
@@ -50780,8 +48400,10 @@ var PaperCanvas = function (_React$Component) {
         value: function maybeZoomToFit(isBitmapMode) {
             if (this.shouldZoomToFit instanceof _paper2.default.Matrix) {
                 _paper2.default.view.matrix = this.shouldZoomToFit;
+                this.props.updateViewBounds(_paper2.default.view.matrix);
             } else if (this.shouldZoomToFit === true) {
                 (0, _view.zoomToFit)(isBitmapMode);
+                this.props.updateViewBounds(_paper2.default.view.matrix);
             }
             this.shouldZoomToFit = false;
         }
@@ -50958,6 +48580,7 @@ PaperCanvas.propTypes = {
     clearPasteOffset: _propTypes2.default.func.isRequired,
     clearSelectedItems: _propTypes2.default.func.isRequired,
     clearUndo: _propTypes2.default.func.isRequired,
+    cursor: _propTypes2.default.string,
     image: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.instanceOf(HTMLImageElement)]),
     imageFormat: _propTypes2.default.string, // The incoming image's data format, used during import. The user could switch this.
     imageId: _propTypes2.default.string,
@@ -50975,6 +48598,7 @@ PaperCanvas.propTypes = {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         mode: state.scratchPaint.mode,
+        cursor: state.scratchPaint.cursor,
         format: state.scratchPaint.format,
         zoomLevels: state.scratchPaint.zoomLevels
     };
@@ -51022,26 +48646,27 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var api = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+            var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/postcss-loader/src??postcss!./paper-canvas.mobile.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/containers/paper-canvas.mobile.css");
 
-var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--6-1!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/postcss-loader/src??postcss!./paper-canvas.mobile.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/src/index.js?!./src/containers/paper-canvas.mobile.css");
+            content = content.__esModule ? content.default : content;
 
-if(typeof content === 'string') content = [[module.i, content, '']];
+            if (typeof content === 'string') {
+              content = [[module.i, content, '']];
+            }
 
-var transform;
-var insertInto;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = api(content, options);
+
+var exported = content.locals ? content.locals : {};
 
 
 
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
+module.exports = exported;
 
 /***/ }),
 
@@ -51094,6 +48719,8 @@ var _modes3 = __webpack_require__(/*! ../reducers/modes */ "./src/reducers/modes
 var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./src/reducers/selected-items.js");
 
 var _selectionGradientType = __webpack_require__(/*! ../reducers/selection-gradient-type */ "./src/reducers/selection-gradient-type.js");
+
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
 
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
@@ -51183,7 +48810,7 @@ var RectMode = function (_React$Component) {
             } else if (fillColorPresent && !strokeColorPresent) {
                 this.props.onChangeStrokeColor(null);
             }
-            this.tool = new _rectTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage);
+            this.tool = new _rectTool2.default(this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage);
             this.tool.setColorState(this.props.colorState);
             this.tool.activate();
         }
@@ -51221,6 +48848,7 @@ RectMode.propTypes = {
     onChangeStrokeColor: _propTypes2.default.func.isRequired,
     onUpdateImage: _propTypes2.default.func.isRequired,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired
 };
 
@@ -51241,6 +48869,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)(), false /* bitmapMode */));
+        },
+        setCursor: function setCursor(cursorString) {
+            dispatch((0, _cursor.setCursor)(cursorString));
         },
         handleMouseDown: function handleMouseDown() {
             dispatch((0, _modes3.changeMode)(_modes2.default.RECT));
@@ -51430,7 +49061,9 @@ var ScrollableCanvas = function (_React$Component) {
         key: 'handleHorizontalScrollbarMouseUp',
         value: function handleHorizontalScrollbarMouseUp(event) {
             window.removeEventListener('mousemove', this.handleHorizontalScrollbarMouseMove);
+            window.removeEventListener('touchmove', this.handleHorizontalScrollbarMouseMove, { passive: false });
             window.removeEventListener('mouseup', this.handleHorizontalScrollbarMouseUp);
+            window.removeEventListener('touchend', this.handleHorizontalScrollbarMouseUp);
             this.initialMouseX = null;
             this.initialScreenX = null;
             event.preventDefault();
@@ -51441,7 +49074,9 @@ var ScrollableCanvas = function (_React$Component) {
             this.initialMouseY = (0, _touchUtils.getEventXY)(event).y;
             this.initialScreenY = _paper2.default.view.matrix.ty;
             window.addEventListener('mousemove', this.handleVerticalScrollbarMouseMove);
+            window.addEventListener('touchmove', this.handleVerticalScrollbarMouseMove, { passive: false });
             window.addEventListener('mouseup', this.handleVerticalScrollbarMouseUp);
+            window.addEventListener('touchend', this.handleVerticalScrollbarMouseUp);
             event.preventDefault();
         }
     }, {
@@ -51457,7 +49092,9 @@ var ScrollableCanvas = function (_React$Component) {
         key: 'handleVerticalScrollbarMouseUp',
         value: function handleVerticalScrollbarMouseUp(event) {
             window.removeEventListener('mousemove', this.handleVerticalScrollbarMouseMove);
+            window.removeEventListener('touchmove', this.handleVerticalScrollbarMouseMove, { passive: false });
             window.removeEventListener('mouseup', this.handleVerticalScrollbarMouseUp);
+            window.removeEventListener('touchend', this.handleVerticalScrollbarMouseUp);
             this.initialMouseY = null;
             this.initialScreenY = null;
             event.preventDefault();
@@ -51470,12 +49107,12 @@ var ScrollableCanvas = function (_React$Component) {
             var multiplier = event.deltaMode === 0x1 ? 15 : 1;
             var deltaX = event.deltaX * multiplier;
             var deltaY = event.deltaY * multiplier;
+            var canvasRect = this.props.canvas.getBoundingClientRect();
+            var offsetX = event.clientX - canvasRect.left;
+            var offsetY = event.clientY - canvasRect.top;
+            var fixedPoint = _paper2.default.view.viewToProject(new _paper2.default.Point(offsetX, offsetY));
             if (event.metaKey || event.ctrlKey) {
                 // Zoom keeping mouse location fixed
-                var canvasRect = this.props.canvas.getBoundingClientRect();
-                var offsetX = event.clientX - canvasRect.left;
-                var offsetY = event.clientY - canvasRect.top;
-                var fixedPoint = _paper2.default.view.viewToProject(new _paper2.default.Point(offsetX, offsetY));
                 (0, _view.zoomOnFixedPoint)(-deltaY / 1000, fixedPoint);
                 this.props.updateViewBounds(_paper2.default.view.matrix);
                 this.props.redrawSelectionBox(); // Selection handles need to be resized after zoom
@@ -51491,6 +49128,9 @@ var ScrollableCanvas = function (_React$Component) {
                 var dy = deltaY / _paper2.default.view.zoom;
                 (0, _view.pan)(_dx, dy);
                 this.props.updateViewBounds(_paper2.default.view.matrix);
+                if (_paper2.default.tool) {
+                    _paper2.default.tool.view._handleMouseEvent('mousemove', event, fixedPoint);
+                }
             }
             event.preventDefault();
         }
@@ -51518,7 +49158,7 @@ var ScrollableCanvas = function (_React$Component) {
             return _react2.default.createElement(
                 _scrollableCanvas2.default,
                 {
-                    hideCursor: this.props.hideCursor,
+                    hideScrollbars: this.props.hideScrollbars,
                     horizontalScrollLengthPercent: widthPercent,
                     horizontalScrollStartPercent: leftPercent,
                     style: this.props.style,
@@ -51538,7 +49178,7 @@ var ScrollableCanvas = function (_React$Component) {
 ScrollableCanvas.propTypes = {
     canvas: _propTypes2.default.instanceOf(Element),
     children: _propTypes2.default.node.isRequired,
-    hideCursor: _propTypes2.default.bool,
+    hideScrollbars: _propTypes2.default.bool,
     redrawSelectionBox: _propTypes2.default.func.isRequired,
     style: _propTypes2.default.string,
     updateViewBounds: _propTypes2.default.func.isRequired
@@ -51608,6 +49248,8 @@ var _hover = __webpack_require__(/*! ../reducers/hover */ "./src/reducers/hover.
 
 var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./src/reducers/selected-items.js");
 
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
+
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
 var _selectTool = __webpack_require__(/*! ../helper/selection-tools/select-tool */ "./src/helper/selection-tools/select-tool.js");
@@ -51676,7 +49318,7 @@ var SelectMode = function (_React$Component) {
     }, {
         key: 'activateTool',
         value: function activateTool() {
-            this.tool = new _selectTool2.default(this.props.setHoveredItem, this.props.clearHoveredItem, this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage, this.props.switchToTextTool);
+            this.tool = new _selectTool2.default(this.props.setHoveredItem, this.props.clearHoveredItem, this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage, this.props.switchToTextTool);
             this.tool.activate();
         }
     }, {
@@ -51707,6 +49349,7 @@ SelectMode.propTypes = {
     isSelectModeActive: _propTypes2.default.bool.isRequired,
     onUpdateImage: _propTypes2.default.func.isRequired,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setHoveredItem: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired,
     switchToTextTool: _propTypes2.default.func.isRequired
@@ -51732,6 +49375,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)(), false /* bitmapMode */));
+        },
+        setCursor: function setCursor(cursorString) {
+            dispatch((0, _cursor.setCursor)(cursorString));
         },
         handleMouseDown: function handleMouseDown() {
             dispatch((0, _modes3.changeMode)(_modes2.default.SELECT));
@@ -51803,6 +49449,8 @@ var _textEditTarget = __webpack_require__(/*! ../reducers/text-edit-target */ ".
 var _selectedItems = __webpack_require__(/*! ../reducers/selected-items */ "./src/reducers/selected-items.js");
 
 var _selectionGradientType = __webpack_require__(/*! ../reducers/selection-gradient-type */ "./src/reducers/selection-gradient-type.js");
+
+var _cursor = __webpack_require__(/*! ../reducers/cursor */ "./src/reducers/cursor.js");
 
 var _selection = __webpack_require__(/*! ../helper/selection */ "./src/helper/selection.js");
 
@@ -51922,7 +49570,7 @@ var TextMode = function (_React$Component) {
                 this.props.changeFont(_fonts2.default.SANS_SERIF);
             }
 
-            this.tool = new _textTool2.default(this.props.textArea, this.props.setSelectedItems, this.props.clearSelectedItems, this.props.onUpdateImage, this.props.setTextEditTarget, this.props.changeFont, nextProps.isBitmap,
+            this.tool = new _textTool2.default(this.props.textArea, this.props.setSelectedItems, this.props.clearSelectedItems, this.props.setCursor, this.props.onUpdateImage, this.props.setTextEditTarget, this.props.changeFont, nextProps.isBitmap,
             /////////////////////////
             this.props.messages
             /////////////////////
@@ -51978,6 +49626,7 @@ TextMode.propTypes = {
     onUpdateImage: _propTypes2.default.func.isRequired,
     rtl: _propTypes2.default.bool,
     selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.instanceOf(_paper2.default.Item)),
+    setCursor: _propTypes2.default.func.isRequired,
     setSelectedItems: _propTypes2.default.func.isRequired,
     setTextEditTarget: _propTypes2.default.func.isRequired,
     textArea: _propTypes2.default.instanceOf(Element),
@@ -52012,6 +49661,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
         },
         handleChangeModeText: function handleChangeModeText() {
             dispatch((0, _modes3.changeMode)(_modes2.default.TEXT));
+        },
+        setCursor: function setCursor(cursorString) {
+            dispatch((0, _cursor.setCursor)(cursorString));
         },
         setSelectedItems: function setSelectedItems() {
             dispatch((0, _selectedItems.setSelectedItems)((0, _selection.getSelectedLeafItems)(), ownProps.isBitmap));
@@ -52659,6 +50311,8 @@ var _layer = __webpack_require__(/*! ../layer */ "./src/helper/layer.js");
 
 var _selection = __webpack_require__(/*! ../selection */ "./src/helper/selection.js");
 
+var _math = __webpack_require__(/*! ../math */ "./src/helper/math.js");
+
 var _boundingBoxTool = __webpack_require__(/*! ../selection-tools/bounding-box-tool */ "./src/helper/selection-tools/bounding-box-tool.js");
 
 var _boundingBoxTool2 = _interopRequireDefault(_boundingBoxTool);
@@ -52689,12 +50343,13 @@ var OvalTool = function (_paper$Tool) {
         /**
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          */
 
     }]);
 
-    function OvalTool(setSelectedItems, clearSelectedItems, onUpdateImage) {
+    function OvalTool(setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         _classCallCheck(this, OvalTool);
 
         var _this = _possibleConstructorReturn(this, (OvalTool.__proto__ || Object.getPrototypeOf(OvalTool)).call(this));
@@ -52702,13 +50357,14 @@ var OvalTool = function (_paper$Tool) {
         _this.setSelectedItems = setSelectedItems;
         _this.clearSelectedItems = clearSelectedItems;
         _this.onUpdateImage = onUpdateImage;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.BIT_OVAL, setSelectedItems, clearSelectedItems, onUpdateImage);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.BIT_OVAL, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage);
         var nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         _this.onMouseDown = _this.handleMouseDown;
         _this.onMouseDrag = _this.handleMouseDrag;
+        _this.onMouseMove = _this.handleMouseMove;
         _this.onMouseUp = _this.handleMouseUp;
         _this.onKeyUp = nudgeTool.onKeyUp;
         _this.onKeyDown = nudgeTool.onKeyDown;
@@ -52859,16 +50515,25 @@ var OvalTool = function (_paper$Tool) {
 
             var downPoint = new _paper2.default.Point(event.downPoint.x, event.downPoint.y);
             var point = new _paper2.default.Point(event.point.x, event.point.y);
+            var squareDimensions = (0, _math.getSquareDimensions)(event.downPoint, event.point);
             if (event.modifiers.shift) {
-                this.oval.size = new _paper2.default.Point(event.downPoint.x - event.point.x, event.downPoint.x - event.point.x);
+                this.oval.size = squareDimensions.size.abs();
             } else {
                 this.oval.size = downPoint.subtract(point);
             }
+
             if (event.modifiers.alt) {
                 this.oval.position = downPoint;
+            } else if (event.modifiers.shift) {
+                this.oval.position = squareDimensions.position;
             } else {
                 this.oval.position = downPoint.subtract(this.oval.size.multiply(0.5));
             }
+        }
+    }, {
+        key: 'handleMouseMove',
+        value: function handleMouseMove(event) {
+            this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
         }
     }, {
         key: 'handleMouseUp',
@@ -52916,7 +50581,7 @@ var OvalTool = function (_paper$Tool) {
         key: 'deactivateTool',
         value: function deactivateTool() {
             this.commitOval();
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
         }
     }]);
 
@@ -52957,6 +50622,8 @@ var _layer = __webpack_require__(/*! ../layer */ "./src/helper/layer.js");
 
 var _selection = __webpack_require__(/*! ../selection */ "./src/helper/selection.js");
 
+var _math = __webpack_require__(/*! ../math */ "./src/helper/math.js");
+
 var _boundingBoxTool = __webpack_require__(/*! ../selection-tools/bounding-box-tool */ "./src/helper/selection-tools/bounding-box-tool.js");
 
 var _boundingBoxTool2 = _interopRequireDefault(_boundingBoxTool);
@@ -52987,12 +50654,13 @@ var RectTool = function (_paper$Tool) {
         /**
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          */
 
     }]);
 
-    function RectTool(setSelectedItems, clearSelectedItems, onUpdateImage) {
+    function RectTool(setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         _classCallCheck(this, RectTool);
 
         var _this = _possibleConstructorReturn(this, (RectTool.__proto__ || Object.getPrototypeOf(RectTool)).call(this));
@@ -53000,13 +50668,14 @@ var RectTool = function (_paper$Tool) {
         _this.setSelectedItems = setSelectedItems;
         _this.clearSelectedItems = clearSelectedItems;
         _this.onUpdateImage = onUpdateImage;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.BIT_RECT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.BIT_RECT, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage);
         var nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         _this.onMouseDown = _this.handleMouseDown;
         _this.onMouseDrag = _this.handleMouseDrag;
+        _this.onMouseMove = _this.handleMouseMove;
         _this.onMouseUp = _this.handleMouseUp;
         _this.onKeyUp = nudgeTool.onKeyUp;
         _this.onKeyDown = nudgeTool.onKeyDown;
@@ -53139,10 +50808,11 @@ var RectTool = function (_paper$Tool) {
 
             var dimensions = event.point.subtract(event.downPoint);
             var baseRect = new _paper2.default.Rectangle(event.downPoint, event.point);
+            var squareDimensions = (0, _math.getSquareDimensions)(event.downPoint, event.point);
             if (event.modifiers.shift) {
-                baseRect.height = baseRect.width;
-                dimensions.y = event.downPoint.y > event.point.y ? -Math.abs(baseRect.width) : Math.abs(baseRect.width);
+                baseRect.size = squareDimensions.size.abs();
             }
+
             if (this.rect) this.rect.remove();
             this.rect = new _paper2.default.Shape.Rectangle(baseRect);
             if (this.filled) {
@@ -53158,9 +50828,16 @@ var RectTool = function (_paper$Tool) {
 
             if (event.modifiers.alt) {
                 this.rect.position = event.downPoint;
+            } else if (event.modifiers.shift) {
+                this.rect.position = squareDimensions.position;
             } else {
                 this.rect.position = event.downPoint.add(dimensions.multiply(.5));
             }
+        }
+    }, {
+        key: 'handleMouseMove',
+        value: function handleMouseMove(event) {
+            this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
         }
     }, {
         key: 'handleMouseUp',
@@ -53201,7 +50878,6 @@ var RectTool = function (_paper$Tool) {
             if (!this.rect || !this.rect.isInserted()) return;
 
             (0, _bitmap.commitRectToBitmap)(this.rect, (0, _layer.getRaster)());
-
             this.rect.remove();
             this.rect = null;
         }
@@ -53209,7 +50885,7 @@ var RectTool = function (_paper$Tool) {
         key: 'deactivateTool',
         value: function deactivateTool() {
             this.commitRect();
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
         }
     }]);
 
@@ -53288,18 +50964,19 @@ var SelectTool = function (_paper$Tool) {
         /**
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          */
 
     }]);
 
-    function SelectTool(setSelectedItems, clearSelectedItems, onUpdateImage) {
+    function SelectTool(setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         _classCallCheck(this, SelectTool);
 
         var _this = _possibleConstructorReturn(this, (SelectTool.__proto__ || Object.getPrototypeOf(SelectTool)).call(this));
 
         _this.onUpdateImage = onUpdateImage;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.SELECT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.SELECT, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage);
         var nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
         _this.selectionBoxTool = new _selectionBoxTool2.default(_modes2.default.SELECT, setSelectedItems, clearSelectedItems);
         _this.selectionBoxMode = false;
@@ -53310,6 +50987,7 @@ var SelectTool = function (_paper$Tool) {
         // paper.js tools hook up the listeners in the setter functions.
         _this.onMouseDown = _this.handleMouseDown;
         _this.onMouseDrag = _this.handleMouseDrag;
+        _this.onMouseMove = _this.handleMouseMove;
         _this.onMouseUp = _this.handleMouseUp;
         _this.onKeyUp = nudgeTool.onKeyUp;
         _this.onKeyDown = nudgeTool.onKeyDown;
@@ -53401,6 +51079,11 @@ var SelectTool = function (_paper$Tool) {
             }
         }
     }, {
+        key: 'handleMouseMove',
+        value: function handleMouseMove(event) {
+            this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
+        }
+    }, {
         key: 'handleMouseUp',
         value: function handleMouseUp(event) {
             /////////////////////
@@ -53434,7 +51117,7 @@ var SelectTool = function (_paper$Tool) {
         key: 'deactivateTool',
         value: function deactivateTool() {
             this.commitSelection();
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
             this.boundingBoxTool = null;
             this.selectionBoxTool = null;
         }
@@ -53802,7 +51485,15 @@ var getHitBounds = function getHitBounds(raster) {
         ++left;
     }while (right - 1 > left && columnBlank_(imageData, width, right - 1, top, bottom)) {
         --right;
-    }return new _paper2.default.Rectangle(left, top, right - left, bottom - top);
+    } // Center an empty bitmap
+    if (top === bottom) {
+        top = bottom = imageData.height / 2;
+    }
+    if (left === right) {
+        left = right = imageData.width / 2;
+    }
+
+    return new _paper2.default.Rectangle(left, top, right - left, bottom - top);
 };
 
 var trim_ = function trim_(raster) {
@@ -53837,7 +51528,7 @@ var convertToBitmap = function convertToBitmap(clearSelectedItems, onUpdateImage
 
     // Export svg
     var guideLayers = (0, _layer.hideGuideLayers)(true /* includeRaster */);
-    var bounds = _paper2.default.project.activeLayer.bounds;
+    var bounds = _paper2.default.project.activeLayer.drawnBounds;
     var svg = _paper2.default.project.exportSVG({
         bounds: 'content',
         matrix: new _paper2.default.Matrix().translate(-bounds.x, -bounds.y)
@@ -53847,8 +51538,9 @@ var convertToBitmap = function convertToBitmap(clearSelectedItems, onUpdateImage
     // Get rid of anti-aliasing
     // @todo get crisp text https://github.com/LLK/scratch-paint/issues/508
     svg.setAttribute('shape-rendering', 'crispEdges');
+
     var svgString = new XMLSerializer().serializeToString(svg);
-    (0, _scratchSvgRenderer.inlineSvgFonts)(svgString);
+    svgString = (0, _scratchSvgRenderer.inlineSvgFonts)(svgString);
 
     // Put anti-aliased SVG into image, and dump image back into canvas
     var img = new Image();
@@ -55741,23 +53433,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @return {paper.Item} the hovered item or null if there is none
  */
 var getHoveredItem = function getHoveredItem(event, hitOptions, subselect) {
-    // @todo make hit test only hit painting layer
+    var oldMatch = hitOptions.match;
+    hitOptions.match = function (hitResult) {
+        if (hitResult.item.data && hitResult.item.data.noHover) return false;
+        return oldMatch ? oldMatch(hitResult) : true;
+    };
     var hitResults = _paper2.default.project.hitTestAll(event.point, hitOptions);
     if (hitResults.length === 0) {
         return null;
     }
-    // sort items by z-index
-    var items = [];
+
+    // Get highest z-index result
+    var hitResult = void 0;
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
 
     try {
         for (var _iterator = hitResults[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var hitResult = _step.value;
+            var result = _step.value;
 
-            if (!(hitResult.item.data && hitResult.item.data.noHover) && !hitResult.item.selected) {
-                items.push(hitResult.item);
+            if (!hitResult || (0, _math.sortItemsByZIndex)(hitResult.item, result.item) < 0) {
+                hitResult = result;
             }
         }
     } catch (err) {
@@ -55775,10 +53472,9 @@ var getHoveredItem = function getHoveredItem(event, hitOptions, subselect) {
         }
     }
 
-    items.sort(_math.sortItemsByZIndex);
-
-    var item = items[items.length - 1];
-    if (!item) {
+    var item = hitResult.item;
+    // If the hovered item is already selected, then there should be no hovered item.
+    if (!item || item.selected) {
         return null;
     }
 
@@ -56216,7 +53912,7 @@ exports.showCrossLine = showCrossLine;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.sortItemsByZIndex = exports.snapDeltaToAngle = exports.scaleWithStrokes = exports.getRandomBoolean = exports.getRandomInt = exports.expandBy = exports.ensureClockwise = exports.checkPointsClose = exports.HANDLE_RATIO = undefined;
+exports.sortItemsByZIndex = exports.snapDeltaToAngle = exports.scaleWithStrokes = exports.getSquareDimensions = exports.getRandomBoolean = exports.getRandomInt = exports.expandBy = exports.ensureClockwise = exports.checkPointsClose = exports.HANDLE_RATIO = undefined;
 
 var _paper = __webpack_require__(/*! @scratch/paper */ "./node_modules/@scratch/paper/dist/paper-full.js");
 
@@ -56395,12 +54091,43 @@ var scaleWithStrokes = function scaleWithStrokes(root, factor, pivot) {
     root.scale(factor, pivot);
 };
 
+/**
+ * Get the size and position of a square, as in if the user were holding the shift key down while drawing the shape,
+ * from the point where the drag started and the point where the mouse is currently positioned. (Note: This also works
+ * for shapes like circles ("square ovals"), which fill the same dimensions.)
+ * @param {!paper.Point} startPos The point where the user started dragging
+ * @param {!paper.Point} eventPoint The point where the user has currently dragged to
+ * @return {object} Information about the size and position of how the square should be drawn
+ */
+var getSquareDimensions = function getSquareDimensions(startPos, eventPoint) {
+    // These variables are used for determining the relative quadrant that the shape will appear in.
+    // So if you drag up and right, it'll show up above and to the right of where you started dragging, etc.
+    var offsetX = eventPoint.x - startPos.x;
+    var offsetY = eventPoint.y - startPos.y;
+
+    // If the offset variables are zero, the shape ends up having zero width or height, which is bad.
+    // Deal with this by forcing them to be non-zero (we arbitrarily choose 1; any non-zero value would work).
+    offsetX = offsetX ? offsetX : 1;
+    offsetY = offsetY ? offsetY : 1;
+
+    // The length of the shape is the greater of the X and Y offsets.
+    var offsetDistance = eventPoint.subtract(startPos).abs();
+    var length = Math.max(offsetDistance.x, offsetDistance.y);
+
+    var size = new _paper2.default.Point(length * offsetX / Math.abs(offsetX), length * offsetY / Math.abs(offsetY));
+
+    var position = startPos.add(size.multiply(0.5));
+
+    return { size: size, position: position };
+};
+
 exports.HANDLE_RATIO = HANDLE_RATIO;
 exports.checkPointsClose = checkPointsClose;
 exports.ensureClockwise = ensureClockwise;
 exports.expandBy = expandBy;
 exports.getRandomInt = getRandomInt;
 exports.getRandomBoolean = getRandomBoolean;
+exports.getSquareDimensions = getSquareDimensions;
 exports.scaleWithStrokes = scaleWithStrokes;
 exports.snapDeltaToAngle = snapDeltaToAngle;
 exports.sortItemsByZIndex = sortItemsByZIndex;
@@ -56567,6 +54294,10 @@ var _guides = __webpack_require__(/*! ../guides */ "./src/helper/guides.js");
 
 var _layer = __webpack_require__(/*! ../layer */ "./src/helper/layer.js");
 
+var _cursors = __webpack_require__(/*! ../../lib/cursors */ "./src/lib/cursors.js");
+
+var _cursors2 = _interopRequireDefault(_cursors);
+
 var _scaleTool = __webpack_require__(/*! ./scale-tool */ "./src/helper/selection-tools/scale-tool.js");
 
 var _scaleTool2 = _interopRequireDefault(_scaleTool);
@@ -56605,12 +54336,14 @@ var BoundingBoxTool = function () {
      * @param {Modes} mode Paint editor mode
      * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+     * @param {function} setCursor Callback to set the visible mouse cursor
      * @param {!function} onUpdateImage A callback to call when the image visibly changes
      * @param {?function} switchToTextTool A callback to call to switch to the text tool
      */
-    function BoundingBoxTool(mode, setSelectedItems, clearSelectedItems, onUpdateImage, switchToTextTool) {
+    function BoundingBoxTool(mode, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage, switchToTextTool) {
         _classCallCheck(this, BoundingBoxTool);
 
+        this.dispatchSetCursor = setCursor;
         this.onUpdateImage = onUpdateImage;
         this.mode = null;
         this.boundsPath = null;
@@ -56620,6 +54353,7 @@ var BoundingBoxTool = function () {
         this._modeMap[BoundingBoxModes.SCALE] = new _scaleTool2.default(onUpdateImage);
         this._modeMap[BoundingBoxModes.ROTATE] = new _rotateTool2.default(onUpdateImage);
         this._modeMap[BoundingBoxModes.MOVE] = new _moveTool2.default(mode, setSelectedItems, clearSelectedItems, onUpdateImage, switchToTextTool);
+        this._currentCursor = null;
     }
 
     /**
@@ -56652,29 +54386,18 @@ var BoundingBoxTool = function () {
         key: 'onMouseDown',
         value: function onMouseDown(event, clone, multiselect, doubleClicked, hitOptions) {
             if (event.event.button > 0) return; // only first mouse button
-            var hitResults = _paper2.default.project.hitTestAll(event.point, hitOptions);
-            if (!hitResults || hitResults.length === 0) {
+
+            var _determineMode2 = this._determineMode(event, multiselect, hitOptions),
+                hitResult = _determineMode2.hitResult,
+                mode = _determineMode2.mode;
+
+            if (!hitResult) {
                 if (!multiselect) {
                     this.removeBoundsPath();
                 }
                 return false;
             }
-
-            // Prefer scale to trigger over rotate, and scale and rotate to trigger over other hits
-            var hitResult = hitResults[0];
-            for (var i = 0; i < hitResults.length; i++) {
-                if (hitResults[i].item.data && hitResults[i].item.data.isScaleHandle) {
-                    hitResult = hitResults[i];
-                    this.mode = BoundingBoxModes.SCALE;
-                    break;
-                } else if (hitResults[i].item.data && hitResults[i].item.data.isRotHandle) {
-                    hitResult = hitResults[i];
-                    this.mode = BoundingBoxModes.ROTATE;
-                }
-            }
-            if (!this.mode) {
-                this.mode = BoundingBoxModes.MOVE;
-            }
+            this.mode = mode;
 
             var hitProperties = {
                 hitResult: hitResult,
@@ -56689,6 +54412,7 @@ var BoundingBoxTool = function () {
                 this._modeMap[this.mode].onMouseDown(hitResult, this.boundsPath, (0, _selection.getSelectedRootItems)());
                 this.removeBoundsHandles();
             } else if (this.mode === BoundingBoxModes.ROTATE) {
+                this.setCursor(_cursors2.default.GRABBING);
                 this._modeMap[this.mode].onMouseDown(hitResult, this.boundsPath, (0, _selection.getSelectedRootItems)());
                 // While transforming, don't show bounds
                 this.removeBoundsPath();
@@ -56697,20 +54421,91 @@ var BoundingBoxTool = function () {
             return true;
         }
     }, {
+        key: 'onMouseMove',
+        value: function onMouseMove(event, hitOptions) {
+            this._updateCursor(event, hitOptions);
+        }
+    }, {
+        key: '_updateCursor',
+        value: function _updateCursor(event, hitOptions) {
+            var _determineMode3 = this._determineMode(event, false, hitOptions),
+                mode = _determineMode3.mode,
+                hitResult = _determineMode3.hitResult;
+
+            if (hitResult) {
+                if (mode === BoundingBoxModes.MOVE) {
+                    this.setCursor(_cursors2.default.DEFAULT);
+                } else if (mode === BoundingBoxModes.ROTATE) {
+                    this.setCursor(_cursors2.default.GRAB);
+                } else if (mode === BoundingBoxModes.SCALE) {
+                    this.setSelectionBounds();
+                    if (this._impreciseEqual(hitResult.item.position.x, this.boundsPath.position.x)) {
+                        this.setCursor(_cursors2.default.RESIZE_NS);
+                    } else if (this._impreciseEqual(hitResult.item.position.y, this.boundsPath.position.y)) {
+                        this.setCursor(_cursors2.default.RESIZE_EW);
+                    } else if (hitResult.item.position.equals(this.boundsPath.bounds.bottomLeft) || hitResult.item.position.equals(this.boundsPath.bounds.topRight)) {
+                        this.setCursor(_cursors2.default.RESIZE_NESW);
+                    } else {
+                        this.setCursor(_cursors2.default.RESIZE_NWSE);
+                    }
+                }
+            } else {
+                this.setCursor(_cursors2.default.DEFAULT);
+            }
+        }
+    }, {
+        key: '_impreciseEqual',
+        value: function _impreciseEqual(a, b) {
+            // This is the same math paper.js uses to check if two numbers are "equal".
+            return Math.abs(a - b) < 1e-8;
+        }
+    }, {
+        key: '_determineMode',
+        value: function _determineMode(event, multiselect, hitOptions) {
+            var hitResults = _paper2.default.project.hitTestAll(event.point, hitOptions);
+
+            var mode = void 0;
+
+            // Prefer scale to trigger over rotate, and scale and rotate to trigger over other hits
+            var hitResult = hitResults[0];
+            for (var i = 0; i < hitResults.length; i++) {
+                if (hitResults[i].item.data && hitResults[i].item.data.isScaleHandle) {
+                    hitResult = hitResults[i];
+                    mode = BoundingBoxModes.SCALE;
+                    break;
+                } else if (hitResults[i].item.data && hitResults[i].item.data.isRotHandle) {
+                    hitResult = hitResults[i];
+                    mode = BoundingBoxModes.ROTATE;
+                }
+            }
+            if (!mode) {
+                mode = BoundingBoxModes.MOVE;
+            }
+
+            return { mode: mode, hitResult: hitResult };
+        }
+    }, {
         key: 'onMouseDrag',
         value: function onMouseDrag(event) {
             if (event.event.button > 0 || !this.mode) return; // only first mouse button
             this._modeMap[this.mode].onMouseDrag(event);
+
+            // Set the cursor for moving a sprite once the drag has actually started (i.e. the mouse has been moved while
+            // pressed), so that the mouse doesn't "flash" to the grabbing cursor every time a sprite is clicked.
+            if (this.mode === BoundingBoxModes.MOVE) {
+                this.setCursor(_cursors2.default.GRABBING);
+            }
         }
     }, {
         key: 'onMouseUp',
-        value: function onMouseUp(event) {
+        value: function onMouseUp(event, hitOptions) {
             if (event.event.button > 0 || !this.mode) return; // only first mouse button
             this._modeMap[this.mode].onMouseUp(event);
 
             // After transforming, show bounds again
             this.setSelectionBounds();
             this.mode = null;
+            this._updateCursor(event, hitOptions);
         }
     }, {
         key: 'setSelectionBounds',
@@ -56888,6 +54683,20 @@ var BoundingBoxTool = function () {
             (0, _guides.removeBoundsHandles)();
             this.boundsScaleHandles.length = 0;
             this.boundsRotHandles.length = 0;
+        }
+    }, {
+        key: 'deactivateTool',
+        value: function deactivateTool() {
+            this.removeBoundsPath();
+            this.setCursor(_cursors2.default.DEFAULT);
+        }
+    }, {
+        key: 'setCursor',
+        value: function setCursor(cursorString) {
+            if (this._currentCursor !== cursorString) {
+                this.dispatchSetCursor(cursorString);
+                this._currentCursor = cursorString;
+            }
         }
     }]);
 
@@ -57760,13 +55569,14 @@ var SelectTool = function (_paper$Tool) {
          * @param {function} clearHoveredItem Callback to clear the hovered item
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          * @param {!function} switchToTextTool A callback to call to switch to the text tool
          */
 
     }]);
 
-    function SelectTool(setHoveredItem, clearHoveredItem, setSelectedItems, clearSelectedItems, onUpdateImage, switchToTextTool) {
+    function SelectTool(setHoveredItem, clearHoveredItem, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage, switchToTextTool) {
         _classCallCheck(this, SelectTool);
 
         var _this = _possibleConstructorReturn(this, (SelectTool.__proto__ || Object.getPrototypeOf(SelectTool)).call(this));
@@ -57774,7 +55584,7 @@ var SelectTool = function (_paper$Tool) {
         _this.setHoveredItem = setHoveredItem;
         _this.clearHoveredItem = clearHoveredItem;
         _this.onUpdateImage = onUpdateImage;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.SELECT, setSelectedItems, clearSelectedItems, onUpdateImage, switchToTextTool);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.SELECT, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage, switchToTextTool);
         var nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
         _this.selectionBoxTool = new _selectionBoxTool2.default(_modes2.default.SELECT, setSelectedItems, clearSelectedItems);
         _this.selectionBoxMode = false;
@@ -57897,6 +55707,10 @@ var SelectTool = function (_paper$Tool) {
                 // hovered item changed
                 this.setHoveredItem(hoveredItem ? hoveredItem.id : null);
             }
+
+            if (!this.selectionBoxMode) {
+                this.boundingBoxTool.onMouseMove(event, this.getHitOptions(false));
+            }
         }
     }, {
         key: 'handleMouseDrag',
@@ -57931,7 +55745,7 @@ var SelectTool = function (_paper$Tool) {
             if (this.selectionBoxMode) {
                 this.selectionBoxTool.onMouseUpVector(event);
             } else {
-                this.boundingBoxTool.onMouseUp(event);
+                this.boundingBoxTool.onMouseUp(event, this.getHitOptions(false));
             }
             this.selectionBoxMode = false;
             this.active = false;
@@ -57940,7 +55754,7 @@ var SelectTool = function (_paper$Tool) {
         key: 'deactivateTool',
         value: function deactivateTool() {
             this.clearHoveredItem();
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
             this.setHoveredItem = null;
             this.clearHoveredItem = null;
             this.onUpdateImage = null;
@@ -58928,7 +56742,7 @@ var applyFillColorToSelection = function applyFillColorToSelection(colorString, 
             }
 
             // In bitmap mode, fill color applies to the stroke if there is a stroke
-            if (bitmapMode && item.strokeColor !== null && item.strokeWidth !== 0) {
+            if (bitmapMode && item.strokeColor !== null && item.strokeWidth) {
                 if (!_colorMatch(item.strokeColor, colorString)) {
                     changed = true;
                     item.strokeColor = colorString;
@@ -59182,74 +56996,7 @@ var applyStrokeColorToSelection = function applyStrokeColorToSelection(colorStri
             if (item.parent instanceof _paper2.default.CompoundPath) {
                 item = item.parent;
             }
-            if ((0, _item.isPGTextItem)(item)) {
-                if (item.children) {
-                    var _iteratorNormalCompletion5 = true;
-                    var _didIteratorError5 = false;
-                    var _iteratorError5 = undefined;
-
-                    try {
-                        for (var _iterator5 = item.children[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                            var child = _step5.value;
-
-                            if (child.children) {
-                                var _iteratorNormalCompletion6 = true;
-                                var _didIteratorError6 = false;
-                                var _iteratorError6 = undefined;
-
-                                try {
-                                    for (var _iterator6 = child.children[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                                        var path = _step6.value;
-
-                                        if (!path.data.isPGGlyphRect) {
-                                            if (!_colorMatch(path.strokeColor, colorString)) {
-                                                changed = true;
-                                                path.strokeColor = colorString;
-                                            }
-                                        }
-                                    }
-                                } catch (err) {
-                                    _didIteratorError6 = true;
-                                    _iteratorError6 = err;
-                                } finally {
-                                    try {
-                                        if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                                            _iterator6.return();
-                                        }
-                                    } finally {
-                                        if (_didIteratorError6) {
-                                            throw _iteratorError6;
-                                        }
-                                    }
-                                }
-                            } else if (!child.data.isPGGlyphRect) {
-                                if (child.strokeColor !== colorString) {
-                                    changed = true;
-                                    child.strokeColor = colorString;
-                                }
-                            }
-                        }
-                    } catch (err) {
-                        _didIteratorError5 = true;
-                        _iteratorError5 = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion5 && _iterator5.return) {
-                                _iterator5.return();
-                            }
-                        } finally {
-                            if (_didIteratorError5) {
-                                throw _iteratorError5;
-                            }
-                        }
-                    }
-                } else if (!item.data.isPGGlyphRect) {
-                    if (!_colorMatch(item.strokeColor, colorString)) {
-                        changed = true;
-                        item.strokeColor = colorString;
-                    }
-                }
-            } else if (!_colorMatch(item.strokeColor, colorString)) {
+            if (!_colorMatch(item.strokeColor, colorString)) {
                 changed = true;
                 item.strokeColor = colorString;
             }
@@ -59281,13 +57028,13 @@ var applyStrokeColorToSelection = function applyStrokeColorToSelection(colorStri
 var applyStrokeWidthToSelection = function applyStrokeWidthToSelection(value, textEditTargetId) {
     var changed = false;
     var items = _getColorStateListeners(textEditTargetId);
-    var _iteratorNormalCompletion7 = true;
-    var _didIteratorError7 = false;
-    var _iteratorError7 = undefined;
+    var _iteratorNormalCompletion5 = true;
+    var _didIteratorError5 = false;
+    var _iteratorError5 = undefined;
 
     try {
-        for (var _iterator7 = items[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-            var item = _step7.value;
+        for (var _iterator5 = items[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var item = _step5.value;
 
             if (item.parent instanceof _paper2.default.CompoundPath) {
                 item = item.parent;
@@ -59300,16 +57047,16 @@ var applyStrokeWidthToSelection = function applyStrokeWidthToSelection(value, te
             }
         }
     } catch (err) {
-        _didIteratorError7 = true;
-        _iteratorError7 = err;
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
     } finally {
         try {
-            if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                _iterator7.return();
+            if (!_iteratorNormalCompletion5 && _iterator5.return) {
+                _iterator5.return();
             }
         } finally {
-            if (_didIteratorError7) {
-                throw _iteratorError7;
+            if (_didIteratorError5) {
+                throw _iteratorError5;
             }
         }
     }
@@ -59335,13 +57082,13 @@ var getColorsFromSelection = function getColorsFromSelection(selectedItems, bitm
     var selectionGradientType = void 0;
     var firstChild = true;
 
-    var _iteratorNormalCompletion8 = true;
-    var _didIteratorError8 = false;
-    var _iteratorError8 = undefined;
+    var _iteratorNormalCompletion6 = true;
+    var _didIteratorError6 = false;
+    var _iteratorError6 = undefined;
 
     try {
-        for (var _iterator8 = selectedItems[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-            var item = _step8.value;
+        for (var _iterator6 = selectedItems[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            var item = _step6.value;
 
             if (item.parent instanceof _paper2.default.CompoundPath) {
                 // Compound path children inherit fill and stroke color from their parent.
@@ -59384,8 +57131,10 @@ var getColorsFromSelection = function getColorsFromSelection(selectedItems, bitm
                     } else if (item.strokeColor.type === 'gradient') {
                         itemStrokeColorString = MIXED;
                     } else {
-                        itemStrokeColorString = item.strokeColor.alpha === 0 ? null : item.strokeColor.toCSS();
+                        itemStrokeColorString = item.strokeColor.alpha === 0 || !item.strokeWidth ? null : item.strokeColor.toCSS();
                     }
+                } else {
+                    itemStrokeColorString = null;
                 }
                 // check every style against the first of the items
                 if (firstChild) {
@@ -59394,7 +57143,7 @@ var getColorsFromSelection = function getColorsFromSelection(selectedItems, bitm
                     selectionFillColor2String = itemFillColor2String;
                     selectionStrokeColorString = itemStrokeColorString;
                     selectionGradientType = itemGradientType;
-                    selectionStrokeWidth = item.strokeWidth;
+                    selectionStrokeWidth = itemStrokeColorString ? item.strokeWidth : 0;
                     if (item.strokeWidth && item.data && item.data.zoomLevel) {
                         selectionThickness = item.strokeWidth / item.data.zoomLevel;
                     }
@@ -59413,28 +57162,29 @@ var getColorsFromSelection = function getColorsFromSelection(selectedItems, bitm
                 if (itemStrokeColorString !== selectionStrokeColorString) {
                     selectionStrokeColorString = MIXED;
                 }
-                if (selectionStrokeWidth !== item.strokeWidth) {
+                var itemStrokeWidth = itemStrokeColorString ? item.strokeWidth : 0;
+                if (selectionStrokeWidth !== itemStrokeWidth) {
                     selectionStrokeWidth = null;
                 }
             }
         }
         // Convert selection gradient type from horizontal to vertical if first item is exactly vertical
     } catch (err) {
-        _didIteratorError8 = true;
-        _iteratorError8 = err;
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
     } finally {
         try {
-            if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                _iterator8.return();
+            if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                _iterator6.return();
             }
         } finally {
-            if (_didIteratorError8) {
-                throw _iteratorError8;
+            if (_didIteratorError6) {
+                throw _iteratorError6;
             }
         }
     }
 
-    if (selectionGradientType !== _gradientTypes2.default.SOLID) {
+    if (selectedItems && selectedItems.length && selectionGradientType !== _gradientTypes2.default.SOLID) {
         var firstItem = selectedItems[0];
         if (firstItem.parent instanceof _paper2.default.CompoundPath) firstItem = firstItem.parent;
         var direction = firstItem.fillColor.destination.subtract(firstItem.fillColor.origin);
@@ -59752,6 +57502,7 @@ var EyeDropperTool = function (_paper$Tool) {
         };
 
         _this.onMouseDown = _this.handleMouseDown;
+        _this.onMouseUp = _this.handleMouseUp;
         _this.onMouseMove = _this.handleMouseMove;
 
         _this.canvas = canvas;
@@ -59781,7 +57532,15 @@ var EyeDropperTool = function (_paper$Tool) {
         }
     }, {
         key: 'handleMouseDown',
-        value: function handleMouseDown() {
+        value: function handleMouseDown(event) {
+            // Nothing special on mousedown, just send to move handler which will show the loupe,
+            // and the mouse up handler submits the color. This allows touch to drag
+            // with the loupe visible to find the correct color
+            this.handleMouseMove(event);
+        }
+    }, {
+        key: 'handleMouseUp',
+        value: function handleMouseUp() {
             if (!this.hideLoupe) {
                 var colorInfo = this.getColorInfo(this.pickX, this.pickY, this.hideLoupe);
                 if (!colorInfo) return;
@@ -60084,10 +57843,12 @@ var FillTool = function (_paper$Tool) {
         value: function _setFillItemColor(color1, color2, gradientType, pointerLocation) {
             var item = this._getFillItem();
             if (!item) return;
-            if (color1 instanceof _paper2.default.Color || gradientType === _gradientTypes2.default.SOLID) {
-                item.fillColor = color1;
-            } else {
+            // Only create a gradient if specifically requested, else use color1 directly
+            // This ensures we do not set a gradient by accident (see scratch-paint#830).
+            if (gradientType && gradientType !== _gradientTypes2.default.SOLID) {
                 item.fillColor = (0, _stylePath.createGradientObject)(color1, color2, gradientType, item.bounds, pointerLocation);
+            } else {
+                item.fillColor = color1;
             }
         }
     }, {
@@ -60149,6 +57910,8 @@ var _stylePath = __webpack_require__(/*! ../style-path */ "./src/helper/style-pa
 
 var _selection = __webpack_require__(/*! ../selection */ "./src/helper/selection.js");
 
+var _math = __webpack_require__(/*! ../math */ "./src/helper/math.js");
+
 var _boundingBoxTool = __webpack_require__(/*! ../selection-tools/bounding-box-tool */ "./src/helper/selection-tools/bounding-box-tool.js");
 
 var _boundingBoxTool2 = _interopRequireDefault(_boundingBoxTool);
@@ -60179,12 +57942,13 @@ var OvalTool = function (_paper$Tool) {
         /**
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          */
 
     }]);
 
-    function OvalTool(setSelectedItems, clearSelectedItems, onUpdateImage) {
+    function OvalTool(setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         _classCallCheck(this, OvalTool);
 
         var _this = _possibleConstructorReturn(this, (OvalTool.__proto__ || Object.getPrototypeOf(OvalTool)).call(this));
@@ -60192,13 +57956,14 @@ var OvalTool = function (_paper$Tool) {
         _this.setSelectedItems = setSelectedItems;
         _this.clearSelectedItems = clearSelectedItems;
         _this.onUpdateImage = onUpdateImage;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.OVAL, setSelectedItems, clearSelectedItems, onUpdateImage);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.OVAL, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage);
         var nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         _this.onMouseDown = _this.handleMouseDown;
         _this.onMouseDrag = _this.handleMouseDrag;
+        _this.onMouseMove = _this.handleMouseMove;
         _this.onMouseUp = _this.handleMouseUp;
         _this.onKeyUp = nudgeTool.onKeyUp;
         _this.onKeyDown = nudgeTool.onKeyDown;
@@ -60284,16 +58049,25 @@ var OvalTool = function (_paper$Tool) {
 
             var downPoint = new _paper2.default.Point(event.downPoint.x, event.downPoint.y);
             var point = new _paper2.default.Point(event.point.x, event.point.y);
+            var squareDimensions = (0, _math.getSquareDimensions)(event.downPoint, event.point);
             if (event.modifiers.shift) {
-                this.oval.size = new _paper2.default.Point(event.downPoint.x - event.point.x, event.downPoint.x - event.point.x);
+                this.oval.size = squareDimensions.size.abs();
             } else {
                 this.oval.size = downPoint.subtract(point);
             }
+
             if (event.modifiers.alt) {
                 this.oval.position = downPoint;
+            } else if (event.modifiers.shift) {
+                this.oval.position = squareDimensions.position;
             } else {
                 this.oval.position = downPoint.subtract(this.oval.size.multiply(0.5));
             }
+        }
+    }, {
+        key: 'handleMouseMove',
+        value: function handleMouseMove(event) {
+            this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
         }
     }, {
         key: 'handleMouseUp',
@@ -60333,7 +58107,7 @@ var OvalTool = function (_paper$Tool) {
     }, {
         key: 'deactivateTool',
         value: function deactivateTool() {
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
         }
     }]);
 
@@ -60372,6 +58146,8 @@ var _stylePath = __webpack_require__(/*! ../style-path */ "./src/helper/style-pa
 
 var _selection = __webpack_require__(/*! ../selection */ "./src/helper/selection.js");
 
+var _math = __webpack_require__(/*! ../math */ "./src/helper/math.js");
+
 var _boundingBoxTool = __webpack_require__(/*! ../selection-tools/bounding-box-tool */ "./src/helper/selection-tools/bounding-box-tool.js");
 
 var _boundingBoxTool2 = _interopRequireDefault(_boundingBoxTool);
@@ -60402,12 +58178,13 @@ var RectTool = function (_paper$Tool) {
         /**
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          */
 
     }]);
 
-    function RectTool(setSelectedItems, clearSelectedItems, onUpdateImage) {
+    function RectTool(setSelectedItems, clearSelectedItems, setCursor, onUpdateImage) {
         _classCallCheck(this, RectTool);
 
         var _this = _possibleConstructorReturn(this, (RectTool.__proto__ || Object.getPrototypeOf(RectTool)).call(this));
@@ -60415,12 +58192,13 @@ var RectTool = function (_paper$Tool) {
         _this.setSelectedItems = setSelectedItems;
         _this.clearSelectedItems = clearSelectedItems;
         _this.onUpdateImage = onUpdateImage;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.RECT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.RECT, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage);
         var nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
 
         // We have to set these functions instead of just declaring them because
         // paper.js tools hook up the listeners in the setter functions.
         _this.onMouseDown = _this.handleMouseDown;
+        _this.onMouseMove = _this.handleMouseMove;
         _this.onMouseDrag = _this.handleMouseDrag;
         _this.onMouseUp = _this.handleMouseUp;
         _this.onKeyUp = nudgeTool.onKeyUp;
@@ -60504,18 +58282,20 @@ var RectTool = function (_paper$Tool) {
                 this.rect.remove();
             }
 
-            var dimensions = event.point.subtract(event.downPoint);
             var rect = new _paper2.default.Rectangle(event.downPoint, event.point);
+            var squareDimensions = (0, _math.getSquareDimensions)(event.downPoint, event.point);
             if (event.modifiers.shift) {
-                rect.height = rect.width;
-                dimensions.y = event.downPoint.y > event.point.y ? -Math.abs(rect.width) : Math.abs(rect.width);
+                rect.size = squareDimensions.size.abs();
             }
-            this.rect = new _paper2.default.Path.Rectangle(rect);
 
+            this.rect = new _paper2.default.Path.Rectangle(rect);
             if (event.modifiers.alt) {
                 this.rect.position = event.downPoint;
+            } else if (event.modifiers.shift) {
+                this.rect.position = squareDimensions.position;
             } else {
-                this.rect.position = event.downPoint.add(dimensions.multiply(.5));
+                var dimensions = event.point.subtract(event.downPoint);
+                this.rect.position = event.downPoint.add(dimensions.multiply(0.5));
             }
 
             (0, _stylePath.styleShape)(this.rect, this.colorState);
@@ -60553,9 +58333,14 @@ var RectTool = function (_paper$Tool) {
             this.active = false;
         }
     }, {
+        key: 'handleMouseMove',
+        value: function handleMouseMove(event) {
+            this.boundingBoxTool.onMouseMove(event, this.getHitOptions());
+        }
+    }, {
         key: 'deactivateTool',
         value: function deactivateTool() {
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
         }
     }]);
 
@@ -60664,6 +58449,7 @@ var TextTool = function (_paper$Tool) {
          * @param {HTMLTextAreaElement} textAreaElement dom element for the editable text field
          * @param {function} setSelectedItems Callback to set the set of selected items in the Redux state
          * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
+         * @param {function} setCursor Callback to set the visible mouse cursor
          * @param {!function} onUpdateImage A callback to call when the image visibly changes
          * @param {!function} setTextEditTarget Call to set text editing target whenever text editing is active
          * @param {!function} changeFont Call to change the font in the dropdown
@@ -60672,7 +58458,7 @@ var TextTool = function (_paper$Tool) {
 
     }]);
 
-    function TextTool(textAreaElement, setSelectedItems, clearSelectedItems, onUpdateImage, setTextEditTarget, changeFont, isBitmap) {
+    function TextTool(textAreaElement, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage, setTextEditTarget, changeFont, isBitmap) {
         _classCallCheck(this, TextTool);
 
         var _this = _possibleConstructorReturn(this, (TextTool.__proto__ || Object.getPrototypeOf(TextTool)).call(this));
@@ -60683,12 +58469,12 @@ var TextTool = function (_paper$Tool) {
         _this.onUpdateImage = onUpdateImage;
         _this.setTextEditTarget = setTextEditTarget;
         _this.changeFont = changeFont;
-        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.TEXT, setSelectedItems, clearSelectedItems, onUpdateImage);
+        _this.boundingBoxTool = new _boundingBoxTool2.default(_modes2.default.TEXT, setSelectedItems, clearSelectedItems, setCursor, onUpdateImage);
         _this.nudgeTool = new _nudgeTool2.default(_this.boundingBoxTool, onUpdateImage);
         _this.isBitmap = isBitmap;
         /////////////////////
         var argumentsLength = arguments.length;
-        if (argumentsLength === 8 && arguments[argumentsLength - 1].ok) {
+        if (argumentsLength === 9 && arguments[argumentsLength - 1].ok) {
             _this.messages = arguments[argumentsLength - 1];
         }
         /////////////////
@@ -60874,6 +58660,7 @@ var TextTool = function (_paper$Tool) {
             } else {
                 document.body.style.cursor = 'auto';
             }
+            this.boundingBoxTool.onMouseMove(event, this.getBoundingBoxHitOptions());
         }
     }, {
         key: 'handleMouseDown',
@@ -61069,6 +58856,7 @@ var TextTool = function (_paper$Tool) {
         key: 'beginTextEdit',
         value: function beginTextEdit(textBox) {
             this.textBox = textBox;
+            console.log(this);
             this.mode = TextTool.TEXT_EDIT_MODE;
             /////////////////////
             if (_uiMobileInput2.default) {
@@ -61144,7 +58932,7 @@ var TextTool = function (_paper$Tool) {
             if (!this.textBox || !this.textBox.parent) return;
 
             // @todo get crisp text https://github.com/LLK/scratch-paint/issues/508
-            var textRaster = this.textBox.rasterize(72, false /* insert */);
+            var textRaster = this.textBox.rasterize(72, false /* insert */, this.textBox.drawnBounds);
             this.textBox.remove();
             this.textBox = null;
             (0, _layer.getRaster)().drawImage(textRaster.canvas, new _paper2.default.Point(Math.floor(textRaster.bounds.x), Math.floor(textRaster.bounds.y)));
@@ -61161,7 +58949,7 @@ var TextTool = function (_paper$Tool) {
             if (this.isBitmap) {
                 this.commitText();
             }
-            this.boundingBoxTool.removeBoundsPath();
+            this.boundingBoxTool.deactivateTool();
         }
     }]);
 
@@ -62375,20 +60163,29 @@ var UpdateImageHOC = function UpdateImageHOC(WrappedComponent) {
                     } else if (item instanceof _paper2.default.Shape && item.type === 'ellipse') {
                         (0, _bitmap.commitOvalToBitmap)(item, plasteredRaster);
                     } else if (item instanceof _paper2.default.PointText) {
-                        var textRaster = item.rasterize(72, false /* insert */);
-                        plasteredRaster.drawImage(textRaster.canvas, new _paper2.default.Point(Math.floor(textRaster.bounds.x), Math.floor(textRaster.bounds.y)));
+                        var bounds = item.drawnBounds;
+                        var textRaster = item.rasterize(72, false /* insert */, bounds);
+                        plasteredRaster.drawImage(textRaster.canvas, new _paper2.default.Point(Math.floor(bounds.x), Math.floor(bounds.y)));
                     }
                 }
                 var rect = (0, _bitmap.getHitBounds)(plasteredRaster);
+                // Use 1x1 instead of 0x0 for getting imageData since paper.js automagically
+                // returns the full artboard in the case of getImageData(0x0).
+                // Bitmaps need a non-zero width/height in order to be saved as PNG.
+                if (rect.width === 0 || rect.height === 0) {
+                    rect.width = rect.height = 1;
+                }
+
+                var imageData = plasteredRaster.getImageData(rect);
                 /////////////////////////
                 if (this.props.isCanSave) {
                     this.props.onUpdateImage(false /* isVector */
-                    , plasteredRaster.getImageData(rect), _view.ART_BOARD_WIDTH / 2 - rect.x, _view.ART_BOARD_HEIGHT / 2 - rect.y);
+                    , imageData, _view.ART_BOARD_WIDTH / 2 - rect.x, _view.ART_BOARD_HEIGHT / 2 - rect.y);
                 }
                 ////////////////////
                 /////////////////////////////////////
                 /////////////////////////////////////
-                ///////////////////////////////////////////////////
+                //////////////////////////
                 ///////////////////////////////////////////////
                 /////////////////////////////////////////////////
                 /////////////////////
@@ -62404,7 +60201,7 @@ var UpdateImageHOC = function UpdateImageHOC(WrappedComponent) {
 
                 // Export at 0.5x
                 (0, _math.scaleWithStrokes)(_paper2.default.project.activeLayer, .5, new _paper2.default.Point());
-                var bounds = _paper2.default.project.activeLayer.bounds;
+                var bounds = _paper2.default.project.activeLayer.drawnBounds;
                 /////////////////////////
                 if (this.props.isCanSave) {
                     this.props.onUpdateImage(true /* isVector */
@@ -62515,6 +60312,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = _paintEditor2.default;
 exports.ScratchPaintReducer = _scratchPaintReducer2.default;
+
+/***/ }),
+
+/***/ "./src/lib/cursors.js":
+/*!****************************!*\
+  !*** ./src/lib/cursors.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var Cursors = {
+    DEFAULT: 'default',
+    GRAB: 'grab',
+    GRABBING: 'grabbing',
+    NONE: 'none',
+    RESIZE_EW: 'ew-resize',
+    RESIZE_NS: 'ns-resize',
+    RESIZE_NESW: 'nesw-resize',
+    RESIZE_NWSE: 'nwse-resize'
+};
+
+exports.default = Cursors;
 
 /***/ }),
 
@@ -62700,7 +60525,9 @@ exports.default = messages;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.BitmapModes = exports.default = undefined;
+exports.BitmapModes = exports.VectorModes = exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _keymirror = __webpack_require__(/*! keymirror */ "./node_modules/keymirror/index.js");
 
@@ -62708,16 +60535,7 @@ var _keymirror2 = _interopRequireDefault(_keymirror);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Modes = (0, _keymirror2.default)({
-    BIT_BRUSH: null,
-    BIT_LINE: null,
-    BIT_OVAL: null,
-    BIT_RECT: null,
-    BIT_TEXT: null,
-    BIT_FILL: null,
-    BIT_ERASER: null,
-    BIT_SELECT: null,
-    BIT_CENTER: null,
+var vectorModesObj = {
     BRUSH: null,
     ERASER: null,
     LINE: null,
@@ -62729,9 +60547,9 @@ var Modes = (0, _keymirror2.default)({
     ROUNDED_RECT: null,
     TEXT: null,
     CENTER: null
-});
+};
 
-var BitmapModes = (0, _keymirror2.default)({
+var bitmapModesObj = {
     BIT_BRUSH: null,
     BIT_LINE: null,
     BIT_OVAL: null,
@@ -62741,9 +60559,14 @@ var BitmapModes = (0, _keymirror2.default)({
     BIT_ERASER: null,
     BIT_SELECT: null,
     BIT_CENTER: null
-});
+};
+
+var VectorModes = (0, _keymirror2.default)(vectorModesObj);
+var BitmapModes = (0, _keymirror2.default)(bitmapModesObj);
+var Modes = (0, _keymirror2.default)(_extends({}, vectorModesObj, bitmapModesObj));
 
 exports.default = Modes;
+exports.VectorModes = VectorModes;
 exports.BitmapModes = BitmapModes;
 
 /***/ }),
@@ -63173,6 +60996,74 @@ exports.default = (0, _redux.combineReducers)({
 
 /***/ }),
 
+/***/ "./src/reducers/cursor.js":
+/*!********************************!*\
+  !*** ./src/reducers/cursor.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setCursor = exports.default = undefined;
+
+var _log = __webpack_require__(/*! ../log/log */ "./src/log/log.js");
+
+var _log2 = _interopRequireDefault(_log);
+
+var _cursors = __webpack_require__(/*! ../lib/cursors */ "./src/lib/cursors.js");
+
+var _cursors2 = _interopRequireDefault(_cursors);
+
+var _eyeDropper = __webpack_require__(/*! ./eye-dropper */ "./src/reducers/eye-dropper.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CHANGE_CURSOR = 'scratch-paint/cursor/CHANGE_CURSOR';
+var initialState = _cursors2.default.DEFAULT;
+
+var reducer = function reducer(state, action) {
+    if (typeof state === 'undefined') state = initialState;
+    switch (action.type) {
+        case CHANGE_CURSOR:
+            if (typeof action.cursorString === 'undefined') {
+                _log2.default.warn('Cursor should not be set to undefined. Use \'default\'.');
+                return state;
+            } else if (!Object.values(_cursors2.default).includes(action.cursorString)) {
+                _log2.default.warn('Cursor should be a valid cursor string. Got: ' + action.cursorString);
+            }
+            return action.cursorString;
+        case _eyeDropper.ACTIVATE_EYE_DROPPER:
+            return _cursors2.default.NONE;
+        case _eyeDropper.DEACTIVATE_EYE_DROPPER:
+            return _cursors2.default.DEFAULT;
+        default:
+            return state;
+    }
+};
+
+// Action creators ==================================
+/**
+ * Set the mouse cursor state to the given string
+ * @param {string} cursorString The CSS cursor string.
+ * @return {object} Redux action to change the cursor.
+ */
+var setCursor = function setCursor(cursorString) {
+    return {
+        type: CHANGE_CURSOR,
+        cursorString: cursorString
+    };
+};
+
+exports.default = reducer;
+exports.setCursor = setCursor;
+
+/***/ }),
+
 /***/ "./src/reducers/eraser-mode.js":
 /*!*************************************!*\
   !*** ./src/reducers/eraser-mode.js ***!
@@ -63282,6 +61173,8 @@ var deactivateEyeDropper = function deactivateEyeDropper() {
 exports.default = reducer;
 exports.activateEyeDropper = activateEyeDropper;
 exports.deactivateEyeDropper = deactivateEyeDropper;
+exports.ACTIVATE_EYE_DROPPER = ACTIVATE_EYE_DROPPER;
+exports.DEACTIVATE_EYE_DROPPER = DEACTIVATE_EYE_DROPPER;
 
 /***/ }),
 
@@ -64030,6 +61923,10 @@ var _clipboard = __webpack_require__(/*! ./clipboard */ "./src/reducers/clipboar
 
 var _clipboard2 = _interopRequireDefault(_clipboard);
 
+var _cursor = __webpack_require__(/*! ./cursor */ "./src/reducers/cursor.js");
+
+var _cursor2 = _interopRequireDefault(_cursor);
+
 var _fillBitmapShapes = __webpack_require__(/*! ./fill-bitmap-shapes */ "./src/reducers/fill-bitmap-shapes.js");
 
 var _fillBitmapShapes2 = _interopRequireDefault(_fillBitmapShapes);
@@ -64093,6 +61990,7 @@ exports.default = (0, _redux.combineReducers)({
     brushMode: _brushMode2.default,
     color: _color2.default,
     clipboard: _clipboard2.default,
+    cursor: _cursor2.default,
     eraserMode: _eraserMode2.default,
     fillBitmapShapes: _fillBitmapShapes2.default,
     fillMode: _fillMode2.default,
@@ -64289,6 +62187,8 @@ var _log2 = _interopRequireDefault(_log);
 
 var _selectedItems = __webpack_require__(/*! ./selected-items */ "./src/reducers/selected-items.js");
 
+var _strokeWidth = __webpack_require__(/*! ./stroke-width */ "./src/reducers/stroke-width.js");
+
 var _stylePath = __webpack_require__(/*! ../helper/style-path */ "./src/helper/style-path.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -64301,8 +62201,13 @@ var regExp = /^#([0-9a-f]{3}){1,2}$/i;
 var reducer = function reducer(state, action) {
     if (typeof state === 'undefined') state = initialState;
     switch (action.type) {
+        case _strokeWidth.CHANGE_STROKE_WIDTH:
+            if (Math.max(0, action.strokeWidth) === 0) {
+                return null;
+            }
+            return state;
         case CHANGE_STROKE_COLOR:
-            if (!regExp.test(action.strokeColor) && action.strokeColor !== null) {
+            if (!regExp.test(action.strokeColor) && action.strokeColor !== null && action.strokeColor !== _stylePath.MIXED) {
                 _log2.default.warn('Invalid hex color code: ' + action.fillColor);
                 return state;
             }
@@ -64348,7 +62253,7 @@ exports.changeStrokeColor = changeStrokeColor;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.MAX_STROKE_WIDTH = exports.changeStrokeWidth = exports.default = undefined;
+exports.MAX_STROKE_WIDTH = exports.CHANGE_STROKE_WIDTH = exports.changeStrokeWidth = exports.default = undefined;
 
 var _log = __webpack_require__(/*! ../log/log */ "./src/log/log.js");
 
@@ -64361,7 +62266,7 @@ var _stylePath = __webpack_require__(/*! ../helper/style-path */ "./src/helper/s
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CHANGE_STROKE_WIDTH = 'scratch-paint/stroke-width/CHANGE_STROKE_WIDTH';
-var MAX_STROKE_WIDTH = 800;
+var MAX_STROKE_WIDTH = 100;
 var initialState = 4;
 
 var reducer = function reducer(state, action) {
@@ -64398,6 +62303,7 @@ var changeStrokeWidth = function changeStrokeWidth(strokeWidth) {
 
 exports.default = reducer;
 exports.changeStrokeWidth = changeStrokeWidth;
+exports.CHANGE_STROKE_WIDTH = CHANGE_STROKE_WIDTH;
 exports.MAX_STROKE_WIDTH = MAX_STROKE_WIDTH;
 
 /***/ }),

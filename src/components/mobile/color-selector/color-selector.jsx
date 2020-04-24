@@ -281,7 +281,7 @@ class ColorSelector extends Component {
         }, {
             id: 's-slider',
             min: 0,
-            max: 359,
+            max: 100,
             value: sPickerValue,
             railStyle: Object.assign({}, commonRailStyle, satBackground),
             event: this.onSatSliderChange.bind(this)
