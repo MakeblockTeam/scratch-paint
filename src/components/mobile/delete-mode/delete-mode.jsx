@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import messages from '../../../lib/messages.js';
 import ToolSelectComponent from '../../tool-select-base/tool-select-base.mobile.jsx';
 import deleteIcon from '../icons/delete-mobile.svg';
-import styles from './delete-mode.css';
+import styles from './delete-mode.scss';
 
 
 const SelectModeComponent = props => (

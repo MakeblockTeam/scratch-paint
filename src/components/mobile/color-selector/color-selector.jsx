@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Slider from 'rc-slider';
-import styles from './color-selector.css';
+import styles from './color-selector.scss';
 import colorPickerIcon from './icons/color-picker.svg';
 import transparentIcon from './icons/transparent.svg';
 
@@ -19,9 +19,9 @@ const commonRailStyle = {
 };
 const handleStyle = {
     position: 'absolute',
-    marginLeft: '-10px',
-    width: '40px',
-    height: '40px',
+    marginLeft: 0,
+    width: '30px',
+    height: '30px',
     backgroundColor: '#fff',
     borderRadius: '50%',
     border: 'solid 4px #cfcfcf',
@@ -281,7 +281,7 @@ class ColorSelector extends Component {
         }, {
             id: 's-slider',
             min: 0,
-            max: 359,
+            max: 100,
             value: sPickerValue,
             railStyle: Object.assign({}, commonRailStyle, satBackground),
             event: this.onSatSliderChange.bind(this)
@@ -304,7 +304,7 @@ class ColorSelector extends Component {
                             max={item.max}
                             value={item.value}
                             railStyle={item.railStyle}
-                            handleStyle={item.value === item.max ? Object.assign({}, handleStyle, { marginLeft: '-10px' }) : handleStyle}
+                            handleStyle={handleStyle}
                             onChange={item.event}
                             onAfterChange={this.handleReleaseScroll.bind(this)}
                         />

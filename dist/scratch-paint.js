@@ -28708,8 +28708,8 @@ class SvgRenderer {
             this._svgTag.setAttribute('height', this._svgTag.viewBox.baseVal.height);
         }
         this._measurements = {
-            width: this._svgTag.viewBox.baseVal.width,
-            height: this._svgTag.viewBox.baseVal.height,
+            width: this._svgTag.viewBox.baseVal.width || 1,
+            height: this._svgTag.viewBox.baseVal.height || 1,
             x: this._svgTag.viewBox.baseVal.x,
             y: this._svgTag.viewBox.baseVal.y
         };
@@ -29187,8 +29187,9 @@ const _calculateTransformedEllipse = function (radiusX, radiusY, theta, transfor
     const newRadiusYOverDet = 1 / Math.sqrt(A + C - (1 / newRadiusXOverDet / newRadiusXOverDet));
     let temp = (A - (1 / newRadiusXOverDet / newRadiusXOverDet)) /
         ((1 / newRadiusYOverDet / newRadiusYOverDet) - (1 / newRadiusXOverDet / newRadiusXOverDet));
-    if (temp < 0 && Math.abs(temp) < 1e-8) temp = 0; // Fix floating point issue
+    if (isNaN(temp) || temp < 0 && Math.abs(temp) < 1e-8) temp = 0; // Fix floating point issue
     temp = Math.sqrt(temp);
+    if (isNaN(temp)) temp = 0; // 处理 NaN
     if (Math.abs(1 - temp) < 1e-8) temp = 1; // Fix floating point issue
     // Solve for which of the two possible thetas is correct
     let newTheta = Math.asin(temp);
@@ -29366,7 +29367,7 @@ const _transformPath = function (pathString, transform) {
 };
 
 const GRAPHICS_ELEMENTS = ['circle', 'ellipse', 'image', 'line', 'path', 'polygon', 'polyline', 'rect', 'text', 'use'];
-const CONTAINER_ELEMENTS = ['a', 'defs', 'g', 'marker', 'glyph', 'missing-glyph', 'pattern', 'svg', 'switch', 'symbol'];
+const CONTAINER_ELEMENTS = ['a', 'defs', 'g', 'marker', 'glyph', 'missing-glyph', 'pattern', 'svg', 'switch', 'symbol', 'mask'];
 const _isContainerElement = function (element) {
     return element.tagName && CONTAINER_ELEMENTS.includes(element.tagName.toLowerCase());
 };
@@ -30856,9 +30857,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -30934,9 +30937,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -31113,9 +31118,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -31283,9 +31290,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -31803,9 +31812,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -32229,9 +32240,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -32733,9 +32746,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -33083,9 +33098,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -33183,9 +33200,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -33387,9 +33406,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -33570,9 +33591,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -33655,9 +33678,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -33841,9 +33866,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -34125,9 +34152,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -34753,9 +34782,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -35412,9 +35443,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -35864,9 +35897,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -40835,9 +40870,11 @@ options.singleton = false;
 
 var update = api(content, options);
 
+var exported = content.locals ? content.locals : {};
 
 
-module.exports = content.locals || {};
+
+module.exports = exported;
 
 /***/ }),
 
@@ -41330,7 +41367,7 @@ var PaperCanvas = function (_React$Component) {
             return _react2.default.createElement('canvas', {
                 className: _paperCanvas2.default.paperCanvas + ' ' + otherStyle + ' ' + this.props.className,
                 ref: this.setCanvas,
-                style: { cursor: this.props.cursor },
+                style: otherStyle ? null : { cursor: this.props.cursor },
                 resize: 'true'
             });
         }
@@ -53376,6 +53413,7 @@ var TextTool = function (_paper$Tool) {
         key: 'beginTextEdit',
         value: function beginTextEdit(textBox) {
             this.textBox = textBox;
+            console.log(this);
             this.mode = TextTool.TEXT_EDIT_MODE;
             /////////////////////
             /////////////////////////////

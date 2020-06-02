@@ -20,7 +20,7 @@ import InputGroup from '../input-group/input-group.jsx';
 // import {isVector} from '../../lib/format';
 // import layout from '../../lib/layout-constants';
 // import {hideLabel} from '../../lib/hide-label';
-import styles from './fixed-tools.mobile.css';
+import styles from './fixed-tools.mobile.scss';
 
 // import groupIcon from './icons/group.svg';
 // #if MOBILE

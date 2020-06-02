@@ -92,9 +92,19 @@ class ColorPickerBox extends Component {
     }
     getImagePositionRGB() {
         if (!this.ringEle || !this.stageCanvasCtx) return null;
-        const { parent, paintAreaEle, headerArea, canvasArea, leftArea, rightArea, canvas } = this.props;
+        // 针对一些异形屏幕的偏移量，比如 iPhone XR 等
+        let padding = {
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0
+        };
+        if (window.AppGlobals && window.AppGlobals.getAppConfig) {
+            padding = window.AppGlobals.getAppConfig().padding;
+        }
+        const { paintAreaEle, headerArea, canvasArea, leftArea, canvas } = this.props;
         const ringCrt = this.ringEle.getBoundingClientRect();
-        const imagePixelX = Math.ceil(ringCrt.left - leftArea.offsetWidth - ((canvasArea.offsetWidth - canvas.offsetWidth) / 2) + (this.ringEle.offsetWidth / 2) - 1);
+        const imagePixelX = Math.ceil(ringCrt.left - leftArea.offsetWidth - ((canvasArea.offsetWidth - canvas.offsetWidth) / 2) + (this.ringEle.offsetWidth / 2) - 1) - padding.left;
         const imagePixelY = Math.ceil(ringCrt.top - ((paintAreaEle.offsetHeight - canvas.offsetHeight) / 2) - headerArea.offsetHeight + (this.ringEle.offsetHeight / 2) - 1);
         const pixel = this.stageCanvasCtx.getImageData(imagePixelX * 2, imagePixelY * 2, 1, 1);
         const { data } = pixel;

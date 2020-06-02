@@ -35,16 +35,23 @@ const base = {
                 'ifdef-triple-slash': false // add this to use double slash comment instead of default triple slash
             }
         }, {
-            test: /\.(css|scss)$/,
+            test: /\.css$/,
             use: [{
                 loader: 'style-loader'
             }, {
                 loader: 'css-loader',
+                // options: {
+                //     modules: true,
+                //     importLoaders: 1,
+                //     localIdentName: '[name]_[local]_[hash:base64:5]'
+                //     camelCase: true
+                // }
                 options: {
-                    modules: true,
-                    importLoaders: 1,
-                    localIdentName: '[name]_[local]_[hash:base64:5]',
-                    camelCase: true
+                    modules: {
+                        mode: 'local',
+                        localIdentName: '[name]__[local]--[hash:base64:5]'
+                    },
+                    localsConvention: 'camelCase',
                 }
             }, {
                 loader: 'sass-loader'
@@ -63,6 +70,23 @@ const base = {
                     }
                 }
             }]
+        },
+        {
+            test: /\.scss$/,
+            use: [
+                'style-loader',
+                {
+                    loader: 'css-loader',
+                    options: {
+                        modules: {
+                            mode: 'local',
+                            localIdentName: '[name]__[local]--[hash:base64:5]'
+                        },
+                        localsConvention: 'camelCase',
+                    }
+                },
+                "sass-loader"
+            ]
         },
         {
             test: /\.png$/i,

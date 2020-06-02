@@ -67,7 +67,7 @@ import {
     selectAllSegments
 } from '../../helper/selection';
 import GradientTypes from '../../lib/gradient-types';
-import styles from './paint-editor.mobile.css';
+import styles from './paint-editor.mobile.scss';
 
 // import bitmapIcon from './icons/bitmap.svg';
 import zoomInIcon from './icons/zoom-in-mobile.svg';

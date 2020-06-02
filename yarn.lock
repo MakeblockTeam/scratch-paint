@@ -2,22 +2,6 @@
 # yarn lockfile v1
 
 
-"@babel/cli@^7.1.2":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fcli/-/cli-7.10.1.tgz#b6e5cd43a17b8f639442ab027976408ebe6d79a0"
-  integrity sha1-tuXNQ6F7j2OUQqsCeXZAjr5teaA=
-  dependencies:
-    commander "^4.0.1"
-    convert-source-map "^1.1.0"
-    fs-readdir-recursive "^1.1.0"
-    glob "^7.0.0"
-    lodash "^4.17.13"
-    make-dir "^2.1.0"
-    slash "^2.0.0"
-    source-map "^0.5.0"
-  optionalDependencies:
-    chokidar "^2.1.8"
-
 "@babel/code-frame@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "http://npm.makeblock.com/@babel%2fcode-frame/-/code-frame-7.0.0-beta.44.tgz#2a02643368de80916162be70865c97774f3adbd9"
@@ -30,26 +14,26 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/code-frame@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fcode-frame/-/code-frame-7.10.1.tgz#d5481c5095daa1c57e16e54c6f9198443afb49ff"
-  integrity sha1-1UgcUJXaocV+FuVMb5GYRDr7Sf8=
+"@babel/code-frame@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fcode-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
+  integrity sha1-M+JZA9dIEYFTThLsCiXxa2/PQZ4=
   dependencies:
-    "@babel/highlight" "^7.10.1"
+    "@babel/highlight" "^7.8.3"
 
-"@babel/core@^7.1.2", "@babel/core@^7.5.5":
-  version "7.10.2"
-  resolved "http://npm.makeblock.com/@babel%2fcore/-/core-7.10.2.tgz#bd6786046668a925ac2bd2fd95b579b92a23b36a"
-  integrity sha1-vWeGBGZoqSWsK9L9lbV5uSojs2o=
+"@babel/core@^7.5.5":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fcore/-/core-7.9.0.tgz#ac977b538b77e132ff706f3b8a4dbad09c03c56e"
+  integrity sha1-rJd7U4t34TL/cG87ik260JwDxW4=
   dependencies:
-    "@babel/code-frame" "^7.10.1"
-    "@babel/generator" "^7.10.2"
-    "@babel/helper-module-transforms" "^7.10.1"
-    "@babel/helpers" "^7.10.1"
-    "@babel/parser" "^7.10.2"
-    "@babel/template" "^7.10.1"
-    "@babel/traverse" "^7.10.1"
-    "@babel/types" "^7.10.2"
+    "@babel/code-frame" "^7.8.3"
+    "@babel/generator" "^7.9.0"
+    "@babel/helper-module-transforms" "^7.9.0"
+    "@babel/helpers" "^7.9.0"
+    "@babel/parser" "^7.9.0"
+    "@babel/template" "^7.8.6"
+    "@babel/traverse" "^7.9.0"
+    "@babel/types" "^7.9.0"
     convert-source-map "^1.7.0"
     debug "^4.1.0"
     gensync "^1.0.0-beta.1"
@@ -69,39 +53,39 @@
     source-map "^0.5.0"
     trim-right "^1.0.1"
 
-"@babel/generator@^7.10.1", "@babel/generator@^7.10.2", "@babel/generator@^7.4.0":
-  version "7.10.2"
-  resolved "http://npm.makeblock.com/@babel%2fgenerator/-/generator-7.10.2.tgz#0fa5b5b2389db8bfdfcc3492b551ee20f5dd69a9"
-  integrity sha1-D6W1sjiduL/fzDSStVHuIPXdaak=
+"@babel/generator@^7.4.0", "@babel/generator@^7.9.0":
+  version "7.9.4"
+  resolved "http://npm.makeblock.com/@babel%2fgenerator/-/generator-7.9.4.tgz#12441e90c3b3c4159cdecf312075bf1a8ce2dbce"
+  integrity sha1-EkQekMOzxBWc3s8xIHW/Gozi284=
   dependencies:
-    "@babel/types" "^7.10.2"
+    "@babel/types" "^7.9.0"
     jsesc "^2.5.1"
     lodash "^4.17.13"
     source-map "^0.5.0"
 
-"@babel/helper-annotate-as-pure@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-annotate-as-pure/-/helper-annotate-as-pure-7.10.1.tgz#f6d08acc6f70bbd59b436262553fb2e259a1a268"
-  integrity sha1-9tCKzG9wu9WbQ2JiVT+y4lmhomg=
+"@babel/helper-annotate-as-pure@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-annotate-as-pure/-/helper-annotate-as-pure-7.8.3.tgz#60bc0bc657f63a0924ff9a4b4a0b24a13cf4deee"
+  integrity sha1-YLwLxlf2Ogkk/5pLSgskoTz03u4=
   dependencies:
-    "@babel/types" "^7.10.1"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-builder-react-jsx-experimental@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-builder-react-jsx-experimental/-/helper-builder-react-jsx-experimental-7.10.1.tgz#9a7d58ad184d3ac3bafb1a452cec2bad7e4a0bc8"
-  integrity sha1-mn1YrRhNOsO6+xpFLOwrrX5KC8g=
+"@babel/helper-builder-react-jsx-experimental@^7.9.0":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-builder-react-jsx-experimental/-/helper-builder-react-jsx-experimental-7.9.0.tgz#066d80262ade488f9c1b1823ce5db88a4cedaa43"
+  integrity sha1-Bm2AJireSI+cGxgjzl24ikztqkM=
   dependencies:
-    "@babel/helper-annotate-as-pure" "^7.10.1"
-    "@babel/helper-module-imports" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/types" "^7.9.0"
 
-"@babel/helper-builder-react-jsx@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-builder-react-jsx/-/helper-builder-react-jsx-7.10.1.tgz#a327f0cf983af5554701b1215de54a019f09b532"
-  integrity sha1-oyfwz5g69VVHAbEhXeVKAZ8JtTI=
+"@babel/helper-builder-react-jsx@^7.9.0":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-builder-react-jsx/-/helper-builder-react-jsx-7.9.0.tgz#16bf391990b57732700a3278d4d9a81231ea8d32"
+  integrity sha1-Fr85GZC1dzJwCjJ41NmoEjHqjTI=
   dependencies:
-    "@babel/helper-annotate-as-pure" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/types" "^7.9.0"
 
 "@babel/helper-function-name@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -111,14 +95,14 @@
     "@babel/template" "7.0.0-beta.44"
     "@babel/types" "7.0.0-beta.44"
 
-"@babel/helper-function-name@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-function-name/-/helper-function-name-7.10.1.tgz#92bd63829bfc9215aca9d9defa85f56b539454f4"
-  integrity sha1-kr1jgpv8khWsqdne+oX1a1OUVPQ=
+"@babel/helper-function-name@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-function-name/-/helper-function-name-7.8.3.tgz#eeeb665a01b1f11068e9fb86ad56a1cb1a824cca"
+  integrity sha1-7utmWgGx8RBo6fuGrVahyxqCTMo=
   dependencies:
-    "@babel/helper-get-function-arity" "^7.10.1"
-    "@babel/template" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/helper-get-function-arity" "^7.8.3"
+    "@babel/template" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
 "@babel/helper-get-function-arity@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -126,69 +110,69 @@
   dependencies:
     "@babel/types" "7.0.0-beta.44"
 
-"@babel/helper-get-function-arity@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-get-function-arity/-/helper-get-function-arity-7.10.1.tgz#7303390a81ba7cb59613895a192b93850e373f7d"
-  integrity sha1-cwM5CoG6fLWWE4laGSuThQ43P30=
+"@babel/helper-get-function-arity@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-get-function-arity/-/helper-get-function-arity-7.8.3.tgz#b894b947bd004381ce63ea1db9f08547e920abd5"
+  integrity sha1-uJS5R70AQ4HOY+odufCFR+kgq9U=
   dependencies:
-    "@babel/types" "^7.10.1"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-member-expression-to-functions@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-member-expression-to-functions/-/helper-member-expression-to-functions-7.10.1.tgz#432967fd7e12a4afef66c4687d4ca22bc0456f15"
-  integrity sha1-Qyln/X4SpK/vZsRofUyiK8BFbxU=
+"@babel/helper-member-expression-to-functions@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-member-expression-to-functions/-/helper-member-expression-to-functions-7.8.3.tgz#659b710498ea6c1d9907e0c73f206eee7dadc24c"
+  integrity sha1-ZZtxBJjqbB2ZB+DHPyBu7n2twkw=
   dependencies:
-    "@babel/types" "^7.10.1"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-module-imports@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-module-imports/-/helper-module-imports-7.10.1.tgz#dd331bd45bccc566ce77004e9d05fe17add13876"
-  integrity sha1-3TMb1FvMxWbOdwBOnQX+F63ROHY=
+"@babel/helper-module-imports@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-module-imports/-/helper-module-imports-7.8.3.tgz#7fe39589b39c016331b6b8c3f441e8f0b1419498"
+  integrity sha1-f+OVibOcAWMxtrjD9EHo8LFBlJg=
   dependencies:
-    "@babel/types" "^7.10.1"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-module-transforms@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-module-transforms/-/helper-module-transforms-7.10.1.tgz#24e2f08ee6832c60b157bb0936c86bef7210c622"
-  integrity sha1-JOLwjuaDLGCxV7sJNshr73IQxiI=
+"@babel/helper-module-transforms@^7.9.0":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-module-transforms/-/helper-module-transforms-7.9.0.tgz#43b34dfe15961918707d247327431388e9fe96e5"
+  integrity sha1-Q7NN/hWWGRhwfSRzJ0MTiOn+luU=
   dependencies:
-    "@babel/helper-module-imports" "^7.10.1"
-    "@babel/helper-replace-supers" "^7.10.1"
-    "@babel/helper-simple-access" "^7.10.1"
-    "@babel/helper-split-export-declaration" "^7.10.1"
-    "@babel/template" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/helper-replace-supers" "^7.8.6"
+    "@babel/helper-simple-access" "^7.8.3"
+    "@babel/helper-split-export-declaration" "^7.8.3"
+    "@babel/template" "^7.8.6"
+    "@babel/types" "^7.9.0"
     lodash "^4.17.13"
 
-"@babel/helper-optimise-call-expression@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-optimise-call-expression/-/helper-optimise-call-expression-7.10.1.tgz#b4a1f2561870ce1247ceddb02a3860fa96d72543"
-  integrity sha1-tKHyVhhwzhJHzt2wKjhg+pbXJUM=
+"@babel/helper-optimise-call-expression@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-optimise-call-expression/-/helper-optimise-call-expression-7.8.3.tgz#7ed071813d09c75298ef4f208956006b6111ecb9"
+  integrity sha1-ftBxgT0Jx1KY708giVYAa2ER7Lk=
   dependencies:
-    "@babel/types" "^7.10.1"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-plugin-utils@^7.10.1", "@babel/helper-plugin-utils@^7.8.0":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-plugin-utils/-/helper-plugin-utils-7.10.1.tgz#ec5a5cf0eec925b66c60580328b122c01230a127"
-  integrity sha1-7Fpc8O7JJbZsYFgDKLEiwBIwoSc=
+"@babel/helper-plugin-utils@^7.8.0", "@babel/helper-plugin-utils@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-plugin-utils/-/helper-plugin-utils-7.8.3.tgz#9ea293be19babc0f52ff8ca88b34c3611b208670"
+  integrity sha1-nqKTvhm6vA9S/4yoizTDYRsghnA=
 
-"@babel/helper-replace-supers@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-replace-supers/-/helper-replace-supers-7.10.1.tgz#ec6859d20c5d8087f6a2dc4e014db7228975f13d"
-  integrity sha1-7GhZ0gxdgIf2otxOAU23Iol18T0=
+"@babel/helper-replace-supers@^7.8.6":
+  version "7.8.6"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-replace-supers/-/helper-replace-supers-7.8.6.tgz#5ada744fd5ad73203bf1d67459a27dcba67effc8"
+  integrity sha1-Wtp0T9WtcyA78dZ0WaJ9y6Z+/8g=
   dependencies:
-    "@babel/helper-member-expression-to-functions" "^7.10.1"
-    "@babel/helper-optimise-call-expression" "^7.10.1"
-    "@babel/traverse" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/helper-member-expression-to-functions" "^7.8.3"
+    "@babel/helper-optimise-call-expression" "^7.8.3"
+    "@babel/traverse" "^7.8.6"
+    "@babel/types" "^7.8.6"
 
-"@babel/helper-simple-access@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-simple-access/-/helper-simple-access-7.10.1.tgz#08fb7e22ace9eb8326f7e3920a1c2052f13d851e"
-  integrity sha1-CPt+Iqzp64Mm9+OSChwgUvE9hR4=
+"@babel/helper-simple-access@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-simple-access/-/helper-simple-access-7.8.3.tgz#7f8109928b4dab4654076986af575231deb639ae"
+  integrity sha1-f4EJkotNq0ZUB2mGr1dSMd62Oa4=
   dependencies:
-    "@babel/template" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/template" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
 "@babel/helper-split-export-declaration@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -196,26 +180,26 @@
   dependencies:
     "@babel/types" "7.0.0-beta.44"
 
-"@babel/helper-split-export-declaration@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-split-export-declaration/-/helper-split-export-declaration-7.10.1.tgz#c6f4be1cbc15e3a868e4c64a17d5d31d754da35f"
-  integrity sha1-xvS+HLwV46ho5MZKF9XTHXVNo18=
+"@babel/helper-split-export-declaration@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-split-export-declaration/-/helper-split-export-declaration-7.8.3.tgz#31a9f30070f91368a7182cf05f831781065fc7a9"
+  integrity sha1-ManzAHD5E2inGCzwX4MXgQZfx6k=
   dependencies:
-    "@babel/types" "^7.10.1"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-validator-identifier@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelper-validator-identifier/-/helper-validator-identifier-7.10.1.tgz#5770b0c1a826c4f53f5ede5e153163e0318e94b5"
-  integrity sha1-V3CwwagmxPU/Xt5eFTFj4DGOlLU=
+"@babel/helper-validator-identifier@^7.9.0":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fhelper-validator-identifier/-/helper-validator-identifier-7.9.0.tgz#ad53562a7fc29b3b9a91bbf7d10397fd146346ed"
+  integrity sha1-rVNWKn/Cmzuakbv30QOX/RRjRu0=
 
-"@babel/helpers@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhelpers/-/helpers-7.10.1.tgz#a6827b7cb975c9d9cef5fd61d919f60d8844a973"
-  integrity sha1-poJ7fLl1ydnO9f1h2Rn2DYhEqXM=
+"@babel/helpers@^7.9.0":
+  version "7.9.2"
+  resolved "http://npm.makeblock.com/@babel%2fhelpers/-/helpers-7.9.2.tgz#b42a81a811f1e7313b88cba8adc66b3d9ae6c09f"
+  integrity sha1-tCqBqBHx5zE7iMuorcZrPZrmwJ8=
   dependencies:
-    "@babel/template" "^7.10.1"
-    "@babel/traverse" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/template" "^7.8.3"
+    "@babel/traverse" "^7.9.0"
+    "@babel/types" "^7.9.0"
 
 "@babel/highlight@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -233,35 +217,34 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/highlight@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fhighlight/-/highlight-7.10.1.tgz#841d098ba613ba1a427a2b383d79e35552c38ae0"
-  integrity sha1-hB0Ji6YTuhpCeis4PXnjVVLDiuA=
+"@babel/highlight@^7.8.3":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fhighlight/-/highlight-7.9.0.tgz#4e9b45ccb82b79607271b2979ad82c7b68163079"
+  integrity sha1-TptFzLgreWBycbKXmtgse2gWMHk=
   dependencies:
-    "@babel/helper-validator-identifier" "^7.10.1"
+    "@babel/helper-validator-identifier" "^7.9.0"
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.10.1", "@babel/parser@^7.10.2", "@babel/parser@^7.4.3":
-  version "7.10.2"
-  resolved "http://npm.makeblock.com/@babel%2fparser/-/parser-7.10.2.tgz#871807f10442b92ff97e4783b9b54f6a0ca812d0"
-  integrity sha1-hxgH8QRCuS/5fkeDubVPagyoEtA=
+"@babel/parser@^7.4.3", "@babel/parser@^7.8.6", "@babel/parser@^7.9.0":
+  version "7.9.4"
+  resolved "http://npm.makeblock.com/@babel%2fparser/-/parser-7.9.4.tgz#68a35e6b0319bbc014465be43828300113f2f2e8"
+  integrity sha1-aKNeawMZu8AURlvkOCgwARPy8ug=
 
 "@babel/plugin-proposal-object-rest-spread@^7.5.5":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fplugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.10.1.tgz#cba44908ac9f142650b4a65b8aa06bf3478d5fb6"
-  integrity sha1-y6RJCKyfFCZQtKZbiqBr80eNX7Y=
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2fplugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.9.0.tgz#a28993699fc13df165995362693962ba6b061d6f"
+  integrity sha1-oomTaZ/BPfFlmVNiaTliumsGHW8=
   dependencies:
-    "@babel/helper-plugin-utils" "^7.10.1"
+    "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-object-rest-spread" "^7.8.0"
-    "@babel/plugin-transform-parameters" "^7.10.1"
 
-"@babel/plugin-syntax-jsx@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fplugin-syntax-jsx/-/plugin-syntax-jsx-7.10.1.tgz#0ae371134a42b91d5418feb3c8c8d43e1565d2da"
-  integrity sha1-CuNxE0pCuR1UGP6zyMjUPhVl0to=
+"@babel/plugin-syntax-jsx@^7.8.3":
+  version "7.8.3"
+  resolved "http://npm.makeblock.com/@babel%2fplugin-syntax-jsx/-/plugin-syntax-jsx-7.8.3.tgz#521b06c83c40480f1e58b4fd33b92eceb1d6ea94"
+  integrity sha1-UhsGyDxASA8eWLT9M7kuzrHW6pQ=
   dependencies:
-    "@babel/helper-plugin-utils" "^7.10.1"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
 "@babel/plugin-syntax-object-rest-spread@^7.8.0":
   version "7.8.3"
@@ -271,34 +254,26 @@
     "@babel/helper-plugin-utils" "^7.8.0"
 
 "@babel/plugin-transform-destructuring@^7.5.0":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fplugin-transform-destructuring/-/plugin-transform-destructuring-7.10.1.tgz#abd58e51337815ca3a22a336b85f62b998e71907"
-  integrity sha1-q9WOUTN4Fco6IqM2uF9iuZjnGQc=
+  version "7.8.8"
+  resolved "http://npm.makeblock.com/@babel%2fplugin-transform-destructuring/-/plugin-transform-destructuring-7.8.8.tgz#fadb2bc8e90ccaf5658de6f8d4d22ff6272a2f4b"
+  integrity sha1-+tsryOkMyvVljeb41NIv9icqL0s=
   dependencies:
-    "@babel/helper-plugin-utils" "^7.10.1"
-
-"@babel/plugin-transform-parameters@^7.10.1":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fplugin-transform-parameters/-/plugin-transform-parameters-7.10.1.tgz#b25938a3c5fae0354144a720b07b32766f683ddd"
-  integrity sha1-slk4o8X64DVBRKcgsHsydm9oPd0=
-  dependencies:
-    "@babel/helper-get-function-arity" "^7.10.1"
-    "@babel/helper-plugin-utils" "^7.10.1"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
 "@babel/plugin-transform-react-jsx@^7.3.0":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2fplugin-transform-react-jsx/-/plugin-transform-react-jsx-7.10.1.tgz#91f544248ba131486decb5d9806da6a6e19a2896"
-  integrity sha1-kfVEJIuhMUht7LXZgG2mpuGaKJY=
+  version "7.9.4"
+  resolved "http://npm.makeblock.com/@babel%2fplugin-transform-react-jsx/-/plugin-transform-react-jsx-7.9.4.tgz#86f576c8540bd06d0e95e0b61ea76d55f6cbd03f"
+  integrity sha1-hvV2yFQL0G0OleC2HqdtVfbL0D8=
   dependencies:
-    "@babel/helper-builder-react-jsx" "^7.10.1"
-    "@babel/helper-builder-react-jsx-experimental" "^7.10.1"
-    "@babel/helper-plugin-utils" "^7.10.1"
-    "@babel/plugin-syntax-jsx" "^7.10.1"
+    "@babel/helper-builder-react-jsx" "^7.9.0"
+    "@babel/helper-builder-react-jsx-experimental" "^7.9.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-jsx" "^7.8.3"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2":
-  version "7.10.2"
-  resolved "http://npm.makeblock.com/@babel%2fruntime/-/runtime-7.10.2.tgz#d103f21f2602497d38348a32e008637d506db839"
-  integrity sha1-0QPyHyYCSX04NIoy4AhjfVBtuDk=
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.8.7":
+  version "7.9.2"
+  resolved "http://npm.makeblock.com/@babel%2fruntime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
+  integrity sha1-2Q3wWDo6JS8JqqYZZlNnuuUY2wY=
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -311,14 +286,14 @@
     babylon "7.0.0-beta.44"
     lodash "^4.2.0"
 
-"@babel/template@^7.10.1", "@babel/template@^7.4.0":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2ftemplate/-/template-7.10.1.tgz#e167154a94cb5f14b28dc58f5356d2162f539811"
-  integrity sha1-4WcVSpTLXxSyjcWPU1bSFi9TmBE=
+"@babel/template@^7.4.0", "@babel/template@^7.8.3", "@babel/template@^7.8.6":
+  version "7.8.6"
+  resolved "http://npm.makeblock.com/@babel%2ftemplate/-/template-7.8.6.tgz#86b22af15f828dfb086474f964dcc3e39c43ce2b"
+  integrity sha1-hrIq8V+CjfsIZHT5ZNzD45xDzis=
   dependencies:
-    "@babel/code-frame" "^7.10.1"
-    "@babel/parser" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/code-frame" "^7.8.3"
+    "@babel/parser" "^7.8.6"
+    "@babel/types" "^7.8.6"
 
 "@babel/traverse@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -335,17 +310,17 @@
     invariant "^2.2.0"
     lodash "^4.2.0"
 
-"@babel/traverse@^7.10.1", "@babel/traverse@^7.4.3":
-  version "7.10.1"
-  resolved "http://npm.makeblock.com/@babel%2ftraverse/-/traverse-7.10.1.tgz#bbcef3031e4152a6c0b50147f4958df54ca0dd27"
-  integrity sha1-u87zAx5BUqbAtQFH9JWN9Uyg3Sc=
+"@babel/traverse@^7.4.3", "@babel/traverse@^7.8.6", "@babel/traverse@^7.9.0":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2ftraverse/-/traverse-7.9.0.tgz#d3882c2830e513f4fe4cec9fe76ea1cc78747892"
+  integrity sha1-04gsKDDlE/T+TOyf526hzHh0eJI=
   dependencies:
-    "@babel/code-frame" "^7.10.1"
-    "@babel/generator" "^7.10.1"
-    "@babel/helper-function-name" "^7.10.1"
-    "@babel/helper-split-export-declaration" "^7.10.1"
-    "@babel/parser" "^7.10.1"
-    "@babel/types" "^7.10.1"
+    "@babel/code-frame" "^7.8.3"
+    "@babel/generator" "^7.9.0"
+    "@babel/helper-function-name" "^7.8.3"
+    "@babel/helper-split-export-declaration" "^7.8.3"
+    "@babel/parser" "^7.9.0"
+    "@babel/types" "^7.9.0"
     debug "^4.1.0"
     globals "^11.1.0"
     lodash "^4.17.13"
@@ -358,12 +333,12 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.10.1", "@babel/types@^7.10.2", "@babel/types@^7.4.0":
-  version "7.10.2"
-  resolved "http://npm.makeblock.com/@babel%2ftypes/-/types-7.10.2.tgz#30283be31cad0dbf6fb00bd40641ca0ea675172d"
-  integrity sha1-MCg74xytDb9vsAvUBkHKDqZ1Fy0=
+"@babel/types@^7.4.0", "@babel/types@^7.8.3", "@babel/types@^7.8.6", "@babel/types@^7.9.0":
+  version "7.9.0"
+  resolved "http://npm.makeblock.com/@babel%2ftypes/-/types-7.9.0.tgz#00b064c3df83ad32b2dbf5ff07312b15c7f1efb5"
+  integrity sha1-ALBkw9+DrTKy2/X/BzErFcfx77U=
   dependencies:
-    "@babel/helper-validator-identifier" "^7.10.1"
+    "@babel/helper-validator-identifier" "^7.9.0"
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
@@ -408,17 +383,17 @@
   integrity sha1-KrDV2i5YFflLC51LldHl8kOrLKc=
 
 "@types/react@^16.9.16":
-  version "16.9.35"
-  resolved "http://npm.makeblock.com/@types%2freact/-/react-16.9.35.tgz#a0830d172e8aadd9bd41709ba2281a3124bbd368"
-  integrity sha1-oIMNFy6Krdm9QXCboigaMSS702g=
+  version "16.9.31"
+  resolved "http://npm.makeblock.com/@types%2freact/-/react-16.9.31.tgz#6a543529766c8934ec8a89667376c2e73e9e2636"
+  integrity sha1-alQ1KXZsiTTsiolmc3bC5z6eJjY=
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/yoga-layout@1.9.2":
-  version "1.9.2"
-  resolved "http://npm.makeblock.com/@types%2fyoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
-  integrity sha1-76+emRpzkNwIGgtnkYWXmoOpY5o=
+"@types/yoga-layout@1.9.1":
+  version "1.9.1"
+  resolved "http://npm.makeblock.com/@types%2fyoga-layout/-/yoga-layout-1.9.1.tgz#6c00e4a151a9a529397d580e2cf6f3947a42a928"
+  integrity sha1-bADkoVGppSk5fVgOLPbzlHpCqSg=
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -651,6 +626,16 @@ ajv@^6.1.0, ajv@^6.10.2, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+ajv@^6.12.0:
+  version "6.12.0"
+  resolved "http://npm.makeblock.com/ajv/-/ajv-6.12.0.tgz#06d60b96d87b8454a5adaba86e7854da629db4b7"
+  integrity sha1-BtYLlth7hFSlrauobnhU2mKdtLc=
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
 ajv@^6.12.2:
   version "6.12.2"
   resolved "http://npm.makeblock.com/ajv/-/ajv-6.12.2.tgz#c629c5eced17baf314437918d2da88c99d5958cd"
@@ -807,6 +792,11 @@ array-filter@^1.0.0:
   version "1.0.0"
   resolved "http://npm.makeblock.com/array-filter/-/array-filter-1.0.0.tgz#baf79e62e6ef4c2a4c0b831232daffec251f9d83"
 
+array-find-index@^1.0.1:
+  version "1.0.2"
+  resolved "http://npm.makeblock.com/array-find-index/-/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
+  integrity sha1-3wEKoSh+Fku9pvlyOwqWoexBh6E=
+
 array-flatten@1.1.1:
   version "1.1.1"
   resolved "http://npm.makeblock.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
@@ -918,6 +908,11 @@ async-each@^1.0.0, async-each@^1.0.1:
   version "1.0.3"
   resolved "http://npm.makeblock.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
 
+async-foreach@^0.1.3:
+  version "0.1.3"
+  resolved "http://npm.makeblock.com/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
+  integrity sha1-NhIfhFwFeBct5Bmpfb6x0W7DRUI=
+
 async-hook-domain@^1.1.3:
   version "1.1.3"
   resolved "http://npm.makeblock.com/async-hook-domain/-/async-hook-domain-1.1.3.tgz#f4f531b8ee8206b1ea1825fe3825e015c66f44d0"
@@ -975,9 +970,10 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "http://npm.makeblock.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
 
-babel-cli@6.26.0:
+babel-cli@6.26.0, babel-cli@^6.26.0:
   version "6.26.0"
   resolved "http://npm.makeblock.com/babel-cli/-/babel-cli-6.26.0.tgz#502ab54874d7db88ad00b887a06383ce03d002f1"
+  integrity sha1-UCq1SHTX24itALiHoGODzgPQAvE=
   dependencies:
     babel-core "^6.26.0"
     babel-polyfill "^6.26.0"
@@ -1194,6 +1190,15 @@ babel-plugin-check-es2015-constants@^6.22.0:
   resolved "http://npm.makeblock.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
   dependencies:
     babel-runtime "^6.22.0"
+
+babel-plugin-intl@^0.1.1:
+  version "0.1.1"
+  resolved "http://npm.makeblock.com/babel-plugin-intl/-/babel-plugin-intl-0.1.1.tgz#e5e899adff2a7fc32d0d192d17da9c3b544ae1a8"
+  integrity sha1-5eiZrf8qf8MtDRktF9qcO1RK4ag=
+  dependencies:
+    babel-runtime "^6.9.2"
+    intl-messageformat-parser "^1.2.0"
+    mkdirp "^0.5.1"
 
 babel-plugin-istanbul@^4.1.5, babel-plugin-istanbul@^4.1.6:
   version "4.1.6"
@@ -1578,7 +1583,7 @@ babel-register@^6.26.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.15"
 
-babel-runtime@6.x, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+babel-runtime@6.x, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0, babel-runtime@^6.9.2:
   version "6.26.0"
   resolved "http://npm.makeblock.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -1685,6 +1690,13 @@ bind-obj-methods@^2.0.0:
   version "2.0.0"
   resolved "http://npm.makeblock.com/bind-obj-methods/-/bind-obj-methods-2.0.0.tgz#0178140dbe7b7bb67dc74892ace59bc0247f06f0"
 
+block-stream@*:
+  version "0.0.9"
+  resolved "http://npm.makeblock.com/block-stream/-/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"
+  integrity sha1-E+v+d4oDIFz+A3UUgeu0szAMEmo=
+  dependencies:
+    inherits "~2.0.0"
+
 bluebird@^3.5.5:
   version "3.7.1"
   resolved "http://npm.makeblock.com/bluebird/-/bluebird-3.7.1.tgz#df70e302b471d7473489acf26a93d63b53f874de"
@@ -1778,11 +1790,6 @@ browser-resolve@^1.11.2:
   resolved "http://npm.makeblock.com/browser-resolve/-/browser-resolve-1.11.3.tgz#9b7cbb3d0f510e4cb86bdbd796124d28b5890af6"
   dependencies:
     resolve "1.1.7"
-
-browser-stdout@1.3.0:
-  version "1.3.0"
-  resolved "http://npm.makeblock.com/browser-stdout/-/browser-stdout-1.3.0.tgz#f351d32969d32fa5d7a5567154263d928ae3bd1f"
-  integrity sha1-81HTKWnTL6XXpVZxVCY9korjvR8=
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"
@@ -1969,6 +1976,19 @@ camel-case@3.0.x:
     no-case "^2.2.0"
     upper-case "^1.1.1"
 
+camelcase-keys@^2.0.0:
+  version "2.1.0"
+  resolved "http://npm.makeblock.com/camelcase-keys/-/camelcase-keys-2.1.0.tgz#308beeaffdf28119051efa1d932213c91b8f92e7"
+  integrity sha1-MIvur/3ygRkFHvodkyITyRuPkuc=
+  dependencies:
+    camelcase "^2.0.0"
+    map-obj "^1.0.0"
+
+camelcase@^2.0.0:
+  version "2.1.1"
+  resolved "http://npm.makeblock.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
+  integrity sha1-fB0W1nmhu+WcoCys7PsBHiAfWh8=
+
 camelcase@^4.1.0:
   version "4.1.0"
   resolved "http://npm.makeblock.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
@@ -2013,7 +2033,7 @@ chalk@2.4.2, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^1.1.3:
+chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
   resolved "http://npm.makeblock.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
   dependencies:
@@ -2081,9 +2101,9 @@ chokidar@^2.0.2, chokidar@^2.1.8:
     fsevents "^1.2.7"
 
 chokidar@^3.3.0:
-  version "3.4.0"
-  resolved "http://npm.makeblock.com/chokidar/-/chokidar-3.4.0.tgz#b30611423ce376357c765b9b8f904b9fba3c0be8"
-  integrity sha1-swYRQjzjdjV8dlubj5BLn7o8C+g=
+  version "3.3.1"
+  resolved "http://npm.makeblock.com/chokidar/-/chokidar-3.3.1.tgz#c84e5b3d18d9a4d77558fef466b1bf16bbeb3450"
+  integrity sha1-yE5bPRjZpNd1WP70ZrG/FrvrNFA=
   dependencies:
     anymatch "~3.1.1"
     braces "~3.0.2"
@@ -2091,7 +2111,7 @@ chokidar@^3.3.0:
     is-binary-path "~2.1.0"
     is-glob "~4.0.1"
     normalize-path "~3.0.0"
-    readdirp "~3.4.0"
+    readdirp "~3.3.0"
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -2189,6 +2209,15 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
+clone-deep@^4.0.1:
+  version "4.0.1"
+  resolved "http://npm.makeblock.com/clone-deep/-/clone-deep-4.0.1.tgz#c19fd9bdbbf85942b4fd979c84dcf7d5f07c2387"
+  integrity sha1-wZ/Zvbv4WUK0/ZechNz31fB8I4c=
+  dependencies:
+    is-plain-object "^2.0.4"
+    kind-of "^6.0.2"
+    shallow-clone "^3.0.0"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "http://npm.makeblock.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -2256,14 +2285,9 @@ commander@2.9.0:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-commander@^2.11.0, commander@^2.19.0, commander@^2.20.0, commander@^2.9.0, commander@~2.20.3:
+commander@^2.11.0, commander@^2.19.0, commander@^2.20.0, commander@~2.20.3:
   version "2.20.3"
   resolved "http://npm.makeblock.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
-
-commander@^4.0.1:
-  version "4.1.1"
-  resolved "http://npm.makeblock.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
-  integrity sha1-n9YCvZNilOnp70aj9NaWQESxgGg=
 
 commander@~2.19.0:
   version "2.19.0"
@@ -2350,16 +2374,16 @@ content-type@~1.0.4:
   version "1.0.4"
   resolved "http://npm.makeblock.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
 
-convert-source-map@^1.1.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
-  version "1.7.0"
-  resolved "http://npm.makeblock.com/convert-source-map/-/convert-source-map-1.7.0.tgz#17a2cb882d7f77d3490585e2ce6c524424a3a442"
-  integrity sha1-F6LLiC1/d9NJBYXizmxSRCSjpEI=
-  dependencies:
-    safe-buffer "~5.1.1"
-
 convert-source-map@^1.4.0, convert-source-map@^1.5.0, convert-source-map@^1.5.1:
   version "1.6.0"
   resolved "http://npm.makeblock.com/convert-source-map/-/convert-source-map-1.6.0.tgz#51b537a8c43e0f04dec1993bffcdd504e758ac20"
+  dependencies:
+    safe-buffer "~5.1.1"
+
+convert-source-map@^1.6.0, convert-source-map@^1.7.0:
+  version "1.7.0"
+  resolved "http://npm.makeblock.com/convert-source-map/-/convert-source-map-1.7.0.tgz#17a2cb882d7f77d3490585e2ce6c524424a3a442"
+  integrity sha1-F6LLiC1/d9NJBYXizmxSRCSjpEI=
   dependencies:
     safe-buffer "~5.1.1"
 
@@ -2408,15 +2432,15 @@ cosmiconfig@^5.0.0:
     parse-json "^4.0.0"
 
 coveralls@^3.0.8:
-  version "3.1.0"
-  resolved "http://npm.makeblock.com/coveralls/-/coveralls-3.1.0.tgz#13c754d5e7a2dd8b44fe5269e21ca394fb4d615b"
-  integrity sha1-E8dU1eei3YtE/lJp4hyjlPtNYVs=
+  version "3.0.11"
+  resolved "http://npm.makeblock.com/coveralls/-/coveralls-3.0.11.tgz#e141da0922b632fcc66620f334460c3f0026a4ce"
+  integrity sha1-4UHaCSK2MvzGZiDzNEYMPwAmpM4=
   dependencies:
     js-yaml "^3.13.1"
     lcov-parse "^1.0.0"
     log-driver "^1.2.7"
     minimist "^1.2.5"
-    request "^2.88.2"
+    request "^2.88.0"
 
 cp-file@^6.2.0:
   version "6.2.0"
@@ -2466,6 +2490,14 @@ cross-spawn@6.0.5, cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     path-key "^2.0.1"
     semver "^5.5.0"
     shebang-command "^1.2.0"
+    which "^1.2.9"
+
+cross-spawn@^3.0.0:
+  version "3.0.1"
+  resolved "http://npm.makeblock.com/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
+  integrity sha1-ElYDfsufDF9549bvE14wdwGEuYI=
+  dependencies:
+    lru-cache "^4.0.1"
     which "^1.2.9"
 
 cross-spawn@^4:
@@ -2572,6 +2604,13 @@ csstype@^2.2.0:
   resolved "http://npm.makeblock.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha1-5jr1DmbXwmbttrMpCc/Qqr4Dkos=
 
+currently-unhandled@^0.4.1:
+  version "0.4.1"
+  resolved "http://npm.makeblock.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
+  integrity sha1-mI3zP+qxke95mmE2nddsF635V+o=
+  dependencies:
+    array-find-index "^1.0.1"
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "http://npm.makeblock.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -2594,13 +2633,6 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "http://npm.makeblock.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-debug@2.6.8:
-  version "2.6.8"
-  resolved "http://npm.makeblock.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
-  integrity sha1-5zFTHKLt4n0YgiJCfaF4IdaP9Pw=
-  dependencies:
-    ms "2.0.0"
-
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "http://npm.makeblock.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -2619,7 +2651,7 @@ debug@^4.1.0, debug@^4.1.1:
   dependencies:
     ms "^2.1.1"
 
-decamelize@^1.1.1, decamelize@^1.2.0:
+decamelize@^1.1.1, decamelize@^1.1.2, decamelize@^1.2.0:
   version "1.2.0"
   resolved "http://npm.makeblock.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
@@ -2752,11 +2784,6 @@ diff-frag@^1.0.1:
   version "1.0.1"
   resolved "http://npm.makeblock.com/diff-frag/-/diff-frag-1.0.1.tgz#a7bb51789743e8c0b40e2509166bd155e5833826"
   integrity sha1-p7tReJdD6MC0DiUJFmvRVeWDOCY=
-
-diff@3.2.0:
-  version "3.2.0"
-  resolved "http://npm.makeblock.com/diff/-/diff-3.2.0.tgz#c9ce393a4b7cbd0b058a725c93df299027868ff9"
-  integrity sha1-yc45Okt8vQsFinJck98pkCeGj/k=
 
 diff@^3.2.0:
   version "3.5.0"
@@ -2924,11 +2951,6 @@ emoji-regex@^8.0.0:
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "http://npm.makeblock.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
-
-emojis-list@^3.0.0:
-  version "3.0.0"
-  resolved "http://npm.makeblock.com/emojis-list/-/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
-  integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -3103,7 +3125,7 @@ escape-html@~1.0.3:
   version "1.0.3"
   resolved "http://npm.makeblock.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 
-escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
+escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "http://npm.makeblock.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
@@ -3662,17 +3684,17 @@ flat-cache@^1.2.1:
     rimraf "~2.6.2"
     write "^0.2.1"
 
-flow-parser@^0.125.1:
-  version "0.125.1"
-  resolved "http://npm.makeblock.com/flow-parser/-/flow-parser-0.125.1.tgz#8e6174c0ad8bce8c4e8dbe3c2cfe30235eb0d080"
-  integrity sha1-jmF0wK2LzoxOjb48LP4wI16w0IA=
+flow-parser@^0.121.0:
+  version "0.121.0"
+  resolved "http://npm.makeblock.com/flow-parser/-/flow-parser-0.121.0.tgz#9f9898eaec91a9f7c323e9e992d81ab5c58e618f"
+  integrity sha1-n5iY6uyRqffDI+npktgatcWOYY8=
 
 flow-remove-types@^2.112.0:
-  version "2.125.1"
-  resolved "http://npm.makeblock.com/flow-remove-types/-/flow-remove-types-2.125.1.tgz#95fb4c09b142a810435a1dc1acd6871532f1c8b7"
-  integrity sha1-lftMCbFCqBBDWh3BrNaHFTLxyLc=
+  version "2.121.0"
+  resolved "http://npm.makeblock.com/flow-remove-types/-/flow-remove-types-2.121.0.tgz#06b77241cb020b593205af53a214b33cbdb41f25"
+  integrity sha1-BrdyQcsCC1kyBa9TohSzPL20HyU=
   dependencies:
-    flow-parser "^0.125.1"
+    flow-parser "^0.121.0"
     pirates "^3.0.2"
     vlq "^0.2.1"
 
@@ -3749,7 +3771,7 @@ fs-minipass@^1.2.5:
   dependencies:
     minipass "^2.6.0"
 
-fs-readdir-recursive@^1.0.0, fs-readdir-recursive@^1.1.0:
+fs-readdir-recursive@^1.0.0:
   version "1.1.0"
   resolved "http://npm.makeblock.com/fs-readdir-recursive/-/fs-readdir-recursive-1.1.0.tgz#e32fc030a2ccee44a6b5371308da54be0b397d27"
 
@@ -3774,9 +3796,19 @@ fsevents@^1.0.0, fsevents@^1.2.3, fsevents@^1.2.7:
     node-pre-gyp "^0.12.0"
 
 fsevents@~2.1.2:
-  version "2.1.3"
-  resolved "http://npm.makeblock.com/fsevents/-/fsevents-2.1.3.tgz#fb738703ae8d2f9fe900c33836ddebee8b97f23e"
-  integrity sha1-+3OHA66NL5/pAMM4Nt3r7ouX8j4=
+  version "2.1.2"
+  resolved "http://npm.makeblock.com/fsevents/-/fsevents-2.1.2.tgz#4c0a1fb34bc68e543b4b82a9ec392bfbda840805"
+  integrity sha1-TAofs0vGjlQ7S4Kp7Dkr+9qECAU=
+
+fstream@^1.0.0, fstream@^1.0.12:
+  version "1.0.12"
+  resolved "http://npm.makeblock.com/fstream/-/fstream-1.0.12.tgz#4e8ba8ee2d48be4f7d0de505455548eae5932045"
+  integrity sha1-Touo7i1Ivk99DeUFRVVI6uWTIEU=
+  dependencies:
+    graceful-fs "^4.1.2"
+    inherits "~2.0.0"
+    mkdirp ">=0.5 0"
+    rimraf "2"
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -3831,6 +3863,13 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+gaze@^1.0.0:
+  version "1.1.3"
+  resolved "http://npm.makeblock.com/gaze/-/gaze-1.1.3.tgz#c441733e13b927ac8c0ff0b4c3b033f28812924a"
+  integrity sha1-xEFzPhO5J6yMD/C0w7Az8ogSkko=
+  dependencies:
+    globule "^1.0.0"
+
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.1"
   resolved "http://npm.makeblock.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
@@ -3843,6 +3882,11 @@ get-caller-file@^1.0.1:
 get-caller-file@^2.0.1:
   version "2.0.5"
   resolved "http://npm.makeblock.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
+
+get-stdin@^4.0.1:
+  version "4.0.1"
+  resolved "http://npm.makeblock.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+  integrity sha1-uWjGsKBDhDJJAui/Gl3zJXmkUP4=
 
 get-stream@^3.0.0:
   version "3.0.0"
@@ -3903,19 +3947,7 @@ glob-parent@~5.1.0:
   dependencies:
     is-glob "^4.0.1"
 
-glob@7.1.1:
-  version "7.1.1"
-  resolved "http://npm.makeblock.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
-  integrity sha1-gFIR3wT6rxxjo2ADBs31reULLsg=
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.2"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
   version "7.1.5"
   resolved "http://npm.makeblock.com/glob/-/glob-7.1.5.tgz#6714c69bee20f3c3e64c4dd905553e532b40cdc0"
   dependencies:
@@ -3926,7 +3958,7 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, gl
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.1.6:
+glob@^7.1.6, glob@~7.1.1:
   version "7.1.6"
   resolved "http://npm.makeblock.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha1-FB8zuBp8JJLhJVlDB0gMRmeSeKY=
@@ -3988,6 +4020,15 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+globule@^1.0.0:
+  version "1.3.1"
+  resolved "http://npm.makeblock.com/globule/-/globule-1.3.1.tgz#90a25338f22b7fbeb527cee63c629aea754d33b9"
+  integrity sha1-kKJTOPIrf761J87mPGKa6nVNM7k=
+  dependencies:
+    glob "~7.1.1"
+    lodash "~4.17.12"
+    minimatch "~3.0.2"
+
 graceful-fs@4.1.10:
   version "4.1.10"
   resolved "http://npm.makeblock.com/graceful-fs/-/graceful-fs-4.1.10.tgz#f2d720c22092f743228775c75e3612632501f131"
@@ -3999,11 +4040,6 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.4
 "graceful-readlink@>= 1.0.0":
   version "1.0.1"
   resolved "http://npm.makeblock.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
-
-growl@1.9.2:
-  version "1.9.2"
-  resolved "http://npm.makeblock.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
-  integrity sha1-Dqd0NxXbjY3ixe3hd14bRayFwC8=
 
 growly@^1.3.0:
   version "1.3.0"
@@ -4027,7 +4063,7 @@ har-schema@^2.0.0:
   version "2.0.0"
   resolved "http://npm.makeblock.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
 
-har-validator@~5.1.0, har-validator@~5.1.3:
+har-validator@~5.1.0:
   version "5.1.3"
   resolved "http://npm.makeblock.com/har-validator/-/har-validator-5.1.3.tgz#1ef89ebd3e4996557675eed9893110dc350fa080"
   dependencies:
@@ -4119,11 +4155,6 @@ hasha@^3.0.0:
   integrity sha1-UqMvq4Vp1BymmmH/GiFPjrfIvTk=
   dependencies:
     is-stream "^1.0.1"
-
-he@1.1.1:
-  version "1.1.1"
-  resolved "http://npm.makeblock.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
-  integrity sha1-k0EP0hsAlzUVH4howvJx80J+I/0=
 
 he@1.2.x:
   version "1.2.0"
@@ -4389,6 +4420,18 @@ imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "http://npm.makeblock.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
 
+in-publish@^2.0.0:
+  version "2.0.1"
+  resolved "http://npm.makeblock.com/in-publish/-/in-publish-2.0.1.tgz#948b1a535c8030561cea522f73f78f4be357e00c"
+  integrity sha1-lIsaU1yAMFYc6lIvc/ePS+NX4Aw=
+
+indent-string@^2.1.0:
+  version "2.1.0"
+  resolved "http://npm.makeblock.com/indent-string/-/indent-string-2.1.0.tgz#8e2d48348742121b4a8218b7a137e9a52049dc80"
+  integrity sha1-ji1INIdCEhtKghi3oTfppSBJ3IA=
+  dependencies:
+    repeating "^2.0.0"
+
 indexes-of@^1.0.1:
   version "1.0.1"
   resolved "http://npm.makeblock.com/indexes-of/-/indexes-of-1.0.1.tgz#f30f716c8e2bd346c7b67d3df3915566a7c05607"
@@ -4405,7 +4448,7 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.1, inherits@~2.0.3:
+inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.4"
   resolved "http://npm.makeblock.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
 
@@ -5342,11 +5385,6 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "http://npm.makeblock.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
-json3@3.3.2:
-  version "3.3.2"
-  resolved "http://npm.makeblock.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
-  integrity sha1-PAQ0dD35Pi9cQq7nsZvLSDV19OE=
-
 json3@^3.3.2:
   version "3.3.3"
   resolved "http://npm.makeblock.com/json3/-/json3-3.3.3.tgz#7fc10e375fc5ae42c4705a5cc0aa6f62be305b81"
@@ -5362,9 +5400,9 @@ json5@^1.0.1:
     minimist "^1.2.0"
 
 json5@^2.1.2:
-  version "2.1.3"
-  resolved "http://npm.makeblock.com/json5/-/json5-2.1.3.tgz#c9b0f7fa9233bfe5807fe66fcf3a5617ed597d43"
-  integrity sha1-ybD3+pIzv+WAf+ZvzzpWF+1ZfUM=
+  version "2.1.2"
+  resolved "http://npm.makeblock.com/json5/-/json5-2.1.2.tgz#43ef1f0af9835dd624751a6b7fa48874fb2d608e"
+  integrity sha1-Q+8fCvmDXdYkdRprf6SIdPstYI4=
   dependencies:
     minimist "^1.2.5"
 
@@ -5498,15 +5536,6 @@ loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^2.0.0:
-  version "2.0.0"
-  resolved "http://npm.makeblock.com/loader-utils/-/loader-utils-2.0.0.tgz#e4cace5b816d425a166b5f097e10cd12b36064b0"
-  integrity sha1-5MrOW4FtQloWa18JfhDNErNgZLA=
-  dependencies:
-    big.js "^5.2.2"
-    emojis-list "^3.0.0"
-    json5 "^2.1.2"
-
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "http://npm.makeblock.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -5525,45 +5554,13 @@ lodash-es@^4.2.1:
   version "4.17.15"
   resolved "http://npm.makeblock.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
 
-lodash._baseassign@^3.0.0:
-  version "3.2.0"
-  resolved "http://npm.makeblock.com/lodash._baseassign/-/lodash._baseassign-3.2.0.tgz#8c38a099500f215ad09e59f1722fd0c52bfe0a4e"
-  integrity sha1-jDigmVAPIVrQnlnxci/QxSv+Ck4=
-  dependencies:
-    lodash._basecopy "^3.0.0"
-    lodash.keys "^3.0.0"
-
-lodash._basecopy@^3.0.0:
-  version "3.0.1"
-  resolved "http://npm.makeblock.com/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz#8da0e6a876cf344c0ad8a54882111dd3c5c7ca36"
-  integrity sha1-jaDmqHbPNEwK2KVIghEd08XHyjY=
-
-lodash._basecreate@^3.0.0:
-  version "3.0.3"
-  resolved "http://npm.makeblock.com/lodash._basecreate/-/lodash._basecreate-3.0.3.tgz#1bc661614daa7fc311b7d03bf16806a0213cf821"
-  integrity sha1-G8ZhYU2qf8MRt9A78WgGoCE8+CE=
-
 lodash._getnative@^3.0.0:
   version "3.9.1"
   resolved "http://npm.makeblock.com/lodash._getnative/-/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
 
-lodash._isiterateecall@^3.0.0:
-  version "3.0.9"
-  resolved "http://npm.makeblock.com/lodash._isiterateecall/-/lodash._isiterateecall-3.0.9.tgz#5203ad7ba425fae842460e696db9cf3e6aac057c"
-  integrity sha1-UgOte6Ql+uhCRg5pbbnPPmqsBXw=
-
 lodash.bindall@4.4.0:
   version "4.4.0"
   resolved "http://npm.makeblock.com/lodash.bindall/-/lodash.bindall-4.4.0.tgz#a7bfd482ba3d2e707169dfcdc993ebbf6c3d7998"
-
-lodash.create@3.1.1:
-  version "3.1.1"
-  resolved "http://npm.makeblock.com/lodash.create/-/lodash.create-3.1.1.tgz#d7f2849f0dbda7e04682bb8cd72ab022461debe7"
-  integrity sha1-1/KEnw29p+BGgruM1yqwIkYd6+c=
-  dependencies:
-    lodash._baseassign "^3.0.0"
-    lodash._basecreate "^3.0.0"
-    lodash._isiterateecall "^3.0.0"
 
 lodash.debounce@^3.0.0:
   version "3.1.1"
@@ -5604,7 +5601,7 @@ lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "http://npm.makeblock.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
 
-lodash.keys@^3.0.0, lodash.keys@^3.1.2:
+lodash.keys@^3.1.2:
   version "3.1.2"
   resolved "http://npm.makeblock.com/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
   dependencies:
@@ -5637,7 +5634,7 @@ lodash.throttle@^4.1.1:
   resolved "http://npm.makeblock.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.1, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.12:
   version "4.17.15"
   resolved "http://npm.makeblock.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
 
@@ -5654,16 +5651,24 @@ log-update@^3.0.0:
     cli-cursor "^2.1.0"
     wrap-ansi "^5.0.0"
 
-loglevel@^1.6.8:
-  version "1.6.8"
-  resolved "http://npm.makeblock.com/loglevel/-/loglevel-1.6.8.tgz#8a25fb75d092230ecd4457270d80b54e28011171"
-  integrity sha1-iiX7ddCSIw7NRFcnDYC1TigBEXE=
+loglevel@^1.6.6:
+  version "1.6.7"
+  resolved "http://npm.makeblock.com/loglevel/-/loglevel-1.6.7.tgz#b3e034233188c68b889f5b862415306f565e2c56"
+  integrity sha1-s+A0IzGIxouIn1uGJBUwb1ZeLFY=
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "http://npm.makeblock.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
+
+loud-rejection@^1.0.0:
+  version "1.6.0"
+  resolved "http://npm.makeblock.com/loud-rejection/-/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
+  integrity sha1-W0b4AUft7leIcPCG0Eghz5mOVR8=
+  dependencies:
+    currently-unhandled "^0.4.1"
+    signal-exit "^3.0.0"
 
 lower-case@^1.1.1:
   version "1.1.4"
@@ -5721,6 +5726,11 @@ map-cache@^0.2.2:
   version "0.2.2"
   resolved "http://npm.makeblock.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
 
+map-obj@^1.0.0, map-obj@^1.0.1:
+  version "1.0.1"
+  resolved "http://npm.makeblock.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
+  integrity sha1-2TPOuSBdgr3PSIb2dCvcK03qFG0=
+
 map-visit@^1.0.0:
   version "1.0.0"
   resolved "http://npm.makeblock.com/map-visit/-/map-visit-1.0.0.tgz#ecdca8f13144e660f1b5bd41f12f3479d98dfb8f"
@@ -5776,6 +5786,22 @@ memory-fs@^0.5.0:
   dependencies:
     errno "^0.1.3"
     readable-stream "^2.0.1"
+
+meow@^3.7.0:
+  version "3.7.0"
+  resolved "http://npm.makeblock.com/meow/-/meow-3.7.0.tgz#72cb668b425228290abbfa856892587308a801fb"
+  integrity sha1-cstmi0JSKCkKu/qFaJJYcwioAfs=
+  dependencies:
+    camelcase-keys "^2.0.0"
+    decamelize "^1.1.2"
+    loud-rejection "^1.0.0"
+    map-obj "^1.0.1"
+    minimist "^1.1.3"
+    normalize-package-data "^2.3.4"
+    object-assign "^4.0.1"
+    read-pkg-up "^1.0.1"
+    redent "^1.0.0"
+    trim-newlines "^1.0.0"
 
 merge-descriptors@1.0.1:
   version "1.0.1"
@@ -5897,7 +5923,7 @@ minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
   version "1.0.1"
   resolved "http://npm.makeblock.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
 
-minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4:
+minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4, minimatch@~3.0.2:
   version "3.0.4"
   resolved "http://npm.makeblock.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
@@ -5911,7 +5937,7 @@ minimist@^1.1.1, minimist@^1.2.0:
   version "1.2.0"
   resolved "http://npm.makeblock.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-minimist@^1.2.5:
+minimist@^1.1.3, minimist@^1.2.5:
   version "1.2.5"
   resolved "http://npm.makeblock.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
@@ -5928,9 +5954,9 @@ minipass@^2.6.0, minipass@^2.8.6, minipass@^2.9.0:
     yallist "^3.0.0"
 
 minipass@^3.0.0, minipass@^3.1.1:
-  version "3.1.3"
-  resolved "http://npm.makeblock.com/minipass/-/minipass-3.1.3.tgz#7d42ff1f39635482e15f9cdb53184deebd5815fd"
-  integrity sha1-fUL/HzljVILhX5zbUxhN7r1YFf0=
+  version "3.1.1"
+  resolved "http://npm.makeblock.com/minipass/-/minipass-3.1.1.tgz#7607ce778472a185ad6d89082aa2070f79cedcd5"
+  integrity sha1-dgfOd4RyoYWtbYkIKqIHD3nO3NU=
   dependencies:
     yallist "^4.0.0"
 
@@ -5962,7 +5988,14 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1:
+"mkdirp@>=0.5 0":
+  version "0.5.5"
+  resolved "http://npm.makeblock.com/mkdirp/-/mkdirp-0.5.5.tgz#d91cefd62d1436ca0f41620e251288d420099def"
+  integrity sha1-2Rzv1i0UNsoPQWIOJRKI1CAJne8=
+  dependencies:
+    minimist "^1.2.5"
+
+mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"
   resolved "http://npm.makeblock.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
@@ -5972,29 +6005,6 @@ mkdirp@^1.0.3:
   version "1.0.4"
   resolved "http://npm.makeblock.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha1-PrXtYmInVteaXw4qIh3+utdcL34=
-
-mkpath@^1.0.0:
-  version "1.0.0"
-  resolved "http://npm.makeblock.com/mkpath/-/mkpath-1.0.0.tgz#ebb3a977e7af1c683ae6fda12b545a6ba6c5853d"
-  integrity sha1-67Opd+evHGg65v2hK1Raa6bFhT0=
-
-mocha@^3.2.0:
-  version "3.5.3"
-  resolved "http://npm.makeblock.com/mocha/-/mocha-3.5.3.tgz#1e0480fe36d2da5858d1eb6acc38418b26eaa20d"
-  integrity sha512-/6na001MJWEtYxHOV1WLfsmR4YIynkUEhBwzsb+fk2qmQ3iqsi258l/Q2MWHJMImAcNpZ8DEdYAK72NHoIQ9Eg==
-  dependencies:
-    browser-stdout "1.3.0"
-    commander "2.9.0"
-    debug "2.6.8"
-    diff "3.2.0"
-    escape-string-regexp "1.0.5"
-    glob "7.1.1"
-    growl "1.9.2"
-    he "1.1.1"
-    json3 "3.3.2"
-    lodash.create "3.1.1"
-    mkdirp "0.5.1"
-    supports-color "3.1.2"
 
 moo@^0.4.3:
   version "0.4.3"
@@ -6041,6 +6051,11 @@ mute-stream@0.0.7:
 nan@^2.12.1:
   version "2.14.0"
   resolved "http://npm.makeblock.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
+
+nan@^2.13.2:
+  version "2.14.1"
+  resolved "http://npm.makeblock.com/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
+  integrity sha1-174036MQW5FJTDFHCJMV7/iHSwE=
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -6114,6 +6129,24 @@ node-forge@0.9.0:
   version "0.9.0"
   resolved "http://npm.makeblock.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
 
+node-gyp@^3.8.0:
+  version "3.8.0"
+  resolved "http://npm.makeblock.com/node-gyp/-/node-gyp-3.8.0.tgz#540304261c330e80d0d5edce253a68cb3964218c"
+  integrity sha1-VAMEJhwzDoDQ1e3OJTpoyzlkIYw=
+  dependencies:
+    fstream "^1.0.0"
+    glob "^7.0.3"
+    graceful-fs "^4.1.2"
+    mkdirp "^0.5.0"
+    nopt "2 || 3"
+    npmlog "0 || 1 || 2 || 3 || 4"
+    osenv "0"
+    request "^2.87.0"
+    rimraf "2"
+    semver "~5.3.0"
+    tar "^2.0.0"
+    which "1"
+
 node-int64@^0.4.0:
   version "0.4.0"
   resolved "http://npm.makeblock.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
@@ -6177,9 +6210,39 @@ node-pre-gyp@^0.12.0:
     tar "^4"
 
 node-releases@^1.1.53:
-  version "1.1.57"
-  resolved "http://npm.makeblock.com/node-releases/-/node-releases-1.1.57.tgz#f6754ce225fad0611e61228df3e09232e017ea19"
-  integrity sha1-9nVM4iX60GEeYSKN8+CSMuAX6hk=
+  version "1.1.53"
+  resolved "http://npm.makeblock.com/node-releases/-/node-releases-1.1.53.tgz#2d821bfa499ed7c5dffc5e2f28c88e78a08ee3f4"
+  integrity sha1-LYIb+kme18Xf/F4vKMiOeKCO4/Q=
+
+node-sass@^4.13.1:
+  version "4.13.1"
+  resolved "http://npm.makeblock.com/node-sass/-/node-sass-4.13.1.tgz#9db5689696bb2eec2c32b98bfea4c7a2e992d0a3"
+  integrity sha1-nbVolpa7LuwsMrmL/qTHoumS0KM=
+  dependencies:
+    async-foreach "^0.1.3"
+    chalk "^1.1.1"
+    cross-spawn "^3.0.0"
+    gaze "^1.0.0"
+    get-stdin "^4.0.1"
+    glob "^7.0.3"
+    in-publish "^2.0.0"
+    lodash "^4.17.15"
+    meow "^3.7.0"
+    mkdirp "^0.5.1"
+    nan "^2.13.2"
+    node-gyp "^3.8.0"
+    npmlog "^4.0.0"
+    request "^2.88.0"
+    sass-graph "^2.2.4"
+    stdout-stream "^1.4.0"
+    "true-case-path" "^1.0.2"
+
+"nopt@2 || 3":
+  version "3.0.6"
+  resolved "http://npm.makeblock.com/nopt/-/nopt-3.0.6.tgz#c6465dbf08abcd4db359317f79ac68a646b28ff9"
+  integrity sha1-xkZdvwirzU2zWTF/eaxopkayj/k=
+  dependencies:
+    abbrev "1"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -6188,7 +6251,7 @@ nopt@^4.0.1:
     abbrev "1"
     osenv "^0.1.4"
 
-normalize-package-data@^2.3.2:
+normalize-package-data@^2.3.2, normalize-package-data@^2.3.4:
   version "2.5.0"
   resolved "http://npm.makeblock.com/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"
   dependencies:
@@ -6228,7 +6291,7 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
-npmlog@^4.0.2:
+"npmlog@0 || 1 || 2 || 3 || 4", npmlog@^4.0.0, npmlog@^4.0.2:
   version "4.1.2"
   resolved "http://npm.makeblock.com/npmlog/-/npmlog-4.1.2.tgz#08a7f2a8bf734604779a9efa4ad5cc717abb954b"
   dependencies:
@@ -6316,12 +6379,9 @@ object-is@^1.0.1:
   resolved "http://npm.makeblock.com/object-is/-/object-is-1.0.1.tgz#0aa60ec9989a0b3ed795cf4d06f62cf1ad6539b6"
 
 object-is@^1.0.2:
-  version "1.1.2"
-  resolved "http://npm.makeblock.com/object-is/-/object-is-1.1.2.tgz#c5d2e87ff9e119f78b7a088441519e2eec1573b6"
-  integrity sha1-xdLof/nhGfeLegiEQVGeLuwVc7Y=
-  dependencies:
-    define-properties "^1.1.3"
-    es-abstract "^1.17.5"
+  version "1.0.2"
+  resolved "http://npm.makeblock.com/object-is/-/object-is-1.0.2.tgz#6b80eb84fe451498f65007982f035a5b445edec4"
+  integrity sha1-a4DrhP5FFJj2UAeYLwNaW0Re3sQ=
 
 object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
@@ -6352,12 +6412,13 @@ object.entries@^1.1.0:
     has "^1.0.3"
 
 object.entries@^1.1.1:
-  version "1.1.2"
-  resolved "http://npm.makeblock.com/object.entries/-/object.entries-1.1.2.tgz#bc73f00acb6b6bb16c203434b10f9a7e797d3add"
-  integrity sha1-vHPwCstra7FsIDQ0sQ+afnl9Ot0=
+  version "1.1.1"
+  resolved "http://npm.makeblock.com/object.entries/-/object.entries-1.1.1.tgz#ee1cf04153de02bb093fec33683900f57ce5399b"
+  integrity sha1-7hzwQVPeArsJP+wzaDkA9XzlOZs=
   dependencies:
     define-properties "^1.1.3"
-    es-abstract "^1.17.5"
+    es-abstract "^1.17.0-next.1"
+    function-bind "^1.1.1"
     has "^1.0.3"
 
 object.fromentries@^2.0.0:
@@ -6514,7 +6575,7 @@ os-tmpdir@^1.0.0, os-tmpdir@^1.0.1, os-tmpdir@~1.0.2:
   version "1.0.2"
   resolved "http://npm.makeblock.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
-osenv@^0.1.4:
+osenv@0, osenv@^0.1.4:
   version "0.1.5"
   resolved "http://npm.makeblock.com/osenv/-/osenv-0.1.5.tgz#85cdfafaeb28e8677f416e287592b5f3f49ea410"
   dependencies:
@@ -6755,7 +6816,7 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "http://npm.makeblock.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
-picomatch@^2.0.4, picomatch@^2.2.1:
+picomatch@^2.0.4, picomatch@^2.0.7:
   version "2.2.2"
   resolved "http://npm.makeblock.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
   integrity sha1-IfMz6ba46v8CRo9RRupAbTRfTa0=
@@ -6908,9 +6969,9 @@ postcss-value-parser@^3.2.3:
   resolved "http://npm.makeblock.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
 
 postcss-value-parser@^4.0.0, postcss-value-parser@^4.0.2:
-  version "4.1.0"
-  resolved "http://npm.makeblock.com/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
-  integrity sha1-RD9qIM7WSBor2k+oUypuVdeJoss=
+  version "4.0.3"
+  resolved "http://npm.makeblock.com/postcss-value-parser/-/postcss-value-parser-4.0.3.tgz#651ff4593aa9eda8d5d0d66593a2417aeaeb325d"
+  integrity sha1-ZR/0WTqp7ajV0NZlk6JBeurrMl0=
 
 postcss@^7.0.0, postcss@^7.0.1:
   version "7.0.20"
@@ -6920,7 +6981,16 @@ postcss@^7.0.0, postcss@^7.0.1:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.23, postcss@^7.0.26, postcss@^7.0.5, postcss@^7.0.6:
+postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.5, postcss@^7.0.6:
+  version "7.0.27"
+  resolved "http://npm.makeblock.com/postcss/-/postcss-7.0.27.tgz#cc67cdc6b0daa375105b7c424a85567345fc54d9"
+  integrity sha1-zGfNxrDao3UQW3xCSoVWc0X8VNk=
+  dependencies:
+    chalk "^2.4.2"
+    source-map "^0.6.1"
+    supports-color "^6.1.0"
+
+postcss@^7.0.23, postcss@^7.0.26:
   version "7.0.31"
   resolved "http://npm.makeblock.com/postcss/-/postcss-7.0.31.tgz#332af45cb73e26c0ee2614d7c7fb02dfcc2bd6dd"
   integrity sha1-Myr0XLc+JsDuJhTXx/sC38wr1t0=
@@ -7234,6 +7304,14 @@ react-dom@16.4.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-draggable@^4.2.0:
+  version "4.2.0"
+  resolved "http://npm.makeblock.com/react-draggable/-/react-draggable-4.2.0.tgz#40cc5209082ca7d613104bf6daf31372cc0e1114"
+  integrity sha1-QMxSCQgsp9YTEEv22vMTcswOERQ=
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
 react-intl-redux@2.0.0:
   version "2.0.0"
   resolved "http://npm.makeblock.com/react-intl-redux/-/react-intl-redux-2.0.0.tgz#172116ad4a6a4fc5943ae5c96de569467d37a8da"
@@ -7429,18 +7507,26 @@ readdirp@^2.0.0, readdirp@^2.2.1:
     micromatch "^3.1.10"
     readable-stream "^2.0.2"
 
-readdirp@~3.4.0:
-  version "3.4.0"
-  resolved "http://npm.makeblock.com/readdirp/-/readdirp-3.4.0.tgz#9fdccdf9e9155805449221ac645e8303ab5b9ada"
-  integrity sha1-n9zN+ekVWAVEkiGsZF6DA6tbmto=
+readdirp@~3.3.0:
+  version "3.3.0"
+  resolved "http://npm.makeblock.com/readdirp/-/readdirp-3.3.0.tgz#984458d13a1e42e2e9f5841b129e162f369aff17"
+  integrity sha1-mERY0ToeQuLp9YQbEp4WLzaa/xc=
   dependencies:
-    picomatch "^2.2.1"
+    picomatch "^2.0.7"
 
 realpath-native@^1.0.0:
   version "1.1.0"
   resolved "http://npm.makeblock.com/realpath-native/-/realpath-native-1.1.0.tgz#2003294fea23fb0672f2476ebe22fcf498a2d65c"
   dependencies:
     util.promisify "^1.0.0"
+
+redent@^1.0.0:
+  version "1.0.0"
+  resolved "http://npm.makeblock.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
+  integrity sha1-z5Fqsf1fHxbfsggi3W7H9zDCr94=
+  dependencies:
+    indent-string "^2.1.0"
+    strip-indent "^1.0.1"
 
 redeyed@~2.1.0:
   version "2.1.1"
@@ -7598,33 +7684,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.34.0, request@^2.88.2:
-  version "2.88.2"
-  resolved "http://npm.makeblock.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
-  integrity sha1-1zyRhzHLWofaBH4gcjQUb2ZNErM=
-  dependencies:
-    aws-sign2 "~0.7.0"
-    aws4 "^1.8.0"
-    caseless "~0.12.0"
-    combined-stream "~1.0.6"
-    extend "~3.0.2"
-    forever-agent "~0.6.1"
-    form-data "~2.3.2"
-    har-validator "~5.1.3"
-    http-signature "~1.2.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.19"
-    oauth-sign "~0.9.0"
-    performance-now "^2.1.0"
-    qs "~6.5.2"
-    safe-buffer "^5.1.2"
-    tough-cookie "~2.5.0"
-    tunnel-agent "^0.6.0"
-    uuid "^3.3.2"
-
-request@^2.87.0:
+request@^2.87.0, request@^2.88.0:
   version "2.88.0"
   resolved "http://npm.makeblock.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   dependencies:
@@ -7713,9 +7773,9 @@ resolve@^1.1.7, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.5.0:
     path-parse "^1.0.6"
 
 resolve@^1.3.2:
-  version "1.17.0"
-  resolved "http://npm.makeblock.com/resolve/-/resolve-1.17.0.tgz#b25941b54968231cc2d1bb76a79cb7f2c0bf8444"
-  integrity sha1-sllBtUloIxzC0bt2p5y38sC/hEQ=
+  version "1.15.1"
+  resolved "http://npm.makeblock.com/resolve/-/resolve-1.15.1.tgz#27bdcdeffeaf2d6244b95bb0f9f4b4653451f3e8"
+  integrity sha1-J73N7/6vLWJEuVuw+fS0ZTRR8+g=
   dependencies:
     path-parse "^1.0.6"
 
@@ -7742,7 +7802,7 @@ retry@^0.12.0:
   version "0.12.0"
   resolved "http://npm.makeblock.com/retry/-/retry-0.12.0.tgz#1b42a6266a21f07421d1b0b54b7dc167b01c013b"
 
-rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3, rimraf@^2.7.1:
+rimraf@2, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3, rimraf@^2.7.1:
   version "2.7.1"
   resolved "http://npm.makeblock.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
   dependencies:
@@ -7836,6 +7896,27 @@ sanitize-html-react@^1.13.0:
     regexp-quote "0.0.0"
     xtend "^4.0.0"
 
+sass-graph@^2.2.4:
+  version "2.2.4"
+  resolved "http://npm.makeblock.com/sass-graph/-/sass-graph-2.2.4.tgz#13fbd63cd1caf0908b9fd93476ad43a51d1e0b49"
+  integrity sha1-E/vWPNHK8JCLn9k0dq1DpR0eC0k=
+  dependencies:
+    glob "^7.0.0"
+    lodash "^4.0.0"
+    scss-tokenizer "^0.2.3"
+    yargs "^7.0.0"
+
+sass-loader@^8.0.0:
+  version "8.0.2"
+  resolved "http://npm.makeblock.com/sass-loader/-/sass-loader-8.0.2.tgz#debecd8c3ce243c76454f2e8290482150380090d"
+  integrity sha1-3r7NjDziQ8dkVPLoKQSCFQOACQ0=
+  dependencies:
+    clone-deep "^4.0.1"
+    loader-utils "^1.2.3"
+    neo-async "^2.6.1"
+    schema-utils "^2.6.1"
+    semver "^6.3.0"
+
 sax@^1.2.4:
   version "1.2.4"
   resolved "http://npm.makeblock.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -7863,7 +7944,15 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
-schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6.6:
+schema-utils@^2.5.0, schema-utils@^2.6.4:
+  version "2.6.5"
+  resolved "http://npm.makeblock.com/schema-utils/-/schema-utils-2.6.5.tgz#c758f0a7e624263073d396e29cd40aa101152d8a"
+  integrity sha1-x1jwp+YkJjBz05binNQKoQEVLYo=
+  dependencies:
+    ajv "^6.12.0"
+    ajv-keywords "^3.4.1"
+
+schema-utils@^2.6.0, schema-utils@^2.6.1:
   version "2.7.0"
   resolved "http://npm.makeblock.com/schema-utils/-/schema-utils-2.7.0.tgz#17151f76d8eae67fbbf77960c33c676ad9f4efc7"
   integrity sha1-FxUfdtjq5n+793lgwzxnatn078c=
@@ -7872,15 +7961,14 @@ schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6.6:
     ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
-scratch-l10n@3.1.20181129221712:
-  version "3.1.20181129221712"
-  resolved "http://npm.makeblock.com/scratch-l10n/-/scratch-l10n-3.1.20181129221712.tgz#20774ea4de497d6d73758510e828a06198bb4ef0"
-  integrity sha1-IHdOpN5JfW1zdYUQ6CigYZi7TvA=
+scratch-l10n@^2.0.0:
+  version "2.0.20180511152022"
+  resolved "http://npm.makeblock.com/scratch-l10n/-/scratch-l10n-2.0.20180511152022.tgz#c1540e69f32adc719970e5069c78935fedaada50"
+  integrity sha1-wVQOafMq3HGZcOUGnHiTX+2q2lA=
   dependencies:
-    "@babel/cli" "^7.1.2"
-    "@babel/core" "^7.1.2"
+    babel-cli "^6.26.0"
+    babel-plugin-intl "^0.1.1"
     babel-plugin-react-intl "^2.3.1"
-    transifex "1.5.0"
 
 scratch-render-fonts@1.0.0-prerelease.20200507182347:
   version "1.0.0-prerelease.20200507182347"
@@ -7889,10 +7977,10 @@ scratch-render-fonts@1.0.0-prerelease.20200507182347:
   dependencies:
     base64-loader "1.0.0"
 
-scratch-svg-renderer@0.2.0-prerelease.20200507183648:
-  version "0.2.0-prerelease.20200507183648"
-  resolved "http://npm.makeblock.com/scratch-svg-renderer/-/scratch-svg-renderer-0.2.0-prerelease.20200507183648.tgz#a90d8b2d195b0f5da59220edb20ac5c360e131b7"
-  integrity sha1-qQ2LLRlbD12lkiDtsgrFw2DhMbc=
+scratch-svg-renderer@latest:
+  version "0.4.0-202006011731"
+  resolved "http://npm.makeblock.com/scratch-svg-renderer/-/scratch-svg-renderer-0.4.0-202006011731.tgz#0822c3913df3d3dd22772aee0fe05797745baba9"
+  integrity sha512-34P5aR7ua8F0y5J9+mJSvghhp8e4UYoEKNuGQGa0v8k48M4w2dyxZ6MC1glA8HoAttdQm5Ue/tir2QYMq0/tCg==
   dependencies:
     base64-js "1.2.1"
     base64-loader "1.0.0"
@@ -7918,6 +8006,11 @@ semver@^6.0.0, semver@^6.3.0:
   version "6.3.0"
   resolved "http://npm.makeblock.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha1-7gpkyK9ejO6mdoexM3YeG+y9HT0=
+
+semver@~5.3.0:
+  version "5.3.0"
+  resolved "http://npm.makeblock.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+  integrity sha1-myzl094C0XxgEq0yaqa00M9U+U8=
 
 send@0.17.1:
   version "0.17.1"
@@ -7994,6 +8087,13 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+shallow-clone@^3.0.0:
+  version "3.0.1"
+  resolved "http://npm.makeblock.com/shallow-clone/-/shallow-clone-3.0.1.tgz#8f2981ad92531f55035b01fb230769a40e02efa3"
+  integrity sha1-jymBrZJTH1UDWwH7IwdppA4C76M=
+  dependencies:
+    kind-of "^6.0.2"
+
 shallowequal@^0.2.2:
   version "0.2.2"
   resolved "http://npm.makeblock.com/shallowequal/-/shallowequal-0.2.2.tgz#1e32fd5bcab6ad688a4812cb0cc04efc75c7014e"
@@ -8018,50 +8118,6 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "http://npm.makeblock.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
-should-equal@^1.0.0:
-  version "1.0.1"
-  resolved "http://npm.makeblock.com/should-equal/-/should-equal-1.0.1.tgz#0b6e9516f2601a9fb0bb2dcc369afa1c7e200af7"
-  integrity sha1-C26VFvJgGp+wuy3MNpr6HH4gCvc=
-  dependencies:
-    should-type "^1.0.0"
-
-should-format@^3.0.2:
-  version "3.0.3"
-  resolved "http://npm.makeblock.com/should-format/-/should-format-3.0.3.tgz#9bfc8f74fa39205c53d38c34d717303e277124f1"
-  integrity sha1-m/yPdPo5IFxT04w01xcwPidxJPE=
-  dependencies:
-    should-type "^1.3.0"
-    should-type-adaptors "^1.0.1"
-
-should-type-adaptors@^1.0.1:
-  version "1.1.0"
-  resolved "http://npm.makeblock.com/should-type-adaptors/-/should-type-adaptors-1.1.0.tgz#401e7f33b5533033944d5cd8bf2b65027792e27a"
-  integrity sha1-QB5/M7VTMDOUTVzYvytlAneS4no=
-  dependencies:
-    should-type "^1.3.0"
-    should-util "^1.0.0"
-
-should-type@^1.0.0, should-type@^1.3.0, should-type@^1.4.0:
-  version "1.4.0"
-  resolved "http://npm.makeblock.com/should-type/-/should-type-1.4.0.tgz#0756d8ce846dfd09843a6947719dfa0d4cff5cf3"
-  integrity sha1-B1bYzoRt/QmEOmlHcZ36DUz/XPM=
-
-should-util@^1.0.0:
-  version "1.0.1"
-  resolved "http://npm.makeblock.com/should-util/-/should-util-1.0.1.tgz#fb0d71338f532a3a149213639e2d32cbea8bcb28"
-  integrity sha1-+w1xM49TKjoUkhNjni0yy+qLyyg=
-
-should@^11.1.2:
-  version "11.2.1"
-  resolved "http://npm.makeblock.com/should/-/should-11.2.1.tgz#90f55145552d01cfc200666e4e818a1c9670eda2"
-  integrity sha1-kPVRRVUtAc/CAGZuToGKHJZw7aI=
-  dependencies:
-    should-equal "^1.0.0"
-    should-format "^3.0.2"
-    should-type "^1.4.0"
-    should-type-adaptors "^1.0.1"
-    should-util "^1.0.0"
-
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "http://npm.makeblock.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -8069,11 +8125,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
 slash@^1.0.0:
   version "1.0.0"
   resolved "http://npm.makeblock.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
-
-slash@^2.0.0:
-  version "2.0.0"
-  resolved "http://npm.makeblock.com/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
-  integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
 
 slice-ansi@1.0.0:
   version "1.0.0"
@@ -8164,10 +8215,10 @@ source-map-support@^0.5.0, source-map-support@~0.5.12:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
-source-map-support@^0.5.11, source-map-support@^0.5.16, source-map-support@^0.5.17:
-  version "0.5.19"
-  resolved "http://npm.makeblock.com/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
-  integrity sha1-qYti+G3K9PZzmWSMCFKRq56P7WE=
+source-map-support@^0.5.11, source-map-support@^0.5.16, source-map-support@^0.5.6:
+  version "0.5.16"
+  resolved "http://npm.makeblock.com/source-map-support/-/source-map-support-0.5.16.tgz#0ae069e7fe3ba7538c64c98515e35339eac5a042"
+  integrity sha1-CuBp5/47p1OMZMmFFeNTOerFoEI=
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
@@ -8284,6 +8335,13 @@ static-extend@^0.1.1:
   version "1.5.0"
   resolved "http://npm.makeblock.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
 
+stdout-stream@^1.4.0:
+  version "1.4.1"
+  resolved "http://npm.makeblock.com/stdout-stream/-/stdout-stream-1.4.1.tgz#5ac174cdd5cd726104aa0c0b2bd83815d8d535de"
+  integrity sha1-WsF0zdXNcmEEqgwLK9g4FdjVNd4=
+  dependencies:
+    readable-stream "^2.0.1"
+
 stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "http://npm.makeblock.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
@@ -8373,9 +8431,9 @@ string.prototype.trim@^1.2.1:
     function-bind "^1.1.1"
 
 string.prototype.trimend@^1.0.0:
-  version "1.0.1"
-  resolved "http://npm.makeblock.com/string.prototype.trimend/-/string.prototype.trimend-1.0.1.tgz#85812a6b847ac002270f5808146064c995fb6913"
-  integrity sha1-hYEqa4R6wAInD1gIFGBkyZX7aRM=
+  version "1.0.0"
+  resolved "http://npm.makeblock.com/string.prototype.trimend/-/string.prototype.trimend-1.0.0.tgz#ee497fd29768646d84be2c9b819e292439614373"
+  integrity sha1-7kl/0pdoZG2EviybgZ4pJDlhQ3M=
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.5"
@@ -8413,9 +8471,9 @@ string.prototype.trimright@^2.1.1:
     string.prototype.trimend "^1.0.0"
 
 string.prototype.trimstart@^1.0.0:
-  version "1.0.1"
-  resolved "http://npm.makeblock.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.1.tgz#14af6d9f34b053f7cfc89b72f8f2ee14b9039a54"
-  integrity sha1-FK9tnzSwU/fPyJty+PLuFLkDmlQ=
+  version "1.0.0"
+  resolved "http://npm.makeblock.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.0.tgz#afe596a7ce9de905496919406c9734845f01a2f2"
+  integrity sha1-r+WWp86d6QVJaRlAbJc0hF8BovI=
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.5"
@@ -8471,24 +8529,24 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "http://npm.makeblock.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
 
+strip-indent@^1.0.1:
+  version "1.0.1"
+  resolved "http://npm.makeblock.com/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
+  integrity sha1-DHlipq3vp7vUrDZkYKY4VSrhoKI=
+  dependencies:
+    get-stdin "^4.0.1"
+
 strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "http://npm.makeblock.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
 style-loader@^1.0.0:
-  version "1.2.1"
-  resolved "http://npm.makeblock.com/style-loader/-/style-loader-1.2.1.tgz#c5cbbfbf1170d076cfdd86e0109c5bba114baa1a"
-  integrity sha1-xcu/vxFw0HbP3YbgEJxbuhFLqho=
+  version "1.1.3"
+  resolved "http://npm.makeblock.com/style-loader/-/style-loader-1.1.3.tgz#9e826e69c683c4d9bf9db924f85e9abb30d5e200"
+  integrity sha1-noJuacaDxNm/nbkk+F6auzDV4gA=
   dependencies:
-    loader-utils "^2.0.0"
-    schema-utils "^2.6.6"
-
-supports-color@3.1.2:
-  version "3.1.2"
-  resolved "http://npm.makeblock.com/supports-color/-/supports-color-3.1.2.tgz#72a262894d9d408b956ca05ff37b2ed8a6e2a2d5"
-  integrity sha1-cqJiiU2dQIuVbKBf83su2KbiotU=
-  dependencies:
-    has-flag "^1.0.0"
+    loader-utils "^1.2.3"
+    schema-utils "^2.6.4"
 
 supports-color@6.1.0, supports-color@^6.1.0:
   version "6.1.0"
@@ -8628,6 +8686,15 @@ tap@^14.4.3:
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
   resolved "http://npm.makeblock.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
+
+tar@^2.0.0:
+  version "2.2.2"
+  resolved "http://npm.makeblock.com/tar/-/tar-2.2.2.tgz#0ca8848562c7299b8b446ff6a4d60cdbb23edc40"
+  integrity sha1-DKiEhWLHKZuLRG/2pNYM27I+3EA=
+  dependencies:
+    block-stream "*"
+    fstream "^1.0.12"
+    inherits "2"
 
 tar@^4:
   version "4.4.13"
@@ -8778,7 +8845,7 @@ toposort@^1.0.0:
   version "1.0.7"
   resolved "http://npm.makeblock.com/toposort/-/toposort-1.0.7.tgz#2e68442d9f64ec720b8cc89e6443ac6caa950029"
 
-tough-cookie@^2.3.3, tough-cookie@^2.3.4, tough-cookie@~2.5.0:
+tough-cookie@^2.3.3, tough-cookie@^2.3.4:
   version "2.5.0"
   resolved "http://npm.makeblock.com/tough-cookie/-/tough-cookie-2.5.0.tgz#cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2"
   dependencies:
@@ -8803,18 +8870,6 @@ transformation-matrix@1.15.0:
   resolved "http://npm.makeblock.com/transformation-matrix/-/transformation-matrix-1.15.0.tgz#0c7b42532ee456b87b4a0cdea5ee256ad8dda3bb"
   integrity sha1-DHtCUy7kVrh7Sgzepe4latjdo7s=
 
-transifex@1.5.0:
-  version "1.5.0"
-  resolved "http://npm.makeblock.com/transifex/-/transifex-1.5.0.tgz#ff1c4530f477fd8de234fc968add322953d45cf4"
-  integrity sha1-/xxFMPR3/Y3iNPyWit0yKVPUXPQ=
-  dependencies:
-    commander "^2.9.0"
-    lodash "^4.17.1"
-    mkpath "^1.0.0"
-    mocha "^3.2.0"
-    request "^2.34.0"
-    should "^11.1.2"
-
 treport@^1.0.2:
   version "1.0.2"
   resolved "http://npm.makeblock.com/treport/-/treport-1.0.2.tgz#5f99e68198982984415434a2a84df2af2dd7171d"
@@ -8829,6 +8884,11 @@ treport@^1.0.2:
     tap-parser "^10.0.1"
     unicode-length "^2.0.2"
 
+trim-newlines@^1.0.0:
+  version "1.0.0"
+  resolved "http://npm.makeblock.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
+  integrity sha1-WIeWa7WCpFA6QetST301ARgVphM=
+
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "http://npm.makeblock.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
@@ -8837,15 +8897,22 @@ trivial-deferred@^1.0.1:
   version "1.0.1"
   resolved "http://npm.makeblock.com/trivial-deferred/-/trivial-deferred-1.0.1.tgz#376d4d29d951d6368a6f7a0ae85c2f4d5e0658f3"
 
+"true-case-path@^1.0.2":
+  version "1.0.3"
+  resolved "http://npm.makeblock.com/true-case-path/-/true-case-path-1.0.3.tgz#f813b5a8c86b40da59606722b144e3225799f47d"
+  integrity sha1-+BO1qMhrQNpZYGcisUTjIleZ9H0=
+  dependencies:
+    glob "^7.1.2"
+
 ts-node@^8.5.2:
-  version "8.10.2"
-  resolved "http://npm.makeblock.com/ts-node/-/ts-node-8.10.2.tgz#eee03764633b1234ddd37f8db9ec10b75ec7fb8d"
-  integrity sha1-7uA3ZGM7EjTd03+NuewQt17H+40=
+  version "8.8.1"
+  resolved "http://npm.makeblock.com/ts-node/-/ts-node-8.8.1.tgz#7c4d3e9ed33aa703b64b28d7f9d194768be5064d"
+  integrity sha1-fE0+ntM6pwO2SyjX+dGUdovlBk0=
   dependencies:
     arg "^4.1.0"
     diff "^4.0.1"
     make-error "^1.1.1"
-    source-map-support "^0.5.17"
+    source-map-support "^0.5.6"
     yn "3.1.1"
 
 tslib@^1.9.0:
@@ -8896,9 +8963,9 @@ typedarray@^0.0.6:
   resolved "http://npm.makeblock.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 typescript@^3.7.2:
-  version "3.9.3"
-  resolved "http://npm.makeblock.com/typescript/-/typescript-3.9.3.tgz#d3ac8883a97c26139e42df5e93eeece33d610b8a"
-  integrity sha1-06yIg6l8JhOeQt9ek+7s4z1hC4o=
+  version "3.8.3"
+  resolved "http://npm.makeblock.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
+  integrity sha1-QJ64VE6gM1cRIFhp7EWKsQnuEGE=
 
 ua-parser-js@^0.7.18:
   version "0.7.20"
@@ -8919,11 +8986,12 @@ uglify-js@^3.1.4:
     source-map "~0.6.1"
 
 uglify-js@^3.6.0:
-  version "3.9.4"
-  resolved "http://npm.makeblock.com/uglify-js/-/uglify-js-3.9.4.tgz#867402377e043c1fc7b102253a22b64e5862401b"
-  integrity sha1-hnQCN34EPB/HsQIlOiK2TlhiQBs=
+  version "3.8.1"
+  resolved "http://npm.makeblock.com/uglify-js/-/uglify-js-3.8.1.tgz#43bb15ce6f545eaa0a64c49fd29375ea09fa0f93"
+  integrity sha1-Q7sVzm9UXqoKZMSf0pN16gn6D5M=
   dependencies:
     commander "~2.20.3"
+    source-map "~0.6.1"
 
 uglifyjs-webpack-plugin@^2.0.1:
   version "2.2.0"
@@ -8940,18 +9008,19 @@ uglifyjs-webpack-plugin@^2.0.1:
     webpack-sources "^1.4.0"
     worker-farm "^1.7.0"
 
-ui-mobile-input@^0.0.3:
-  version "0.0.3"
-  resolved "http://npm.makeblock.com/ui-mobile-input/-/ui-mobile-input-0.0.3.tgz#1ecc3e438fbf879208571cd34f24b722bf78b3f5"
-  integrity sha512-+ZNHuHNw6RHy/JoObDcn7L9pNhrA6CPx7Wxtyg3evzpvze2MPHfEjr1pMGGTjJurY8kSyMYFiBz3Ix+SQA+MkQ==
+ui-mobile-input@^0.0.4:
+  version "0.0.4"
+  resolved "http://npm.makeblock.com/ui-mobile-input/-/ui-mobile-input-0.0.4.tgz#ee74c2caba4fee4e88eab3a741d36b45ba2f9980"
+  integrity sha512-C/EaHaBZUMG+3AppJKDOONLutYNTf/McKxL1VDR0Ds+CymMQEUohw3cVN88yTjkO/PPcE6VowGqkyQBVww202w==
   dependencies:
     classnames "2.2.5"
     react "16.2.0"
     react-dom "16.4.0"
 
-ui-save-confirm@^0.0.1:
-  version "0.0.1"
-  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.1.tgz#3aac618f323f2d8374f1b7a990184daa5ee0bbbc"
+ui-save-confirm@^0.0.5:
+  version "0.0.5"
+  resolved "http://npm.makeblock.com/ui-save-confirm/-/ui-save-confirm-0.0.5.tgz#94a5b8096182c6c8c82a2875b168fd7530057c9c"
+  integrity sha512-3TJuldfk+/VGYAdGabw0waaxau6PCSbmkkFtKJmmWxx98/ygbdkJ4qNMboCaqFxGAY1U8CBChInsg25xOc8vNQ==
   dependencies:
     classnames "2.2.5"
     react "16.2.0"
@@ -9180,7 +9249,7 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "http://npm.makeblock.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-cli@^3.1.0:
+webpack-cli@^3.2.1:
   version "3.3.11"
   resolved "http://npm.makeblock.com/webpack-cli/-/webpack-cli-3.3.11.tgz#3bf21889bf597b5d82c38f215135a411edfdc631"
   integrity sha1-O/IYib9Ze12Cw48hUTWkEe39xjE=
@@ -9208,9 +9277,9 @@ webpack-dev-middleware@^3.7.2:
     webpack-log "^2.0.0"
 
 webpack-dev-server@^3.1.9:
-  version "3.11.0"
-  resolved "http://npm.makeblock.com/webpack-dev-server/-/webpack-dev-server-3.11.0.tgz#8f154a3bce1bcfd1cc618ef4e703278855e7ff8c"
-  integrity sha1-jxVKO84bz9HMYY705wMniFXn/4w=
+  version "3.10.3"
+  resolved "http://npm.makeblock.com/webpack-dev-server/-/webpack-dev-server-3.10.3.tgz#f35945036813e57ef582c2420ef7b470e14d3af0"
+  integrity sha1-81lFA2gT5X71gsJCDve0cOFNOvA=
   dependencies:
     ansi-html "0.0.7"
     bonjour "^3.5.0"
@@ -9220,31 +9289,31 @@ webpack-dev-server@^3.1.9:
     debug "^4.1.1"
     del "^4.1.1"
     express "^4.17.1"
-    html-entities "^1.3.1"
+    html-entities "^1.2.1"
     http-proxy-middleware "0.19.1"
     import-local "^2.0.0"
     internal-ip "^4.3.0"
     ip "^1.1.5"
     is-absolute-url "^3.0.3"
     killable "^1.0.1"
-    loglevel "^1.6.8"
+    loglevel "^1.6.6"
     opn "^5.5.0"
     p-retry "^3.0.1"
-    portfinder "^1.0.26"
+    portfinder "^1.0.25"
     schema-utils "^1.0.0"
     selfsigned "^1.10.7"
     semver "^6.3.0"
     serve-index "^1.9.1"
-    sockjs "0.3.20"
+    sockjs "0.3.19"
     sockjs-client "1.4.0"
-    spdy "^4.0.2"
+    spdy "^4.0.1"
     strip-ansi "^3.0.1"
     supports-color "^6.1.0"
     url "^0.11.0"
     webpack-dev-middleware "^3.7.2"
     webpack-log "^2.0.0"
     ws "^6.2.1"
-    yargs "^13.3.2"
+    yargs "12.0.5"
 
 webpack-log@^2.0.0:
   version "2.0.0"
@@ -9341,7 +9410,7 @@ which-module@^2.0.0:
   version "2.0.0"
   resolved "http://npm.makeblock.com/which-module/-/which-module-2.0.0.tgz#d9ef07dce77b9902b8a3a8fa4b31c3e3f7e6e87a"
 
-which@^1.2.12, which@^1.2.14, which@^1.2.9, which@^1.3.0, which@^1.3.1:
+which@1, which@^1.2.12, which@^1.2.14, which@^1.2.9, which@^1.3.0, which@^1.3.1:
   version "1.3.1"
   resolved "http://npm.makeblock.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"
   dependencies:
@@ -9476,9 +9545,11 @@ yallist@^4.0.0:
   integrity sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI=
 
 yaml@^1.5.0, yaml@^1.7.2:
-  version "1.10.0"
-  resolved "http://npm.makeblock.com/yaml/-/yaml-1.10.0.tgz#3b593add944876077d4d683fee01081bd9fff31e"
-  integrity sha1-O1k63ZRIdgd9TWg/7gEIG9n/8x4=
+  version "1.8.3"
+  resolved "http://npm.makeblock.com/yaml/-/yaml-1.8.3.tgz#2f420fca58b68ce3a332d0ca64be1d191dd3f87a"
+  integrity sha1-L0IPyli2jOOjMtDKZL4dGR3T+Ho=
+  dependencies:
+    "@babel/runtime" "^7.8.7"
 
 yapool@^1.0.0:
   version "1.0.0"
@@ -9560,8 +9631,8 @@ yn@3.1.1:
   integrity sha1-HodAGgnXZ8HV6rJqbkwYUYLS61A=
 
 yoga-layout-prebuilt@^1.9.3:
-  version "1.9.6"
-  resolved "http://npm.makeblock.com/yoga-layout-prebuilt/-/yoga-layout-prebuilt-1.9.6.tgz#98dde95bbf8e6e12835876e9305f1e995c4bb801"
-  integrity sha1-mN3pW7+ObhKDWHbpMF8emVxLuAE=
+  version "1.9.5"
+  resolved "http://npm.makeblock.com/yoga-layout-prebuilt/-/yoga-layout-prebuilt-1.9.5.tgz#bb25ae106eb4ba48c13b650e75269c582a8b43e5"
+  integrity sha1-uyWuEG60ukjBO2UOdSacWCqLQ+U=
   dependencies:
-    "@types/yoga-layout" "1.9.2"
+    "@types/yoga-layout" "1.9.1"

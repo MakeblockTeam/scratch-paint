@@ -6,6 +6,7 @@
     margin: auto;
     position: absolute;
     background-color: #fff;
+    border-radius: 6px;
 }
 
 .center-mode{
