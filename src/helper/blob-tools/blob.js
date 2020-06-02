@@ -2,9 +2,10 @@ import paper from '@scratch/paper';
 import log from '../../log/log';
 import BroadBrushHelper from './broad-brush-helper';
 import SegmentBrushHelper from './segment-brush-helper';
-import { MIXED, styleCursorPreview } from '../../helper/style-path';
-import { clearSelection, getItems } from '../../helper/selection';
-import { getGuideLayer } from '../../helper/layer';
+import {MIXED, styleCursorPreview} from '../../helper/style-path';
+import {clearSelection, getItems} from '../../helper/selection';
+import {getGuideLayer, setGuideItem} from '../../helper/layer';
+import {isCompoundPathChild} from '../compound-path';
 
 /**
  * Shared code for the brush and eraser mode. Adds functions on the paper tool object
@@ -205,6 +206,7 @@ class Blobbiness {
             });
             this.cursorPreview.parent = getGuideLayer();
             this.cursorPreview.data.isHelperItem = true;
+            setGuideItem(this.cursorPreview);
         }
         this.cursorPreview.position = this.cursorPreviewLastPoint;
         this.cursorPreview.radius = this.options.brushSize / 2;
@@ -272,7 +274,11 @@ class Blobbiness {
         // If there are selected items, try to erase from amongst those.
         let items = getItems({
             match: function (item) {
-                return item.selected && blob.isMergeable(lastPath, item) && blob.touches(lastPath, item);
+                return item.selected && blob.isMergeable(lastPath, item) &&
+                    blob.touches(lastPath, item) &&
+                    // Boolean operations will produce incorrect results if directly applied to compound path children,
+                    // so exclude those. Their parents are also selected so boolean operations will apply to them.
+                    !isCompoundPathChild(item);
             },
             class: paper.PathItem
         });
@@ -282,14 +288,15 @@ class Blobbiness {
             clearSelection(this.clearSelectedItems);
             items = getItems({
                 match: function (item) {
-                    return blob.isMergeable(lastPath, item) && blob.touches(lastPath, item);
+                    return blob.isMergeable(lastPath, item) &&
+                        blob.touches(lastPath, item) &&
+                        !isCompoundPathChild(item);
                 },
                 class: paper.PathItem
             });
         }
 
         for (let i = items.length - 1; i >= 0; i--) {
-            // TODO handle compound paths
             if (items[i] instanceof paper.Path && (!items[i].fillColor || items[i].fillColor._alpha === 0)) {
                 // Gather path segments
                 const subpaths = [];
@@ -322,7 +329,6 @@ class Blobbiness {
 
             // Gather path segments
             const subpaths = [];
-            // TODO: Handle compound path
             if (items[i] instanceof paper.Path && !items[i].closed) {
                 const firstSeg = items[i].clone();
                 const intersections = firstSeg.getIntersections(lastPath);

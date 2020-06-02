@@ -6,18 +6,21 @@ import React from 'react';
 import omit from 'lodash.omit';
 import { connect } from 'react-redux';
 
-import { undoSnapshot } from '../reducers/undo';
-import { setSelectedItems } from '../reducers/selected-items';
+import {undoSnapshot} from '../reducers/undo';
+import {setSelectedItems} from '../reducers/selected-items';
 // #if MOBILE
 import { changeSaveStatus } from '../reducers/save-image';
 // #endif
+import {updateViewBounds} from '../reducers/view-bounds';
 
-import { getSelectedLeafItems } from '../helper/selection';
-import { getRaster, hideGuideLayers, showGuideLayers, showCrossLine } from '../helper/layer';
-import { commitRectToBitmap, commitOvalToBitmap, commitSelectionToBitmap, getHitBounds } from '../helper/bitmap';
-import { performSnapshot } from '../helper/undo';
-import { scaleWithStrokes } from '../helper/math';
-import { ART_BOARD_WIDTH, ART_BOARD_HEIGHT, SVG_ART_BOARD_WIDTH, SVG_ART_BOARD_HEIGHT } from '../helper/view';
+import {getSelectedLeafItems} from '../helper/selection';
+import {getRaster, hideGuideLayers, showGuideLayers, showCrossLine} from '../helper/layer';
+import {commitRectToBitmap, commitOvalToBitmap, commitSelectionToBitmap, getHitBounds} from '../helper/bitmap';
+import {performSnapshot} from '../helper/undo';
+import {scaleWithStrokes} from '../helper/math';
+
+import {ART_BOARD_WIDTH, ART_BOARD_HEIGHT, SVG_ART_BOARD_WIDTH, SVG_ART_BOARD_HEIGHT} from '../helper/view';
+import {setWorkspaceBounds} from '../helper/view';
 
 import Modes from '../lib/modes';
 import { BitmapModes } from '../lib/modes';
@@ -57,12 +60,13 @@ const UpdateImageHOC = function (WrappedComponent) {
             } else if (isVector(actualFormat)) {
                 this.handleUpdateVector(skipSnapshot);
             }
-
             //设置中心点模式，如果进行撤销或者恢复，十字线相关状态不会进行snapshot，见performSnapshot
             if (this.props.mode === Modes.CENTER || this.props.mode === Modes.BIT_CENTER) {
                 showCrossLine()
             }
-            console.log(paper.project)
+            // Any time an image update is made, recalculate the bounds of the artwork
+            setWorkspaceBounds();
+            this.props.updateViewBounds(paper.view.matrix);
         }
         handleUpdateBitmap(skipSnapshot) {
             if (!getRaster().loaded) {
@@ -133,11 +137,24 @@ const UpdateImageHOC = function (WrappedComponent) {
                 performSnapshot(this.props.undoSnapshot, Formats.BITMAP);
             }
         }
-        handleUpdateVector(skipSnapshot) {
+        handleUpdateVector (skipSnapshot) {
+            // Remove viewbox (this would make it export at MAX_WORKSPACE_BOUNDS)
+            let workspaceMask;
+            if (paper.project.activeLayer.clipped) {
+                for (const child of paper.project.activeLayer.children) {
+                    if (child.isClipMask()) {
+                        workspaceMask = child;
+                        break;
+                    }
+                }
+                paper.project.activeLayer.clipped = false;
+                workspaceMask.remove();
+            }
             const guideLayers = hideGuideLayers(true /* includeRaster */);
 
             // Export at 0.5x
             scaleWithStrokes(paper.project.activeLayer, .5, new paper.Point());
+
             const bounds = paper.project.activeLayer.drawnBounds;
             // #if MOBILE
             if (this.props.isCanSave) {
@@ -152,7 +169,13 @@ const UpdateImageHOC = function (WrappedComponent) {
                     (SVG_ART_BOARD_HEIGHT / 2) - bounds.y);
             }
             // #else
-            // @todo (https://github.com/LLK/scratch-paint/issues/445) generate view box
+            // `bounds.x` and `bounds.y` are relative to the top left corner,
+            // but if there is no content in the active layer, they default to 0,
+            // making the "Scratch space" rotation center ((SVG_ART_BOARD_WIDTH / 2), (SVG_ART_BOARD_HEIGHT / 2)),
+            // aka the upper left corner. Special-case this to be (0, 0), which is the center of the art board.
+            const centerX = bounds.width === 0 ? 0 : (SVG_ART_BOARD_WIDTH / 2) - bounds.x;
+            const centerY = bounds.height === 0 ? 0 : (SVG_ART_BOARD_HEIGHT / 2) - bounds.y;
+
             this.props.onUpdateImage(
                 true /* isVector */,
                 paper.project.exportSVG({
@@ -160,13 +183,19 @@ const UpdateImageHOC = function (WrappedComponent) {
                     bounds: 'content',
                     matrix: new paper.Matrix().translate(-bounds.x, -bounds.y)
                 }),
-                (SVG_ART_BOARD_WIDTH / 2) - bounds.x,
-                (SVG_ART_BOARD_HEIGHT / 2) - bounds.y);
+                centerX,
+                centerY);
             // #endif
             scaleWithStrokes(paper.project.activeLayer, 2, new paper.Point());
             paper.project.activeLayer.applyMatrix = true;
 
             showGuideLayers(guideLayers);
+
+            // Add back viewbox
+            if (workspaceMask) {
+                paper.project.activeLayer.addChild(workspaceMask);
+                workspaceMask.clipMask = true;
+            }
 
             if (!skipSnapshot) {
                 performSnapshot(this.props.undoSnapshot, Formats.VECTOR);
@@ -191,7 +220,8 @@ const UpdateImageHOC = function (WrappedComponent) {
         format: PropTypes.oneOf(Object.keys(Formats)),
         mode: PropTypes.oneOf(Object.keys(Modes)).isRequired,
         onUpdateImage: PropTypes.func.isRequired,
-        undoSnapshot: PropTypes.func.isRequired
+        undoSnapshot: PropTypes.func.isRequired,
+        updateViewBounds: PropTypes.func.isRequired
     };
 
     const mapStateToProps = state => ({
@@ -209,9 +239,12 @@ const UpdateImageHOC = function (WrappedComponent) {
         undoSnapshot: snapshot => {
             dispatch(undoSnapshot(snapshot));
         },
+        updateViewBounds: matrix => {
+            dispatch(updateViewBounds(matrix));
+        },
         // #if MOBILE
         changeSaveStatus: status => {
-            dispatch(changeSaveStatus(status))
+            dispatch(changeSaveStatus(status));
         }
         // #endif
     });

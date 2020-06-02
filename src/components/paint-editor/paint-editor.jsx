@@ -208,7 +208,7 @@ const PaintEditorComponent = props => (
                 </div>
             ) : null}
 
-            <div>
+            <div className={styles.controlsContainer}>
                 {/* Canvas */}
                 <ScrollableCanvas
                     canvas={props.canvas}
